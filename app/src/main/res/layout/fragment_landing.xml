@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_selection_side">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_margin_start_select_side_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="82dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_margin_end_select_side_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.80" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_margin_start_logo_select_side_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_margin_end_logo_select_side_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.40" />
+
+    <ImageView
+        android:id="@+id/logo_select_side"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:contentDescription="@string/contDescLanding"
+        android:scaleType="fitXY"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_margin_end_logo_select_side_horizontal"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_margin_end_select_side_vertical"
+        app:layout_constraintStart_toEndOf="@id/guideline_margin_start_select_side_vertical"
+        app:layout_constraintTop_toBottomOf="@id/guideline_margin_start_logo_select_side_horizontal" />
+
+    <TextView
+        android:id="@+id/welcomeLanding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/welcomeLanding"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="35sp"
+        app:layout_constraintStart_toEndOf="@id/guideline_margin_start_select_side_vertical"
+        app:layout_constraintTop_toBottomOf="@id/guideline_margin_end_logo_select_side_horizontal" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_margin_end_title_select_side_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.65" />
+
+    <View
+        android:id="@+id/divider_selection_side"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#445964"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline_margin_end_title_select_side_horizontal" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_margin_after_divider_select_side"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_margin_start_after_divider_select_side_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.10" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_margin_end_after_divider_select_side_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.90" />
+
+    <Button
+        android:id="@+id/landingToInf"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_main"
+        android:padding="20dp"
+        android:text="@string/influenceur"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/guideline_margin_start_after_divider_select_side_vertical"
+        app:layout_constraintTop_toBottomOf="@id/guideline_margin_after_divider_select_side" />
+
+    <Button
+        android:id="@+id/landingToShop"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_main"
+        android:padding="20dp"
+        android:text="@string/shop"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@id/guideline_margin_end_after_divider_select_side_vertical"
+        app:layout_constraintTop_toBottomOf="@id/guideline_margin_after_divider_select_side" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

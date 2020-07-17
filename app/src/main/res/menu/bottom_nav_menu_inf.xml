@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="c.eip.neoconnect.MainActivity">
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/navbar_home"
+        android:title="@string/navbarHome" />
+    <item
+        android:id="@+id/navigation_search"
+        android:icon="@drawable/navbar_search"
+        android:title="@string/navbarSearch" />
+    <item
+        android:id="@+id/navigation_chat"
+        android:icon="@drawable/navbar_chat"
+        android:title="@string/navbarChat" />
+    <item
+        android:id="@+id/navigation_profil"
+        android:icon="@drawable/navbar_profil"
+        android:title="@string/navbarProfil" />
+</menu>

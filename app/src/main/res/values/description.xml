@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="relationWithShopTitle">Mise en relation avec des boutiques</string>
+    <string name="relationWithShop">Créez des relations avec différentes boutiques pour de futur partenariat</string>
+    <string name="shareProductTitle">Publication du produit</string>
+    <string name="shareProduct">Recevez un produit d\'une marque à partager sur vos réseaux sociaux</string>
+    <string name="gainInfTitle">Faites de votre passion un métier</string>
+    <string name="gainInf">Voyez votre nom de followers augmenter avec un produit gratuit en plus !</string>
+
+    <string name="relationWithInfTitle">Mise en relation avec des influenceurs</string>
+    <string name="relationWithInf">Créez des relations avec des influenceurs pour de futur partenariat</string>
+    <string name="deliveryProductTitle">Livraison du produit</string>
+    <string name="deliveryProduct">Livrez un produit à promouvoir à un influenceur</string>
+    <string name="gainShopTitle">Devenez une boutique incontournable</string>
+    <string name="gainShop">Voyez votre nombre de clients augmenter grâce aux influenceurs !</string>
+</resources>

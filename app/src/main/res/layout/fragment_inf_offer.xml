@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_influencer"
+    tools:context=".ui.view.offer.InfOffer">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_margin_vertical_start_my_inf_offer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_margin_vertical_end_my_inf_offer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_margin_horizontal_my_inf_offer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.03" />
+
+    <Button
+        android:id="@+id/backButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/back"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_my_inf_offer"
+        app:layout_constraintTop_toBottomOf="@id/guideline_margin_horizontal_my_inf_offer" />
+
+    <TextView
+        android:id="@+id/pb_list_my_offers"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center"
+        android:text="@string/noOfferInf"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/guideline_margin_vertical_end_my_inf_offer"
+        app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_my_inf_offer" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerListMyOfferInf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toStartOf="@id/guideline_margin_vertical_end_my_inf_offer"
+        app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_my_inf_offer"
+        app:layout_constraintTop_toBottomOf="@id/backButton" />
+</androidx.constraintlayout.widget.ConstraintLayout>

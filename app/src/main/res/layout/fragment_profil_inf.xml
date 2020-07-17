@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_influencer"
+    tools:context=".ui.view.profil.ProfilInf">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_margin_vertical_start_profil_inf"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_margin_vertical_end_profil_inf"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_margin_horizontal_profil_inf"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.01" />
+
+    <Button
+        android:id="@+id/backButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/back"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_profil_inf"
+        app:layout_constraintTop_toBottomOf="@id/guideline_margin_horizontal_profil_inf" />
+
+    <ImageView
+        android:id="@+id/settingsButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/icon_menu"
+        android:contentDescription="@string/contDescProfil"
+        app:layout_constraintEnd_toStartOf="@id/guideline_margin_vertical_end_profil_inf"
+        app:layout_constraintTop_toBottomOf="@id/guideline_margin_horizontal_profil_inf" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_profil_inf"
+        app:layout_constraintTop_toBottomOf="@id/settingsButton">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/myProfilPicture"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginBottom="25dp"
+                android:background="@drawable/ic_picture_inf"
+                android:contentDescription="@string/contDescProfil" />
+
+            <View
+                android:id="@+id/divider_profil_1"
+                android:layout_width="75dp"
+                android:layout_height="1dp"
+                android:background="#445964" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="25dp"
+                android:text="@string/titleRegister1"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_margin_horizontal_start_profil_inf_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.05" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_margin_horizontal_end_profil_inf_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.95" />
+
+                <TextView
+                    android:id="@+id/profilPseudo"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:hint="@string/formPseudo"
+                    android:textColorHint="@color/white"
+                    app:layout_constraintStart_toEndOf="@id/guideline_margin_horizontal_start_profil_inf_1"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/profilEmail"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/formEmail"
+                    android:textColorHint="@color/white"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline_margin_horizontal_end_profil_inf_1"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:id="@+id/divider_profil_2"
+                android:layout_width="75dp"
+                android:layout_height="1dp"
+                android:background="#445964" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="25dp"
+                android:text="@string/titleRegister2"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_margin_horizontal_start_profil_inf_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.05" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_margin_horizontal_end_profil_inf_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.95" />
+
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toEndOf="@id/guideline_margin_horizontal_start_profil_inf_2"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/profilNom"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginBottom="25dp"
+                        android:hint="@string/formName"
+                        android:textColorHint="@color/white" />
+
+                    <TextView
+                        android:id="@+id/profilPhone"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:hint="@string/formPhone"
+                        android:textColorHint="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toStartOf="@id/guideline_margin_horizontal_end_profil_inf_2"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/profilVille"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="25dp"
+                        android:hint="@string/formVille"
+                        android:textColorHint="@color/white" />
+
+                    <TextView
+                        android:id="@+id/profilPostal"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/formPostal"
+                        android:textColorHint="@color/white" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:id="@+id/divider_profil_3"
+                android:layout_width="75dp"
+                android:layout_height="1dp"
+                android:background="#445964" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="25dp"
+                android:text="@string/titleRegister4"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_margin_horizontal_start_profil_inf_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.05" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_margin_horizontal_end_profil_inf_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.95" />
+
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="25dp"
+                    app:layout_constraintStart_toEndOf="@id/guideline_margin_horizontal_start_profil_inf_3"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/profilFacebook"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginBottom="25dp"
+                        android:hint="@string/formFacebook"
+                        android:textColorHint="@color/white" />
+
+                    <TextView
+                        android:id="@+id/profilTwitter"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginBottom="25dp"
+                        android:hint="@string/formTwitter"
+                        android:textColorHint="@color/white" />
+
+                    <TextView
+                        android:id="@+id/profilYoutube"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginBottom="25dp"
+                        android:hint="@string/formYoutube"
+                        android:textColorHint="@color/white" />
+
+                    <TextView
+                        android:id="@+id/profilPinterest"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:hint="@string/formPinterest"
+                        android:textColorHint="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="25dp"
+                    app:layout_constraintEnd_toStartOf="@id/guideline_margin_horizontal_end_profil_inf_3"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/profilInstagram"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="25dp"
+                        android:hint="@string/formInstagram"
+                        android:textColorHint="@color/white" />
+
+                    <TextView
+                        android:id="@+id/profilSnapchat"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="25dp"
+                        android:hint="@string/formSnapchat"
+                        android:textColorHint="@color/white" />
+
+                    <TextView
+                        android:id="@+id/profilTwitch"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="25dp"
+                        android:hint="@string/formTwitch"
+                        android:textColorHint="@color/white" />
+
+                    <TextView
+                        android:id="@+id/profilTiktok"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="25dp"
+                        android:hint="@string/formTiktok"
+                        android:textColorHint="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/profilSubject"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:hint="@string/formSujet"
+                        android:textColorHint="@color/white" />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

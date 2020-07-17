@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_influencer">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_margin_start_login_inf_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_margin_end_login_inf_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.80" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_margin_start_login_inf_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_margin_end_logo_login_inf_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.40" />
+
+    <ImageView
+        android:id="@+id/logo_login_inf"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:contentDescription="@string/contDescLogin"
+        android:scaleType="fitXY"
+        android:src="@drawable/logo"
+        app:layout_constraintEnd_toStartOf="@id/guideline_margin_end_login_inf_vertical"
+        app:layout_constraintStart_toEndOf="@id/guideline_margin_start_login_inf_vertical"
+        app:layout_constraintTop_toBottomOf="@id/guideline_margin_start_login_inf_horizontal" />
+
+    <TextView
+        android:id="@+id/connect_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="134dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="134dp"
+        android:fontFamily="@font/raleway_medium"
+        android:text="@string/titleLoginInf"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_margin_end_login_inf_vertical"
+        app:layout_constraintStart_toEndOf="@id/guideline_margin_start_login_inf_vertical"
+        app:layout_constraintTop_toBottomOf="@id/logo_login_inf" />
+
+    <LinearLayout
+        android:id="@+id/linear_layout_login_inf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_margin_end_login_inf_vertical"
+        app:layout_constraintStart_toEndOf="@id/guideline_margin_start_login_inf_vertical"
+        app:layout_constraintTop_toBottomOf="@id/connect_text">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/input_inf">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/loginPseudo"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="@string/formPseudo"
+                android:inputType="text"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textCursorDrawable="@null"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/input_inf">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/white"
+                app:hintEnabled="false">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/loginPassword"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/formPassword"
+                    android:inputType="textPassword"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textCursorDrawable="@null"
+                    android:textSize="18sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/forgotPassword"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/forgetPassword" />
+
+        <Button
+            android:id="@+id/connectButton"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/button_main_inf"
+            android:padding="5dp"
+            android:text="@string/login" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/noAccount"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/registerButton"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/createAccount"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+
+        <View
+            android:id="@+id/divider_login_inf"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#445964" />
+
+        <Button
+            android:id="@+id/switchToShopButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:alpha="0.9"
+            android:background="@drawable/button_tertiary"
+            android:padding="5dp"
+            android:text="@string/switchToShop"
+            android:textColor="@color/main_font_color"
+            app:layout_constraintStart_toStartOf="@id/guideline_margin_start_login_inf_vertical"
+            app:layout_constraintTop_toBottomOf="@id/registerButton" />
+
+        <!--        <Button-->
+        <!--            android:id="@+id/switchToFAQ"-->
+        <!--            style="@style/Widget.AppCompat.Button.Borderless"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:alpha="0.8"-->
+        <!--            android:text="@string/faq"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/switchToShopButton" />-->
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_shop"
+    tools:context=".ui.view.offer.InsertOffer">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_margin_vertical_start_insert_offer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_margin_vertical_end_insert_offer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_margin_horizontal_insert_offer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.01" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/insertOffer"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_insert_offer"
+        app:layout_constraintTop_toBottomOf="@id/guideline_margin_horizontal_insert_offer" />
+
+    <TextView
+        android:id="@+id/resetForm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/cancel"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@id/guideline_margin_vertical_end_insert_offer"
+        app:layout_constraintTop_toBottomOf="@id/guideline_margin_horizontal_insert_offer" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_insert_offer"
+        app:layout_constraintTop_toBottomOf="@id/resetForm">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/insertOfferPicture1"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:background="@drawable/ic_picture_offer"
+                android:contentDescription="@string/contDescInsertOffer" />
+
+            <ImageView
+                android:id="@+id/insertOfferPicture2"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:background="@drawable/ic_picture_offer"
+                android:contentDescription="@string/contDescInsertOffer"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/insertOfferPicture3"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:background="@drawable/ic_picture_offer"
+                android:contentDescription="@string/contDescInsertOffer"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/insertOfferPicture4"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:background="@drawable/ic_picture_offer"
+                android:contentDescription="@string/contDescInsertOffer"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/insertOfferPicture5"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:background="@drawable/ic_picture_offer"
+                android:contentDescription="@string/contDescInsertOffer"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="20dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/insertOfferName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alpha="0.7"
+                android:hint="@string/formProductName"
+                android:inputType="text"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textCursorDrawable="@null"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="30dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/sex"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/insertOfferSex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/insertOfferSexHomme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:buttonTint="@color/descShop"
+                    android:padding="5dp"
+                    android:text="@string/formSexM"
+
+                    android:textColor="@color/white" />
+
+                <RadioButton
+                    android:id="@+id/insertOfferSexFemme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:buttonTint="@color/descShop"
+                    android:padding="5dp"
+                    android:text="@string/formSexF"
+                    android:textColor="@color/white" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="20dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/insertOfferDescription"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:alpha="0.7"
+                android:hint="@string/formProductDescription"
+                android:inputType="textMultiLine"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textCursorDrawable="@null"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="20dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/insertOfferSubject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alpha="0.7"
+                android:hint="@string/formProductSubject"
+                android:inputType="text"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textCursorDrawable="@null"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="20dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/insertOfferColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alpha="0.7"
+                android:hint="@string/formProductColor"
+                android:inputType="text"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textCursorDrawable="@null"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/insertOfferButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_main_shop"
+            android:padding="15dp"
+            android:text="@string/submit"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
