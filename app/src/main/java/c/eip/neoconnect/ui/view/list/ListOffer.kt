@@ -29,7 +29,7 @@ class ListOffer : Fragment() {
         val token = DataGetter.INSTANCE.getToken(context!!)
 
         viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
-        viewModel.getOffers(token!!).observe(this, Observer {
+        viewModel.getOffers(token!!, null, null, null).observe(this, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {

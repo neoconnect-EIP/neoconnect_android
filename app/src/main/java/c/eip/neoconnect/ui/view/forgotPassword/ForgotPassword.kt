@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -34,7 +35,7 @@ class ForgotPassword : Fragment() {
         view.findViewById<Button>(R.id.backButton).setOnClickListener {
             findNavController().popBackStack()
         }
-        view.findViewById<Button>(R.id.resetPasswordButton).setOnClickListener {
+        view.findViewById<TextView>(R.id.resetPasswordButton).setOnClickListener {
             val checkEmail: Boolean =
                 if (view.findViewById<TextInputEditText>(R.id.resetPasswordEmail).text.toString()
                         .trim()

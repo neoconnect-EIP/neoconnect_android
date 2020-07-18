@@ -37,18 +37,19 @@ class ListViewModel : ViewModel() {
         }
     }
 
-    fun getOffers(token: String) = liveData(Dispatchers.IO) {
-        try {
-            emit(
-                Resource.success(
-                    data = offresRepository.getAllOffers(token),
-                    message = "Récupération des offres réussie"
+    fun getOffers(token: String, sex: String?, color: String?, brand: String?) =
+        liveData(Dispatchers.IO) {
+            try {
+                emit(
+                    Resource.success(
+                        data = offresRepository.getAllOffers(token, sex, color, brand),
+                        message = "Récupération des offres réussie"
+                    )
                 )
-            )
-        } catch (e: Exception) {
-            emit(Resource.error(data = null, message = e.message ?: "Une erreur est survenue"))
+            } catch (e: Exception) {
+                emit(Resource.error(data = null, message = e.message ?: "Une erreur est survenue"))
+            }
         }
-    }
 
     fun getMyOffersShop(token: String, id: Int) = liveData(Dispatchers.IO) {
         try {

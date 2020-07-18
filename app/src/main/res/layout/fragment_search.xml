@@ -32,19 +32,37 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/searchSpinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:overlapAnchor="false"
+                android:popupBackground="@color/descInf" />
+
+            <Spinner
+                android:id="@+id/searchOffreSpinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:overlapAnchor="false"
+                android:popupBackground="@color/descInf" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/searchKeyword"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:hint="@string/search"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
-                android:textAlignment="center"
+                android:textAlignment="textStart"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textCursorDrawable="@null"

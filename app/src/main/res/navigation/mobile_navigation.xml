@@ -155,4 +155,9 @@
         android:name="c.eip.neoconnect.ui.view.forgotPassword.UpdatePassword"
         android:label="fragment_update_password"
         tools:layout="@layout/fragment_update_password" />
+    <fragment
+        android:id="@+id/navigation_list_sorted_offer"
+        android:name="c.eip.neoconnect.ui.view.list.ListSortedOffer"
+        android:label="fragment_list_sorted_offer"
+        tools:layout="@layout/fragment_list_sorted_offer" />
 </navigation>

@@ -8,8 +8,12 @@ import retrofit2.http.*
 
 interface OffresService {
     @GET("/offer/list")
-    suspend fun getAllOffers(@Header("authorization") token: String?):
-            ArrayList<OffreResponseModel>
+    suspend fun getAllOffers(
+        @Header("authorization") token: String?,
+        @Query("productSex") sex: String?,
+        @Query("brand") brand: String?,
+        @Query("color") color: String?
+    ): ArrayList<OffreResponseModel>
 
     @GET("/offer/shop/{id}")
     suspend fun getMyOfferShop(
