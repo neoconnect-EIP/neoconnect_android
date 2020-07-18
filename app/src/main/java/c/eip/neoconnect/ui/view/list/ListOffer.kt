@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import c.eip.neoconnect.R
 import c.eip.neoconnect.ui.adapter.OfferAdapter
@@ -46,7 +46,7 @@ class ListOffer : Fragment() {
                             val recyclerListView =
                                 inflate.findViewById<RecyclerView>(R.id.recyclerListOffer)
                             recyclerListView.layoutManager =
-                                GridLayoutManager(context, 2)
+                                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                             val adapter = OfferAdapter(it.data)
                             adapter.notifyDataSetChanged()
                             recyclerListView.adapter = adapter

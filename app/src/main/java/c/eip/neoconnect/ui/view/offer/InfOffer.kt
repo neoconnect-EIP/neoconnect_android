@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import c.eip.neoconnect.R
 import c.eip.neoconnect.ui.adapter.OfferAdapter
@@ -47,7 +47,8 @@ class InfOffer : Fragment() {
                             )
                             val recyclerListView =
                                 inflate.findViewById<RecyclerView>(R.id.recyclerListMyOfferInf)
-                            recyclerListView.layoutManager = GridLayoutManager(context, 2)
+                            recyclerListView.layoutManager =
+                                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                             val adapter = OfferAdapter(it.data)
                             adapter.notifyDataSetChanged()
                             recyclerListView.adapter = adapter
