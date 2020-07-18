@@ -107,7 +107,7 @@ class RegisterShop1 : Fragment() {
         }
     }
 
-    fun openGallery() {
+    private fun openGallery() {
         if (context?.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_DENIED) {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
@@ -129,7 +129,11 @@ class RegisterShop1 : Fragment() {
             view?.findViewById<ImageView>(R.id.registerProfilPicture)?.background = null
             val bitmap: Bitmap =
                 MediaStore.Images.Media.getBitmap(context?.contentResolver, selectedImage)
-            bundle.putString("userPicture", encoder.encodeTobase64(bitmap))
+            registerProfilPictureShop = encoder.encodeTobase64(bitmap)
         }
+    }
+
+    companion object {
+        var registerProfilPictureShop: String = ""
     }
 }

@@ -108,7 +108,7 @@ class RegisterInf1 : Fragment() {
         }
     }
 
-    fun openGallery() {
+    private fun openGallery() {
         if (context?.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_DENIED) {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"

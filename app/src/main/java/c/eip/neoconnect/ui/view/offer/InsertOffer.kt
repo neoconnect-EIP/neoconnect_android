@@ -20,16 +20,38 @@ import com.google.android.material.textfield.TextInputEditText
 
 class InsertOffer : Fragment() {
     private lateinit var viewModel: OffresViewModel
+    private var themeOffreState: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_insert_offer, container, false)
+        val inflate = inflater.inflate(R.layout.fragment_insert_offer, container, false)
+        val offreThemeList = resources.getStringArray(R.array.themeSpinner)
+        val offreThemeSpinner = inflate.findViewById<Spinner>(R.id.themeOffreSpinner)
+        if (offreThemeSpinner != null) {
+            val themeAdapter = ArrayAdapter(context!!, R.layout.layout_spinner_item, offreThemeList)
+            offreThemeSpinner.adapter = themeAdapter
+        }
+        offreThemeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                themeOffreState = position
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+        }
+        return inflate
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val offreThemeList = resources.getStringArray(R.array.themeSpinner)
         view.findViewById<TextView>(R.id.resetForm).setOnClickListener {
             view.findViewById<ImageView>(R.id.insertOfferPicture1).setImageURI(null)
             view.findViewById<ImageView>(R.id.insertOfferPicture2).setImageURI(null)
@@ -40,7 +62,7 @@ class InsertOffer : Fragment() {
             view.findViewById<TextInputEditText>(R.id.insertOfferDescription).text = null
             view.findViewById<RadioButton>(R.id.insertOfferSexFemme).isChecked = false
             view.findViewById<RadioButton>(R.id.insertOfferSexHomme).isChecked = false
-            view.findViewById<TextInputEditText>(R.id.insertOfferSubject).text = null
+            view.findViewById<Spinner>(R.id.themeOffreSpinner).setSelection(0)
             view.findViewById<TextInputEditText>(R.id.insertOfferColor).text = null
         }
         view.findViewById<Button>(R.id.insertOfferButton).setOnClickListener {
@@ -54,8 +76,7 @@ class InsertOffer : Fragment() {
                     R.id.insertOfferSexHomme -> "Homme"
                     else -> null
                 }
-            val productSubject =
-                view.findViewById<TextInputEditText>(R.id.insertOfferSubject).text.toString()
+            val productSubject = offreThemeList[themeOffreState]
             val productColor =
                 view.findViewById<TextInputEditText>(R.id.insertOfferColor).text.toString()
             if (productName.isNotEmpty() && productName.isNotBlank() && productDesc.isNotEmpty() && productDesc.isNotBlank() && productSubject.isNotBlank() && productSubject.isNotEmpty() && productColor.isNotEmpty() && productColor.isNotBlank() && !productSex.isNullOrBlank()) {
@@ -95,8 +116,7 @@ class InsertOffer : Fragment() {
                                     false
                                 view.findViewById<RadioButton>(R.id.insertOfferSexHomme).isChecked =
                                     false
-                                view.findViewById<TextInputEditText>(R.id.insertOfferSubject).text =
-                                    null
+                                view.findViewById<Spinner>(R.id.themeOffreSpinner).setSelection(0)
                                 view.findViewById<TextInputEditText>(R.id.insertOfferColor).text =
                                     null
                             }

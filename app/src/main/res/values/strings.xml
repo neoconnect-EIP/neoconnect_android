@@ -130,4 +130,14 @@
         <item>Marque</item>
         <item>Sexe</item>
     </string-array>
+
+    <string-array name="themeSpinner">
+        <item>Thème</item>
+        <item>Mode</item>
+        <item>Cosmétique</item>
+        <item>Jeu vidéo</item>
+        <item>High Tech</item>
+        <item>Food</item>
+        <item>Sport / Fitness</item>
+    </string-array>
 </resources>

@@ -6,8 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,19 +14,38 @@ import androidx.navigation.fragment.findNavController
 import c.eip.neoconnect.R
 import c.eip.neoconnect.data.model.register.RegisterInfluenceurModel
 import c.eip.neoconnect.ui.viewModel.RegisterViewModel
-import c.eip.neoconnect.utils.Encoder
 import c.eip.neoconnect.utils.Status
 import com.google.android.material.textfield.TextInputEditText
 
 class RegisterInf3 : Fragment() {
     private lateinit var viewModel: RegisterViewModel
-    private val encoder = Encoder()
+    private var themeState: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_register_inf_3, container, false)
+        val inflate = inflater.inflate(R.layout.fragment_register_inf_3, container, false)
+        val themeList = resources.getStringArray(R.array.themeSpinner)
+        val themeSpinner = inflate.findViewById<Spinner>(R.id.themeSpinner)
+        if (themeSpinner != null) {
+            val themeAdapter = ArrayAdapter(context!!, R.layout.layout_spinner_item, themeList)
+            themeSpinner.adapter = themeAdapter
+        }
+        themeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                themeState = position
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+        }
+        return inflate
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -118,12 +136,9 @@ class RegisterInf3 : Fragment() {
                 influenceur.tiktok =
                     view.findViewById<TextInputEditText>(R.id.registerTiktok).text.toString()
             }
-            if (view.findViewById<TextInputEditText>(R.id.registerSubject).text.toString().trim()
-                    .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerSubject).text.toString()
-                    .trim().isNotEmpty()
-            ) {
-                influenceur.theme =
-                    view.findViewById<TextInputEditText>(R.id.registerSubject).text.toString()
+            if (themeState != 0) {
+                val themeList = resources.getStringArray(R.array.themeSpinner)
+                influenceur.theme = themeList[themeState]
             }
             viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
             viewModel.registerInfluencer(influenceur).observe(this, Observer {
