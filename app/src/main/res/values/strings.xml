@@ -29,6 +29,7 @@
     <string name="deleteMyAccount">Supprimer son compte</string>
     <string name="forgetPassword">Mot de passe oublié ?</string>
     <string name="subtitleForgetPassword">Veuillez entrer votre adresse email. Un code à fournir vous sera envoyé.</string>
+    <string name="subtitleUpdatePassword">Veuillez entrer votre code temporaire ainsi que votre nouveau mot de passe.</string>
     <string name="updatePassword">Nouveau mot de passe</string>
     <string name="singleFormRequire">Veuillez remplir le champ suivant</string>
     <string name="multiFormRequire">Veuillez remplir les champs suivant</string>
@@ -36,6 +37,7 @@
     <string name="back">Retour</string>
     <string name="average">Moyenne</string>
     <string name="submit">Valider</string>
+    <string name="confirm">Confirmer</string>
     <string name="cancel">Annuler</string>
     <string name="edit">Modifier</string>
     <string name="delete">Supprimer</string>
@@ -43,6 +45,7 @@
     <string name="dest">Destinataire</string>
     <string name="contact">Contacter</string>
     <string name="review">Noter</string>
+    <string name="code">Code</string>
     <string name="report">Signaler</string>
     <string name="chat">Messagerie</string>
     <string name="send">Envoyer</string>

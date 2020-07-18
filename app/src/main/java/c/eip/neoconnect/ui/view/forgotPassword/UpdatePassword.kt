@@ -63,7 +63,7 @@ class UpdatePassword : Fragment() {
                 }
 
             })
-        view.findViewById<Button>(R.id.updatePasswordButton).setOnClickListener {
+        view.findViewById<TextView>(R.id.updatePasswordButton).setOnClickListener {
             val thirdStep = ResetPasswordThirdStepModel()
             thirdStep.email = arguments?.get("email") as String
             thirdStep.token =
@@ -124,8 +124,6 @@ class UpdatePassword : Fragment() {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        view?.findViewById<TextView>(R.id.subtitleUpdatePassword)
-                            ?.setText(R.string.multiFormRequire)
                         view?.findViewById<TextInputEditText>(R.id.updatePasswordNewPassword)?.visibility =
                             View.VISIBLE
                         view?.findViewById<TextInputEditText>(R.id.updatePasswordNewPasswordConfirm)?.visibility =
