@@ -29,7 +29,7 @@ class RegisterInf3 : Fragment() {
         val themeList = resources.getStringArray(R.array.themeSpinner)
         val themeSpinner = inflate.findViewById<Spinner>(R.id.themeSpinner)
         if (themeSpinner != null) {
-            val themeAdapter = ArrayAdapter(context!!, R.layout.layout_spinner_item, themeList)
+            val themeAdapter = ArrayAdapter(requireContext(), R.layout.layout_spinner_item, themeList)
             themeSpinner.adapter = themeAdapter
         }
         themeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -141,7 +141,7 @@ class RegisterInf3 : Fragment() {
                 influenceur.theme = themeList[themeState]
             }
             viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
-            viewModel.registerInfluencer(influenceur).observe(this, Observer {
+            viewModel.registerInfluencer(influenceur).observe(viewLifecycleOwner, Observer {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {

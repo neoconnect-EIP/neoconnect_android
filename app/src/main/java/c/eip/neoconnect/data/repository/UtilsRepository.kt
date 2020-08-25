@@ -8,7 +8,7 @@ import c.eip.neoconnect.data.service.UtilsService
 import c.eip.neoconnect.utils.Constants
 
 class UtilsRepository {
-    var utilsService: UtilsService = Constants.utilsService
+    private var utilsService: UtilsService = Constants.utilsService
 
     suspend fun contactUs(contact: ContactModel) = utilsService.contactUs(contact)
 

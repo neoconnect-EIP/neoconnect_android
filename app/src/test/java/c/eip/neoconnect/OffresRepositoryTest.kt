@@ -43,7 +43,7 @@ class OffresRepositoryTest {
     fun getAllOffers() {
         val token = getTokenInf(loginInf).token
         val call = runBlocking {
-            offresRepository.getAllOffers(token)
+            offresRepository.getAllOffers(token, null, null, null)
         }
         Assertions.assertNotNull(call)
     }

@@ -31,8 +31,8 @@ class ContactUs : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val inflate = inflater.inflate(R.layout.fragment_contact, container, false)
-        if (!DataGetter.INSTANCE.getUserType(context!!).isNullOrBlank()) {
-            if (DataGetter.INSTANCE.getUserType(context!!) == "shop") {
+        if (!DataGetter.INSTANCE.getUserType(requireContext()).isNullOrBlank()) {
+            if (DataGetter.INSTANCE.getUserType(requireContext()) == "shop") {
                 inflate.findViewById<ConstraintLayout>(R.id.contactUsLayout)
                     .setBackgroundResource(R.drawable.background_shop)
                 inflate.findViewById<TextInputEditText>(R.id.sendMailPseudo).visibility =
@@ -40,7 +40,7 @@ class ContactUs : Fragment() {
                 inflate.findViewById<TextInputEditText>(R.id.sendMailEmail).visibility =
                     View.GONE
 
-            } else if (DataGetter.INSTANCE.getUserType(context!!) == "influencer") {
+            } else if (DataGetter.INSTANCE.getUserType(requireContext()) == "influencer") {
                 inflate.findViewById<ConstraintLayout>(R.id.contactUsLayout)
                     .setBackgroundResource(R.drawable.background_influencer)
                 inflate.findViewById<TextInputEditText>(R.id.sendMailPseudo).visibility =
@@ -62,11 +62,11 @@ class ContactUs : Fragment() {
         }
         view.findViewById<TextView>(R.id.sendMailButton).setOnClickListener {
             val contactModel = ContactModel()
-            if (!DataGetter.INSTANCE.getUserType(context!!).isNullOrBlank()) {
-                if (DataGetter.INSTANCE.getUserType(context!!) == "shop") {
+            if (!DataGetter.INSTANCE.getUserType(requireContext()).isNullOrBlank()) {
+                if (DataGetter.INSTANCE.getUserType(requireContext()) == "shop") {
                     contactModel.pseudo = MainViewShop.shopData?.pseudo
                     contactModel.email = MainViewShop.shopData?.email
-                } else if (DataGetter.INSTANCE.getUserType(context!!) == "influencer") {
+                } else if (DataGetter.INSTANCE.getUserType(requireContext()) == "influencer") {
                     contactModel.pseudo = MainViewInf.influenceurData?.pseudo
                     contactModel.email = MainViewInf.influenceurData?.email
                 }
@@ -81,7 +81,7 @@ class ContactUs : Fragment() {
             contactModel.message =
                 view.findViewById<TextInputEditText>(R.id.sendMailMessage).text.toString()
             viewModel = ViewModelProvider(this).get(ContactViewModel::class.java)
-            viewModel.contactUs(contactModel).observe(this, Observer {
+            viewModel.contactUs(contactModel).observe(viewLifecycleOwner, Observer {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {

@@ -2,20 +2,22 @@ package c.eip.neoconnect.ui.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
+import c.eip.neoconnect.data.repository.InfRepository
 import c.eip.neoconnect.data.repository.OffresRepository
-import c.eip.neoconnect.data.repository.ProfilRepository
+import c.eip.neoconnect.data.repository.ShopRepository
 import c.eip.neoconnect.utils.Resource
 import kotlinx.coroutines.Dispatchers
 
 class ListViewModel : ViewModel() {
-    private val profilRepository = ProfilRepository()
     private val offresRepository = OffresRepository()
+    private val infRepository = InfRepository()
+    private val shopRepository = ShopRepository()
 
     fun getListInf(token: String) = liveData(Dispatchers.IO) {
         try {
             emit(
                 Resource.success(
-                    data = profilRepository.getListInf(token),
+                    data = shopRepository.getListInf(token),
                     message = "Récupération des influenceurs réussie"
                 )
             )
@@ -28,7 +30,7 @@ class ListViewModel : ViewModel() {
         try {
             emit(
                 Resource.success(
-                    data = profilRepository.getListShop(token),
+                    data = infRepository.getListShop(token),
                     message = "Récupération des boutiques réussie"
                 )
             )
@@ -69,6 +71,19 @@ class ListViewModel : ViewModel() {
             emit(
                 Resource.success(
                     data = offresRepository.getMyOfferInf(token, id),
+                    message = "Récupération des offres réussie"
+                )
+            )
+        } catch (e: Exception) {
+            emit(Resource.error(data = null, message = e.message ?: "Une erreur est survenue"))
+        }
+    }
+
+    fun getOfferApplyUser(token: String, id: Int) = liveData(Dispatchers.IO) {
+        try {
+            emit(
+                Resource.success(
+                    data = offresRepository.getOfferApplyUser(token, id),
                     message = "Récupération des offres réussie"
                 )
             )

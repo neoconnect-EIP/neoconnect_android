@@ -27,7 +27,7 @@ class MyAccountInf : Fragment() {
             inflate.findViewById<ImageView>(R.id.myAccountPicture)
                 .setImageResource(R.drawable.ic_picture_inf)
         } else {
-            Glide.with(context!!).load(MainViewInf.influenceurData!!.userPicture[0]?.imageData)
+            Glide.with(requireContext()).load(MainViewInf.influenceurData!!.userPicture[0]?.imageData)
                 .circleCrop().error(R.drawable.ic_picture_inf)
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .into(inflate.findViewById(R.id.myAccountPicture))
@@ -38,7 +38,7 @@ class MyAccountInf : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.logoutButton).setOnClickListener {
-            DataGetter.INSTANCE.clearData(context!!)
+            DataGetter.INSTANCE.clearData(requireContext())
             findNavController().navigate(R.id.navigation_login_inf)
         }
         view.findViewById<TextView>(R.id.goToProfil).setOnClickListener {

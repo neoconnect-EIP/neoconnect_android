@@ -33,7 +33,7 @@ class RegisterShop1 : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val inflate = inflater.inflate(R.layout.fragment_register_shop_1, container, false)
-        if (!arguments!!.isEmpty) {
+        if (!requireArguments().isEmpty) {
             inflate.findViewById<TextInputEditText>(R.id.registerPseudo)
                 ?.setText(arguments?.get("pseudo") as String)
             inflate.findViewById<TextInputEditText>(R.id.registerEmail)
@@ -123,9 +123,9 @@ class RegisterShop1 : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (data != null) {
             val selectedImage = data.data
-            Glide.with(context!!).load(selectedImage).circleCrop()
+            Glide.with(requireContext()).load(selectedImage).circleCrop()
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                .into(view!!.findViewById(R.id.registerProfilPicture))
+                .into(requireView().findViewById(R.id.registerProfilPicture))
             view?.findViewById<ImageView>(R.id.registerProfilPicture)?.background = null
             val bitmap: Bitmap =
                 MediaStore.Images.Media.getBitmap(context?.contentResolver, selectedImage)

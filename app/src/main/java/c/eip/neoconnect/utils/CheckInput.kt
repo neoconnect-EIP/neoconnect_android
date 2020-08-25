@@ -19,7 +19,7 @@ class CheckInput {
         }
     }
 
-    fun checkFormat(str: String): Boolean {
+    private fun checkFormat(str: String): Boolean {
         var checkDigit = false
         var checkLower = false
         var checkUpper = false

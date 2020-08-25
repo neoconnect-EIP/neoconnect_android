@@ -27,7 +27,7 @@ class MyAccountShop : Fragment() {
             inflate.findViewById<ImageView>(R.id.myAccountPicture)
                 .setImageResource(R.drawable.ic_picture_shop)
         } else {
-            Glide.with(context!!).load(MainViewShop.shopData!!.userPicture[0]?.imageData)
+            Glide.with(requireContext()).load(MainViewShop.shopData!!.userPicture[0]?.imageData)
                 .circleCrop().error(R.drawable.ic_picture_shop)
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .into(inflate.findViewById(R.id.myAccountPicture))
@@ -38,7 +38,7 @@ class MyAccountShop : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.logoutButton).setOnClickListener {
-            DataGetter.INSTANCE.clearData(context!!)
+            DataGetter.INSTANCE.clearData(requireContext())
             findNavController().navigate(R.id.navigation_login_shop)
         }
         view.findViewById<TextView>(R.id.goToProfil).setOnClickListener {

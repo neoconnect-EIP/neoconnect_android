@@ -28,22 +28,26 @@ class ListSortedOffer : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val inflate = inflater.inflate(R.layout.fragment_list_sorted_offer, container, false)
-        val token = DataGetter.INSTANCE.getToken(context!!)
+        val token = DataGetter.INSTANCE.getToken(requireContext())
 
         var sex: String? = null
         var brand: String? = null
         var color: String? = null
-        if (!arguments!!.isEmpty) {
-            if (arguments?.get("sex") != null) {
-                sex = arguments?.get("sex") as String
-            } else if (arguments?.get("brand") != null) {
-                brand = arguments?.get("brand") as String
-            } else if (arguments?.get("color") != null) {
-                color = arguments?.get("color") as String
+        if (!requireArguments().isEmpty) {
+            when {
+                arguments?.get("sex") != null -> {
+                    sex = arguments?.get("sex") as String
+                }
+                arguments?.get("brand") != null -> {
+                    brand = arguments?.get("brand") as String
+                }
+                arguments?.get("color") != null -> {
+                    color = arguments?.get("color") as String
+                }
             }
         }
         viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
-        viewModel.getOffers(token!!, sex, color, brand).observe(this, Observer {
+        viewModel.getOffers(token!!, sex, color, brand).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {

@@ -44,9 +44,12 @@
     <string name="apply">Postuler</string>
     <string name="dest">Destinataire</string>
     <string name="contact">Contacter</string>
+    <string name="offerApplyUser">Candidatures</string>
     <string name="review">Noter</string>
     <string name="code">Code</string>
     <string name="report">Signaler</string>
+    <string name="accept">Accepter</string>
+    <string name="decline">Refuser</string>
     <string name="chat">Messagerie</string>
     <string name="send">Envoyer</string>
     <string name="sendCode">Envoyer le code</string>
@@ -56,6 +59,7 @@
     <string name="noOfferShop">Impossible de récupérer vos offres ou vous n\'avez pas encore ajoutés d\'offres</string>
     <string name="noOfferInf">Impossible de récupérer vos offres ou vous n\'avez pas encore postulé à des offres</string>
     <string name="noOffer">Impossible de récupérer les offres</string>
+    <string name="noOfferApplyUser">Impossible de récupérer les personnes ayant postulées à votre offre ou personne n\'a postulé à votre offre</string>
     <string name="noInf">Impossible de récupérer la liste des influenceurs</string>
     <string name="noShop">Impossible de récupérer la liste des boutiques</string>
     <string name="noFeed">Impossible de récupérer le fil d\'actualité</string>
@@ -66,6 +70,7 @@
     <string name="profil">Voir mon profil</string>
     <string name="sendMail">Envoyer un mail</string>
     <string name="insertOffer">Ajouter une offre</string>
+    <string name="editOffer">Modifier une offre</string>
     <string name="registerConfirm">Valider l\'inscription</string>
     <string name="titleRegister1">Informations de compte</string>
     <string name="titleRegister2">Informations personnelles</string>

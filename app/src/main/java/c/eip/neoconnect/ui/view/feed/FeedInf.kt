@@ -32,9 +32,9 @@ class FeedInf : Fragment() {
         val title = "Bonjour, ${MainViewInf.influenceurData?.pseudo}"
         inflate.findViewById<TextView>(R.id.titleFeed).text = title
 
-        val token = DataGetter.INSTANCE.getToken(context!!)
+        val token = DataGetter.INSTANCE.getToken(requireContext())
         viewModel = ViewModelProvider(this).get(FeedViewModel::class.java)
-        viewModel.getFeed(token!!).observe(this, Observer {
+        viewModel.getFeed(token!!).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {

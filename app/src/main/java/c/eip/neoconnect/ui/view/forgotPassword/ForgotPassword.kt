@@ -56,7 +56,7 @@ class ForgotPassword : Fragment() {
                 firstStep.email =
                     view.findViewById<TextInputEditText>(R.id.resetPasswordEmail).text.toString()
                 viewModel = ViewModelProvider(this).get(ResetPasswordViewModel::class.java)
-                viewModel.forgotPassword(firstStep).observe(this, Observer {
+                viewModel.forgotPassword(firstStep).observe(viewLifecycleOwner, Observer {
                     it?.let { resource ->
                         when (resource.status) {
                             Status.SUCCESS -> {

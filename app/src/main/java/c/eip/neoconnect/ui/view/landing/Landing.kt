@@ -19,14 +19,14 @@ class Landing : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val inflate = inflater.inflate(R.layout.fragment_landing, container, false)
-        if (!DataGetter.INSTANCE.getToken(context!!).isNullOrBlank()) {
-            Log.i("Data", DataGetter.INSTANCE.getToken(context!!))
-            Log.i("Data", DataGetter.INSTANCE.getUserId(context!!).toString())
-            if (DataGetter.INSTANCE.getUserType(context!!) == "influencer") {
-                Log.i("Data", DataGetter.INSTANCE.getUserType(context!!))
+        if (!DataGetter.INSTANCE.getToken(requireContext()).isNullOrBlank()) {
+            Log.i("Data", DataGetter.INSTANCE.getToken(requireContext()))
+            Log.i("Data", DataGetter.INSTANCE.getUserId(requireContext()).toString())
+            if (DataGetter.INSTANCE.getUserType(requireContext()) == "influencer") {
+                Log.i("Data", DataGetter.INSTANCE.getUserType(requireContext()))
                 findNavController().navigate(R.id.navigation_main_view_inf)
-            } else if (DataGetter.INSTANCE.getUserType(context!!) == "shop") {
-                Log.i("Data", DataGetter.INSTANCE.getUserType(context!!))
+            } else if (DataGetter.INSTANCE.getUserType(requireContext()) == "shop") {
+                Log.i("Data", DataGetter.INSTANCE.getUserType(requireContext()))
                 findNavController().navigate(R.id.navigation_main_view_shop)
             }
         }

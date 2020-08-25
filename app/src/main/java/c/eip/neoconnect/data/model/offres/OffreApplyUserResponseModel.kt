@@ -1,0 +1,21 @@
+package c.eip.neoconnect.data.model.offres
+
+import c.eip.neoconnect.data.model.ImagePicture
+import com.google.gson.annotations.SerializedName
+
+class OffreApplyUserResponseModel {
+    @SerializedName("id")
+    var id: Int = 0
+    @SerializedName("idUser")
+    var idUser: Int = 0
+    @SerializedName("idOffer")
+    var idOffer: Int = 0
+    @SerializedName("average")
+    var average: String? = ""
+    @SerializedName("theme")
+    var theme: String? = ""
+    @SerializedName("pseudo")
+    var pseudo: String? = ""
+    @SerializedName("userPicture")
+    var userPicture: List<ImagePicture> = emptyList()
+}

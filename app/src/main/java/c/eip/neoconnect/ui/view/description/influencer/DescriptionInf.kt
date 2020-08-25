@@ -15,7 +15,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class DescriptionInf : Fragment() {
-    private val PAGES = 3
+    private val pages = 3
     private lateinit var viewPager: ViewPager2
 
     override fun onCreateView(
@@ -40,7 +40,7 @@ class DescriptionInf : Fragment() {
 
     private inner class DescriptionInfAdapter(fa: Fragment) : FragmentStateAdapter(fa) {
         override fun getItemCount(): Int {
-            return PAGES
+            return pages
         }
 
         override fun createFragment(position: Int): Fragment {

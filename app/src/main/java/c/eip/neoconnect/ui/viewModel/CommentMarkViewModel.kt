@@ -5,12 +5,12 @@ import androidx.lifecycle.liveData
 import c.eip.neoconnect.data.model.comment.CommentModel
 import c.eip.neoconnect.data.model.mark.MarkModel
 import c.eip.neoconnect.data.repository.OffresRepository
-import c.eip.neoconnect.data.repository.ProfilRepository
+import c.eip.neoconnect.data.repository.UserRepository
 import c.eip.neoconnect.utils.Resource
 import kotlinx.coroutines.Dispatchers
 
 class CommentMarkViewModel: ViewModel() {
-    private val profilRepository = ProfilRepository()
+    private val profilRepository = UserRepository()
     private val offresRepository = OffresRepository()
 
     //TODO MarkUSer

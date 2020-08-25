@@ -28,10 +28,10 @@ class InfOffer : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val inflate = inflater.inflate(R.layout.fragment_inf_offer, container, false)
-        val token = DataGetter.INSTANCE.getToken(context!!)
-        val userId = DataGetter.INSTANCE.getUserId(context!!)
+        val token = DataGetter.INSTANCE.getToken(requireContext())
+        val userId = DataGetter.INSTANCE.getUserId(requireContext())
         viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
-        viewModel.getMyOffersInf(token!!, userId).observe(this, Observer {
+        viewModel.getMyOffersInf(token!!, userId).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {

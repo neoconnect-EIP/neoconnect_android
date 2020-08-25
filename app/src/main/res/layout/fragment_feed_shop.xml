@@ -69,12 +69,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
-                android:drawableStart="@drawable/icon_tendances"
                 android:drawablePadding="5dp"
                 android:padding="5dp"
                 android:text="@string/influenceurTendances"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:drawableStartCompat="@drawable/icon_tendances" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerFeedListInfTendances"
@@ -88,12 +88,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
-                android:drawableStart="@drawable/icon_populaires"
                 android:drawablePadding="5dp"
                 android:padding="5dp"
                 android:text="@string/influenceurPopulaires"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:drawableStartCompat="@drawable/icon_populaires" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerFeedListInfPopulaires"
@@ -107,12 +107,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:drawableStart="@drawable/icon_notes"
                 android:drawablePadding="5dp"
                 android:padding="5dp"
                 android:text="@string/influenceurNotes"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:drawableStartCompat="@drawable/icon_notes" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerFeedListInfNotes"

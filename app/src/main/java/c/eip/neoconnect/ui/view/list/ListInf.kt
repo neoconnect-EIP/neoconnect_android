@@ -26,10 +26,10 @@ class ListInf : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val inflate = inflater.inflate(R.layout.fragment_list_inf, container, false)
-        val token = DataGetter.INSTANCE.getToken(context!!)
+        val token = DataGetter.INSTANCE.getToken(requireContext())
 
         viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
-        viewModel.getListInf(token!!).observe(this, Observer {
+        viewModel.getListInf(token!!).observe(viewLifecycleOwner, Observer {
             it?.let {resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {

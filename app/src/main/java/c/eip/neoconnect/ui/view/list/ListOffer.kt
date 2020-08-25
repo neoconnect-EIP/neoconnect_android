@@ -26,10 +26,10 @@ class ListOffer : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val inflate = inflater.inflate(R.layout.fragment_list_offer, container, false)
-        val token = DataGetter.INSTANCE.getToken(context!!)
+        val token = DataGetter.INSTANCE.getToken(requireContext())
 
         viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
-        viewModel.getOffers(token!!, null, null, null).observe(this, Observer {
+        viewModel.getOffers(token!!, null, null, null).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {

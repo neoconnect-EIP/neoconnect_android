@@ -7,7 +7,7 @@ import c.eip.neoconnect.data.service.AuthService
 import c.eip.neoconnect.utils.Constants
 
 class AuthRepository {
-    var authService: AuthService = Constants.authService
+    private var authService: AuthService = Constants.authService
 
     suspend fun registerInfluencer(RegisterInfluenceurModel: RegisterInfluenceurModel) =
         authService.registerInf(RegisterInfluenceurModel)

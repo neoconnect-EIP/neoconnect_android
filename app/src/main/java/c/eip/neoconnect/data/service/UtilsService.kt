@@ -31,7 +31,7 @@ interface UtilsService {
     @PUT("/updatePassword")
     suspend fun updatePassword(@Body formValue: ResetPasswordThirdStepModel): String
 
-    //Todo Remplacer par la fonction sans mooc après
+    //Todo Remplacer par la fonction sans mooc
     @GET("/mooc/actuality")
     suspend fun getFeed(@Header("authorization") token: String?): FeedResponseModel
 }

@@ -16,14 +16,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import c.eip.neoconnect.R
 import c.eip.neoconnect.ui.view.search.Search
-import c.eip.neoconnect.ui.viewModel.ProfilViewModel
+import c.eip.neoconnect.ui.viewModel.InfViewModel
 import c.eip.neoconnect.utils.DataGetter
 import c.eip.neoconnect.utils.Status
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 class ProfilOtherInf : Fragment() {
-    private lateinit var viewModel: ProfilViewModel
+    private lateinit var viewModel: InfViewModel
     val bundle = bundleOf()
 
     override fun onCreateView(
@@ -34,17 +34,18 @@ class ProfilOtherInf : Fragment() {
         when {
             arguments?.get("mode") == 0 -> {
                 val id = arguments?.get("id") as Int
-                val token = DataGetter.INSTANCE.getToken(context!!)
-                viewModel = ViewModelProvider(this).get(ProfilViewModel::class.java)
-                viewModel.getOtherInf(token!!, id).observe(this, Observer {
-                    it?.let { resource ->
+                val token = DataGetter.INSTANCE.getToken(requireContext())
+                viewModel = ViewModelProvider(this).get(InfViewModel::class.java)
+                viewModel.getOtherInf(token!!, id).observe(viewLifecycleOwner, Observer {
+                    it.let { resource ->
                         when (resource.status) {
                             Status.SUCCESS -> {
                                 if (it.data?.userPicture?.size!! <= 0) {
                                     inflate.findViewById<ImageView>(R.id.otherProfilPicture)
                                         .setImageResource(R.drawable.ic_picture_inf)
                                 } else {
-                                    Glide.with(context!!).load(it.data.userPicture[0]?.imageData)
+                                    Glide.with(requireContext())
+                                        .load(it.data.userPicture[0]?.imageData)
                                         .circleCrop().error(R.drawable.ic_picture_inf)
                                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                                         .into(inflate.findViewById(R.id.otherProfilPicture))
@@ -54,7 +55,8 @@ class ProfilOtherInf : Fragment() {
                                 inflate.findViewById<TextView>(R.id.otherProfilSubject).text =
                                     it.data.theme
                                 if (it.data.average.isNullOrBlank()) {
-                                    inflate.findViewById<TextView>(R.id.otherProfilAverage).text = "0"
+                                    inflate.findViewById<TextView>(R.id.otherProfilAverage).text =
+                                        "0"
                                 } else {
                                     inflate.findViewById<TextView>(R.id.otherProfilAverage).text =
                                         it.data.average
@@ -63,7 +65,11 @@ class ProfilOtherInf : Fragment() {
                             }
                             Status.ERROR -> {
                                 Log.e("Get Inf", "$id introuvable")
-                                Toast.makeText(context, "Utilisateur introuvable", Toast.LENGTH_LONG)
+                                Toast.makeText(
+                                    context,
+                                    "Utilisateur introuvable",
+                                    Toast.LENGTH_LONG
+                                )
                                     .show()
                                 findNavController().popBackStack()
                             }
@@ -76,7 +82,8 @@ class ProfilOtherInf : Fragment() {
                     inflate.findViewById<ImageView>(R.id.otherProfilPicture)
                         .setImageResource(R.drawable.ic_picture_inf)
                 } else {
-                    Glide.with(context!!).load(Search.searchResponse?.userPicture?.get(0)?.imageData)
+                    Glide.with(requireContext())
+                        .load(Search.searchResponse?.userPicture?.get(0)?.imageData)
                         .circleCrop().error(R.drawable.ic_picture_inf)
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .into(inflate.findViewById(R.id.otherProfilPicture))

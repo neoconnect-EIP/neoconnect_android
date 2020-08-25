@@ -98,7 +98,7 @@ class UpdatePassword : Fragment() {
             if (checkPassword == 0) {
                 thirdStep.password = password
                 viewModel = ViewModelProvider(this).get(ResetPasswordViewModel::class.java)
-                viewModel.updatePassword(thirdStep).observe(this, Observer {
+                viewModel.updatePassword(thirdStep).observe(viewLifecycleOwner, Observer {
                     it?.let { resource ->
                         when (resource.status) {
                             Status.SUCCESS -> {

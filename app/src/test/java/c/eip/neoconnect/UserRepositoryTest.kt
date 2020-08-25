@@ -6,7 +6,9 @@ import c.eip.neoconnect.data.model.mark.MarkModel
 import c.eip.neoconnect.data.model.register.RegisterInfluenceurModel
 import c.eip.neoconnect.data.model.register.RegisterShopModel
 import c.eip.neoconnect.data.repository.AuthRepository
-import c.eip.neoconnect.data.repository.ProfilRepository
+import c.eip.neoconnect.data.repository.InfRepository
+import c.eip.neoconnect.data.repository.ShopRepository
+import c.eip.neoconnect.data.repository.UserRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions
@@ -15,8 +17,10 @@ import org.junit.jupiter.api.Test
 
 
 @ExperimentalCoroutinesApi
-class ProfilRepositoryTest {
-    private val profilRepository = ProfilRepository()
+class UserRepositoryTest {
+    private val userRepository = UserRepository()
+    private val infRepository = InfRepository()
+    private val shopRepository = ShopRepository()
     private val authRepository = AuthRepository()
     private val loginInf = LoginModel()
     private val loginShop = LoginModel()
@@ -47,7 +51,7 @@ class ProfilRepositoryTest {
     fun getProfilInf() {
         val token = getTokenInf(loginInf)
         val call = runBlocking {
-            profilRepository.getProfilInf(token)
+            infRepository.getProfilInf(token)
         }
         Assertions.assertNotNull(call)
     }
@@ -56,7 +60,7 @@ class ProfilRepositoryTest {
     fun getListInf() {
         val token = getTokenInf(loginInf)
         val call = runBlocking {
-            profilRepository.getListInf(token)
+            shopRepository.getListInf(token)
         }
         Assertions.assertNotNull(call)
     }
@@ -82,7 +86,7 @@ class ProfilRepositoryTest {
         inf.youtube = "youtttube"
         inf.theme = "HighTech"
         val call = runBlocking {
-            profilRepository.updateProfilInf(token, inf)
+            infRepository.updateProfilInf(token, inf)
         }
         Assertions.assertNotNull(call)
     }
@@ -91,7 +95,7 @@ class ProfilRepositoryTest {
     fun getProfilShop() {
         val token = getTokenShop(loginShop)
         val call = runBlocking {
-            profilRepository.getProfilShop(token)
+            shopRepository.getProfilShop(token)
         }
         Assertions.assertNotNull(call)
     }
@@ -100,7 +104,7 @@ class ProfilRepositoryTest {
     fun getListShop() {
         val token = getTokenShop(loginShop)
         val call = runBlocking {
-            profilRepository.getListShop(token)
+            infRepository.getListShop(token)
         }
         Assertions.assertNotNull(call)
     }
@@ -121,7 +125,7 @@ class ProfilRepositoryTest {
         shop.website = "google.fr"
         shop.theme = "Cosmétique"
         val call = runBlocking {
-            profilRepository.updateProfilShop(token, shop)
+            shopRepository.updateProfilShop(token, shop)
         }
         Assertions.assertNotNull(call)
     }
@@ -132,7 +136,7 @@ class ProfilRepositoryTest {
         val mark = MarkModel()
         mark.mark = 2
         val call = runBlocking {
-            profilRepository.markUser(token, 39, mark)
+            userRepository.markUser(token, 39, mark)
         }
         Assertions.assertNotNull(call)
     }
@@ -143,7 +147,7 @@ class ProfilRepositoryTest {
         val comment = CommentModel()
         comment.comment = "Ok"
         val call = runBlocking {
-            profilRepository.commentUser(token, 39, comment)
+            userRepository.commentUser(token, 39, comment)
         }
         Assertions.assertNotNull(call)
     }

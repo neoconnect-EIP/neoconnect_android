@@ -17,10 +17,10 @@ class Chat : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val inflate = inflater.inflate(R.layout.fragment_chat, container, false)
-        if (DataGetter.INSTANCE.getUserType(context!!) == "shop") {
+        if (DataGetter.INSTANCE.getUserType(requireContext()) == "shop") {
             inflate.findViewById<ConstraintLayout>(R.id.chatLayout)
                 .setBackgroundResource(R.drawable.background_shop)
-        } else if (DataGetter.INSTANCE.getUserType(context!!) == "influencer") {
+        } else if (DataGetter.INSTANCE.getUserType(requireContext()) == "influencer") {
             inflate.findViewById<ConstraintLayout>(R.id.chatLayout)
                 .setBackgroundResource(R.drawable.background_influencer)
         }

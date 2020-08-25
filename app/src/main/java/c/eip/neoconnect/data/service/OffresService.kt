@@ -2,8 +2,11 @@ package c.eip.neoconnect.data.service
 
 import c.eip.neoconnect.data.model.comment.CommentModel
 import c.eip.neoconnect.data.model.mark.MarkModel
+import c.eip.neoconnect.data.model.offres.OffreApply
+import c.eip.neoconnect.data.model.offres.OffreApplyUserResponseModel
 import c.eip.neoconnect.data.model.offres.OffreModel
 import c.eip.neoconnect.data.model.offres.OffreResponseModel
+import c.eip.neoconnect.data.model.report.OffreReportModel
 import retrofit2.http.*
 
 interface OffresService {
@@ -21,11 +24,17 @@ interface OffresService {
         @Path("id") id: Int?
     ): ArrayList<OffreResponseModel>
 
-    @GET("/offer/apply/user/{id}")
+    @GET("/inf/offer/applied/{id}")
     suspend fun getMyApplyOffers(
         @Header("authorization") token: String?,
         @Path("id") id: Int?
     ): ArrayList<OffreResponseModel>
+
+    @GET("/offer/apply/{id}")
+    suspend fun getOfferApplyUser(
+        @Header("authorization") token: String?,
+        @Path("id") id: Int?
+    ): ArrayList<OffreApplyUserResponseModel>
 
     @GET("/offer/{id}")
     suspend fun getOneOffer(
@@ -67,4 +76,17 @@ interface OffresService {
     @DELETE("/offer/{id}")
     suspend fun deleteOffer(@Header("authorization") token: String?, @Path("id") id: Int?): String
 
+    //Todo Remplacer par la fonction sans mooc
+    @POST("/mooc/choiceApply")
+    suspend fun choiceApply(
+        @Header("authorization") token: String?,
+        @Body choice: OffreApply
+    ): String
+
+    @POST("/offer/report/{id}")
+    suspend fun reportOffer(
+        @Header("authorization") token: String?,
+        @Path("id") id: Int?,
+        @Body report: OffreReportModel
+    ): String
 }

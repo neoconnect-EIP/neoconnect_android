@@ -39,7 +39,7 @@ class AuthRepositoryTest {
         loginShop.password = "Azer1234"
     }
 
-    fun registerInf() {
+    private fun registerInf() {
         inf.email = "android@inf.test"
         inf.fullName = "android inf"
         inf.sexe = "homme"
@@ -60,7 +60,7 @@ class AuthRepositoryTest {
         Assertions.assertNotNull(call)
     }
 
-    fun loginInf() {
+    private fun loginInf() {
         val call = runBlocking {
             authRepository.login(loginInf)
         }
@@ -73,7 +73,7 @@ class AuthRepositoryTest {
         loginInf()
     }
 
-    fun registerShop() {
+    private fun registerShop() {
         shop.email = "android@shop.test"
         shop.fullName = "android shop"
         shop.city = "Kaunas"
@@ -89,7 +89,7 @@ class AuthRepositoryTest {
         Assertions.assertNotNull(call)
     }
 
-    fun loginShop() {
+    private fun loginShop() {
         val call = runBlocking {
             authRepository.login(loginShop)
         }

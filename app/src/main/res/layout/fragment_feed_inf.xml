@@ -69,12 +69,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
-                android:drawableStart="@drawable/icon_tendances"
                 android:drawablePadding="5dp"
                 android:padding="5dp"
                 android:text="@string/offresTendances"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:drawableStartCompat="@drawable/icon_tendances" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerFeedListOffresTendances"
@@ -88,12 +88,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
-                android:drawableStart="@drawable/icon_populaires"
                 android:drawablePadding="5dp"
                 android:padding="5dp"
                 android:text="@string/offresPopulaires"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:drawableStartCompat="@drawable/icon_populaires" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerFeedListOffresPopulaires"
@@ -107,12 +107,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:drawableStart="@drawable/icon_notes"
                 android:drawablePadding="5dp"
                 android:padding="5dp"
                 android:text="@string/offresNotes"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:drawableStartCompat="@drawable/icon_notes" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerFeedListOffresNotes"
@@ -126,12 +126,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
-                android:drawableStart="@drawable/icon_tendances"
                 android:drawablePadding="5dp"
                 android:padding="5dp"
                 android:text="@string/shopTendances"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:drawableStartCompat="@drawable/icon_tendances" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerFeedListShopTendances"
@@ -145,12 +145,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
-                android:drawableStart="@drawable/icon_populaires"
                 android:drawablePadding="5dp"
                 android:padding="5dp"
                 android:text="@string/shopPopulaires"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:drawableStartCompat="@drawable/icon_populaires" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerFeedListShopPopulaires"
@@ -164,12 +164,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:drawableStart="@drawable/icon_notes"
                 android:drawablePadding="5dp"
                 android:padding="5dp"
                 android:text="@string/shopNotes"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:drawableStartCompat="@drawable/icon_notes" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerFeedListShopNotes"

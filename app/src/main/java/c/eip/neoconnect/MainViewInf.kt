@@ -13,22 +13,22 @@ import c.eip.neoconnect.ui.view.account.MyAccountInf
 import c.eip.neoconnect.ui.view.chat.Chat
 import c.eip.neoconnect.ui.view.feed.FeedInf
 import c.eip.neoconnect.ui.view.search.Search
-import c.eip.neoconnect.ui.viewModel.ProfilViewModel
+import c.eip.neoconnect.ui.viewModel.InfViewModel
 import c.eip.neoconnect.utils.DataGetter
 import c.eip.neoconnect.utils.Status
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainViewInf : Fragment() {
-    private lateinit var viewModel: ProfilViewModel
+    private lateinit var viewModel: InfViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val inflate = inflater.inflate(R.layout.fragment_main_view_inf, container, false)
-        val token = DataGetter.INSTANCE.getToken(context!!)
-        viewModel = ViewModelProvider(this).get(ProfilViewModel::class.java)
-        viewModel.getProfilInf(token!!).observe(this, Observer {
+        val token = DataGetter.INSTANCE.getToken(requireContext())
+        viewModel = ViewModelProvider(this).get(InfViewModel::class.java)
+        viewModel.getProfilInf(token!!).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {

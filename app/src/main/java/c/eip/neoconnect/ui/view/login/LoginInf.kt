@@ -79,7 +79,7 @@ class LoginInf : Fragment() {
                     view.findViewById<TextInputEditText>(R.id.loginPassword).text.toString()
                 val loginModel = LoginModel(pseudo, password)
                 viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
-                viewModel.login(loginModel).observe(this, Observer {
+                viewModel.login(loginModel).observe(viewLifecycleOwner, Observer {
                     it?.let { resource ->
                         when (resource.status) {
                             Status.SUCCESS -> {
@@ -88,15 +88,19 @@ class LoginInf : Fragment() {
                                     "Connexion",
                                     "${it.data?.userType} ${it.data?.idUser} connecté"
                                 )
-                                DataGetter.INSTANCE.saveToken(context!!, it.data?.token)
-                                DataGetter.INSTANCE.saveUserId(context!!, it.data?.idUser)
-                                DataGetter.INSTANCE.saveUserType(context!!, it.data?.userType)
-                                if (it.data?.userType == "shop") {
-                                    findNavController().navigate(R.id.navigation_main_view_shop)
-                                } else if (it.data?.userType == "influencer") {
-                                    findNavController().navigate(R.id.navigation_main_view_inf)
-                                } else {
-                                    Log.i("Connexion", "Connexion en tant que 3ème partie")
+                                DataGetter.INSTANCE.saveToken(requireContext(), it.data?.token)
+                                DataGetter.INSTANCE.saveUserId(requireContext(), it.data?.idUser)
+                                DataGetter.INSTANCE.saveUserType(requireContext(), it.data?.userType)
+                                when (it.data?.userType) {
+                                    "shop" -> {
+                                        findNavController().navigate(R.id.navigation_main_view_shop)
+                                    }
+                                    "influencer" -> {
+                                        findNavController().navigate(R.id.navigation_main_view_inf)
+                                    }
+                                    else -> {
+                                        Log.i("Connexion", "Connexion en tant que 3ème partie")
+                                    }
                                 }
                             }
                             Status.ERROR -> {

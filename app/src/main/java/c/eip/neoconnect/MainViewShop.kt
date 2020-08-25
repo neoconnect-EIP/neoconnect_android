@@ -14,22 +14,22 @@ import c.eip.neoconnect.ui.view.chat.Chat
 import c.eip.neoconnect.ui.view.feed.FeedShop
 import c.eip.neoconnect.ui.view.offer.InsertOffer
 import c.eip.neoconnect.ui.view.search.Search
-import c.eip.neoconnect.ui.viewModel.ProfilViewModel
+import c.eip.neoconnect.ui.viewModel.ShopViewModel
 import c.eip.neoconnect.utils.DataGetter
 import c.eip.neoconnect.utils.Status
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainViewShop : Fragment() {
-    private lateinit var viewModel: ProfilViewModel
+    private lateinit var viewModel: ShopViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val inflate = inflater.inflate(R.layout.fragment_main_view_shop, container, false)
-        val token = DataGetter.INSTANCE.getToken(context!!)
-        viewModel = ViewModelProvider(this).get(ProfilViewModel::class.java)
-        viewModel.getProfilShop(token!!).observe(this, Observer {
+        val token = DataGetter.INSTANCE.getToken(requireContext())
+        viewModel = ViewModelProvider(this).get(ShopViewModel::class.java)
+        viewModel.getProfilShop(token!!).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {

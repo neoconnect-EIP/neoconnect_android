@@ -26,10 +26,10 @@ class ListShop : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val inflate = inflater.inflate(R.layout.fragment_list_shop, container, false)
-        val token = DataGetter.INSTANCE.getToken(context!!)
+        val token = DataGetter.INSTANCE.getToken(requireContext())
 
         viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
-        viewModel.getListShop(token!!).observe(this, Observer {
+        viewModel.getListShop(token!!).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
