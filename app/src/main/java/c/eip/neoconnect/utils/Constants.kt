@@ -8,8 +8,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class Constants {
     companion object {
-        //        private const val BASE_URL = "http://168.63.65.106:8080/"
-        private const val BASE_URL = "http://192.168.0.27:8080/"
+        private const val BASE_URL = "http://168.63.65.106:8080/"
+        //        private const val BASE_URL = "http://192.168.0.27:8080/"
         private val gson: Gson = GsonBuilder().setLenient().create()
         private var retrofit: Retrofit =
             Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(
@@ -21,5 +21,6 @@ class Constants {
         val shopService: ShopService = retrofit.create(ShopService::class.java)
         val offresService: OffresService = retrofit.create(OffresService::class.java)
         val utilsService: UtilsService = retrofit.create(UtilsService::class.java)
+        val chatService: ChatService = retrofit.create(ChatService::class.java)
     }
 }

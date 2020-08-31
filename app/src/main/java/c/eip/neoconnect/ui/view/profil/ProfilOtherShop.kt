@@ -1,5 +1,6 @@
 package c.eip.neoconnect.ui.view.profil
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,15 +16,19 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import c.eip.neoconnect.R
+import c.eip.neoconnect.data.model.message.MessageModel
 import c.eip.neoconnect.ui.view.search.Search
+import c.eip.neoconnect.ui.viewModel.ChatViewModel
 import c.eip.neoconnect.ui.viewModel.ShopViewModel
 import c.eip.neoconnect.utils.DataGetter
 import c.eip.neoconnect.utils.Status
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.google.android.material.textfield.TextInputEditText
 
 class ProfilOtherShop : Fragment() {
     private lateinit var viewModel: ShopViewModel
+    private lateinit var chatViewModel: ChatViewModel
     val bundle = bundleOf()
 
     override fun onCreateView(
@@ -109,8 +114,49 @@ class ProfilOtherShop : Fragment() {
         view.findViewById<Button>(R.id.backButton).setOnClickListener {
             findNavController().popBackStack()
         }
-        view.findViewById<Button>(R.id.contactProfilButton).setOnClickListener {
+        view.findViewById<Button>(R.id.contactByMailProfilButton).setOnClickListener {
             findNavController().navigate(R.id.navigation_contact, bundle)
+        }
+        view.findViewById<Button>(R.id.contactByMPProfilButton).setOnClickListener {
+            val mDialogView =
+                LayoutInflater.from(requireContext()).inflate(R.layout.dialog_first_message, null)
+            val mAlertDialogBuilder = AlertDialog.Builder(requireContext()).setView(mDialogView)
+                .setTitle("Envoyer un message")
+            val mAlertDialog = mAlertDialogBuilder.show()
+            mDialogView.findViewById<ImageView>(R.id.sendFirstMessageButton).setOnClickListener {
+                chatViewModel = ViewModelProvider(this).get(ChatViewModel::class.java)
+                val token = DataGetter.INSTANCE.getToken(requireContext())
+                val message = MessageModel()
+                message.message =
+                    mDialogView.findViewById<TextInputEditText>(R.id.insertFirstMessage).text.toString()
+                if (arguments?.get("mode") == 0) {
+                    message.userId = (arguments?.get("id") as Int).toString()
+                } else {
+                    message.userId = Search.searchResponse?.id.toString()
+                }
+                chatViewModel.postMessage(token!!, message).observe(viewLifecycleOwner, Observer {
+                    it?.let { resource ->
+                        when (resource.status) {
+                            Status.SUCCESS -> {
+                                Toast.makeText(
+                                    context,
+                                    "Message envoyé",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                mAlertDialog.dismiss()
+                            }
+                            Status.ERROR -> {
+                                Toast.makeText(
+                                    context,
+                                    "Impossible d'envoyer votre message",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                Log.e("One Chat", it.message)
+                            }
+                        }
+                    }
+                })
+            }
         }
     }
 }

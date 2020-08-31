@@ -175,4 +175,10 @@
         android:name="c.eip.neoconnect.ui.view.list.ListSortedOffer"
         android:label="fragment_list_sorted_offer"
         tools:layout="@layout/fragment_list_sorted_offer" />
+
+    <fragment
+        android:id="@+id/navigation_message"
+        android:name="c.eip.neoconnect.ui.view.chat.OneChat"
+        android:label="fragment_one_chat"
+        tools:layout="@layout/fragment_one_chat" />
 </navigation>

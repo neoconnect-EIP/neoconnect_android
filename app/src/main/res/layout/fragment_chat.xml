@@ -14,14 +14,12 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.05" />
 
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_margin_vertical_end_chat"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.95" />
-
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_margin_horizontal_chat"
@@ -31,7 +29,7 @@
         app:layout_constraintGuide_percent="0.03" />
 
     <TextView
-        android:id="@+id/titleFeed"
+        android:id="@+id/titleChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
@@ -41,4 +39,31 @@
         app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_chat"
         app:layout_constraintTop_toBottomOf="@id/guideline_margin_horizontal_chat" />
 
+    <TextView
+        android:id="@+id/pb_chat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center"
+        android:text="@string/noChat"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:id="@+id/chatScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_chat"
+        app:layout_constraintTop_toBottomOf="@id/titleChat">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewChat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp" />
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
