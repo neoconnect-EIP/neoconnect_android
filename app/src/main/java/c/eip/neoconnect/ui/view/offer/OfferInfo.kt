@@ -214,5 +214,9 @@ class OfferInfo : Fragment() {
             val bundle = bundleOf("offerId" to offerId)
             findNavController().navigate(R.id.navigation_edit_offer, bundle)
         }
+        view.findViewById<Button>(R.id.markOfferButton).setOnClickListener {
+            val bundle = bundleOf("offerId" to offerId)
+            findNavController().navigate(R.id.navigation_mark_offer, bundle)
+        }
     }
 }
