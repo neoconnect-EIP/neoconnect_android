@@ -4,6 +4,9 @@ import c.eip.neoconnect.data.model.ImagePicture
 import com.google.gson.annotations.SerializedName
 
 class SearchResponseModel {
+    @SerializedName("id")
+    var id: Int = 0
+
     @SerializedName("userType")
     var userType: String = ""
 

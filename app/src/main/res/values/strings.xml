@@ -63,6 +63,7 @@
     <string name="noInf">Impossible de récupérer la liste des influenceurs</string>
     <string name="noShop">Impossible de récupérer la liste des boutiques</string>
     <string name="noFeed">Impossible de récupérer le fil d\'actualité</string>
+    <string name="noChat">Vous n’avez aucun message</string>
     <string name="myStats">Mes statistiques</string>
     <string name="myAccount">Mon compte</string>
     <string name="contactUs">Nous contacter</string>

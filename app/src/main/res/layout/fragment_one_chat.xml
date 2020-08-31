@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/oneChatLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.view.chat.OneChat">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_margin_vertical_start_one_chat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_margin_vertical_end_one_chat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_margin_horizontal_start_one_chat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.03" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_margin_horizontal_end_one_chat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.90" />
+
+    <TextView
+        android:id="@+id/titleOneChat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_one_chat"
+        app:layout_constraintTop_toBottomOf="@id/guideline_margin_horizontal_start_one_chat" />
+
+    <ImageView
+        android:id="@+id/refreshMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/ic_popup_sync"
+        android:contentDescription="@string/contDescDesc"
+        app:layout_constraintEnd_toStartOf="@id/guideline_margin_vertical_end_one_chat"
+        app:layout_constraintTop_toBottomOf="@id/guideline_margin_horizontal_start_one_chat" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/guideline_margin_horizontal_end_one_chat"
+        app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_one_chat">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerOneChat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp" />
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutChat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="50dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/guideline_margin_horizontal_end_one_chat">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/insertChatMessage"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/button_main"
+            android:inputType="textMultiLine"
+            android:padding="5dp"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/sendChatMessageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:background="@android:drawable/ic_menu_send"
+        android:contentDescription="@string/contDescDesc"
+        app:layout_constraintStart_toEndOf="@id/linearLayoutChat"
+        app:layout_constraintTop_toBottomOf="@id/guideline_margin_horizontal_end_one_chat" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
