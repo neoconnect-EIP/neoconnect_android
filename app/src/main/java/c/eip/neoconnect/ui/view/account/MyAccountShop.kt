@@ -50,5 +50,8 @@ class MyAccountShop : Fragment() {
         view.findViewById<TextView>(R.id.goToContact).setOnClickListener {
             findNavController().navigate(R.id.navigation_contact)
         }
+        view.findViewById<TextView>(R.id.goToMyStats).setOnClickListener {
+            findNavController().navigate(R.id.navigation_stats)
+        }
     }
 }

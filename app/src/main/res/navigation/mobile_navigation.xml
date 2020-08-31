@@ -192,4 +192,9 @@
         android:name="c.eip.neoconnect.ui.view.mark.MarkUser"
         android:label="fragment_mark_user"
         tools:layout="@layout/fragment_mark_user" />
+    <fragment
+        android:id="@+id/navigation_stats"
+        android:name="c.eip.neoconnect.ui.view.Stats"
+        android:label="fragment_stats"
+        tools:layout="@layout/fragment_stats" />
 </navigation>
