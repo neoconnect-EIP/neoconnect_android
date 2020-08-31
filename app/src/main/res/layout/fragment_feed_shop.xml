@@ -70,11 +70,21 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
                 android:drawablePadding="5dp"
+                android:gravity="center"
                 android:padding="5dp"
                 android:text="@string/influenceurTendances"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 app:drawableStartCompat="@drawable/icon_tendances" />
+
+            <TextView
+                android:id="@+id/pb_feed_inf_tendance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="25dp"
+                android:text="Il n'y a pas d'influenceurs du moment"
+                android:textAlignment="center"
+                android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerFeedListInfTendances"
@@ -89,11 +99,21 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
                 android:drawablePadding="5dp"
+                android:gravity="center"
                 android:padding="5dp"
                 android:text="@string/influenceurPopulaires"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 app:drawableStartCompat="@drawable/icon_populaires" />
+
+            <TextView
+                android:id="@+id/pb_feed_inf_populaire"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="25dp"
+                android:text="Il n'y a pas d'influenceurs populaires pour le moment"
+                android:textAlignment="center"
+                android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerFeedListInfPopulaires"
@@ -108,11 +128,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:drawablePadding="5dp"
+                android:gravity="center"
                 android:padding="5dp"
                 android:text="@string/influenceurNotes"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 app:drawableStartCompat="@drawable/icon_notes" />
+
+            <TextView
+                android:id="@+id/pb_feed_offer_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="25dp"
+                android:text="Aucun influenceurs n'a de notes pour le moment"
+                android:textAlignment="center"
+                android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerFeedListInfNotes"

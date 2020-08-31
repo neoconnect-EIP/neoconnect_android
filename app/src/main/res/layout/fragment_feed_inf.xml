@@ -70,11 +70,21 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
                 android:drawablePadding="5dp"
+                android:gravity="center"
                 android:padding="5dp"
                 android:text="@string/offresTendances"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 app:drawableStartCompat="@drawable/icon_tendances" />
+
+            <TextView
+                android:id="@+id/pb_feed_offer_tendance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="25dp"
+                android:text="Il n'y a pas d'offres du moment"
+                android:textAlignment="center"
+                android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerFeedListOffresTendances"
@@ -89,11 +99,21 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
                 android:drawablePadding="5dp"
+                android:gravity="center"
                 android:padding="5dp"
                 android:text="@string/offresPopulaires"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 app:drawableStartCompat="@drawable/icon_populaires" />
+
+            <TextView
+                android:id="@+id/pb_feed_offer_populaire"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="25dp"
+                android:text="Il n'y a pas d'offres populaires pour le moment"
+                android:textAlignment="center"
+                android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerFeedListOffresPopulaires"
@@ -108,11 +128,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:drawablePadding="5dp"
+                android:gravity="center"
                 android:padding="5dp"
                 android:text="@string/offresNotes"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 app:drawableStartCompat="@drawable/icon_notes" />
+
+            <TextView
+                android:id="@+id/pb_feed_offer_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="25dp"
+                android:text="Aucune offres n'a de notes pour le moment"
+                android:textAlignment="center"
+                android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerFeedListOffresNotes"
@@ -127,11 +157,21 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
                 android:drawablePadding="5dp"
+                android:gravity="center"
                 android:padding="5dp"
                 android:text="@string/shopTendances"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 app:drawableStartCompat="@drawable/icon_tendances" />
+
+            <TextView
+                android:id="@+id/pb_feed_shop_tendance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="25dp"
+                android:text="Il n'y a pas de boutiques du moment"
+                android:textAlignment="center"
+                android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerFeedListShopTendances"
@@ -146,11 +186,21 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
                 android:drawablePadding="5dp"
+                android:gravity="center"
                 android:padding="5dp"
                 android:text="@string/shopPopulaires"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 app:drawableStartCompat="@drawable/icon_populaires" />
+
+            <TextView
+                android:id="@+id/pb_feed_shop_populaire"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="25dp"
+                android:text="Il n'y a pas de boutiques populaire pour le moment"
+                android:textAlignment="center"
+                android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerFeedListShopPopulaires"
@@ -165,11 +215,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:drawablePadding="5dp"
+                android:gravity="center"
                 android:padding="5dp"
                 android:text="@string/shopNotes"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 app:drawableStartCompat="@drawable/icon_notes" />
+
+            <TextView
+                android:id="@+id/pb_feed_shop_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="25dp"
+                android:text="Aucune boutiques n'a de notes pour le moment"
+                android:textAlignment="center"
+                android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerFeedListShopNotes"

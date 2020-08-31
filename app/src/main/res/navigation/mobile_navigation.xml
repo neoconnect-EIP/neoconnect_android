@@ -181,4 +181,15 @@
         android:name="c.eip.neoconnect.ui.view.chat.OneChat"
         android:label="fragment_one_chat"
         tools:layout="@layout/fragment_one_chat" />
+
+    <fragment
+        android:id="@+id/navigation_mark_offer"
+        android:name="c.eip.neoconnect.ui.view.mark.MarkOffer"
+        android:label="fragment_mark_offer"
+        tools:layout="@layout/fragment_mark_offer" />
+    <fragment
+        android:id="@+id/navigation_mark_user"
+        android:name="c.eip.neoconnect.ui.view.mark.MarkUser"
+        android:label="fragment_mark_user"
+        tools:layout="@layout/fragment_mark_user" />
 </navigation>

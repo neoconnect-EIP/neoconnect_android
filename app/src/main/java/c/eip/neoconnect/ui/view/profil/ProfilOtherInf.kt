@@ -157,5 +157,14 @@ class ProfilOtherInf : Fragment() {
                 })
             }
         }
+        view.findViewById<Button>(R.id.markProfilButton).setOnClickListener {
+            val bundleMark = bundleOf()
+            if (arguments?.get("mode") == 0) {
+                bundleMark.putString("userId", (arguments?.get("id") as Int).toString())
+            } else {
+                bundleMark.putString("userId", (Search.searchResponse?.id.toString()))
+            }
+            findNavController().navigate(R.id.navigation_mark_user, bundleMark)
+        }
     }
 }
