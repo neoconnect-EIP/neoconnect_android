@@ -109,6 +109,8 @@
     <string name="formYoutube">Youtube</string>
     <string name="formTiktok">Tiktok</string>
 
+    <string name="formFeature">Fonctionnalité</string>
+    <string name="formCommentaire">Commentaire</string>
     <string name="formMessage">Message</string>
     <string name="formToken">Token</string>
 
@@ -146,4 +148,12 @@
         <item>Food</item>
         <item>Sport / Fitness</item>
     </string-array>
+
+    <string-array name="contactSpinner">
+        <item>Bug</item>
+        <item>Amélioration</item>
+        <item>Commentaire</item>
+        <item>Contact</item>
+    </string-array>
+
 </resources>

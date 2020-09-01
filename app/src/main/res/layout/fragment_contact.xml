@@ -41,17 +41,6 @@
         app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_contact"
         app:layout_constraintTop_toBottomOf="@id/guideline_margin_horizontal_contact" />
 
-    <TextView
-        android:id="@+id/sendMailButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="@string/sendMail"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@id/guideline_margin_vertical_end_contact"
-        app:layout_constraintTop_toBottomOf="@id/guideline_margin_horizontal_contact" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,7 +48,27 @@
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_contact"
-        app:layout_constraintTop_toBottomOf="@id/sendMailButton">
+        app:layout_constraintTop_toBottomOf="@id/backButton">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="Contacter"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+
+        <Spinner
+            android:id="@+id/contactSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="20dp"
+            android:alpha="0.7"
+            android:overlapAnchor="false"
+            android:popupBackground="@drawable/button_main"
+            android:textAlignment="textStart" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/sendMailPseudo"
@@ -72,7 +81,8 @@
             android:hint="@string/formPseudo"
             android:padding="15dp"
             android:textColor="@color/white"
-            android:textColorHint="@color/white" />
+            android:textColorHint="@color/white"
+            android:visibility="gone" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/sendMailEmail"
@@ -114,5 +124,12 @@
             android:padding="15dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white" />
+
+        <ImageView
+            android:id="@+id/sendMailButton"
+            android:layout_width="80dp"
+            android:layout_height="75dp"
+            android:background="@android:drawable/ic_menu_send"
+            android:contentDescription="@string/contDescDesc" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

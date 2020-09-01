@@ -4,11 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import c.eip.neoconnect.data.model.contact.ContactModel
 import c.eip.neoconnect.data.model.contact.ContactUserModel
+import c.eip.neoconnect.data.model.contact.FeedbackModel
 import c.eip.neoconnect.data.repository.UtilsRepository
 import c.eip.neoconnect.utils.Resource
 import kotlinx.coroutines.Dispatchers
 
-class ContactViewModel: ViewModel() {
+class ContactViewModel : ViewModel() {
     private val utilsRepository = UtilsRepository()
 
     fun contactUs(contact: ContactModel) = liveData(Dispatchers.IO) {
@@ -33,6 +34,19 @@ class ContactViewModel: ViewModel() {
                 )
             )
         } catch (e: Exception) {
+            emit(Resource.error(data = null, message = e.message ?: "Une erreur est survenue"))
+        }
+    }
+
+    fun sendFeedback(message: FeedbackModel) = liveData(Dispatchers.IO) {
+        try {
+            emit(
+                Resource.success(
+                    data = utilsRepository.sendFeedback(message),
+                    message = "Mail envoyé avec succès"
+                )
+            )
+        } catch (e: java.lang.Exception) {
             emit(Resource.error(data = null, message = e.message ?: "Une erreur est survenue"))
         }
     }
