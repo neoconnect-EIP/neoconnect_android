@@ -82,7 +82,7 @@ class OffresViewModel : ViewModel() {
             emit(
                 Resource.success(
                     data = offresRepository.choiceApply(token, choice),
-                    message = "Influenceur ${choice.idUser} ${if (choice.choice) {
+                    message = "Influenceur ${choice.idUser} ${if (choice.status) {
                         "accepté"
                     } else {
                         "refusé"

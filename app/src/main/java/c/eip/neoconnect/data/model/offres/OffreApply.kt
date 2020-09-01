@@ -9,6 +9,6 @@ class OffreApply {
     @SerializedName("idOffer")
     var idOffer: Int = 0
 
-    @SerializedName("choice")
-    var choice: Boolean = false
+    @SerializedName("status")
+    var status: Boolean = false
 }
