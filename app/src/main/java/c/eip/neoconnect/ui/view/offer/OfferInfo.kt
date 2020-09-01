@@ -32,6 +32,7 @@ class OfferInfo : Fragment() {
     private lateinit var viewModelList: ListViewModel
     private var getOfferState: Boolean = false
     private var getOfferApplyUserState: Boolean = false
+    private var name: String? = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,6 +50,7 @@ class OfferInfo : Fragment() {
             inflate.findViewById<Button>(R.id.removeOfferButton).visibility = View.VISIBLE
             inflate.findViewById<RecyclerView>(R.id.recyclerListOfferApplyUser).visibility =
                 View.VISIBLE
+            inflate.findViewById<TextView>(R.id.titleCandidature).visibility = View.VISIBLE
         } else if (DataGetter.INSTANCE.getUserType(requireContext()) == "influencer") {
             inflate.findViewById<ConstraintLayout>(R.id.offerInfoLayout)
                 .setBackgroundResource(R.drawable.background_influencer)
@@ -59,6 +61,7 @@ class OfferInfo : Fragment() {
             inflate.findViewById<Button>(R.id.removeOfferButton).visibility = View.GONE
             inflate.findViewById<RecyclerView>(R.id.recyclerListOfferApplyUser).visibility =
                 View.GONE
+            inflate.findViewById<TextView>(R.id.titleCandidature).visibility = View.GONE
         }
         val offerId = arguments?.get("idOffer") as Int
         val userId = arguments?.get("idUser") as Int
@@ -97,6 +100,7 @@ class OfferInfo : Fragment() {
                                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                                 .into(inflate.findViewById(R.id.infoOfferPicture1))
                         }
+                        name = it.data?.productName
                         inflate.findViewById<TextView>(R.id.offerName).text = it.data?.productName
                         inflate.findViewById<TextView>(R.id.offerSex).text = it.data?.productSex
                         inflate.findViewById<TextView>(R.id.offerDescrption).text =
@@ -218,6 +222,10 @@ class OfferInfo : Fragment() {
         view.findViewById<Button>(R.id.markOfferButton).setOnClickListener {
             val bundle = bundleOf("offerId" to offerId)
             findNavController().navigate(R.id.navigation_mark_offer, bundle)
+        }
+        view.findViewById<Button>(R.id.reportOfferButton).setOnClickListener {
+            val bundle = bundleOf("type" to "offre", "name" to name, "offerId" to offerId)
+            findNavController().navigate(R.id.navigation_report, bundle)
         }
     }
 }

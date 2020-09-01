@@ -50,7 +50,7 @@ class OfferAdapter(private val offers: ArrayList<OffreResponseModel>) :
             }
 
             itemView.setOnClickListener {
-                val bundle = bundleOf("idOffer" to offer.id, "idUser" to offer.idUser)
+                val bundle = bundleOf("idOffer" to offer.idOffer, "idUser" to offer.idUser)
                 itemView.findNavController().navigate(R.id.navigation_offer_info, bundle)
             }
         }

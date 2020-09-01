@@ -165,4 +165,14 @@
         <item>Contact</item>
     </string-array>
 
+    <string-array name="offerReportSpinner">
+        <item>Offre inapproprié</item>
+        <item>Contenu offensant / illicite</item>
+    </string-array>
+
+    <string-array name="userReportSpinner">
+        <item>Comportement inapproprié ou haineux</item>
+        <item>Contenu offensant</item>
+    </string-array>
+
 </resources>

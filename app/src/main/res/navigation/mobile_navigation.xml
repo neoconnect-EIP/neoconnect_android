@@ -197,4 +197,9 @@
         android:name="c.eip.neoconnect.ui.view.Stats"
         android:label="fragment_stats"
         tools:layout="@layout/fragment_stats" />
+    <fragment
+        android:id="@+id/navigation_report"
+        android:name="c.eip.neoconnect.ui.view.report.Report"
+        android:label="fragment_report"
+        tools:layout="@layout/fragment_report" />
 </navigation>

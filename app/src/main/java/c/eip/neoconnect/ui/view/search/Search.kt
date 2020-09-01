@@ -140,7 +140,7 @@ class Search : Fragment() {
                             search.pseudo =
                                 view.findViewById<TextInputEditText>(R.id.searchKeyword).text.toString()
                             val viewModel: LiveData<Resource<SearchResponseModel>>
-                            if (DataGetter.INSTANCE.getUserType(requireContext()) == "influencer") {
+                            if (DataGetter.INSTANCE.getUserType(requireContext()) == "shop") {
                                 infViewModel = ViewModelProvider(this).get(InfViewModel::class.java)
                                 viewModel = infViewModel.searchInf(token!!, search)
                             } else {
