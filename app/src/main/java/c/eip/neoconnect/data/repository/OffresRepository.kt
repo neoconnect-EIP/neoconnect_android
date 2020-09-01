@@ -1,5 +1,6 @@
 package c.eip.neoconnect.data.repository
 
+import c.eip.neoconnect.data.model.PublicationLinksModel
 import c.eip.neoconnect.data.model.comment.CommentModel
 import c.eip.neoconnect.data.model.mark.MarkModel
 import c.eip.neoconnect.data.model.offres.OffreApply
@@ -44,4 +45,7 @@ class OffresRepository {
 
     suspend fun reportOffer(token: String, id: Int, report: OffreReportModel) =
         offresService.reportOffer(token, id, report)
+
+    suspend fun sharePublication(token: String, id: Int, links: PublicationLinksModel) =
+        offresService.sharePublication(token, id, links)
 }

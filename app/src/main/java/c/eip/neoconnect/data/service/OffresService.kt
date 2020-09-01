@@ -1,5 +1,6 @@
 package c.eip.neoconnect.data.service
 
+import c.eip.neoconnect.data.model.PublicationLinksModel
 import c.eip.neoconnect.data.model.comment.CommentModel
 import c.eip.neoconnect.data.model.mark.MarkModel
 import c.eip.neoconnect.data.model.offres.OffreApply
@@ -87,5 +88,12 @@ interface OffresService {
         @Header("authorization") token: String?,
         @Path("id") id: Int?,
         @Body report: OffreReportModel
+    ): String
+
+    @POST("offer/sharePublication/{id}")
+    suspend fun sharePublication(
+        @Header("authorization") token: String?,
+        @Path("id") id: Int?,
+        @Body links: PublicationLinksModel
     ): String
 }

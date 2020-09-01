@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/userPicture"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_marginStart="10dp"
         android:contentDescription="@string/contDescUser" />
 

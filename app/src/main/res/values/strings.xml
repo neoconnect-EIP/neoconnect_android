@@ -109,6 +109,15 @@
     <string name="formYoutube">Youtube</string>
     <string name="formTiktok">Tiktok</string>
 
+    <string name="formFacebookLink">Lien vers la publication Facebook</string>
+    <string name="formTwitterLink">Lien vers la publication Twitter</string>
+    <string name="formInstagramLink">Lien vers la publication Instagram</string>
+    <string name="formSnapchatLink">Lien vers la publication Snapchat</string>
+    <string name="formPinterestLink">Lien vers la publication Pinterest</string>
+    <string name="formTwitchLink">Lien vers la publication Twitch</string>
+    <string name="formYoutubeLink">Lien vers la publication Youtube</string>
+    <string name="formTiktokLink">Lien vers la publication Tiktok</string>
+
     <string name="formFeature">Fonctionnalité</string>
     <string name="formCommentaire">Commentaire</string>
     <string name="formMessage">Message</string>
