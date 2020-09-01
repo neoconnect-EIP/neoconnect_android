@@ -2,6 +2,7 @@ package c.eip.neoconnect.ui.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
+import c.eip.neoconnect.data.model.PublicationLinksModel
 import c.eip.neoconnect.data.model.offres.OffreApply
 import c.eip.neoconnect.data.model.offres.OffreModel
 import c.eip.neoconnect.data.model.report.OffreReportModel
@@ -108,4 +109,18 @@ class OffresViewModel : ViewModel() {
             emit(Resource.error(data = null, message = e.message ?: "Une erreur est survenue"))
         }
     }
+
+    fun sharePublication(token: String, id: Int, links: PublicationLinksModel) =
+        liveData(Dispatchers.IO) {
+            try {
+                emit(
+                    Resource.success(
+                        data = offresRepository.sharePublication(token, id, links),
+                        message = "Lien(s) envoyé avec succès"
+                    )
+                )
+            } catch (e: Exception) {
+                emit(Resource.error(data = null, message = e.message ?: "Une erreur est survenue"))
+            }
+        }
 }

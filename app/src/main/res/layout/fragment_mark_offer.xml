@@ -42,10 +42,12 @@
         app:layout_constraintTop_toBottomOf="@id/guideline_margin_horizontal_mark_offer" />
 
     <LinearLayout
+        android:id="@+id/markOfferLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
+        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@id/guideline_margin_vertical_end_mark_offer"
         app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_mark_offer"
         app:layout_constraintTop_toBottomOf="@id/backButton">
@@ -84,5 +86,146 @@
             android:layout_height="75dp"
             android:background="@android:drawable/ic_menu_send"
             android:contentDescription="@string/contDescDesc" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sharePublicationLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@id/guideline_margin_vertical_end_mark_offer"
+        app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_mark_offer"
+        app:layout_constraintTop_toBottomOf="@id/backButton">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="Partager vos publications"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/shareFacebookPublication"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0.7"
+            android:hint="@string/formFacebookLink"
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textCursorDrawable="@null"
+            android:textSize="18sp" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/shareTwitterPublication"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0.7"
+            android:hint="@string/formTwitterLink"
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textCursorDrawable="@null"
+            android:textSize="18sp" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/shareInstagramPublication"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0.7"
+            android:hint="@string/formInstagramLink"
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textCursorDrawable="@null"
+            android:textSize="18sp" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/shareSnapchatPublication"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0.7"
+            android:hint="@string/formSnapchatLink"
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textCursorDrawable="@null"
+            android:textSize="18sp" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/sharePinterestPublication"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0.7"
+            android:hint="@string/formPinterestLink"
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textCursorDrawable="@null"
+            android:textSize="18sp" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/shareTwitchPublication"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0.7"
+            android:hint="@string/formTwitchLink"
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textCursorDrawable="@null"
+            android:textSize="18sp" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/shareYoutubePublication"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0.7"
+            android:hint="@string/formYoutubeLink"
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textCursorDrawable="@null"
+            android:textSize="18sp" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/shareTiktokPublication"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0.7"
+            android:hint="@string/formTiktokLink"
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textCursorDrawable="@null"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/skipSharePublication"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.7"
+                android:text="Passer" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end">
+
+                <ImageView
+                    android:id="@+id/sharePublicationButton"
+                    android:layout_width="80dp"
+                    android:layout_height="75dp"
+                    android:background="@android:drawable/ic_menu_send"
+                    android:contentDescription="@string/contDescDesc" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
