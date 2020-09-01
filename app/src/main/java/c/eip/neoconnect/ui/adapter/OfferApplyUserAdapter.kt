@@ -63,7 +63,7 @@ class OfferApplyUserAdapter(
                 val choice = OffreApply()
                 choice.idUser = user.idUser
                 choice.idOffer = user.idOffer
-                choice.choice = true
+                choice.status = true
                 val token = DataGetter.INSTANCE.getToken(itemView.context)
                 viewModel.choiceApply(token!!, choice).observe(lifecycleOwner, Observer {
                     it?.let { resource ->
@@ -86,7 +86,7 @@ class OfferApplyUserAdapter(
                 val choice = OffreApply()
                 choice.idUser = user.idUser
                 choice.idOffer = user.idOffer
-                choice.choice = false
+                choice.status = false
                 val token = DataGetter.INSTANCE.getToken(itemView.context)
                 viewModel.choiceApply(token!!, choice).observe(lifecycleOwner, Observer {
                     it?.let { resource ->

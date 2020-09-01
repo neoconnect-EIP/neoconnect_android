@@ -76,8 +76,7 @@ interface OffresService {
     @DELETE("/offer/{id}")
     suspend fun deleteOffer(@Header("authorization") token: String?, @Path("id") id: Int?): String
 
-    //Todo Remplacer par la fonction sans mooc
-    @POST("/mooc/choiceApply")
+    @POST("/offer/choiceApply")
     suspend fun choiceApply(
         @Header("authorization") token: String?,
         @Body choice: OffreApply

@@ -105,6 +105,7 @@ class OfferInfo : Fragment() {
                         inflate.findViewById<TextView>(R.id.offerSubject).text =
                             it.data?.productSubject
                         inflate.findViewById<TextView>(R.id.offerAverage).text = it.data?.average
+                        inflate.findViewById<TextView>(R.id.offerBrand).text = it.data?.brand
                         getOfferState = true
                         viewModelList.getOfferApplyUser(token, offerId)
                             .observe(viewLifecycleOwner, Observer { itList ->
