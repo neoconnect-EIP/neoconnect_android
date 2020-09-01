@@ -2,6 +2,7 @@ package c.eip.neoconnect.data.service
 
 import c.eip.neoconnect.data.model.contact.ContactModel
 import c.eip.neoconnect.data.model.contact.ContactUserModel
+import c.eip.neoconnect.data.model.contact.FeedbackModel
 import c.eip.neoconnect.data.model.feed.FeedResponseModel
 import c.eip.neoconnect.data.model.resetPassword.ResetPasswordFirstStepModel
 import c.eip.neoconnect.data.model.resetPassword.ResetPasswordSecondStepResponseModel
@@ -33,4 +34,7 @@ interface UtilsService {
 
     @GET("/actuality")
     suspend fun getFeed(@Header("authorization") token: String?): FeedResponseModel
+
+    @POST("/user/feedback")
+    suspend fun sendFeedback(@Body message: FeedbackModel): String
 }
