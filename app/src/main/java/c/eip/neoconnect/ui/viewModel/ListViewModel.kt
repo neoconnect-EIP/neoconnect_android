@@ -39,12 +39,12 @@ class ListViewModel : ViewModel() {
         }
     }
 
-    fun getOffers(token: String, sex: String?, color: String?, brand: String?) =
+    fun getOffers(token: String, sex: String?, color: String?, brand: String?, subject: String?) =
         liveData(Dispatchers.IO) {
             try {
                 emit(
                     Resource.success(
-                        data = offresRepository.getAllOffers(token, sex, color, brand),
+                        data = offresRepository.getAllOffers(token, sex, color, brand, subject),
                         message = "Récupération des offres réussie"
                     )
                 )

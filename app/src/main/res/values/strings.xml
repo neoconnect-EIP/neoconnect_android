@@ -64,10 +64,17 @@
     <string name="noShop">Impossible de récupérer la liste des boutiques</string>
     <string name="noFeed">Impossible de récupérer le fil d\'actualité</string>
     <string name="noChat">Vous n’avez aucun message</string>
+    <string name="noShopTendance">Il n\'y a pas de boutiques du moment.</string>
+    <string name="noShopPopulaire">Il n\'y a pas de boutiques populaires pour le moment.</string>
+    <string name="noShopNotes">Il n\'y a pas de boutiques avec des notes pour le moment.</string>
+    <string name="noOffreTendance">Il n\'y a pas d\'offres du moment.</string>
+    <string name="noOffrePopulaire">Il n\'y a pas d\'offres populaires pour le moment.</string>
+    <string name="noOffreNotes">Il n\'y a pas d\'offres avec des notes pour le moment.</string>
     <string name="myStats">Mes statistiques</string>
     <string name="myAccount">Mon compte</string>
+    <string name="searchShop">Rechercher une marque</string>
     <string name="contactUs">Nous contacter</string>
-    <string name="search">Rechercher</string>
+    <string name="searchInf">Rechercher un influenceur</string>
     <string name="profil">Voir mon profil</string>
     <string name="sendMail">Envoyer un mail</string>
     <string name="insertOffer">Ajouter une offre</string>
@@ -136,11 +143,6 @@
     <string name="navbarChat">Messagerie</string>
     <string name="navbarProfil">Profil</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
-    <string-array name="searchSpinner">
-        <item>Utilisateur</item>
-        <item>Offres</item>
-    </string-array>
 
     <string-array name="searchOffreSpinner">
         <item>Couleur</item>

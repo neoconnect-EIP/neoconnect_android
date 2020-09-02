@@ -11,7 +11,7 @@ class FeedResponseModel {
     var listShopPopulaire = emptyList<ShopResponseModel>()
     var listShopTendance = emptyList<ShopResponseModel>()
     var listShopNotes = emptyList<ShopResponseModel>()
-    var listOffrePopulaire = emptyList<OffreResponseModel>()
-    var listOffreTendance = emptyList<OffreResponseModel>()
-    var listOffreNotes = emptyList<OffreResponseModel>()
+    var listOfferPopulaire = emptyList<OffreResponseModel>()
+    var listOfferTendance = emptyList<OffreResponseModel>()
+    var listOfferNotes = emptyList<OffreResponseModel>()
 }

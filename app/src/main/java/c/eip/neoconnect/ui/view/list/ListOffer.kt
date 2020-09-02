@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import c.eip.neoconnect.R
@@ -17,6 +18,7 @@ import c.eip.neoconnect.ui.adapter.OfferAdapter
 import c.eip.neoconnect.ui.viewModel.ListViewModel
 import c.eip.neoconnect.utils.DataGetter
 import c.eip.neoconnect.utils.Status
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ListOffer : Fragment() {
     private lateinit var viewModel: ListViewModel
@@ -29,7 +31,7 @@ class ListOffer : Fragment() {
         val token = DataGetter.INSTANCE.getToken(requireContext())
 
         viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
-        viewModel.getOffers(token!!, null, null, null).observe(viewLifecycleOwner, Observer {
+        viewModel.getOffers(token!!, null, null, null, null).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
@@ -47,7 +49,7 @@ class ListOffer : Fragment() {
                                 inflate.findViewById<RecyclerView>(R.id.recyclerListOffer)
                             recyclerListView.layoutManager =
                                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                            val adapter = OfferAdapter(it.data)
+                            val adapter = OfferAdapter(it.data, "list")
                             adapter.notifyDataSetChanged()
                             recyclerListView.adapter = adapter
                         }
@@ -63,6 +65,13 @@ class ListOffer : Fragment() {
             }
         })
         return inflate
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        view.findViewById<FloatingActionButton>(R.id.filterOfferButton).setOnClickListener {
+            findNavController().navigate(R.id.navigation_list_sorted_offer)
+        }
     }
 }
 

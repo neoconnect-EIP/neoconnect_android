@@ -49,7 +49,7 @@ class ShopOffer : Fragment() {
                                 inflate.findViewById<RecyclerView>(R.id.recyclerListMyOfferShop)
                             recyclerListView.layoutManager =
                                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                            val adapter = OfferAdapter(it.data)
+                            val adapter = OfferAdapter(it.data, "list")
                             adapter.notifyDataSetChanged()
                             recyclerListView.adapter = adapter
                         }

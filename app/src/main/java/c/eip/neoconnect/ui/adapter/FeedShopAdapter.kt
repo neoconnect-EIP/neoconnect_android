@@ -45,7 +45,7 @@ class FeedShopAdapter(private val listShop: List<ShopResponseModel>) :
             if (shop.average.isNullOrEmpty()) {
                 itemView.findViewById<TextView>(R.id.feedCardAverage).text = "0 ★"
             } else {
-                val average = String.format("%.2f", shop.average!!.toFloat()) + " ★"
+                val average = String.format("%.1f", shop.average!!.toFloat()) + " ★"
                 itemView.findViewById<TextView>(R.id.feedCardAverage).text = average
             }
 

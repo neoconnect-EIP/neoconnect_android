@@ -34,35 +34,15 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Spinner
-                android:id="@+id/searchSpinner"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_weight="1"
-                android:overlapAnchor="false"
-                android:popupBackground="@color/descInf" />
-
-            <Spinner
-                android:id="@+id/searchOffreSpinner"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_weight="1"
-                android:overlapAnchor="false"
-                android:popupBackground="@color/descInf" />
-
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/searchKeyword"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:hint="@string/search"
+                android:gravity="center"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
-                android:textAlignment="textStart"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textCursorDrawable="@null"
@@ -81,6 +61,12 @@
             android:id="@+id/searchPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <FrameLayout
+            android:id="@+id/shopListInSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

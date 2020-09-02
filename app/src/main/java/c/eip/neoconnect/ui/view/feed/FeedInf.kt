@@ -38,7 +38,7 @@ class FeedInf : Fragment() {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        if (it.data?.listOffreTendance.isNullOrEmpty()) {
+                        if (it.data?.listOfferTendance.isNullOrEmpty()) {
                             inflate.findViewById<TextView>(R.id.pb_feed_offer_tendance).visibility =
                                 View.VISIBLE
                             inflate.findViewById<RecyclerView>(R.id.recyclerFeedListOffresTendances).visibility =
@@ -53,12 +53,12 @@ class FeedInf : Fragment() {
                             recyclerOffresTendancesView.layoutManager =
                                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                             val offresTendancesAdapter =
-                                FeedOfferAdapter(it.data?.listOffreTendance!!)
+                                FeedOfferAdapter(it.data?.listOfferTendance!!)
                             offresTendancesAdapter.notifyDataSetChanged()
                             recyclerOffresTendancesView.adapter = offresTendancesAdapter
                         }
 
-                        if (it.data?.listOffrePopulaire.isNullOrEmpty()) {
+                        if (it.data?.listOfferPopulaire.isNullOrEmpty()) {
                             inflate.findViewById<TextView>(R.id.pb_feed_offer_populaire).visibility =
                                 View.VISIBLE
                             inflate.findViewById<RecyclerView>(R.id.recyclerFeedListOffresPopulaires).visibility =
@@ -73,12 +73,12 @@ class FeedInf : Fragment() {
                             recyclerOffresPopulairesView.layoutManager =
                                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                             val offresPopulairesAdapter =
-                                FeedOfferAdapter(it.data?.listOffrePopulaire!!)
+                                FeedOfferAdapter(it.data?.listOfferPopulaire!!)
                             offresPopulairesAdapter.notifyDataSetChanged()
                             recyclerOffresPopulairesView.adapter = offresPopulairesAdapter
                         }
 
-                        if (it.data?.listOffreNotes.isNullOrEmpty()) {
+                        if (it.data?.listOfferNotes.isNullOrEmpty()) {
                             inflate.findViewById<TextView>(R.id.pb_feed_offer_notes).visibility =
                                 View.VISIBLE
                             inflate.findViewById<RecyclerView>(R.id.recyclerFeedListOffresNotes).visibility =
@@ -92,7 +92,7 @@ class FeedInf : Fragment() {
                                 inflate.findViewById<RecyclerView>(R.id.recyclerFeedListOffresNotes)
                             recyclerOffresNotesView.layoutManager =
                                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                            val offresNotesAdapter = FeedOfferAdapter(it.data?.listOffreNotes!!)
+                            val offresNotesAdapter = FeedOfferAdapter(it.data?.listOfferNotes!!)
                             offresNotesAdapter.notifyDataSetChanged()
                             recyclerOffresNotesView.adapter = offresNotesAdapter
                         }

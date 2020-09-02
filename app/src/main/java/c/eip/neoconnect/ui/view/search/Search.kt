@@ -4,12 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.TEXT_ALIGNMENT_CENTER
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
@@ -17,7 +14,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -55,75 +51,30 @@ class Search : Fragment() {
         if (DataGetter.INSTANCE.getUserType(requireContext()) == "shop") {
             inflate.findViewById<ConstraintLayout>(R.id.searchLayout)
                 .setBackgroundResource(R.drawable.background_shop)
-            pages = 2
-            inflate.findViewById<TextInputEditText>(R.id.searchKeyword).textAlignment =
-                TEXT_ALIGNMENT_CENTER
-            inflate.findViewById<Spinner>(R.id.searchSpinner).visibility = View.GONE
-            inflate.findViewById<Spinner>(R.id.searchOffreSpinner).visibility = View.GONE
+            inflate.findViewById<TextInputEditText>(R.id.searchKeyword).setHint(R.string.searchInf)
+            inflate.findViewById<TabLayout>(R.id.searchTab).visibility = View.GONE
+            inflate.findViewById<ViewPager2>(R.id.searchPager).visibility = View.GONE
+            inflate.findViewById<FrameLayout>(R.id.shopListInSearch).visibility = View.VISIBLE
+            parentFragmentManager.beginTransaction().replace(R.id.shopListInSearch, ListInf())
+                .commit()
         } else if (DataGetter.INSTANCE.getUserType(requireContext()) == "influencer") {
+            inflate.findViewById<TabLayout>(R.id.searchTab).visibility = View.VISIBLE
+            inflate.findViewById<ViewPager2>(R.id.searchPager).visibility = View.VISIBLE
+            inflate.findViewById<FrameLayout>(R.id.shopListInSearch).visibility = View.GONE
             inflate.findViewById<ConstraintLayout>(R.id.searchLayout)
                 .setBackgroundResource(R.drawable.background_influencer)
-            pages = 3
-        }
-        tabLayout.tabGravity = TabLayout.GRAVITY_FILL
-        val adapter = SearchAdapter(this)
-        viewPager.adapter = adapter
-        tabLayout.setSelectedTabIndicatorColor(resources.getColor(R.color.white, null))
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            when (position) {
-                0 -> tab.setIcon(R.drawable.icon_inf_white)
-                1 -> tab.setIcon(R.drawable.icon_shop_white)
-                2 -> tab.setIcon(R.drawable.icon_offre_white)
-            }
-        }.attach()
-
-        val searchType = resources.getStringArray(R.array.searchSpinner)
-        val searchSpinner = inflate.findViewById<Spinner>(R.id.searchSpinner)
-        if (searchSpinner != null) {
-            val searchAdapter =
-                ArrayAdapter(requireContext(), R.layout.layout_spinner_item, searchType)
-            searchSpinner.adapter = searchAdapter
-        }
-        searchSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                searchState = position
+            inflate.findViewById<TextInputEditText>(R.id.searchKeyword).setHint(R.string.searchShop)
+            pages = 2
+            tabLayout.tabGravity = TabLayout.GRAVITY_FILL
+            val adapter = SearchAdapter(this)
+            viewPager.adapter = adapter
+            tabLayout.setSelectedTabIndicatorColor(resources.getColor(R.color.white, null))
+            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                 when (position) {
-                    0 -> inflate.findViewById<Spinner>(R.id.searchOffreSpinner).visibility =
-                        View.GONE
-                    1 -> inflate.findViewById<Spinner>(R.id.searchOffreSpinner).visibility =
-                        View.VISIBLE
+                    0 -> tab.setIcon(R.drawable.icon_shop_white)
+                    1 -> tab.setIcon(R.drawable.icon_offre_white)
                 }
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
-        }
-
-        val searchOffreType = resources.getStringArray(R.array.searchOffreSpinner)
-        val searchOffreSpinner = inflate.findViewById<Spinner>(R.id.searchOffreSpinner)
-        if (searchOffreSpinner != null) {
-            val searchOffreAdapter =
-                ArrayAdapter(requireContext(), R.layout.layout_spinner_item, searchOffreType)
-            searchOffreSpinner.adapter = searchOffreAdapter
-        }
-
-        searchOffreSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                searchOffreState = position
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
+            }.attach()
         }
         return inflate
     }
@@ -135,70 +86,55 @@ class Search : Fragment() {
                 return@setOnEditorActionListener when (actionId) {
                     EditorInfo.IME_ACTION_SEARCH -> {
                         val token = DataGetter.INSTANCE.getToken(requireContext())
-                        if (searchState == 0) {
-                            val search = SearchModel()
-                            search.pseudo =
-                                view.findViewById<TextInputEditText>(R.id.searchKeyword).text.toString()
-                            val viewModel: LiveData<Resource<SearchResponseModel>>
-                            if (DataGetter.INSTANCE.getUserType(requireContext()) == "shop") {
-                                infViewModel = ViewModelProvider(this).get(InfViewModel::class.java)
-                                viewModel = infViewModel.searchInf(token!!, search)
-                            } else {
-                                shopViewModel =
-                                    ViewModelProvider(this).get(ShopViewModel::class.java)
-                                viewModel = shopViewModel.searchShop(token!!, search)
-                            }
-                            viewModel.observe(viewLifecycleOwner, Observer {
-                                it?.let { resource ->
-                                    when (resource.status) {
-                                        Status.SUCCESS -> {
-                                            val bundle = bundleOf("mode" to 1)
-                                            searchResponse = it.data
-                                            when (it.data?.userType) {
-                                                "shop" -> {
-                                                    findNavController().navigate(
-                                                        R.id.navigation_other_profil_shop,
-                                                        bundle
-                                                    )
-                                                }
-                                                "influencer" -> {
-                                                    findNavController().navigate(
-                                                        R.id.navigation_other_profil_inf,
-                                                        bundle
-                                                    )
-                                                }
-                                                else -> {
-                                                    Toast.makeText(
-                                                        context,
-                                                        "Imposible de récupérer cet utilisateur",
-                                                        Toast.LENGTH_LONG
-                                                    ).show()
-                                                    Log.e("Search User", it.message)
-                                                }
+                        val search = SearchModel()
+                        search.pseudo =
+                            view.findViewById<TextInputEditText>(R.id.searchKeyword).text.toString()
+                        val viewModel: LiveData<Resource<SearchResponseModel>>
+                        if (DataGetter.INSTANCE.getUserType(requireContext()) == "shop") {
+                            infViewModel = ViewModelProvider(this).get(InfViewModel::class.java)
+                            viewModel = infViewModel.searchInf(token!!, search)
+                        } else {
+                            shopViewModel =
+                                ViewModelProvider(this).get(ShopViewModel::class.java)
+                            viewModel = shopViewModel.searchShop(token!!, search)
+                        }
+                        viewModel.observe(viewLifecycleOwner, Observer {
+                            it?.let { resource ->
+                                when (resource.status) {
+                                    Status.SUCCESS -> {
+                                        val bundle = bundleOf("mode" to 1)
+                                        searchResponse = it.data
+                                        when (it.data?.userType) {
+                                            "shop" -> {
+                                                findNavController().navigate(
+                                                    R.id.navigation_other_profil_shop,
+                                                    bundle
+                                                )
+                                            }
+                                            "influencer" -> {
+                                                findNavController().navigate(
+                                                    R.id.navigation_other_profil_inf,
+                                                    bundle
+                                                )
+                                            }
+                                            else -> {
+                                                Toast.makeText(
+                                                    context,
+                                                    "Imposible de récupérer cet utilisateur",
+                                                    Toast.LENGTH_LONG
+                                                ).show()
+                                                Log.e("Search User", it.message)
                                             }
                                         }
-                                        Status.ERROR -> {
-                                            Toast.makeText(context, it.message, Toast.LENGTH_LONG)
-                                                .show()
-                                            Log.e("Search User", it.message)
-                                        }
+                                    }
+                                    Status.ERROR -> {
+                                        Toast.makeText(context, it.message, Toast.LENGTH_LONG)
+                                            .show()
+                                        Log.e("Search User", it.message)
                                     }
                                 }
-                            })
-                        } else if (searchState == 1) {
-                            viewPager.setCurrentItem(2, true)
-                            val bundle = bundleOf()
-                            val searchKeyword =
-                                view.findViewById<TextInputEditText>(R.id.searchKeyword).text.toString()
-                            when (searchOffreState) {
-                                0 -> bundle.putString("color", searchKeyword)
-                                1 -> bundle.putString("brand", searchKeyword)
-                                2 -> bundle.putString("sex", searchKeyword)
                             }
-                            view.findNavController()
-                                .navigate(R.id.navigation_list_sorted_offer, bundle)
-                        }
-
+                        })
                         true
                     }
                     else -> false
@@ -213,9 +149,8 @@ class Search : Fragment() {
 
         override fun createFragment(position: Int): Fragment {
             return when (position) {
-                0 -> ListInf()
-                1 -> ListShop()
-                2 -> ListOffer()
+                0 -> ListShop()
+                1 -> ListOffer()
                 else -> ListInf()
             }
         }
