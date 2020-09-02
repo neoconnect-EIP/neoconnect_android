@@ -45,7 +45,7 @@ class FeedInfAdapter(private val listInf: List<InfluenceurResponseModel>) :
             if (inf.average.isNullOrEmpty()) {
                 itemView.findViewById<TextView>(R.id.feedCardAverage).text = "0 ★"
             } else {
-                val average = String.format("%.2f", inf.average!!.toFloat()) + " ★"
+                val average = String.format("%.1f", inf.average!!.toFloat()) + " ★"
                 itemView.findViewById<TextView>(R.id.feedCardAverage).text = average
             }
 

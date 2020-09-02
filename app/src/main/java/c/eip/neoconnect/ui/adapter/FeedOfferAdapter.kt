@@ -45,7 +45,7 @@ class FeedOfferAdapter(private val offers: List<OffreResponseModel>) :
             if (offer.average.isNullOrEmpty()) {
                 itemView.findViewById<TextView>(R.id.feedCardAverage).text = "0 ★"
             } else {
-                val average = String.format("%.2f", offer.average!!.toFloat()) + " ★"
+                val average = String.format("%.1f", offer.average!!.toFloat()) + " ★"
                 itemView.findViewById<TextView>(R.id.feedCardAverage).text = average
             }
 

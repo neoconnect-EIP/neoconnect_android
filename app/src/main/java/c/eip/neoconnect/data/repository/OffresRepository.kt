@@ -12,8 +12,8 @@ import c.eip.neoconnect.utils.Constants
 class OffresRepository {
     private var offresService: OffresService = Constants.offresService
 
-    suspend fun getAllOffers(token: String, sex: String?, color: String?, brand: String?) =
-        offresService.getAllOffers(token, sex, color, brand)
+    suspend fun getAllOffers(token: String, sex: String?, color: String?, brand: String?, subject: String?) =
+        offresService.getAllOffers(token, sex, color, brand, subject)
 
     suspend fun getOneOffer(token: String, id: Int) = offresService.getOneOffer(token, id)
 

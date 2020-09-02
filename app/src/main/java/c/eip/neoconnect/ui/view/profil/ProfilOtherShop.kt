@@ -30,6 +30,7 @@ class ProfilOtherShop : Fragment() {
     private lateinit var viewModel: ShopViewModel
     private lateinit var chatViewModel: ChatViewModel
     val bundle = bundleOf()
+    private var name: String? = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,6 +56,7 @@ class ProfilOtherShop : Fragment() {
                                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                                         .into(inflate.findViewById(R.id.otherProfilPicture))
                                 }
+                                name = it.data.pseudo
                                 inflate.findViewById<TextView>(R.id.otherProfilPseudo).text =
                                     it.data.pseudo
                                 inflate.findViewById<TextView>(R.id.otherProfilSubject).text =
@@ -94,6 +96,7 @@ class ProfilOtherShop : Fragment() {
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .into(inflate.findViewById(R.id.otherProfilPicture))
                 }
+                name = Search.searchResponse?.pseudo
                 inflate.findViewById<TextView>(R.id.otherProfilPseudo).text =
                     Search.searchResponse?.pseudo
                 inflate.findViewById<TextView>(R.id.otherProfilSubject).text =
@@ -157,6 +160,15 @@ class ProfilOtherShop : Fragment() {
                     }
                 })
             }
+        }
+        view.findViewById<Button>(R.id.reportShopButton).setOnClickListener {
+            val bundleReport = bundleOf("type" to "user", "name" to name)
+            if (arguments?.get("mode") == 0) {
+                bundleReport.putString("userId", (arguments?.get("id") as Int).toString())
+            } else {
+                bundleReport.putString("userId", (Search.searchResponse?.id.toString()))
+            }
+            findNavController().navigate(R.id.navigation_report, bundleReport)
         }
     }
 }

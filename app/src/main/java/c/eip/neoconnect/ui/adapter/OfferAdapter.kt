@@ -13,7 +13,7 @@ import c.eip.neoconnect.data.model.offres.OffreResponseModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
-class OfferAdapter(private val offers: ArrayList<OffreResponseModel>) :
+class OfferAdapter(private val offers: ArrayList<OffreResponseModel>, private val type: String) :
     RecyclerView.Adapter<OfferAdapter.OfferHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OfferHolder {
@@ -50,7 +50,12 @@ class OfferAdapter(private val offers: ArrayList<OffreResponseModel>) :
             }
 
             itemView.setOnClickListener {
-                val bundle = bundleOf("idOffer" to offer.id, "idUser" to offer.idUser)
+                val bundle = bundleOf("idUser" to offer.idUser)
+                if (type == "applied") {
+                    bundle.putInt("idOffer", offer.idOffer)
+                } else {
+                    bundle.putInt("idOffer", offer.id)
+                }
                 itemView.findNavController().navigate(R.id.navigation_offer_info, bundle)
             }
         }

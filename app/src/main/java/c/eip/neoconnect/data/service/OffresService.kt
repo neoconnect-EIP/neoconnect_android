@@ -16,7 +16,8 @@ interface OffresService {
         @Header("authorization") token: String?,
         @Query("productSex") sex: String?,
         @Query("brand") brand: String?,
-        @Query("color") color: String?
+        @Query("color") color: String?,
+        @Query("productSubject") subject: String?
     ): ArrayList<OffreResponseModel>
 
     @GET("/offer/shop/{id}")

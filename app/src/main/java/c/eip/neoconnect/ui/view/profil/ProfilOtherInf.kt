@@ -30,6 +30,7 @@ class ProfilOtherInf : Fragment() {
     private lateinit var viewModel: InfViewModel
     private lateinit var chatViewModel: ChatViewModel
     val bundle = bundleOf()
+    private var name: String? = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,6 +56,7 @@ class ProfilOtherInf : Fragment() {
                                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                                         .into(inflate.findViewById(R.id.otherProfilPicture))
                                 }
+                                name = it.data.pseudo
                                 inflate.findViewById<TextView>(R.id.otherProfilPseudo).text =
                                     it.data.pseudo
                                 inflate.findViewById<TextView>(R.id.otherProfilSubject).text =
@@ -93,6 +95,7 @@ class ProfilOtherInf : Fragment() {
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .into(inflate.findViewById(R.id.otherProfilPicture))
                 }
+                name = Search.searchResponse?.pseudo
                 inflate.findViewById<TextView>(R.id.otherProfilPseudo).text =
                     Search.searchResponse?.pseudo
                 inflate.findViewById<TextView>(R.id.otherProfilSubject).text =
@@ -165,6 +168,15 @@ class ProfilOtherInf : Fragment() {
                 bundleMark.putString("userId", (Search.searchResponse?.id.toString()))
             }
             findNavController().navigate(R.id.navigation_mark_user, bundleMark)
+        }
+        view.findViewById<Button>(R.id.reportInfButton).setOnClickListener {
+            val bundleReport = bundleOf("type" to "user", "name" to name)
+            if (arguments?.get("mode") == 0) {
+                bundleReport.putString("userId", (arguments?.get("id") as Int).toString())
+            } else {
+                bundleReport.putString("userId", (Search.searchResponse?.id.toString()))
+            }
+            findNavController().navigate(R.id.navigation_report, bundleReport)
         }
     }
 }

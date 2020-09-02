@@ -82,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="25dp"
-                android:text="Il n'y a pas d'offres du moment"
+                android:text="@string/noOffreTendance"
                 android:textAlignment="center"
                 android:visibility="gone" />
 
@@ -111,7 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="25dp"
-                android:text="Il n'y a pas d'offres populaires pour le moment"
+                android:text="@string/noOffrePopulaire"
                 android:textAlignment="center"
                 android:visibility="gone" />
 
@@ -140,7 +140,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="25dp"
-                android:text="Aucune offres n'a de notes pour le moment"
+                android:text="@string/noOffreNotes"
                 android:textAlignment="center"
                 android:visibility="gone" />
 
@@ -169,7 +169,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="25dp"
-                android:text="Il n'y a pas de boutiques du moment"
+                android:text="@string/noShopTendance"
                 android:textAlignment="center"
                 android:visibility="gone" />
 
@@ -198,7 +198,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="25dp"
-                android:text="Il n'y a pas de boutiques populaire pour le moment"
+                android:text="@string/noShopPopulaire"
                 android:textAlignment="center"
                 android:visibility="gone" />
 
@@ -227,9 +227,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="25dp"
-                android:text="Aucune boutiques n'a de notes pour le moment"
+                android:layout_marginBottom="140dp"
                 android:textAlignment="center"
-                android:visibility="gone" />
+                android:text="@string/noShopNotes"
+                android:visibility="gone"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerFeedListShopNotes"
