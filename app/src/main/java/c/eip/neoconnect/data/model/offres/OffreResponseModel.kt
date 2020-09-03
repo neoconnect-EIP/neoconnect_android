@@ -29,4 +29,6 @@ class OffreResponseModel {
     var average: String? = ""
     @SerializedName("comment")
     var comment: List<CommentModel> = emptyList()
+    @SerializedName("status")
+    var status: String? = null
 }

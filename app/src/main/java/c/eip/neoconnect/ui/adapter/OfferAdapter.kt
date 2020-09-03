@@ -53,6 +53,7 @@ class OfferAdapter(private val offers: ArrayList<OffreResponseModel>, private va
                 val bundle = bundleOf("idUser" to offer.idUser)
                 if (type == "applied") {
                     bundle.putInt("idOffer", offer.idOffer)
+                    bundle.putString("status", offer.status)
                 } else {
                     bundle.putInt("idOffer", offer.id)
                 }

@@ -54,14 +54,22 @@ class OfferInfo : Fragment() {
         } else if (DataGetter.INSTANCE.getUserType(requireContext()) == "influencer") {
             inflate.findViewById<ConstraintLayout>(R.id.offerInfoLayout)
                 .setBackgroundResource(R.drawable.background_influencer)
-            inflate.findViewById<Button>(R.id.markOfferButton).visibility = View.VISIBLE
-            inflate.findViewById<Button>(R.id.applyOfferButton).visibility = View.VISIBLE
             inflate.findViewById<Button>(R.id.reportOfferButton).visibility = View.VISIBLE
             inflate.findViewById<Button>(R.id.editOfferButton).visibility = View.GONE
             inflate.findViewById<Button>(R.id.removeOfferButton).visibility = View.GONE
             inflate.findViewById<RecyclerView>(R.id.recyclerListOfferApplyUser).visibility =
                 View.GONE
             inflate.findViewById<TextView>(R.id.titleCandidature).visibility = View.GONE
+            if (arguments?.getString("status") == "accepted") {
+                inflate.findViewById<Button>(R.id.markOfferButton).visibility = View.VISIBLE
+                inflate.findViewById<Button>(R.id.applyOfferButton).visibility = View.GONE
+            } else if (arguments?.getString("status") == "refused" || arguments?.getString("status") == "pending") {
+                inflate.findViewById<Button>(R.id.markOfferButton).visibility = View.GONE
+                inflate.findViewById<Button>(R.id.applyOfferButton).visibility = View.GONE
+            } else {
+                inflate.findViewById<Button>(R.id.applyOfferButton).visibility = View.VISIBLE
+                inflate.findViewById<Button>(R.id.markOfferButton).visibility = View.GONE
+            }
         }
         val offerId = arguments?.get("idOffer") as Int
         val userId = arguments?.get("idUser") as Int
@@ -204,7 +212,7 @@ class OfferInfo : Fragment() {
                     when (resource.status) {
                         Status.SUCCESS -> {
                             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                            Log.i("Apply Offer", it.message)
+//                            Log.i("Apply Offer", it.message)
                             findNavController().popBackStack()
                         }
                         Status.ERROR -> {

@@ -70,6 +70,12 @@
     <string name="noOffreTendance">Il n\'y a pas d\'offres du moment.</string>
     <string name="noOffrePopulaire">Il n\'y a pas d\'offres populaires pour le moment.</string>
     <string name="noOffreNotes">Il n\'y a pas d\'offres avec des notes pour le moment.</string>
+    <string name="noOffrePending">Il n\'y a pas de candidatures à des offres en attente</string>
+    <string name="noOffreAccepted">Il n\'y a pas de candidatures à des offres acceptées</string>
+    <string name="noOffreRefused">Il n\'y a pas de candidatures à des offres refusées</string>
+    <string name="offrePending">Offres en attente</string>
+    <string name="offreAccepted">Offres acceptées</string>
+    <string name="offreRefused">Offres refusées</string>
     <string name="myStats">Mes statistiques</string>
     <string name="myAccount">Mon compte</string>
     <string name="searchShop">Rechercher une marque</string>
