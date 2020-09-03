@@ -54,13 +54,113 @@
         app:layout_constraintEnd_toStartOf="@id/guideline_margin_vertical_end_my_inf_offer"
         app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_my_inf_offer" />
 
+    <TextView
+        android:id="@+id/titlePendingApplied"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:padding="5dp"
+        android:text="@string/offrePending"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@id/guideline_margin_vertical_end_my_inf_offer"
+        app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_my_inf_offer"
+        app:layout_constraintTop_toBottomOf="@id/backButton" />
+
+    <TextView
+        android:id="@+id/pb_applied_offer_pending"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="25dp"
+        android:text="@string/noOffrePending"
+        android:textAlignment="center"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/guideline_margin_vertical_end_my_inf_offer"
+        app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_my_inf_offer"
+        app:layout_constraintTop_toBottomOf="@id/titlePendingApplied" />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerListMyOfferInf"
+        android:id="@+id/recyclerListMyOfferInfPending"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintEnd_toStartOf="@id/guideline_margin_vertical_end_my_inf_offer"
         app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_my_inf_offer"
-        app:layout_constraintTop_toBottomOf="@id/backButton" />
+        app:layout_constraintTop_toBottomOf="@id/titlePendingApplied" />
+
+    <TextView
+        android:id="@+id/titleAcceptedApplied"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:padding="5dp"
+        android:text="@string/offreAccepted"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@id/guideline_margin_vertical_end_my_inf_offer"
+        app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_my_inf_offer"
+        app:layout_constraintTop_toBottomOf="@id/recyclerListMyOfferInfPending" />
+
+    <TextView
+        android:id="@+id/pb_applied_offer_accepted"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="25dp"
+        android:text="@string/noOffreAccepted"
+        android:textAlignment="center"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/guideline_margin_vertical_end_my_inf_offer"
+        app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_my_inf_offer"
+        app:layout_constraintTop_toBottomOf="@id/titleAcceptedApplied" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerListMyOfferInfAccepted"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintEnd_toStartOf="@id/guideline_margin_vertical_end_my_inf_offer"
+        app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_my_inf_offer"
+        app:layout_constraintTop_toBottomOf="@id/titleAcceptedApplied" />
+
+    <TextView
+        android:id="@+id/titleRefusedApplied"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:padding="5dp"
+        android:text="@string/offreRefused"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@id/guideline_margin_vertical_end_my_inf_offer"
+        app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_my_inf_offer"
+        app:layout_constraintTop_toBottomOf="@id/recyclerListMyOfferInfAccepted" />
+
+    <TextView
+        android:id="@+id/pb_applied_offer_refused"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="25dp"
+        android:text="@string/noOffreRefused"
+        android:textAlignment="center"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/guideline_margin_vertical_end_my_inf_offer"
+        app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_my_inf_offer"
+        app:layout_constraintTop_toBottomOf="@id/titleRefusedApplied" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerListMyOfferInfRefused"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintEnd_toStartOf="@id/guideline_margin_vertical_end_my_inf_offer"
+        app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_my_inf_offer"
+        app:layout_constraintTop_toBottomOf="@id/titleRefusedApplied" />
 </androidx.constraintlayout.widget.ConstraintLayout>

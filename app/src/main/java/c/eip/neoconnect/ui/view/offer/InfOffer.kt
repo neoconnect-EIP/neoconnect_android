@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import c.eip.neoconnect.R
+import c.eip.neoconnect.data.model.offres.OffreResponseModel
 import c.eip.neoconnect.ui.adapter.OfferAdapter
 import c.eip.neoconnect.ui.viewModel.ListViewModel
 import c.eip.neoconnect.utils.DataGetter
@@ -45,13 +46,59 @@ class InfOffer : Fragment() {
                                 "List Offer",
                                 "Récupération des ${it.data.size} offres de $userId"
                             )
-                            val recyclerListView =
-                                inflate.findViewById<RecyclerView>(R.id.recyclerListMyOfferInf)
-                            recyclerListView.layoutManager =
+                            val listPending: ArrayList<OffreResponseModel> =
+                                ArrayList<OffreResponseModel>()
+                            val listAccepted: ArrayList<OffreResponseModel> =
+                                ArrayList<OffreResponseModel>()
+                            val listRefused: ArrayList<OffreResponseModel> =
+                                ArrayList<OffreResponseModel>()
+                            it.data.forEach { offre ->
+                                run {
+                                    when (offre.status) {
+                                        "pending" -> listPending.add(offre)
+                                        "accepted" -> listAccepted.add(offre)
+                                        "refused" -> listRefused.add(offre)
+                                        else -> Log.e("Status", "Status error")
+                                    }
+                                }
+                            }
+
+                            val recyclerListPending =
+                                inflate.findViewById<RecyclerView>(R.id.recyclerListMyOfferInfPending)
+                            recyclerListPending.layoutManager =
                                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                            val adapter = OfferAdapter(it.data, "applied")
-                            adapter.notifyDataSetChanged()
-                            recyclerListView.adapter = adapter
+                            val adapterPending = OfferAdapter(listPending, "applied")
+                            adapterPending.notifyDataSetChanged()
+                            recyclerListPending.adapter = adapterPending
+
+                            val recyclerListAccepted =
+                                inflate.findViewById<RecyclerView>(R.id.recyclerListMyOfferInfAccepted)
+                            recyclerListAccepted.layoutManager =
+                                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                            val adapterAccepted = OfferAdapter(listAccepted, "applied")
+                            adapterAccepted.notifyDataSetChanged()
+                            recyclerListAccepted.adapter = adapterAccepted
+
+                            val recyclerListRefused =
+                                inflate.findViewById<RecyclerView>(R.id.recyclerListMyOfferInfRefused)
+                            recyclerListRefused.layoutManager =
+                                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                            val adapterRefused = OfferAdapter(listRefused, "applied")
+                            adapterRefused.notifyDataSetChanged()
+                            recyclerListRefused.adapter = adapterRefused
+                            
+                            if (listPending.isEmpty()) {
+                                inflate.findViewById<RecyclerView>(R.id.recyclerListMyOfferInfPending).visibility = View.GONE
+                                inflate.findViewById<TextView>(R.id.pb_applied_offer_pending).visibility = View.VISIBLE
+                            }
+                            if (listAccepted.isEmpty()) {
+                                inflate.findViewById<RecyclerView>(R.id.recyclerListMyOfferInfAccepted).visibility = View.GONE
+                                inflate.findViewById<TextView>(R.id.pb_applied_offer_accepted).visibility = View.VISIBLE
+                            }
+                            if (listRefused.isEmpty()) {
+                                inflate.findViewById<RecyclerView>(R.id.recyclerListMyOfferInfRefused).visibility = View.GONE
+                                inflate.findViewById<TextView>(R.id.pb_applied_offer_refused).visibility = View.VISIBLE
+                            }
                         }
                     }
                     Status.ERROR -> {
