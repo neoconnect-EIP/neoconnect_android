@@ -41,8 +41,7 @@ class ProfilInf : Fragment() {
                                 .setImageResource(R.drawable.ic_picture_inf)
                         } else {
                             Glide.with(requireContext())
-                                .load(it.data?.userPicture?.get(0)?.imageData)
-                                .fitCenter()
+                                .load(it.data?.userPicture?.get(0)?.imageData).circleCrop()
                                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                                 .error(R.drawable.ic_picture_inf)
                                 .into(inflate.findViewById(R.id.myProfilPicture))

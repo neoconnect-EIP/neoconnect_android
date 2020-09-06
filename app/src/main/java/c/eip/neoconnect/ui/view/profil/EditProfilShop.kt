@@ -43,8 +43,8 @@ class EditProfilShop : Fragment() {
                 .setImageResource(R.drawable.ic_picture_shop)
         } else {
             Glide.with(requireContext()).load(profilData?.userPicture?.get(0)?.imageData)
-                .fitCenter()
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE).error(R.drawable.ic_picture_shop)
+                .circleCrop().diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .error(R.drawable.ic_picture_shop)
                 .into(inflate.findViewById(R.id.editMyProfilPicture))
         }
         inflate.findViewById<TextInputEditText>(R.id.editProfilPseudo).setText(profilData?.pseudo)
@@ -95,7 +95,7 @@ class EditProfilShop : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<ImageButton>(R.id.editMyProfilPicture).setOnClickListener {
+        view.findViewById<ImageView>(R.id.editMyProfilPicture).setOnClickListener {
             val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
             requestPermissions(permissions, 1001)
             openGallery()

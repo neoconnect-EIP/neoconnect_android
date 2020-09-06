@@ -71,7 +71,6 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginBottom="25dp"
-                android:background="@drawable/ic_picture_inf"
                 android:contentDescription="@string/contDescProfil" />
 
             <View
@@ -110,7 +109,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editProfilPseudo"
-                    android:layout_width="150dp"
+                    android:layout_width="125dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
                     android:hint="@string/formPseudo"
@@ -120,7 +119,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editProfilEmail"
-                    android:layout_width="150dp"
+                    android:layout_width="175dp"
                     android:layout_height="wrap_content"
                     android:hint="@string/formEmail"
                     android:textColorHint="@color/white"

@@ -70,7 +70,6 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginBottom="25dp"
-                android:background="@drawable/ic_picture_shop"
                 android:contentDescription="@string/contDescProfil" />
 
             <View
@@ -170,7 +169,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editProfilNom"
-                        android:layout_width="150dp"
+                        android:layout_width="125dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="25dp"
                         android:layout_marginBottom="25dp"
@@ -179,7 +178,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editProfilPhone"
-                        android:layout_width="150dp"
+                        android:layout_width="175dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="25dp"
                         android:hint="@string/formPhone"
