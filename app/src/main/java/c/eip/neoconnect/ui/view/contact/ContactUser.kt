@@ -26,6 +26,10 @@ import com.google.android.material.textfield.TextInputEditText
 class ContactUser : Fragment() {
     private lateinit var viewModel: ContactViewModel
 
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     * Modification Fond de vue selon UserType
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -69,7 +73,7 @@ class ContactUser : Fragment() {
             contactModel.message =
                 view.findViewById<TextInputEditText>(R.id.sendMailMessage).text.toString()
             viewModel = ViewModelProvider(this).get(ContactViewModel::class.java)
-            viewModel.contactUser(contactModel).observe(viewLifecycleOwner, Observer {
+            viewModel.contactUser(contact = contactModel).observe(viewLifecycleOwner, Observer {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
@@ -78,7 +82,7 @@ class ContactUser : Fragment() {
                         }
                         Status.ERROR -> {
                             Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
-                            Log.e("Contact user", it.message)
+                            Log.e("Contact user", it.message!!)
                         }
                     }
 

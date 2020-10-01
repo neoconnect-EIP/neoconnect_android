@@ -5,6 +5,9 @@ import java.io.ByteArrayOutputStream
 import java.util.*
 
 class Encoder {
+    /**
+     * Encode une image au format Base64
+     */
     fun encodeTobase64(image: Bitmap): String {
         val baos = ByteArrayOutputStream()
         image.compress(Bitmap.CompressFormat.JPEG, 100, baos)

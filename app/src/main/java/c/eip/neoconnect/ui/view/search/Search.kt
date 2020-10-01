@@ -41,6 +41,11 @@ class Search : Fragment() {
     private lateinit var infViewModel: InfViewModel
     private lateinit var shopViewModel: ShopViewModel
 
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     * Mise en place des onglets si Influenceur connecté
+     * Mise en place du fond selon Influenceur ou Boutique
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,14 +57,14 @@ class Search : Fragment() {
             inflate.findViewById<ConstraintLayout>(R.id.searchLayout)
                 .setBackgroundResource(R.drawable.background_shop)
             inflate.findViewById<TextInputEditText>(R.id.searchKeyword).setHint(R.string.searchInf)
-            inflate.findViewById<TabLayout>(R.id.searchTab).visibility = View.GONE
-            inflate.findViewById<ViewPager2>(R.id.searchPager).visibility = View.GONE
+            tabLayout.visibility = View.GONE
+            viewPager.visibility = View.GONE
             inflate.findViewById<FrameLayout>(R.id.shopListInSearch).visibility = View.VISIBLE
             parentFragmentManager.beginTransaction().replace(R.id.shopListInSearch, ListInf())
                 .commit()
         } else if (DataGetter.INSTANCE.getUserType(requireContext()) == "influencer") {
-            inflate.findViewById<TabLayout>(R.id.searchTab).visibility = View.VISIBLE
-            inflate.findViewById<ViewPager2>(R.id.searchPager).visibility = View.VISIBLE
+            tabLayout.visibility = View.VISIBLE
+            viewPager.visibility = View.VISIBLE
             inflate.findViewById<FrameLayout>(R.id.shopListInSearch).visibility = View.GONE
             inflate.findViewById<ConstraintLayout>(R.id.searchLayout)
                 .setBackgroundResource(R.drawable.background_influencer)
@@ -79,67 +84,70 @@ class Search : Fragment() {
         return inflate
     }
 
+    /**
+     * Mise en place des interaction possible
+     * Déplacement entre les vues
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<TextInputEditText>(R.id.searchKeyword)
-            .setOnEditorActionListener { _, actionId, _ ->
-                return@setOnEditorActionListener when (actionId) {
-                    EditorInfo.IME_ACTION_SEARCH -> {
-                        val token = DataGetter.INSTANCE.getToken(requireContext())
-                        val search = SearchModel()
-                        search.pseudo =
-                            view.findViewById<TextInputEditText>(R.id.searchKeyword).text.toString()
-                        val viewModel: LiveData<Resource<SearchResponseModel>>
-                        if (DataGetter.INSTANCE.getUserType(requireContext()) == "shop") {
-                            infViewModel = ViewModelProvider(this).get(InfViewModel::class.java)
-                            viewModel = infViewModel.searchInf(token!!, search)
-                        } else {
-                            shopViewModel =
-                                ViewModelProvider(this).get(ShopViewModel::class.java)
-                            viewModel = shopViewModel.searchShop(token!!, search)
-                        }
-                        viewModel.observe(viewLifecycleOwner, Observer {
-                            it?.let { resource ->
-                                when (resource.status) {
-                                    Status.SUCCESS -> {
-                                        val bundle = bundleOf("mode" to 1)
-                                        searchResponse = it.data
-                                        when (it.data?.userType) {
-                                            "shop" -> {
-                                                findNavController().navigate(
-                                                    R.id.navigation_other_profil_shop,
-                                                    bundle
-                                                )
-                                            }
-                                            "influencer" -> {
-                                                findNavController().navigate(
-                                                    R.id.navigation_other_profil_inf,
-                                                    bundle
-                                                )
-                                            }
-                                            else -> {
-                                                Toast.makeText(
-                                                    context,
-                                                    "Imposible de récupérer cet utilisateur",
-                                                    Toast.LENGTH_LONG
-                                                ).show()
-                                                Log.e("Search User", it.message)
-                                            }
+        val searchKeyword = view.findViewById<TextInputEditText>(R.id.searchKeyword)
+        searchKeyword.setOnEditorActionListener { _, actionId, _ ->
+            return@setOnEditorActionListener when (actionId) {
+                EditorInfo.IME_ACTION_SEARCH -> {
+                    val token = DataGetter.INSTANCE.getToken(requireContext())
+                    val search = SearchModel()
+                    search.pseudo = searchKeyword.text.toString()
+                    val viewModel: LiveData<Resource<SearchResponseModel>>
+                    if (DataGetter.INSTANCE.getUserType(requireContext()) == "shop") {
+                        infViewModel = ViewModelProvider(this).get(InfViewModel::class.java)
+                        viewModel = infViewModel.searchInf(token = token!!, keyword = search)
+                    } else {
+                        shopViewModel =
+                            ViewModelProvider(this).get(ShopViewModel::class.java)
+                        viewModel = shopViewModel.searchShop(token = token!!, keyword = search)
+                    }
+                    viewModel.observe(viewLifecycleOwner, Observer {
+                        it?.let { resource ->
+                            when (resource.status) {
+                                Status.SUCCESS -> {
+                                    val bundle = bundleOf("mode" to 1)
+                                    searchResponse = it.data
+                                    when (it.data?.userType) {
+                                        "shop" -> {
+                                            findNavController().navigate(
+                                                R.id.navigation_other_profil_shop,
+                                                bundle
+                                            )
+                                        }
+                                        "influencer" -> {
+                                            findNavController().navigate(
+                                                R.id.navigation_other_profil_inf,
+                                                bundle
+                                            )
+                                        }
+                                        else -> {
+                                            Toast.makeText(
+                                                context,
+                                                "Imposible de récupérer cet utilisateur",
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                            Log.e("Search User", it.message!!)
                                         }
                                     }
-                                    Status.ERROR -> {
-                                        Toast.makeText(context, it.message, Toast.LENGTH_LONG)
-                                            .show()
-                                        Log.e("Search User", it.message)
-                                    }
+                                }
+                                Status.ERROR -> {
+                                    Toast.makeText(context, it.message, Toast.LENGTH_LONG)
+                                        .show()
+                                    Log.e("Search User", it.message!!)
                                 }
                             }
-                        })
-                        true
-                    }
-                    else -> false
+                        }
+                    })
+                    true
                 }
+                else -> false
             }
+        }
     }
 
     private inner class SearchAdapter(fa: Fragment) : FragmentStateAdapter(fa) {

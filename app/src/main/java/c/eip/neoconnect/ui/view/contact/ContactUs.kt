@@ -26,6 +26,11 @@ class ContactUs : Fragment() {
     private lateinit var viewModel: ContactViewModel
     private var spinnerState: Int = 3
 
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     * Modification Fond de vue selon UserType
+     * Initialisation de la liste déroulante
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -95,10 +100,13 @@ class ContactUs : Fragment() {
             inflate.findViewById<TextInputEditText>(R.id.sendMailPseudo).visibility =
                 View.VISIBLE
         }
-
         return inflate
     }
 
+    /**
+     * Mise en place des interaction possible
+     * Déplacement entre les vues
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.backButton).setOnClickListener {
@@ -113,6 +121,9 @@ class ContactUs : Fragment() {
         }
     }
 
+    /**
+     * Envoi de message à contact.neoconnect@gmail.com
+     */
     private fun contactUs(view: View) {
         val contactModel = ContactModel()
         if (!DataGetter.INSTANCE.getUserType(requireContext()).isNullOrBlank()) {
@@ -127,14 +138,14 @@ class ContactUs : Fragment() {
             contactModel.pseudo =
                 view.findViewById<TextInputEditText>(R.id.sendMailPseudo).text.toString()
             contactModel.email =
-                view.findViewById<TextInputEditText>(R.id.sendMailSujet).text.toString()
+                view.findViewById<TextInputEditText>(R.id.sendMailEmail).text.toString()
         }
         contactModel.objet =
             view.findViewById<TextInputEditText>(R.id.sendMailSujet).text.toString()
         contactModel.message =
             view.findViewById<TextInputEditText>(R.id.sendMailMessage).text.toString()
         viewModel = ViewModelProvider(this).get(ContactViewModel::class.java)
-        viewModel.contactUs(contactModel).observe(viewLifecycleOwner, Observer {
+        viewModel.contactUs(contact = contactModel).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
@@ -143,38 +154,39 @@ class ContactUs : Fragment() {
                     }
                     Status.ERROR -> {
                         Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
-                        Log.e("Contact us", it.message)
+                        Log.e("Contact us", it.message!!)
                     }
                 }
             }
         })
     }
 
+    /**
+     * Envoi de retour utilisateur
+     */
     private fun sendFeedback(view: View) {
         val feedback = FeedbackModel()
         feedback.environnement = "android"
+        val message = view.findViewById<TextInputEditText>(R.id.sendMailMessage).text.toString()
         when (spinnerState) {
             0 -> {
                 feedback.type = "bug"
-                feedback.fonctionnalite =
-                    view.findViewById<TextInputEditText>(R.id.sendMailMessage).text.toString()
+                feedback.fonctionnalite = message
                 feedback.commentaire = null
             }
             1 -> {
                 feedback.type = "amelioration"
-                feedback.fonctionnalite =
-                    view.findViewById<TextInputEditText>(R.id.sendMailMessage).text.toString()
+                feedback.fonctionnalite = message
                 feedback.commentaire = null
             }
             2 -> {
                 feedback.type = "commentaire"
-                feedback.commentaire =
-                    view.findViewById<TextInputEditText>(R.id.sendMailMessage).text.toString()
+                feedback.commentaire = message
                 feedback.fonctionnalite = null
             }
         }
         viewModel = ViewModelProvider(this).get(ContactViewModel::class.java)
-        viewModel.sendFeedback(feedback).observe(viewLifecycleOwner, Observer {
+        viewModel.sendFeedback(message = feedback).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
@@ -183,7 +195,7 @@ class ContactUs : Fragment() {
                     }
                     Status.ERROR -> {
                         Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
-                        Log.e("Feedback", it.message)
+                        Log.e("Feedback", it.message!!)
                     }
                 }
             }

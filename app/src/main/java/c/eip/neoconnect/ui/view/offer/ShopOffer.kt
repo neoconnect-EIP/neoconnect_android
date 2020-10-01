@@ -22,52 +22,72 @@ import c.eip.neoconnect.utils.Status
 
 class ShopOffer : Fragment() {
     private lateinit var viewModel: ListViewModel
+
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val inflate = inflater.inflate(R.layout.fragment_shop_offer, container, false)
-        val token = DataGetter.INSTANCE.getToken(requireContext())
-        val userId = DataGetter.INSTANCE.getUserId(requireContext())
-
-        viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
-        viewModel.getMyOffersShop(token!!, userId).observe(viewLifecycleOwner, Observer {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        if (it.data!!.isEmpty()) {
-                            inflate.findViewById<TextView>(R.id.pb_list_my_offers).visibility =
-                                View.VISIBLE
-                        } else {
-                            inflate.findViewById<TextView>(R.id.pb_list_my_offers).visibility =
-                                View.GONE
-                            Log.i(
-                                "List Offer",
-                                "Récupération des ${it.data.size} offres de $userId"
-                            )
-                            val recyclerListView =
-                                inflate.findViewById<RecyclerView>(R.id.recyclerListMyOfferShop)
-                            recyclerListView.layoutManager =
-                                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                            val adapter = OfferAdapter(it.data, "list")
-                            adapter.notifyDataSetChanged()
-                            recyclerListView.adapter = adapter
-                        }
-                    }
-                    Status.ERROR -> {
-                        inflate.findViewById<TextView>(R.id.pb_list_my_offers).visibility =
-                            View.VISIBLE
-                    }
-                }
-            }
-        })
+        getShopOffer(inflate = inflate)
         return inflate
     }
 
+    /**
+     * Mise en place des interaction possible
+     * Déplacement entre les vues
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.backButton).setOnClickListener {
             findNavController().popBackStack()
         }
+    }
+
+    /**
+     * Liste des offres postées par une boutique
+     */
+    private fun getShopOffer(inflate: View) {
+        val token = DataGetter.INSTANCE.getToken(requireContext())
+        val userId = DataGetter.INSTANCE.getUserId(requireContext())
+
+        viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
+        viewModel.getMyOffersShop(token = token!!, id = userId)
+            .observe(viewLifecycleOwner, Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            if (it.data!!.isEmpty()) {
+                                inflate.findViewById<TextView>(R.id.pb_list_my_offers).visibility =
+                                    View.VISIBLE
+                            } else {
+                                inflate.findViewById<TextView>(R.id.pb_list_my_offers).visibility =
+                                    View.GONE
+                                Log.i(
+                                    "List Offer",
+                                    "Récupération des ${it.data.size} offres de $userId"
+                                )
+                                val recyclerListView =
+                                    inflate.findViewById<RecyclerView>(R.id.recyclerListMyOfferShop)
+                                recyclerListView.layoutManager =
+                                    LinearLayoutManager(
+                                        context,
+                                        LinearLayoutManager.VERTICAL,
+                                        false
+                                    )
+                                val adapter = OfferAdapter(it.data, "list")
+                                adapter.notifyDataSetChanged()
+                                recyclerListView.adapter = adapter
+                            }
+                        }
+                        Status.ERROR -> {
+                            inflate.findViewById<TextView>(R.id.pb_list_my_offers).visibility =
+                                View.VISIBLE
+                        }
+                    }
+                }
+            })
     }
 }

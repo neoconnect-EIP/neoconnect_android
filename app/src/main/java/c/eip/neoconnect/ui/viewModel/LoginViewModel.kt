@@ -10,11 +10,14 @@ import kotlinx.coroutines.Dispatchers
 class LoginViewModel : ViewModel() {
     private val authRepository = AuthRepository()
 
+    /**
+     * Connexion en Influenceur ou Boutique
+     */
     fun login(loginModel: LoginModel) = liveData(Dispatchers.IO) {
         try {
             emit(
                 Resource.success(
-                    data = authRepository.login(loginModel),
+                    data = authRepository.login(loginModel = loginModel),
                     message = "Connexion réussie"
                 )
             )

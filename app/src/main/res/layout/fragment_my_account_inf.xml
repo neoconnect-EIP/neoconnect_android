@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/myAccountLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_influencer"
     tools:context=".ui.view.account.MyAccountInf">
 
     <androidx.constraintlayout.widget.Guideline
@@ -75,7 +75,6 @@
             android:textSize="16sp" />
 
         <View
-            android:id="@+id/divider_profil_1"
             android:layout_width="150dp"
             android:layout_height="1dp"
             android:background="#445964" />
@@ -90,7 +89,6 @@
             android:textSize="16sp" />
 
         <View
-            android:id="@+id/divider_profil_2"
             android:layout_width="75dp"
             android:layout_height="1dp"
             android:background="#445964" />
@@ -105,7 +103,6 @@
             android:textSize="16sp" />
 
         <View
-            android:id="@+id/divider_profil_3"
             android:layout_width="75dp"
             android:layout_height="1dp"
             android:background="#445964" />
@@ -116,6 +113,20 @@
             android:layout_height="wrap_content"
             android:padding="25dp"
             android:text="@string/contactUs"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="75dp"
+            android:layout_height="1dp"
+            android:background="#445964" />
+
+        <TextView
+            android:id="@+id/testButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="25dp"
+            android:text="Test Notification"
             android:textColor="@color/white"
             android:textSize="16sp" />
     </LinearLayout>

@@ -15,7 +15,6 @@
         app:layout_constraintGuide_percent="0.05" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_margin_vertical_end_other_profil_shop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -95,7 +94,6 @@
                 android:textSize="18sp" />
 
             <View
-                android:id="@+id/divider_offer_1"
                 android:layout_width="75dp"
                 android:layout_height="1dp"
                 android:background="#445964" />
@@ -111,7 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:text="Contacter : "
+                    android:text="@string/contact"
                     android:textColor="@color/white"
                     android:textSize="18sp"/>
 
@@ -123,7 +121,7 @@
                     android:layout_marginEnd="10dp"
                     android:background="@drawable/button_main_shop"
                     android:padding="10dp"
-                    android:text="Mail"
+                    android:text="@string/formEmail"
                     android:textColor="@color/white" />
 
                 <Button
@@ -134,7 +132,7 @@
                     android:layout_marginEnd="10dp"
                     android:background="@drawable/button_main_shop"
                     android:padding="10dp"
-                    android:text="Message privé"
+                    android:text="@string/privateMessage"
                     android:textColor="@color/white" />
 
             </LinearLayout>

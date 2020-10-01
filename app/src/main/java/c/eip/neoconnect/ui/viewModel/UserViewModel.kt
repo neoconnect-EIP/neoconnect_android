@@ -10,11 +10,14 @@ import kotlinx.coroutines.Dispatchers
 class UserViewModel : ViewModel() {
     private val userRepository = UserRepository()
 
+    /**
+     * Supprimer son compte
+     */
     fun deleteAccount(token: String) = liveData(Dispatchers.IO) {
         try {
             emit(
                 Resource.success(
-                    data = userRepository.deleteAccount(token),
+                    data = userRepository.deleteAccount(token = token),
                     message = "Compte supprimé"
                 )
             )
@@ -23,12 +26,14 @@ class UserViewModel : ViewModel() {
         }
     }
 
-    //ToDo
+    /**
+     * Signaler un utilisateur
+     */
     fun reportUser(token: String, id: Int, report: UserReportModel) = liveData(Dispatchers.IO) {
         try {
             emit(
                 Resource.success(
-                    data = userRepository.reportUser(token, id, report),
+                    data = userRepository.reportUser(token = token, id = id, report = report),
                     message = "Utilisateur $id (${report.pseudo}) signalé"
                 )
             )

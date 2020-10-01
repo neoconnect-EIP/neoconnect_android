@@ -13,11 +13,14 @@ class ListViewModel : ViewModel() {
     private val infRepository = InfRepository()
     private val shopRepository = ShopRepository()
 
+    /**
+     * Récupération de la liste des Influenceusrs inscrits
+     */
     fun getListInf(token: String) = liveData(Dispatchers.IO) {
         try {
             emit(
                 Resource.success(
-                    data = shopRepository.getListInf(token),
+                    data = shopRepository.getListInf(token = token),
                     message = "Récupération des influenceurs réussie"
                 )
             )
@@ -26,11 +29,14 @@ class ListViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Récupération de la liste des Boutiques inscrites
+     */
     fun getListShop(token: String) = liveData(Dispatchers.IO) {
         try {
             emit(
                 Resource.success(
-                    data = infRepository.getListShop(token),
+                    data = infRepository.getListShop(token = token),
                     message = "Récupération des boutiques réussie"
                 )
             )
@@ -39,12 +45,23 @@ class ListViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Récupération de toutes les offres
+     * ou
+     * Récupération de toutes les offres selon un filtre
+     */
     fun getOffers(token: String, sex: String?, color: String?, brand: String?, subject: String?) =
         liveData(Dispatchers.IO) {
             try {
                 emit(
                     Resource.success(
-                        data = offresRepository.getAllOffers(token, sex, color, brand, subject),
+                        data = offresRepository.getAllOffers(
+                            token = token,
+                            sex = sex,
+                            color = color,
+                            brand = brand,
+                            subject = subject
+                        ),
                         message = "Récupération des offres réussie"
                     )
                 )
@@ -53,11 +70,14 @@ class ListViewModel : ViewModel() {
             }
         }
 
+    /**
+     * Récupération de toutes les offres ajoutées par une Boutique
+     */
     fun getMyOffersShop(token: String, id: Int) = liveData(Dispatchers.IO) {
         try {
             emit(
                 Resource.success(
-                    data = offresRepository.getMyOfferShop(token, id),
+                    data = offresRepository.getMyOfferShop(token = token, id = id),
                     message = "Récupération des offres réussie"
                 )
             )
@@ -66,11 +86,14 @@ class ListViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Récupération de toutes les offres postulés par un Influenceur
+     */
     fun getMyOffersInf(token: String, id: Int) = liveData(Dispatchers.IO) {
         try {
             emit(
                 Resource.success(
-                    data = offresRepository.getMyOfferInf(token, id),
+                    data = offresRepository.getMyOfferInf(token = token, id = id),
                     message = "Récupération des offres réussie"
                 )
             )
@@ -79,11 +102,14 @@ class ListViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Récupération des utilisateurs ayant postulés à une Offre ID
+     */
     fun getOfferApplyUser(token: String, id: Int) = liveData(Dispatchers.IO) {
         try {
             emit(
                 Resource.success(
-                    data = offresRepository.getOfferApplyUser(token, id),
+                    data = offresRepository.getOfferApplyUser(token = token, id = id),
                     message = "Récupération des offres réussie"
                 )
             )

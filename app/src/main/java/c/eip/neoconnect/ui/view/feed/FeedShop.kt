@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import c.eip.neoconnect.MainViewShop
 import c.eip.neoconnect.R
+import c.eip.neoconnect.data.model.profil.InfluenceurResponseModel
 import c.eip.neoconnect.ui.adapter.FeedInfAdapter
 import c.eip.neoconnect.ui.viewModel.FeedViewModel
 import c.eip.neoconnect.utils.DataGetter
@@ -32,71 +33,32 @@ class FeedShop : Fragment() {
         inflate.findViewById<TextView>(R.id.titleFeed).text = title
         val token = DataGetter.INSTANCE.getToken(requireContext())
         viewModel = ViewModelProvider(this).get(FeedViewModel::class.java)
-        viewModel.getFeed(token!!).observe(viewLifecycleOwner, Observer {
+        viewModel.getFeed(token = token!!).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        if (it.data?.listInfTendances.isNullOrEmpty()) {
-                            inflate.findViewById<TextView>(R.id.pb_feed_inf_tendance).visibility =
-                                View.VISIBLE
-                            inflate.findViewById<RecyclerView>(R.id.recyclerFeedListInfTendances).visibility =
-                                View.GONE
-                        } else {
-                            inflate.findViewById<TextView>(R.id.pb_feed_inf_tendance).visibility =
-                                View.GONE
-                            inflate.findViewById<RecyclerView>(R.id.recyclerFeedListInfTendances).visibility =
-                                View.VISIBLE
-                            val recyclerInfTendancesView =
-                                inflate.findViewById<RecyclerView>(R.id.recyclerFeedListInfTendances)
-                            recyclerInfTendancesView.layoutManager =
-                                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                            val infTendancesAdapter = FeedInfAdapter(it.data?.listInfTendances!!)
-                            infTendancesAdapter.notifyDataSetChanged()
-                            recyclerInfTendancesView.adapter = infTendancesAdapter
-                        }
+                        feedInf(
+                            listInf = it.data?.listInfTendances,
+                            recyclerView = inflate.findViewById(R.id.recyclerFeedListInfTendances),
+                            errorText = inflate.findViewById(R.id.pb_feed_inf_tendance)
+                        )
 
-                        if (it.data?.listInfPopulaire.isNullOrEmpty()) {
-                            inflate.findViewById<TextView>(R.id.pb_feed_inf_populaire).visibility =
-                                View.VISIBLE
-                            inflate.findViewById<RecyclerView>(R.id.recyclerFeedListInfPopulaires).visibility =
-                                View.GONE
-                        } else {
-                            inflate.findViewById<TextView>(R.id.pb_feed_inf_populaire).visibility =
-                                View.GONE
-                            inflate.findViewById<RecyclerView>(R.id.recyclerFeedListInfPopulaires).visibility =
-                                View.VISIBLE
-                            val recyclerInfPopulairesView =
-                                inflate.findViewById<RecyclerView>(R.id.recyclerFeedListInfPopulaires)
-                            recyclerInfPopulairesView.layoutManager =
-                                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                            val infPopulairesAdapter = FeedInfAdapter(it.data?.listInfPopulaire!!)
-                            infPopulairesAdapter.notifyDataSetChanged()
-                            recyclerInfPopulairesView.adapter = infPopulairesAdapter
-                        }
+                        feedInf(
+                            listInf = it.data?.listInfPopulaire,
+                            recyclerView = inflate.findViewById(R.id.recyclerFeedListInfPopulaires),
+                            errorText = inflate.findViewById(R.id.pb_feed_inf_populaire)
+                        )
 
-                        if (it.data?.listInfNotes.isNullOrEmpty()) {
-                            inflate.findViewById<TextView>(R.id.pb_feed_offer_notes).visibility =
-                                View.VISIBLE
-                            inflate.findViewById<RecyclerView>(R.id.recyclerFeedListInfNotes).visibility =
-                                View.GONE
-                        } else {
-                            inflate.findViewById<TextView>(R.id.pb_feed_offer_notes).visibility =
-                                View.GONE
-                            inflate.findViewById<RecyclerView>(R.id.recyclerFeedListInfNotes).visibility =
-                                View.VISIBLE
-                            val recyclerInfNotesView =
-                                inflate.findViewById<RecyclerView>(R.id.recyclerFeedListInfNotes)
-                            recyclerInfNotesView.layoutManager =
-                                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                            val infNotesAdapter = FeedInfAdapter(it.data?.listInfNotes!!)
-                            infNotesAdapter.notifyDataSetChanged()
-                            recyclerInfNotesView.adapter = infNotesAdapter
-                        }
+                        feedInf(
+                            listInf = it.data?.listInfNotes,
+                            recyclerView = inflate.findViewById(R.id.recyclerFeedListInfNotes),
+                            errorText = inflate.findViewById(R.id.pb_feed_inf_notes)
+                        )
                     }
                     Status.ERROR -> {
                         inflate.findViewById<TextView>(R.id.pb_feed).visibility = View.VISIBLE
                         inflate.findViewById<ScrollView>(R.id.feedLayout).visibility = View.GONE
-                        Log.e("Feed", it.message)
+                        Log.e("Feed", it.message!!)
                     }
                 }
             }
@@ -104,5 +66,26 @@ class FeedShop : Fragment() {
         return inflate
     }
 
-
+    /**
+     * Récupération Fil D'actualité Influenceurs
+     */
+    private fun feedInf(
+        listInf: List<InfluenceurResponseModel>?,
+        recyclerView: RecyclerView,
+        errorText: TextView
+    ) {
+        if (listInf.isNullOrEmpty()) {
+            errorText.visibility = View.VISIBLE
+            recyclerView.visibility = View.GONE
+        } else {
+            errorText.visibility =
+                View.GONE
+            recyclerView.visibility = View.VISIBLE
+            recyclerView.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            val adapter = FeedInfAdapter(listInf)
+            adapter.notifyDataSetChanged()
+            recyclerView.adapter = adapter
+        }
+    }
 }

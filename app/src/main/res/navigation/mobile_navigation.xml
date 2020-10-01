@@ -2,7 +2,6 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
     app:startDestination="@id/navigation_landing">
 
     <fragment
@@ -194,7 +193,7 @@
         tools:layout="@layout/fragment_mark_user" />
     <fragment
         android:id="@+id/navigation_stats"
-        android:name="c.eip.neoconnect.ui.view.Stats"
+        android:name="c.eip.neoconnect.ui.view.stats.Stats"
         android:label="fragment_stats"
         tools:layout="@layout/fragment_stats" />
     <fragment

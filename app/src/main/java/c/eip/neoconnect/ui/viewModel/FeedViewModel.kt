@@ -9,11 +9,14 @@ import kotlinx.coroutines.Dispatchers
 class FeedViewModel : ViewModel() {
     private val utilsRepository = UtilsRepository()
 
+    /**
+     * Récupération du fil d'actualité côté Influenceur et Boutique
+     */
     fun getFeed(token: String) = liveData(Dispatchers.IO) {
         try {
             emit(
                 Resource.success(
-                    data = utilsRepository.getFeed(token),
+                    data = utilsRepository.getFeed(token = token),
                     message = "Actualité récupéré"
                 )
             )

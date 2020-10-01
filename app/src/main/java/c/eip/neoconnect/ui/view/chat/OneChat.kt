@@ -26,6 +26,10 @@ import com.google.android.material.textfield.TextInputEditText
 class OneChat : Fragment() {
     private lateinit var viewModel: ChatViewModel
 
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     * Modification Fond de vue selon UserType
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,15 +44,46 @@ class OneChat : Fragment() {
         }
         val title = "Retour - " + arguments?.get("pseudo") as String
         inflate.findViewById<TextView>(R.id.titleOneChat).text = title
+        getCanal(view = inflate)
+        return inflate
+    }
+
+    /**
+     * Mise en place des interaction possible
+     * Déplacement entre les vues
+     * Actualisation des messages
+     */
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        view.findViewById<TextView>(R.id.titleOneChat).setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        view.findViewById<ImageView>(R.id.refreshMessage).setOnClickListener {
+            val fragment = OneChat()
+            fragment.arguments = arguments
+            fragmentManager?.beginTransaction()
+                ?.replace(view.id, fragment)?.commit()
+        }
+
+        view.findViewById<ImageView>(R.id.sendChatMessageButton).setOnClickListener {
+            sendMessage(view = view)
+        }
+    }
+
+    /**
+     * Récupération des messages
+     */
+    private fun getCanal(view: View) {
         val token = DataGetter.INSTANCE.getToken(requireContext())
         viewModel = ViewModelProvider(this).get(ChatViewModel::class.java)
-        viewModel.getOneChannel(token!!, arguments?.get("id") as Int)
+        viewModel.getOneChannel(token = token!!, id =  arguments?.get("id") as Int)
             .observe(viewLifecycleOwner, Observer {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
                             val recyclerOneChat =
-                                inflate.findViewById<RecyclerView>(R.id.recyclerOneChat)
+                                view.findViewById<RecyclerView>(R.id.recyclerOneChat)
                             recyclerOneChat.layoutManager =
                                 LinearLayoutManager(
                                     context,
@@ -75,61 +110,49 @@ class OneChat : Fragment() {
                                 Toast.LENGTH_LONG
                             ).show()
                             findNavController().popBackStack()
-                            Log.e("One Chat", it.message)
+                            Log.e("One Chat", it.message!!)
                         }
                     }
                 }
             })
-        return inflate
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        view.findViewById<TextView>(R.id.titleOneChat).setOnClickListener {
-            findNavController().popBackStack()
+    /**
+     * Envoi de message
+     */
+    private fun sendMessage(view: View) {
+        val token = DataGetter.INSTANCE.getToken(requireContext())
+        val userId = DataGetter.INSTANCE.getUserId(requireContext())
+        val messageModel = MessageModel()
+        messageModel.message =
+            view.findViewById<TextInputEditText>(R.id.insertChatMessage).text.toString()
+        if (userSrc == userId.toString()) {
+            messageModel.userId = userDest
+        } else {
+            messageModel.userId = userSrc
         }
-
-        view.findViewById<ImageView>(R.id.refreshMessage).setOnClickListener {
-            val fragment = OneChat()
-            fragment.arguments = arguments
-            fragmentManager?.beginTransaction()
-                ?.replace(view.id , fragment)?.commit()
-        }
-
-        view.findViewById<ImageView>(R.id.sendChatMessageButton).setOnClickListener {
-            val token = DataGetter.INSTANCE.getToken(requireContext())
-            val userId = DataGetter.INSTANCE.getUserId(requireContext())
-            val messageModel = MessageModel()
-            viewModel = ViewModelProvider(this).get(ChatViewModel::class.java)
-            messageModel.message =
-                view.findViewById<TextInputEditText>(R.id.insertChatMessage).text.toString()
-            if (userSrc == userId.toString()) {
-                messageModel.userId = userDest
-            } else {
-                messageModel.userId = userSrc
-            }
-            viewModel.postMessage(token!!, messageModel)
-                .observe(viewLifecycleOwner, Observer {
-                    it?.let { resource ->
-                        when (resource.status) {
-                            Status.SUCCESS -> {
-                                val fragment = OneChat()
-                                fragment.arguments = arguments
-                                fragmentManager?.beginTransaction()
-                                    ?.replace(view.id , fragment)?.commit()
-                            }
-                            Status.ERROR -> {
-                                Toast.makeText(
-                                    context,
-                                    "Impossible d'envoyer votre message",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                                Log.e("One Chat", it.message)
-                            }
+        viewModel = ViewModelProvider(this).get(ChatViewModel::class.java)
+        viewModel.postMessage(token = token!!, message = messageModel)
+            .observe(viewLifecycleOwner, Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            val fragment = OneChat()
+                            fragment.arguments = arguments
+                            fragmentManager?.beginTransaction()
+                                ?.replace(view.id, fragment)?.commit()
+                        }
+                        Status.ERROR -> {
+                            Toast.makeText(
+                                context,
+                                "Impossible d'envoyer votre message",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            Log.e("One Chat", it.message!!)
                         }
                     }
-                })
-        }
+                }
+            })
     }
 
     companion object {

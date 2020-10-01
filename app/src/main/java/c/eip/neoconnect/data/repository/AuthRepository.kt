@@ -9,11 +9,20 @@ import c.eip.neoconnect.utils.Constants
 class AuthRepository {
     private var authService: AuthService = Constants.authService
 
-    suspend fun registerInfluencer(RegisterInfluenceurModel: RegisterInfluenceurModel) =
-        authService.registerInf(RegisterInfluenceurModel)
+    /**
+     * Inscription influenceur
+     */
+    suspend fun registerInfluencer(registerInfluenceurModel: RegisterInfluenceurModel) =
+        authService.registerInf(registerInfluenceurModel)
 
+    /**
+     * Inscription Boutique
+     */
     suspend fun registerShop(registerShopModel: RegisterShopModel) =
         authService.registerShop(registerShopModel)
 
+    /**
+     * Connexion en Influenceur ou Boutique
+     */
     suspend fun login(loginModel: LoginModel) = authService.login(loginModel)
 }

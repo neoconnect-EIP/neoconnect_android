@@ -21,30 +21,39 @@ import c.eip.neoconnect.utils.Status
 class ListShop : Fragment() {
     private lateinit var viewModel: ListViewModel
 
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val inflate = inflater.inflate(R.layout.fragment_list_shop, container, false)
-        val token = DataGetter.INSTANCE.getToken(requireContext())
+        getListShop(view = inflate)
+        return inflate
+    }
 
+    /**
+     * Récupération de la liste des Boutiques
+     */
+    private fun getListShop(view: View) {
+        val token = DataGetter.INSTANCE.getToken(requireContext())
+        val recyclerListView = view.findViewById<RecyclerView>(R.id.recyclerListShop)
         viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
-        viewModel.getListShop(token!!).observe(viewLifecycleOwner, Observer {
+        viewModel.getListShop(token = token!!).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
                         if (it.data!!.isEmpty()) {
-                            inflate.findViewById<TextView>(R.id.pb_list_shop).visibility =
+                            view.findViewById<TextView>(R.id.pb_list_shop).visibility =
                                 View.VISIBLE
                         } else {
-                            inflate.findViewById<TextView>(R.id.pb_list_shop).visibility =
+                            view.findViewById<TextView>(R.id.pb_list_shop).visibility =
                                 View.GONE
                             Log.i(
                                 "List Shop",
                                 "Récupération des boutiques réussie"
                             )
-                            val recyclerListView =
-                                inflate.findViewById<RecyclerView>(R.id.recyclerListShop)
                             recyclerListView.layoutManager =
                                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                             val adapter = ListShopAdapter(it.data)
@@ -53,17 +62,13 @@ class ListShop : Fragment() {
                         }
                     }
                     Status.ERROR -> {
-                        inflate.findViewById<TextView>(R.id.pb_list_shop).visibility =
+                        view.findViewById<TextView>(R.id.pb_list_shop).visibility =
                             View.VISIBLE
-                        inflate.findViewById<RecyclerView>(R.id.recyclerListShop).visibility =
-                            View.GONE
-                        Log.e("List Shop", it.message)
+                        recyclerListView.visibility = View.GONE
+                        Log.e("List Shop", it.message!!)
                     }
                 }
             }
         })
-        return inflate
     }
-
-
 }

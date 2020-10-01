@@ -18,6 +18,9 @@ class DescriptionInf : Fragment() {
     private val pages = 3
     private lateinit var viewPager: ViewPager2
 
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,6 +28,10 @@ class DescriptionInf : Fragment() {
         return inflater.inflate(R.layout.fragment_description_inf, container, false)
     }
 
+    /**
+     * Mise en place des interaction possible
+     * Déplacement entre les vues
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewPager = view.findViewById(R.id.descInfPager)!!

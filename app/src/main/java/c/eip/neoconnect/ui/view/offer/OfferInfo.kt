@@ -34,11 +34,17 @@ class OfferInfo : Fragment() {
     private var getOfferApplyUserState: Boolean = false
     private var name: String? = ""
 
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     * Affichage des éléments selon Influenceur ou Boutique
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val inflate = inflater.inflate(R.layout.fragment_offer_info, container, false)
+        val recyclerListView =
+            inflate.findViewById<RecyclerView>(R.id.recyclerListOfferApplyUser)
 
         if (DataGetter.INSTANCE.getUserType(requireContext()) == "shop") {
             inflate.findViewById<ConstraintLayout>(R.id.offerInfoLayout)
@@ -48,7 +54,7 @@ class OfferInfo : Fragment() {
             inflate.findViewById<Button>(R.id.reportOfferButton).visibility = View.GONE
             inflate.findViewById<Button>(R.id.editOfferButton).visibility = View.VISIBLE
             inflate.findViewById<Button>(R.id.removeOfferButton).visibility = View.VISIBLE
-            inflate.findViewById<RecyclerView>(R.id.recyclerListOfferApplyUser).visibility =
+            recyclerListView.visibility =
                 View.VISIBLE
             inflate.findViewById<TextView>(R.id.titleCandidature).visibility = View.VISIBLE
         } else if (DataGetter.INSTANCE.getUserType(requireContext()) == "influencer") {
@@ -57,7 +63,7 @@ class OfferInfo : Fragment() {
             inflate.findViewById<Button>(R.id.reportOfferButton).visibility = View.VISIBLE
             inflate.findViewById<Button>(R.id.editOfferButton).visibility = View.GONE
             inflate.findViewById<Button>(R.id.removeOfferButton).visibility = View.GONE
-            inflate.findViewById<RecyclerView>(R.id.recyclerListOfferApplyUser).visibility =
+            recyclerListView.visibility =
                 View.GONE
             inflate.findViewById<TextView>(R.id.titleCandidature).visibility = View.GONE
             if (arguments?.getString("status") == "accepted") {
@@ -71,9 +77,7 @@ class OfferInfo : Fragment() {
                 inflate.findViewById<Button>(R.id.markOfferButton).visibility = View.GONE
             }
         }
-        val offerId = arguments?.get("idOffer") as Int
         val userId = arguments?.get("idUser") as Int
-        val token = DataGetter.INSTANCE.getToken(requireContext())
         if (DataGetter.INSTANCE.getUserType(requireContext()) == "shop"
             && DataGetter.INSTANCE.getUserId(requireContext()) != userId
         ) {
@@ -82,12 +86,49 @@ class OfferInfo : Fragment() {
             inflate.findViewById<Button>(R.id.reportOfferButton).visibility = View.GONE
             inflate.findViewById<Button>(R.id.editOfferButton).visibility = View.GONE
             inflate.findViewById<Button>(R.id.removeOfferButton).visibility = View.GONE
-            inflate.findViewById<RecyclerView>(R.id.recyclerListOfferApplyUser).visibility =
-                View.GONE
+            recyclerListView.visibility = View.GONE
         }
+        getOneOffer(inflate = inflate, recyclerView = recyclerListView)
+        return inflate
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val offerId = arguments?.get("idOffer") as Int
+        val token = DataGetter.INSTANCE.getToken(requireContext())
+
+        view.findViewById<Button>(R.id.backButton).setOnClickListener {
+            findNavController().popBackStack()
+        }
+        view.findViewById<Button>(R.id.removeOfferButton).setOnClickListener {
+            deleteOffer(token = token, offerId = offerId)
+        }
+        view.findViewById<Button>(R.id.applyOfferButton).setOnClickListener {
+            applyOffer(token = token, offerId = offerId)
+        }
+        view.findViewById<Button>(R.id.editOfferButton).setOnClickListener {
+            val bundle = bundleOf("offerId" to offerId)
+            findNavController().navigate(R.id.navigation_edit_offer, bundle)
+        }
+        view.findViewById<Button>(R.id.markOfferButton).setOnClickListener {
+            val bundle = bundleOf("offerId" to offerId)
+            findNavController().navigate(R.id.navigation_mark_offer, bundle)
+        }
+        view.findViewById<Button>(R.id.reportOfferButton).setOnClickListener {
+            val bundle = bundleOf("type" to "offre", "name" to name, "offerId" to offerId)
+            findNavController().navigate(R.id.navigation_report, bundle)
+        }
+    }
+
+    /**
+     * Récupération d'une offre
+     */
+    private fun getOneOffer(inflate: View, recyclerView: RecyclerView) {
+        val offerId = arguments?.get("idOffer") as Int
+        val token = DataGetter.INSTANCE.getToken(requireContext())
         viewModelList = ViewModelProvider(this).get(ListViewModel::class.java)
         viewModelOffer = ViewModelProvider(this).get(OffresViewModel::class.java)
-        viewModelOffer.getOneOffer(token!!, offerId).observe(viewLifecycleOwner, Observer {
+        viewModelOffer.getOneOffer(token = token!!, id = offerId).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
@@ -119,45 +160,11 @@ class OfferInfo : Fragment() {
                         inflate.findViewById<TextView>(R.id.offerAverage).text = it.data?.average
                         inflate.findViewById<TextView>(R.id.offerBrand).text = it.data?.brand
                         getOfferState = true
-                        viewModelList.getOfferApplyUser(token, offerId)
-                            .observe(viewLifecycleOwner, Observer { itList ->
-                                itList?.let { resourceList ->
-                                    when (resourceList.status) {
-                                        Status.SUCCESS -> {
-                                            val recyclerListView =
-                                                inflate.findViewById<RecyclerView>(R.id.recyclerListOfferApplyUser)
-                                            recyclerListView.layoutManager =
-                                                LinearLayoutManager(
-                                                    context,
-                                                    LinearLayoutManager.VERTICAL,
-                                                    false
-                                                )
-                                            val adapter = OfferApplyUserAdapter(
-                                                itList.data!!,
-                                                viewModelOffer,
-                                                this
-                                            )
-                                            adapter.notifyDataSetChanged()
-                                            recyclerListView.adapter = adapter
-                                            Log.i(
-                                                "Get Offer Apply User",
-                                                itList.data.size.toString()
-                                            )
-                                            getOfferApplyUserState = true
-                                        }
-                                        Status.ERROR -> {
-                                            getOfferApplyUserState = false
-                                            Log.e("Get Offer Apply User", itList.message)
-                                            Toast.makeText(
-                                                context,
-                                                itList.message,
-                                                Toast.LENGTH_LONG
-                                            ).show()
-                                        }
-                                    }
-
-                                }
-                            })
+                        getOfferApplyUser(
+                            token = token,
+                            offerId = offerId,
+                            recyclerView = recyclerView
+                        )
                     }
                     Status.ERROR -> {
                         getOfferState = false
@@ -172,68 +179,92 @@ class OfferInfo : Fragment() {
                 }
             }
         })
-
-
-
-
-        return inflate
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val offerId = arguments?.get("idOffer") as Int
-        val token = DataGetter.INSTANCE.getToken(requireContext())
+    /**
+     * Récupération de la liste des personnes ayant postulés à cette offre
+     */
+    private fun getOfferApplyUser(token: String, offerId: Int, recyclerView: RecyclerView) {
+        viewModelList.getOfferApplyUser(token = token, id = offerId)
+            .observe(viewLifecycleOwner, Observer { itList ->
+                itList?.let { resourceList ->
+                    when (resourceList.status) {
+                        Status.SUCCESS -> {
+                            recyclerView.layoutManager =
+                                LinearLayoutManager(
+                                    context,
+                                    LinearLayoutManager.VERTICAL,
+                                    false
+                                )
+                            val adapter = OfferApplyUserAdapter(
+                                itList.data!!,
+                                viewModelOffer,
+                                this
+                            )
+                            adapter.notifyDataSetChanged()
+                            recyclerView.adapter = adapter
+                            Log.i(
+                                "Get Offer Apply User",
+                                itList.data.size.toString()
+                            )
+                            getOfferApplyUserState = true
+                        }
+                        Status.ERROR -> {
+                            getOfferApplyUserState = false
+                            Log.e("Get Offer Apply User", itList.message!!)
+                            Toast.makeText(
+                                context,
+                                itList.message,
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+
+                }
+            })
+    }
+
+    /**
+     * Supprimer une offre
+     */
+    private fun deleteOffer(token: String?, offerId: Int) {
         viewModelOffer = ViewModelProvider(this).get(OffresViewModel::class.java)
-
-        view.findViewById<Button>(R.id.backButton).setOnClickListener {
-            findNavController().popBackStack()
-        }
-        view.findViewById<Button>(R.id.removeOfferButton).setOnClickListener {
-            viewModelOffer.deleteOffer(token!!, offerId).observe(viewLifecycleOwner, Observer {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                            Log.i("Delete Offer", it.message)
-                            findNavController().popBackStack()
-                        }
-                        Status.ERROR -> {
-                            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                            Log.e("Delete Offer", it.message)
-                        }
+        viewModelOffer.deleteOffer(token = token!!, id = offerId).observe(viewLifecycleOwner, Observer {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                        Log.i("Delete Offer", it.message!!)
+                        findNavController().popBackStack()
+                    }
+                    Status.ERROR -> {
+                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                        Log.e("Delete Offer", it.message!!)
                     }
                 }
-            })
-        }
+            }
+        })
+    }
 
-        view.findViewById<Button>(R.id.applyOfferButton).setOnClickListener {
-            viewModelOffer.applyOffer(token!!, offerId).observe(viewLifecycleOwner, Observer {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+    /**
+     * Postuler à une offre
+     */
+    private fun applyOffer(token: String?, offerId: Int) {
+        viewModelOffer = ViewModelProvider(this).get(OffresViewModel::class.java)
+        viewModelOffer.applyOffer(token = token!!, id = offerId).observe(viewLifecycleOwner, Observer {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
 //                            Log.i("Apply Offer", it.message)
-                            findNavController().popBackStack()
-                        }
-                        Status.ERROR -> {
-                            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                            Log.e("Apply Offer", it.message)
-                        }
+                        findNavController().popBackStack()
+                    }
+                    Status.ERROR -> {
+                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                        Log.e("Apply Offer", it.message!!)
                     }
                 }
-            })
-        }
-        view.findViewById<Button>(R.id.editOfferButton).setOnClickListener {
-            val bundle = bundleOf("offerId" to offerId)
-            findNavController().navigate(R.id.navigation_edit_offer, bundle)
-        }
-        view.findViewById<Button>(R.id.markOfferButton).setOnClickListener {
-            val bundle = bundleOf("offerId" to offerId)
-            findNavController().navigate(R.id.navigation_mark_offer, bundle)
-        }
-        view.findViewById<Button>(R.id.reportOfferButton).setOnClickListener {
-            val bundle = bundleOf("type" to "offre", "name" to name, "offerId" to offerId)
-            findNavController().navigate(R.id.navigation_report, bundle)
-        }
+            }
+        })
     }
 }

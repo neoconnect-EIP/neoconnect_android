@@ -1,4 +1,4 @@
-package c.eip.neoconnect.ui.view
+package c.eip.neoconnect.ui.view.stats
 
 import android.os.Bundle
 import android.util.Log
@@ -26,6 +26,10 @@ import c.eip.neoconnect.utils.Status
 class Stats : Fragment() {
     private lateinit var viewModel: InfViewModel
 
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     * Mise en place du fond selon Influenceur ou Boutique
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,9 +42,28 @@ class Stats : Fragment() {
             inflate.findViewById<ConstraintLayout>(R.id.statsLayout)
                 .setBackgroundResource(R.drawable.background_influencer)
         }
+        getStats(inflate = inflate)
+        return inflate
+    }
+
+    /**
+     * Mise en place des interaction possible
+     * Déplacement entre les vues
+     */
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        view.findViewById<Button>(R.id.backButton).setOnClickListener {
+            findNavController().popBackStack()
+        }
+    }
+
+    /**
+     * Récupération des stats du compte
+     */
+    private fun getStats(inflate: View) {
         val token = DataGetter.INSTANCE.getToken(requireContext())
         viewModel = ViewModelProvider(this).get(InfViewModel::class.java)
-        viewModel.getProfilInf(token!!).observe(viewLifecycleOwner, Observer {
+        viewModel.getProfilInf(token = token!!).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
@@ -66,20 +89,11 @@ class Stats : Fragment() {
                     }
                     Status.ERROR -> {
                         Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
-                        Log.e("Profil", it.message)
+                        Log.e("Profil", it.message!!)
                         findNavController().popBackStack()
                     }
                 }
             }
         })
-        return inflate
-    }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        view.findViewById<Button>(R.id.backButton).setOnClickListener {
-            findNavController().popBackStack()
-        }
     }
 }

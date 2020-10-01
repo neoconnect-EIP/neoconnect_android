@@ -24,14 +24,39 @@ class ProfilInf : Fragment() {
     private lateinit var infViewModel: InfViewModel
     private lateinit var userViewModel: UserViewModel
 
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val inflate = inflater.inflate(R.layout.fragment_profil_inf, container, false)
+        getProfilInf(inflate = inflate)
+        return inflate
+    }
+
+    /**
+     * Mise en place des interaction possible
+     * Déplacement entre les vues
+     */
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        view.findViewById<Button>(R.id.backButton).setOnClickListener {
+            findNavController().popBackStack()
+        }
+        view.findViewById<ImageView>(R.id.settingsButton).setOnClickListener {
+            settingsOption(view = view)
+        }
+    }
+
+    /**
+     * Récupération du profil Influenceur
+     */
+    private fun getProfilInf(inflate: View) {
         val token = DataGetter.INSTANCE.getToken(requireContext())
         infViewModel = ViewModelProvider(this).get(InfViewModel::class.java)
-        infViewModel.getProfilInf(token!!).observe(viewLifecycleOwner, Observer {
+        infViewModel.getProfilInf(token = token!!).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
@@ -67,75 +92,70 @@ class ProfilInf : Fragment() {
                     }
                     Status.ERROR -> {
                         Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
-                        Log.e("Profil", it.message)
+                        Log.e("Profil", it.message!!)
                     }
                 }
             }
         })
-
-        return inflate
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        view.findViewById<Button>(R.id.backButton).setOnClickListener {
-            findNavController().popBackStack()
-        }
-        view.findViewById<ImageView>(R.id.settingsButton).setOnClickListener {
-            val popupMenu = PopupMenu(context, view.findViewById(R.id.settingsButton))
-            popupMenu.menuInflater.inflate(R.menu.profil_menu, popupMenu.menu)
-            popupMenu.setOnMenuItemClickListener {
-                when (it.itemId) {
-                    R.id.deleteMyAccount -> {
-                        val token = DataGetter.INSTANCE.getToken(requireContext())
-                        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-                        userViewModel.deleteAccount(token!!)
-                            .observe(viewLifecycleOwner, Observer { deleteResponse ->
-                                deleteResponse?.let { resources ->
-                                    when (resources.status) {
-                                        Status.SUCCESS -> {
-                                            Toast.makeText(
-                                                context,
-                                                deleteResponse.message,
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-                                            Log.i(
-                                                "Suppression de compte",
-                                                "${DataGetter.INSTANCE.getUserId(requireContext())}"
-                                            )
-                                            DataGetter.INSTANCE.clearData(requireContext())
-                                            if (DataGetter.INSTANCE.getToken(requireContext())
-                                                    .isNullOrEmpty()
-                                            ) {
-                                                findNavController().navigate(R.id.navigation_login_inf)
-                                            }
+    /**
+     * Option pour son profil (Supprimer)
+     */
+    private fun settingsOption(view: View) {
+        val popupMenu = PopupMenu(context, view.findViewById(R.id.settingsButton))
+        popupMenu.menuInflater.inflate(R.menu.profil_menu, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.deleteMyAccount -> {
+                    val token = DataGetter.INSTANCE.getToken(requireContext())
+                    userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+                    userViewModel.deleteAccount(token = token!!)
+                        .observe(viewLifecycleOwner, Observer { deleteResponse ->
+                            deleteResponse?.let { resources ->
+                                when (resources.status) {
+                                    Status.SUCCESS -> {
+                                        Toast.makeText(
+                                            context,
+                                            deleteResponse.message,
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        Log.i(
+                                            "Suppression de compte",
+                                            "${DataGetter.INSTANCE.getUserId(requireContext())}"
+                                        )
+                                        DataGetter.INSTANCE.clearData(requireContext())
+                                        if (DataGetter.INSTANCE.getToken(requireContext())
+                                                .isNullOrEmpty()
+                                        ) {
+                                            findNavController().navigate(R.id.navigation_login_inf)
                                         }
-                                        Status.ERROR -> {
-                                            Log.e(
-                                                "Suppression de compte",
-                                                deleteResponse.message
-                                            )
-                                            Toast.makeText(
-                                                context,
-                                                deleteResponse.message,
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-                                            if (DataGetter.INSTANCE.getToken(requireContext())
-                                                    .isNullOrEmpty()
-                                            ) {
-                                                findNavController().navigate(R.id.navigation_login_inf)
-                                            }
+                                    }
+                                    Status.ERROR -> {
+                                        Log.e(
+                                            "Suppression de compte",
+                                            deleteResponse.message!!
+                                        )
+                                        Toast.makeText(
+                                            context,
+                                            deleteResponse.message,
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        if (DataGetter.INSTANCE.getToken(requireContext())
+                                                .isNullOrEmpty()
+                                        ) {
+                                            findNavController().navigate(R.id.navigation_login_inf)
                                         }
                                     }
                                 }
-                            })
-                    }
-                    R.id.editProfil -> findNavController().navigate(R.id.navigation_edit_profil_inf)
+                            }
+                        })
                 }
-                true
+                R.id.editProfil -> findNavController().navigate(R.id.navigation_edit_profil_inf)
             }
-            popupMenu.show()
+            true
         }
+        popupMenu.show()
     }
 
     companion object {

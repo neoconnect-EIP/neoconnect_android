@@ -11,12 +11,15 @@ import kotlinx.coroutines.Dispatchers
 class InfViewModel : ViewModel() {
     private val infRepository = InfRepository()
 
+    /**
+     * Récupération de son profil Influenceur
+     */
     fun getProfilInf(token: String) =
         liveData(Dispatchers.IO) {
             try {
                 emit(
                     Resource.success(
-                        data = infRepository.getProfilInf(token),
+                        data = infRepository.getProfilInf(token = token),
                         message = "Récupération des données réussie"
                     )
                 )
@@ -25,12 +28,15 @@ class InfViewModel : ViewModel() {
             }
         }
 
+    /**
+     * Récupération d'un autre profil Influenceur
+     */
     fun getOtherInf(token: String, id: Int) =
         liveData(Dispatchers.IO) {
             try {
                 emit(
                     Resource.success(
-                        data = infRepository.getOtherInf(token, id),
+                        data = infRepository.getOtherInf(token = token, id = id),
                         message = "Récupération des données réussie"
                     )
                 )
@@ -39,12 +45,18 @@ class InfViewModel : ViewModel() {
             }
         }
 
+    /**
+     * Mise à jour de son compte Influenceur
+     */
     fun updateProfilInf(token: String, influenceur: RegisterInfluenceurModel) =
         liveData(Dispatchers.IO) {
             try {
                 emit(
                     Resource.success(
-                        data = infRepository.updateProfilInf(token, influenceur),
+                        data = infRepository.updateProfilInf(
+                            token = token,
+                            influenceur = influenceur
+                        ),
                         message = "Mise à jour réussie"
                     )
                 )
@@ -53,11 +65,14 @@ class InfViewModel : ViewModel() {
             }
         }
 
+    /**
+     * Recherche d'un Influenceur
+     */
     fun searchInf(token: String, keyword: SearchModel) = liveData(Dispatchers.IO) {
         try {
             emit(
                 Resource.success(
-                    data = infRepository.searchInf(token, keyword),
+                    data = infRepository.searchInf(token = token, keyword = keyword),
                     message = "Utilisateur trouvé"
                 )
             )

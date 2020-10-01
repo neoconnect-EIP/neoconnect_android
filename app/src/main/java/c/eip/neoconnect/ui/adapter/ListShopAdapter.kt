@@ -13,19 +13,31 @@ import c.eip.neoconnect.data.model.profil.ShopResponseModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
+/**
+ * Adapter pour la Liste des Boutiques
+ */
 class ListShopAdapter(private val listShop: ArrayList<ShopResponseModel>) :
     RecyclerView.Adapter<ListShopAdapter.ListShopHolder>() {
 
+    /**
+     * Déclaration du layout des éléments qui s'afficheront
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListShopHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.layout_list_user, parent, false)
         return ListShopHolder(view)
     }
 
+    /**
+     * Récupération du nombre d'élément de la liste
+     */
     override fun getItemCount(): Int {
         return listShop.size
     }
 
+    /**
+     * Liaison entre les éléments de la liste listShop et le layout
+     */
     override fun onBindViewHolder(holder: ListShopHolder, position: Int) {
         holder.bindItems(listShop[position])
     }

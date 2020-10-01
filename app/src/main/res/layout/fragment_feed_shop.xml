@@ -16,7 +16,6 @@
 
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_margin_vertical_end_feed_shop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -82,7 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="25dp"
-                android:text="Il n'y a pas d'influenceurs du moment"
+                android:text="@string/noInfTendance"
                 android:textAlignment="center"
                 android:visibility="gone" />
 
@@ -111,7 +110,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="25dp"
-                android:text="Il n'y a pas d'influenceurs populaires pour le moment"
+                android:text="@string/noInfPopulaire"
                 android:textAlignment="center"
                 android:visibility="gone" />
 
@@ -136,11 +135,11 @@
                 app:drawableStartCompat="@drawable/icon_notes" />
 
             <TextView
-                android:id="@+id/pb_feed_offer_notes"
+                android:id="@+id/pb_feed_inf_notes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="25dp"
-                android:text="Aucun influenceurs n'a de notes pour le moment"
+                android:text="@string/noInfNotes"
                 android:textAlignment="center"
                 android:visibility="gone" />
 

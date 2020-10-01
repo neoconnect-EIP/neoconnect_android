@@ -2,6 +2,9 @@ package c.eip.neoconnect.data.model
 
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Modèle Requête Partage des publications
+ */
 class PublicationLinksModel {
     @SerializedName("facebook")
     var facebook: String? = ""

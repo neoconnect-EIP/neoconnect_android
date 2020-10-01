@@ -14,6 +14,9 @@ import com.google.android.material.textfield.TextInputEditText
 
 class RegisterShop2 : Fragment() {
 
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,6 +41,10 @@ class RegisterShop2 : Fragment() {
         return inflate
     }
 
+    /**
+     * Mise en place des interaction possible
+     * Déplacement entre les vues
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.backButton).setOnClickListener {

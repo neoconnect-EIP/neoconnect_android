@@ -5,6 +5,9 @@ import c.eip.neoconnect.data.model.comment.CommentModel
 import c.eip.neoconnect.data.model.mark.MarkModel
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Modèle Influenceur
+ */
 class InfluenceurResponseModel {
     @SerializedName("id")
     var id: Int? = 0

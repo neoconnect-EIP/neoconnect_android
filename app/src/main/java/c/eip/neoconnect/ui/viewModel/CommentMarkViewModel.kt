@@ -13,6 +13,9 @@ class CommentMarkViewModel: ViewModel() {
     private val profilRepository = UserRepository()
     private val offresRepository = OffresRepository()
 
+    /**
+     * Noter un utilisateur
+     */
     fun markUser(token: String, id: Int, mark:MarkModel) = liveData(Dispatchers.IO) {
         try {
             emit(
@@ -26,6 +29,9 @@ class CommentMarkViewModel: ViewModel() {
         }
     }
 
+    /**
+     * Commenter un utilisateur
+     */
     fun commentUser(token: String, id: Int, comment:CommentModel) = liveData(Dispatchers.IO) {
         try {
             emit(
@@ -39,6 +45,9 @@ class CommentMarkViewModel: ViewModel() {
         }
     }
 
+    /**
+     * Noter une Offre
+     */
     fun markOffer(token: String, id: Int, mark:MarkModel) = liveData(Dispatchers.IO) {
         try {
             emit(
@@ -52,6 +61,9 @@ class CommentMarkViewModel: ViewModel() {
         }
     }
 
+    /**
+     * Commenter une Offre
+     */
     fun commentOffer(token: String, id: Int, comment:CommentModel) = liveData(Dispatchers.IO) {
         try {
             emit(

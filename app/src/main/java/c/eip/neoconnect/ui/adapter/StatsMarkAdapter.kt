@@ -8,10 +8,17 @@ import androidx.recyclerview.widget.RecyclerView
 import c.eip.neoconnect.R
 import c.eip.neoconnect.data.model.mark.MarkModel
 
+/**
+ * Adapter pour Liste des Notes
+ */
 class StatsMarkAdapter(
     private val listMark: List<MarkModel>
 ) :
     RecyclerView.Adapter<StatsMarkAdapter.StatsHolder>() {
+
+    /**
+     * Déclaration du layout des éléments qui s'afficheront
+     */
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -21,6 +28,9 @@ class StatsMarkAdapter(
         return StatsHolder(view)
     }
 
+    /**
+     * Récupération du nombre d'élément de la liste
+     */
     override fun getItemCount(): Int {
         return listMark.size
     }

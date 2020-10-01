@@ -9,12 +9,21 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface AuthService {
+    /**
+     * Inscription influenceur
+     */
     @POST("/inf/register")
     suspend fun registerInf(@Body influenceur: RegisterInfluenceurModel): RegisterResponseModel
 
+    /**
+     * Inscription Boutique
+     */
     @POST("/shop/register")
     suspend fun registerShop(@Body shop: RegisterShopModel): RegisterResponseModel
 
+    /**
+     * Connexion en Influenceur ou Boutique
+     */
     @POST("/login")
     suspend fun login(@Body loginModel: LoginModel): LoginResponseModel
 }

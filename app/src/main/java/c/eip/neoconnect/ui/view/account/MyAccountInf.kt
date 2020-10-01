@@ -1,6 +1,10 @@
 package c.eip.neoconnect.ui.view.account
 
-
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +21,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 class MyAccountInf : Fragment() {
+    private var notificationManager: NotificationManager? = null
 
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     * Affichage de l'image de profil ou d'une image par défaut
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,7 +36,8 @@ class MyAccountInf : Fragment() {
             inflate.findViewById<ImageView>(R.id.myAccountPicture)
                 .setImageResource(R.drawable.ic_picture_inf)
         } else {
-            Glide.with(requireContext()).load(MainViewInf.influenceurData!!.userPicture[0]?.imageData)
+            Glide.with(requireContext())
+                .load(MainViewInf.influenceurData!!.userPicture[0]?.imageData)
                 .circleCrop().error(R.drawable.ic_picture_inf)
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .into(inflate.findViewById(R.id.myAccountPicture))
@@ -35,6 +45,10 @@ class MyAccountInf : Fragment() {
         return inflate
     }
 
+    /**
+     * Mise en place des interaction possible
+     * Déplacement entre les vues
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.logoutButton).setOnClickListener {
@@ -53,5 +67,34 @@ class MyAccountInf : Fragment() {
         view.findViewById<TextView>(R.id.goToMyStats).setOnClickListener {
             findNavController().navigate(R.id.navigation_stats)
         }
+        view.findViewById<TextView>(R.id.testButton).setOnClickListener {
+            notificationManager =
+                activity?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?
+            createNotificationChannel(
+                "c.eip.neoconnect",
+                "Nom de channel Test Notification",
+                "Description Channel Test Notification"
+            )
+            sendNotification(view = view)
+        }
+    }
+
+    private fun createNotificationChannel(id: String, name: String, description: String) {
+        val importance = NotificationManager.IMPORTANCE_HIGH
+        val channel = NotificationChannel(id, name, importance)
+
+        channel.description = description
+        channel.enableLights(true)
+        channel.lightColor = Color.GREEN
+        channel.enableVibration(false)
+        notificationManager?.createNotificationChannel(channel)
+    }
+
+    private fun sendNotification(view: View) {
+        val channelId = "c.eip.neoconnect"
+        val notification = Notification.Builder(requireContext(), channelId)
+            .setContentTitle("Titre Notification crée").setContentText("Contenu Notification")
+            .setSmallIcon(R.drawable.logo).setChannelId(channelId).build()
+        notificationManager?.notify(101, notification)
     }
 }

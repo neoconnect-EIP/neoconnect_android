@@ -33,6 +33,9 @@ class EditProfilInf : Fragment() {
     private var themeState: Int = 0
     private val encoder = Encoder()
 
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -94,6 +97,10 @@ class EditProfilInf : Fragment() {
         return inflate
     }
 
+    /**
+     * Mise en place des interaction possible
+     * Déplacement entre les vues
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<ImageView>(R.id.editMyProfilPicture).setOnClickListener {
@@ -102,43 +109,86 @@ class EditProfilInf : Fragment() {
             openGallery()
         }
         view.findViewById<TextView>(R.id.saveButton).setOnClickListener {
-            val token = DataGetter.INSTANCE.getToken(requireContext())
-            val influenceur = RegisterInfluenceurModel()
-            influenceur.userPicture = editProfilPictureInf
-            influenceur.pseudo =
-                view.findViewById<TextInputEditText>(R.id.editProfilPseudo).text.toString()
-            influenceur.email =
-                view.findViewById<TextInputEditText>(R.id.editProfilEmail).text.toString()
-            influenceur.fullName =
-                view.findViewById<TextInputEditText>(R.id.editProfilNom).text.toString()
-            influenceur.phone =
-                view.findViewById<TextInputEditText>(R.id.editProfilPhone).text.toString()
-            influenceur.city =
-                view.findViewById<TextInputEditText>(R.id.editProfilVille).text.toString()
-            influenceur.postal =
-                view.findViewById<TextInputEditText>(R.id.editProfilPostal).text.toString()
-            influenceur.facebook =
-                view.findViewById<TextInputEditText>(R.id.editProfilFacebook).text.toString()
-            influenceur.twitter =
-                view.findViewById<TextInputEditText>(R.id.editProfilTwitter).text.toString()
-            influenceur.youtube =
-                view.findViewById<TextInputEditText>(R.id.editProfilYoutube).text.toString()
-            influenceur.pinterest =
-                view.findViewById<TextInputEditText>(R.id.editProfilPinterest).text.toString()
-            influenceur.instagram =
-                view.findViewById<TextInputEditText>(R.id.editProfilInstagram).text.toString()
-            influenceur.snapchat =
-                view.findViewById<TextInputEditText>(R.id.editProfilSnapchat).text.toString()
-            influenceur.twitch =
-                view.findViewById<TextInputEditText>(R.id.editProfilTwitch).text.toString()
-            influenceur.tiktok =
-                view.findViewById<TextInputEditText>(R.id.editProfilTiktok).text.toString()
-            if (themeState != 0) {
-                val themeList = resources.getStringArray(R.array.themeSpinner)
-                influenceur.theme = themeList[themeState]
-            }
-            viewModel = ViewModelProvider(this).get(InfViewModel::class.java)
-            viewModel.updateProfilInf(token!!, influenceur).observe(viewLifecycleOwner, Observer {
+            editProfilInf(view = view)
+        }
+    }
+
+    /**
+     * Vérifier permissions
+     * Ouvrir storage
+     */
+    private fun openGallery() {
+        if (context?.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_DENIED) {
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "image/*"
+            startActivityForResult(intent, 1)
+        } else {
+            val toast = Toast.makeText(context, "Autorisation non accordé", Toast.LENGTH_LONG)
+            toast.setGravity(Gravity.TOP, 0, 0)
+            toast.show()
+        }
+    }
+
+    /**
+     * Sélection d'une image
+     * Affichage de l'image sélectionné
+     */
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data != null) {
+            val selectedImage = data.data
+            Glide.with(requireContext()).load(selectedImage).circleCrop()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .into(requireView().findViewById(R.id.editMyProfilPicture))
+            view?.findViewById<ImageView>(R.id.editMyProfilPicture)?.background = null
+            val bitmap: Bitmap =
+                MediaStore.Images.Media.getBitmap(context?.contentResolver, selectedImage)
+            editProfilPictureInf = encoder.encodeTobase64(bitmap)
+        }
+    }
+
+    /**
+     * Modifier son profil Influenceur
+     */
+    private fun editProfilInf(view: View) {
+        val token = DataGetter.INSTANCE.getToken(requireContext())
+        val influenceur = RegisterInfluenceurModel()
+        influenceur.userPicture = editProfilPictureInf
+        influenceur.pseudo =
+            view.findViewById<TextInputEditText>(R.id.editProfilPseudo).text.toString()
+        influenceur.email =
+            view.findViewById<TextInputEditText>(R.id.editProfilEmail).text.toString()
+        influenceur.fullName =
+            view.findViewById<TextInputEditText>(R.id.editProfilNom).text.toString()
+        influenceur.phone =
+            view.findViewById<TextInputEditText>(R.id.editProfilPhone).text.toString()
+        influenceur.city =
+            view.findViewById<TextInputEditText>(R.id.editProfilVille).text.toString()
+        influenceur.postal =
+            view.findViewById<TextInputEditText>(R.id.editProfilPostal).text.toString()
+        influenceur.facebook =
+            view.findViewById<TextInputEditText>(R.id.editProfilFacebook).text.toString()
+        influenceur.twitter =
+            view.findViewById<TextInputEditText>(R.id.editProfilTwitter).text.toString()
+        influenceur.youtube =
+            view.findViewById<TextInputEditText>(R.id.editProfilYoutube).text.toString()
+        influenceur.pinterest =
+            view.findViewById<TextInputEditText>(R.id.editProfilPinterest).text.toString()
+        influenceur.instagram =
+            view.findViewById<TextInputEditText>(R.id.editProfilInstagram).text.toString()
+        influenceur.snapchat =
+            view.findViewById<TextInputEditText>(R.id.editProfilSnapchat).text.toString()
+        influenceur.twitch =
+            view.findViewById<TextInputEditText>(R.id.editProfilTwitch).text.toString()
+        influenceur.tiktok =
+            view.findViewById<TextInputEditText>(R.id.editProfilTiktok).text.toString()
+        if (themeState != 0) {
+            val themeList = resources.getStringArray(R.array.themeSpinner)
+            influenceur.theme = themeList[themeState]
+        }
+        viewModel = ViewModelProvider(this).get(InfViewModel::class.java)
+        viewModel.updateProfilInf(token = token!!, influenceur = influenceur)
+            .observe(viewLifecycleOwner, Observer {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
@@ -155,33 +205,6 @@ class EditProfilInf : Fragment() {
                     }
                 }
             })
-        }
-    }
-
-    private fun openGallery() {
-        if (context?.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_DENIED) {
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = "image/*"
-            startActivityForResult(intent, 1)
-        } else {
-            val toast = Toast.makeText(context, "Autorisation non accordé", Toast.LENGTH_LONG)
-            toast.setGravity(Gravity.TOP, 0, 0)
-            toast.show()
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (data != null) {
-            val selectedImage = data.data
-            Glide.with(requireContext()).load(selectedImage).circleCrop()
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                .into(requireView().findViewById(R.id.editMyProfilPicture))
-            view?.findViewById<ImageView>(R.id.editMyProfilPicture)?.background = null
-            val bitmap: Bitmap =
-                MediaStore.Images.Media.getBitmap(context?.contentResolver, selectedImage)
-            editProfilPictureInf = encoder.encodeTobase64(bitmap)
-        }
     }
 
     companion object {

@@ -3,6 +3,9 @@ package c.eip.neoconnect.data.model.search
 import c.eip.neoconnect.data.model.ImagePicture
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Modèle Réponse à la recherche
+ */
 class SearchResponseModel {
     @SerializedName("id")
     var id: Int = 0

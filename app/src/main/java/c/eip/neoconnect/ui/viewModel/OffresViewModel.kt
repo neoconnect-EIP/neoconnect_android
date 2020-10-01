@@ -13,11 +13,14 @@ import kotlinx.coroutines.Dispatchers
 class OffresViewModel : ViewModel() {
     private val offresRepository = OffresRepository()
 
+    /**
+     * Récupération d'une Offre
+     */
     fun getOneOffer(token: String, id: Int) = liveData(Dispatchers.IO) {
         try {
             emit(
                 Resource.success(
-                    data = offresRepository.getOneOffer(token, id),
+                    data = offresRepository.getOneOffer(token = token, id = id),
                     message = "Récupération de l'offre $id réussie"
                 )
             )
@@ -26,11 +29,14 @@ class OffresViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Ajouter une offre
+     */
     fun insertOffer(token: String, offre: OffreModel) = liveData(Dispatchers.IO) {
         try {
             emit(
                 Resource.success(
-                    data = offresRepository.insertOffer(token, offre),
+                    data = offresRepository.insertOffer(token = token, offre = offre),
                     message = "Ajout de l'offre réussie"
                 )
             )
@@ -39,11 +45,14 @@ class OffresViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Mettre à jour une offre que l'on a posté
+     */
     fun editOffer(token: String, id: Int, offre: OffreModel) = liveData(Dispatchers.IO) {
         try {
             emit(
                 Resource.success(
-                    data = offresRepository.editOffer(token, id, offre),
+                    data = offresRepository.editOffer(token = token, id = id, offre = offre),
                     message = "Mise à jour de l'offre réussie"
                 )
             )
@@ -52,11 +61,14 @@ class OffresViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Postuler à une Offre
+     */
     fun applyOffer(token: String, id: Int) = liveData(Dispatchers.IO) {
         try {
             emit(
                 Resource.success(
-                    data = offresRepository.applyOffer(token, id),
+                    data = offresRepository.applyOffer(token = token, id = id),
                     message = "Candidature à l'offre $id réussie"
                 )
             )
@@ -65,11 +77,14 @@ class OffresViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Supprimer une offre que l'on a posté
+     */
     fun deleteOffer(token: String, id: Int) = liveData(Dispatchers.IO) {
         try {
             emit(
                 Resource.success(
-                    data = offresRepository.deleteOffer(token, id),
+                    data = offresRepository.deleteOffer(token = token, id = id),
                     message = "Offre $id supprimé"
                 )
             )
@@ -78,16 +93,20 @@ class OffresViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Accepter ou Refuser une candidature d'un Influenceur à une Offre
+     */
     fun choiceApply(token: String, choice: OffreApply) = liveData(Dispatchers.IO) {
         try {
             emit(
                 Resource.success(
-                    data = offresRepository.choiceApply(token, choice),
-                    message = "Influenceur ${choice.idUser} ${if (choice.status) {
-                        "accepté"
-                    } else {
-                        "refusé"
-                    }
+                    data = offresRepository.choiceApply(token = token, choice = choice),
+                    message = "Influenceur ${choice.idUser} ${
+                        if (choice.status) {
+                            "accepté"
+                        } else {
+                            "refusé"
+                        }
                     }"
                 )
             )
@@ -96,12 +115,14 @@ class OffresViewModel : ViewModel() {
         }
     }
 
-    //Todo
+    /**
+     * Signaler une offre
+     */
     fun reportOffer(token: String, id: Int, report: OffreReportModel) = liveData(Dispatchers.IO) {
         try {
             emit(
                 Resource.success(
-                    data = offresRepository.reportOffer(token, id, report),
+                    data = offresRepository.reportOffer(token = token, id = id, report = report),
                     message = "Utilisateur $id (${report.offreName} signalé"
                 )
             )
@@ -110,12 +131,18 @@ class OffresViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Indiquer qu'un produit a été partagé en partageant les liens des posts à la Boutique
+     */
     fun sharePublication(token: String, id: Int, links: PublicationLinksModel) =
         liveData(Dispatchers.IO) {
             try {
                 emit(
                     Resource.success(
-                        data = offresRepository.sharePublication(token, id, links),
+                        data = offresRepository.sharePublication(
+                            token = token, id = id,
+                            links = links
+                        ),
                         message = "Lien(s) envoyé avec succès"
                     )
                 )

@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import c.eip.neoconnect.MainViewInf
 import c.eip.neoconnect.R
+import c.eip.neoconnect.data.model.offres.OffreResponseModel
+import c.eip.neoconnect.data.model.profil.ShopResponseModel
 import c.eip.neoconnect.ui.adapter.FeedOfferAdapter
 import c.eip.neoconnect.ui.adapter.FeedShopAdapter
 import c.eip.neoconnect.ui.viewModel.FeedViewModel
@@ -24,6 +26,9 @@ import c.eip.neoconnect.utils.Status
 class FeedInf : Fragment() {
     private lateinit var viewModel: FeedViewModel
 
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,135 +39,99 @@ class FeedInf : Fragment() {
 
         val token = DataGetter.INSTANCE.getToken(requireContext())
         viewModel = ViewModelProvider(this).get(FeedViewModel::class.java)
-        viewModel.getFeed(token!!).observe(viewLifecycleOwner, Observer {
+        viewModel.getFeed(token = token!!).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        if (it.data?.listOfferTendance.isNullOrEmpty()) {
-                            inflate.findViewById<TextView>(R.id.pb_feed_offer_tendance).visibility =
-                                View.VISIBLE
-                            inflate.findViewById<RecyclerView>(R.id.recyclerFeedListOffresTendances).visibility =
-                                View.GONE
-                        } else {
-                            inflate.findViewById<TextView>(R.id.pb_feed_offer_tendance).visibility =
-                                View.GONE
-                            inflate.findViewById<RecyclerView>(R.id.recyclerFeedListOffresTendances).visibility =
-                                View.VISIBLE
-                            val recyclerOffresTendancesView =
-                                inflate.findViewById<RecyclerView>(R.id.recyclerFeedListOffresTendances)
-                            recyclerOffresTendancesView.layoutManager =
-                                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                            val offresTendancesAdapter =
-                                FeedOfferAdapter(it.data?.listOfferTendance!!)
-                            offresTendancesAdapter.notifyDataSetChanged()
-                            recyclerOffresTendancesView.adapter = offresTendancesAdapter
-                        }
+                        feedOffres(
+                            listOffer = it.data?.listOfferTendance,
+                            recyclerView = inflate.findViewById(R.id.recyclerFeedListOffresTendances),
+                            errorText = inflate.findViewById(R.id.pb_feed_offer_tendance)
+                        )
 
-                        if (it.data?.listOfferPopulaire.isNullOrEmpty()) {
-                            inflate.findViewById<TextView>(R.id.pb_feed_offer_populaire).visibility =
-                                View.VISIBLE
-                            inflate.findViewById<RecyclerView>(R.id.recyclerFeedListOffresPopulaires).visibility =
-                                View.GONE
-                        } else {
-                            inflate.findViewById<TextView>(R.id.pb_feed_offer_populaire).visibility =
-                                View.GONE
-                            inflate.findViewById<RecyclerView>(R.id.recyclerFeedListOffresPopulaires).visibility =
-                                View.VISIBLE
-                            val recyclerOffresPopulairesView =
-                                inflate.findViewById<RecyclerView>(R.id.recyclerFeedListOffresPopulaires)
-                            recyclerOffresPopulairesView.layoutManager =
-                                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                            val offresPopulairesAdapter =
-                                FeedOfferAdapter(it.data?.listOfferPopulaire!!)
-                            offresPopulairesAdapter.notifyDataSetChanged()
-                            recyclerOffresPopulairesView.adapter = offresPopulairesAdapter
-                        }
+                        feedOffres(
+                            listOffer = it.data?.listOfferPopulaire,
+                            recyclerView = inflate.findViewById(R.id.recyclerFeedListOffresPopulaires),
+                            errorText = inflate.findViewById(R.id.pb_feed_offer_populaire)
+                        )
 
-                        if (it.data?.listOfferNotes.isNullOrEmpty()) {
-                            inflate.findViewById<TextView>(R.id.pb_feed_offer_notes).visibility =
-                                View.VISIBLE
-                            inflate.findViewById<RecyclerView>(R.id.recyclerFeedListOffresNotes).visibility =
-                                View.GONE
-                        } else {
-                            inflate.findViewById<TextView>(R.id.pb_feed_offer_notes).visibility =
-                                View.GONE
-                            inflate.findViewById<RecyclerView>(R.id.recyclerFeedListOffresNotes).visibility =
-                                View.VISIBLE
-                            val recyclerOffresNotesView =
-                                inflate.findViewById<RecyclerView>(R.id.recyclerFeedListOffresNotes)
-                            recyclerOffresNotesView.layoutManager =
-                                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                            val offresNotesAdapter = FeedOfferAdapter(it.data?.listOfferNotes!!)
-                            offresNotesAdapter.notifyDataSetChanged()
-                            recyclerOffresNotesView.adapter = offresNotesAdapter
-                        }
+                        feedOffres(
+                            listOffer = it.data?.listOfferNotes,
+                            recyclerView = inflate.findViewById(R.id.recyclerFeedListOffresNotes),
+                            errorText = inflate.findViewById(R.id.pb_feed_offer_notes)
+                        )
 
-                        if (it.data?.listShopTendance.isNullOrEmpty()) {
-                            inflate.findViewById<TextView>(R.id.pb_feed_shop_tendance).visibility =
-                                View.VISIBLE
-                            inflate.findViewById<RecyclerView>(R.id.recyclerFeedListShopTendances).visibility =
-                                View.GONE
-                        } else {
-                            inflate.findViewById<TextView>(R.id.pb_feed_shop_tendance).visibility =
-                                View.GONE
-                            inflate.findViewById<RecyclerView>(R.id.recyclerFeedListShopTendances).visibility =
-                                View.VISIBLE
-                            val recyclerShopTendancesView =
-                                inflate.findViewById<RecyclerView>(R.id.recyclerFeedListShopTendances)
-                            recyclerShopTendancesView.layoutManager =
-                                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                            val shopTendancesAdapter = FeedShopAdapter(it.data?.listShopTendance!!)
-                            shopTendancesAdapter.notifyDataSetChanged()
-                            recyclerShopTendancesView.adapter = shopTendancesAdapter
-                        }
+                        feedShop(
+                            listShop = it.data?.listShopTendance,
+                            recyclerView = inflate.findViewById(R.id.recyclerFeedListShopTendances),
+                            errorText = inflate.findViewById(R.id.pb_feed_shop_tendance)
+                        )
 
-                        if (it.data?.listShopPopulaire.isNullOrEmpty()) {
-                            inflate.findViewById<TextView>(R.id.pb_feed_shop_populaire).visibility =
-                                View.VISIBLE
-                            inflate.findViewById<RecyclerView>(R.id.recyclerFeedListShopPopulaires).visibility =
-                                View.GONE
-                        } else {
-                            inflate.findViewById<TextView>(R.id.pb_feed_shop_populaire).visibility =
-                                View.GONE
-                            inflate.findViewById<RecyclerView>(R.id.recyclerFeedListShopPopulaires).visibility =
-                                View.VISIBLE
-                            val recyclerShopPopulairesView =
-                                inflate.findViewById<RecyclerView>(R.id.recyclerFeedListShopPopulaires)
-                            recyclerShopPopulairesView.layoutManager =
-                                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                            val shopPopulairesAdapter =
-                                FeedShopAdapter(it.data?.listShopPopulaire!!)
-                            shopPopulairesAdapter.notifyDataSetChanged()
-                            recyclerShopPopulairesView.adapter = shopPopulairesAdapter
-                        }
+                        feedShop(
+                            listShop = it.data?.listShopPopulaire,
+                            recyclerView = inflate.findViewById(R.id.recyclerFeedListShopPopulaires),
+                            errorText = inflate.findViewById(R.id.pb_feed_shop_populaire)
+                        )
 
-                        if (it.data?.listShopNotes.isNullOrEmpty()) {
-                            inflate.findViewById<TextView>(R.id.pb_feed_shop_notes).visibility =
-                                View.VISIBLE
-                            inflate.findViewById<RecyclerView>(R.id.recyclerFeedListShopNotes).visibility =
-                                View.GONE
-                        } else {
-                            inflate.findViewById<TextView>(R.id.pb_feed_shop_notes).visibility =
-                                View.GONE
-                            inflate.findViewById<RecyclerView>(R.id.recyclerFeedListShopNotes).visibility =
-                                View.VISIBLE
-                            val recyclerShopNotesView =
-                                inflate.findViewById<RecyclerView>(R.id.recyclerFeedListShopNotes)
-                            recyclerShopNotesView.layoutManager =
-                                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                            val shopNotesAdapter = FeedShopAdapter(it.data?.listShopNotes!!)
-                            shopNotesAdapter.notifyDataSetChanged()
-                            recyclerShopNotesView.adapter = shopNotesAdapter
-                        }
+                        feedShop(
+                            listShop = it.data?.listShopNotes,
+                            recyclerView = inflate.findViewById(R.id.recyclerFeedListShopNotes),
+                            errorText = inflate.findViewById(R.id.pb_feed_shop_notes)
+                        )
                     }
                     Status.ERROR -> {
                         inflate.findViewById<TextView>(R.id.pb_feed).visibility = View.VISIBLE
                         inflate.findViewById<ScrollView>(R.id.feedLayout).visibility = View.GONE
-                        Log.e("Feed", it.message)
+                        Log.e("Feed", it.message!!)
                     }
                 }
             }
         })
         return inflate
+    }
+
+    /**
+     * Récupération Fil D'actualité Offres
+     */
+    private fun feedOffres(
+        listOffer: List<OffreResponseModel>?,
+        recyclerView: RecyclerView,
+        errorText: TextView
+    ) {
+        if (listOffer.isNullOrEmpty()) {
+            errorText.visibility = View.VISIBLE
+            recyclerView.visibility = View.GONE
+        } else {
+            errorText.visibility = View.GONE
+            recyclerView.visibility = View.VISIBLE
+            recyclerView.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            val adapter = FeedOfferAdapter(listOffer)
+            adapter.notifyDataSetChanged()
+            recyclerView.adapter = adapter
+        }
+    }
+
+    /**
+     * Récupération Fil D'actualité Boutiques
+     */
+    private fun feedShop(
+        listShop: List<ShopResponseModel>?,
+        recyclerView: RecyclerView,
+        errorText: TextView
+    ) {
+        if (listShop.isNullOrEmpty()) {
+            errorText.visibility = View.VISIBLE
+            recyclerView.visibility = View.GONE
+        } else {
+            errorText.visibility =
+                View.GONE
+            recyclerView.visibility = View.VISIBLE
+            recyclerView.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            val adapter = FeedShopAdapter(listShop)
+            adapter.notifyDataSetChanged()
+            recyclerView.adapter = adapter
+        }
     }
 }

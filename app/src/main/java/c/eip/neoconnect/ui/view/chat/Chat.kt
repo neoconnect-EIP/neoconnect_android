@@ -23,6 +23,10 @@ import c.eip.neoconnect.utils.Status
 class Chat : Fragment() {
     private lateinit var viewModel: ChatViewModel
 
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     * Modification Fond de vue selon UserType
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,30 +39,37 @@ class Chat : Fragment() {
             inflate.findViewById<ConstraintLayout>(R.id.chatLayout)
                 .setBackgroundResource(R.drawable.background_influencer)
         }
+        getCanals(view = inflate)
+        return inflate
+    }
+
+    /**
+     * Récupération des canaux de discussion
+     */
+    private fun getCanals(view: View) {
         val token = DataGetter.INSTANCE.getToken(requireContext())
         viewModel = ViewModelProvider(this).get(ChatViewModel::class.java)
-        viewModel.getAllChannel(token!!).observe(viewLifecycleOwner, Observer {
+        viewModel.getAllChannel(token = token!!).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        inflate.findViewById<TextView>(R.id.pb_chat).visibility = View.GONE
-                        inflate.findViewById<ScrollView>(R.id.chatScrollView).visibility =
+                        view.findViewById<TextView>(R.id.pb_chat).visibility = View.GONE
+                        view.findViewById<ScrollView>(R.id.chatScrollView).visibility =
                             View.VISIBLE
-                        val recyclerChat = inflate.findViewById<RecyclerView>(R.id.recyclerViewChat)
-                        recyclerChat.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                        val recyclerChat = view.findViewById<RecyclerView>(R.id.recyclerViewChat)
+                        recyclerChat.layoutManager =
+                            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                         val adapter = ChatAdapter(it.data!!)
                         adapter.notifyDataSetChanged()
                         recyclerChat.adapter = adapter
                     }
                     Status.ERROR -> {
-                        inflate.findViewById<TextView>(R.id.pb_chat).visibility = View.VISIBLE
-                        inflate.findViewById<ScrollView>(R.id.chatScrollView).visibility = View.GONE
-                        Log.e("Chat", it.message)
+                        view.findViewById<TextView>(R.id.pb_chat).visibility = View.VISIBLE
+                        view.findViewById<ScrollView>(R.id.chatScrollView).visibility = View.GONE
+                        Log.e("Chat", it.message!!)
                     }
                 }
-
             }
         })
-        return inflate
     }
 }

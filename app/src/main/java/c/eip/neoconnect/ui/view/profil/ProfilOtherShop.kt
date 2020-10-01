@@ -32,6 +32,9 @@ class ProfilOtherShop : Fragment() {
     val bundle = bundleOf()
     private var name: String? = ""
 
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,71 +42,10 @@ class ProfilOtherShop : Fragment() {
         val inflate = inflater.inflate(R.layout.fragment_profil_other_shop, container, false)
         when {
             arguments?.get("mode") == 0 -> {
-                val id = arguments?.get("id") as Int
-                val token = DataGetter.INSTANCE.getToken(requireContext())
-                viewModel = ViewModelProvider(this).get(ShopViewModel::class.java)
-                viewModel.getOtherShop(token!!, id).observe(viewLifecycleOwner, Observer {
-                    it.let { resource ->
-                        when (resource.status) {
-                            Status.SUCCESS -> {
-                                if (it.data?.userPicture?.size!! <= 0) {
-                                    inflate.findViewById<ImageView>(R.id.otherProfilPicture)
-                                        .setImageResource(R.drawable.ic_picture_shop)
-                                } else {
-                                    Glide.with(requireContext())
-                                        .load(it.data.userPicture[0]?.imageData)
-                                        .circleCrop().error(R.drawable.ic_picture_shop)
-                                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                                        .into(inflate.findViewById(R.id.otherProfilPicture))
-                                }
-                                name = it.data.pseudo
-                                inflate.findViewById<TextView>(R.id.otherProfilPseudo).text =
-                                    it.data.pseudo
-                                inflate.findViewById<TextView>(R.id.otherProfilSubject).text =
-                                    it.data.theme
-                                if (it.data.average.isNullOrBlank()) {
-                                    inflate.findViewById<TextView>(R.id.otherProfilAverage).text =
-                                        "0"
-                                } else {
-                                    inflate.findViewById<TextView>(R.id.otherProfilAverage).text =
-                                        it.data.average
-                                }
-                                bundle.putString("dest", it.data.email)
-
-                            }
-                            Status.ERROR -> {
-                                Log.e("Get Shop", "$id introuvable")
-                                Toast.makeText(
-                                    context,
-                                    "Utilisateur introuvable",
-                                    Toast.LENGTH_LONG
-                                )
-                                    .show()
-                                findNavController().popBackStack()
-                            }
-                        }
-                    }
-                })
+                getOtherProfilShop(inflate = inflate)
             }
             arguments?.get("mode") == 1 -> {
-                if (Search.searchResponse?.userPicture?.size!! <= 0) {
-                    inflate.findViewById<ImageView>(R.id.otherProfilPicture)
-                        .setImageResource(R.drawable.ic_picture_shop)
-                } else {
-                    Glide.with(requireContext())
-                        .load(Search.searchResponse?.userPicture?.get(0)?.imageData)
-                        .circleCrop().error(R.drawable.ic_picture_shop)
-                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                        .into(inflate.findViewById(R.id.otherProfilPicture))
-                }
-                name = Search.searchResponse?.pseudo
-                inflate.findViewById<TextView>(R.id.otherProfilPseudo).text =
-                    Search.searchResponse?.pseudo
-                inflate.findViewById<TextView>(R.id.otherProfilSubject).text =
-                    Search.searchResponse?.theme
-                inflate.findViewById<TextView>(R.id.otherProfilAverage).text =
-                    Search.searchResponse?.average.toString()
-                bundle.putString("dest", Search.searchResponse?.email)
+                resultSearchProfilShop(inflate = inflate)
             }
             else -> {
                 findNavController().popBackStack()
@@ -112,6 +54,10 @@ class ProfilOtherShop : Fragment() {
         return inflate
     }
 
+    /**
+     * Mise en place des interaction possible
+     * Déplacement entre les vues
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.backButton).setOnClickListener {
@@ -121,45 +67,7 @@ class ProfilOtherShop : Fragment() {
             findNavController().navigate(R.id.navigation_contact, bundle)
         }
         view.findViewById<Button>(R.id.contactByMPProfilButton).setOnClickListener {
-            val mDialogView =
-                LayoutInflater.from(requireContext()).inflate(R.layout.dialog_first_message, null)
-            val mAlertDialogBuilder = AlertDialog.Builder(requireContext()).setView(mDialogView)
-                .setTitle("Envoyer un message")
-            val mAlertDialog = mAlertDialogBuilder.show()
-            mDialogView.findViewById<ImageView>(R.id.sendFirstMessageButton).setOnClickListener {
-                chatViewModel = ViewModelProvider(this).get(ChatViewModel::class.java)
-                val token = DataGetter.INSTANCE.getToken(requireContext())
-                val message = MessageModel()
-                message.message =
-                    mDialogView.findViewById<TextInputEditText>(R.id.insertFirstMessage).text.toString()
-                if (arguments?.get("mode") == 0) {
-                    message.userId = (arguments?.get("id") as Int).toString()
-                } else {
-                    message.userId = Search.searchResponse?.id.toString()
-                }
-                chatViewModel.postMessage(token!!, message).observe(viewLifecycleOwner, Observer {
-                    it?.let { resource ->
-                        when (resource.status) {
-                            Status.SUCCESS -> {
-                                Toast.makeText(
-                                    context,
-                                    "Message envoyé",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                mAlertDialog.dismiss()
-                            }
-                            Status.ERROR -> {
-                                Toast.makeText(
-                                    context,
-                                    "Impossible d'envoyer votre message",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                                Log.e("One Chat", it.message)
-                            }
-                        }
-                    }
-                })
-            }
+            sendPrivateMessage()
         }
         view.findViewById<Button>(R.id.reportShopButton).setOnClickListener {
             val bundleReport = bundleOf("type" to "user", "name" to name)
@@ -169,6 +77,126 @@ class ProfilOtherShop : Fragment() {
                 bundleReport.putString("userId", (Search.searchResponse?.id.toString()))
             }
             findNavController().navigate(R.id.navigation_report, bundleReport)
+        }
+    }
+
+    /**
+     * Récupération du profil Boutique
+     */
+    private fun getOtherProfilShop(inflate: View) {
+        val id = arguments?.get("id") as Int
+        val token = DataGetter.INSTANCE.getToken(requireContext())
+        viewModel = ViewModelProvider(this).get(ShopViewModel::class.java)
+        viewModel.getOtherShop(token = token!!, id = id).observe(viewLifecycleOwner, Observer {
+            it.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        if (it.data?.userPicture?.size!! <= 0) {
+                            inflate.findViewById<ImageView>(R.id.otherProfilPicture)
+                                .setImageResource(R.drawable.ic_picture_shop)
+                        } else {
+                            Glide.with(requireContext())
+                                .load(it.data.userPicture[0]?.imageData)
+                                .circleCrop().error(R.drawable.ic_picture_shop)
+                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                .into(inflate.findViewById(R.id.otherProfilPicture))
+                        }
+                        name = it.data.pseudo
+                        inflate.findViewById<TextView>(R.id.otherProfilPseudo).text =
+                            it.data.pseudo
+                        inflate.findViewById<TextView>(R.id.otherProfilSubject).text =
+                            it.data.theme
+                        if (it.data.average.isNullOrBlank()) {
+                            inflate.findViewById<TextView>(R.id.otherProfilAverage).text =
+                                "0"
+                        } else {
+                            inflate.findViewById<TextView>(R.id.otherProfilAverage).text =
+                                it.data.average
+                        }
+                        bundle.putString("dest", it.data.email)
+
+                    }
+                    Status.ERROR -> {
+                        Log.e("Get Shop", "$id introuvable")
+                        Toast.makeText(
+                            context,
+                            "Utilisateur introuvable",
+                            Toast.LENGTH_LONG
+                        )
+                            .show()
+                        findNavController().popBackStack()
+                    }
+                }
+            }
+        })
+    }
+
+    /**
+     * Récupération du profil Boutique par recherche
+     */
+    private fun resultSearchProfilShop(inflate: View) {
+        if (Search.searchResponse?.userPicture?.size!! <= 0) {
+            inflate.findViewById<ImageView>(R.id.otherProfilPicture)
+                .setImageResource(R.drawable.ic_picture_shop)
+        } else {
+            Glide.with(requireContext())
+                .load(Search.searchResponse?.userPicture?.get(0)?.imageData)
+                .circleCrop().error(R.drawable.ic_picture_shop)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .into(inflate.findViewById(R.id.otherProfilPicture))
+        }
+        name = Search.searchResponse?.pseudo
+        inflate.findViewById<TextView>(R.id.otherProfilPseudo).text =
+            Search.searchResponse?.pseudo
+        inflate.findViewById<TextView>(R.id.otherProfilSubject).text =
+            Search.searchResponse?.theme
+        inflate.findViewById<TextView>(R.id.otherProfilAverage).text =
+            Search.searchResponse?.average.toString()
+        bundle.putString("dest", Search.searchResponse?.email)
+    }
+
+    /**
+     * Contacter par message privé
+     */
+    private fun sendPrivateMessage() {
+        val mDialogView =
+            LayoutInflater.from(requireContext()).inflate(R.layout.dialog_first_message, null)
+        val mAlertDialogBuilder = AlertDialog.Builder(requireContext()).setView(mDialogView)
+            .setTitle("Envoyer un message")
+        val mAlertDialog = mAlertDialogBuilder.show()
+        mDialogView.findViewById<ImageView>(R.id.sendFirstMessageButton).setOnClickListener {
+            chatViewModel = ViewModelProvider(this).get(ChatViewModel::class.java)
+            val token = DataGetter.INSTANCE.getToken(requireContext())
+            val message = MessageModel()
+            message.message =
+                mDialogView.findViewById<TextInputEditText>(R.id.insertFirstMessage).text.toString()
+            if (arguments?.get("mode") == 0) {
+                message.userId = (arguments?.get("id") as Int).toString()
+            } else {
+                message.userId = Search.searchResponse?.id.toString()
+            }
+            chatViewModel.postMessage(token = token!!, message = message).observe(viewLifecycleOwner, Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            Toast.makeText(
+                                context,
+                                "Message envoyé",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            mAlertDialog.dismiss()
+                        }
+                        Status.ERROR -> {
+                            Toast.makeText(
+                                context,
+                                "Impossible d'envoyer votre message",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            Log.e("One Chat", it.message!!)
+                        }
+                    }
+                }
+            })
         }
     }
 }

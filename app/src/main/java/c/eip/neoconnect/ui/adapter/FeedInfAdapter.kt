@@ -13,19 +13,31 @@ import c.eip.neoconnect.data.model.profil.InfluenceurResponseModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
+/**
+ * Adapter pour Fil d'actualité Influenceur
+ */
 class FeedInfAdapter(private val listInf: List<InfluenceurResponseModel>) :
     RecyclerView.Adapter<FeedInfAdapter.InfHolder>() {
 
+    /**
+     * Déclaration du layout des éléments qui s'afficheront
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InfHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.layout_list_feed, parent, false)
         return InfHolder(view)
     }
 
+    /**
+     * Récupération du nombre d'élément de la liste
+     */
     override fun getItemCount(): Int {
         return listInf.size
     }
 
+    /**
+     * Liaison entre les éléments de la liste listInf et le layout
+     */
     override fun onBindViewHolder(holder: InfHolder, position: Int) {
         holder.bindItems(listInf[position])
     }

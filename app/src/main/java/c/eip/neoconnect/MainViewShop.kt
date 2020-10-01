@@ -22,6 +22,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainViewShop : Fragment() {
     private lateinit var viewModel: ShopViewModel
 
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,7 +32,7 @@ class MainViewShop : Fragment() {
         val inflate = inflater.inflate(R.layout.fragment_main_view_shop, container, false)
         val token = DataGetter.INSTANCE.getToken(requireContext())
         viewModel = ViewModelProvider(this).get(ShopViewModel::class.java)
-        viewModel.getProfilShop(token!!).observe(viewLifecycleOwner, Observer {
+        viewModel.getProfilShop(token = token!!).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
@@ -43,6 +46,10 @@ class MainViewShop : Fragment() {
         return inflate
     }
 
+    /**
+     * Mise en place des interaction possible
+     * Déplacement entre les vues
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         parentFragmentManager.beginTransaction().replace(R.id.container, FeedShop())

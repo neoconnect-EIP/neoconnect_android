@@ -25,6 +25,10 @@ import com.google.android.material.textfield.TextInputEditText
 class UpdatePassword : Fragment() {
     private lateinit var viewModel: ResetPasswordViewModel
     private val checkInput = CheckInput()
+
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,6 +36,11 @@ class UpdatePassword : Fragment() {
         return inflater.inflate(R.layout.fragment_update_password, container, false)
     }
 
+    /**
+     * Mise en place des interaction possible
+     * Déplacement entre les vues
+     * Vérification Code
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.backButton).setOnClickListener {
@@ -64,63 +73,17 @@ class UpdatePassword : Fragment() {
 
             })
         view.findViewById<TextView>(R.id.updatePasswordButton).setOnClickListener {
-            val thirdStep = ResetPasswordThirdStepModel()
-            thirdStep.email = arguments?.get("email") as String
-            thirdStep.token =
-                view.findViewById<TextInputEditText>(R.id.updatePasswordToken).text.toString()
-            val password =
-                view.findViewById<TextInputEditText>(R.id.updatePasswordNewPassword).text.toString()
-            val passwordCheck =
-                view.findViewById<TextInputEditText>(R.id.updatePasswordNewPasswordConfirm).text.toString()
-            val checkPassword = checkInput.checkPassword(password, passwordCheck)
-            when (checkPassword) {
-                1 -> Toast.makeText(
-                    context,
-                    "Le mot de passe ne doit pas être vide",
-                    Toast.LENGTH_LONG
-                ).show()
-                2 -> Toast.makeText(
-                    context,
-                    "Le mot de passe de confirmation ne doit pas être vide",
-                    Toast.LENGTH_LONG
-                ).show()
-                3 -> Toast.makeText(
-                    context,
-                    "Le mot de passe et le mot de passe de confirmation ne doivent pas être différents",
-                    Toast.LENGTH_LONG
-                ).show()
-                4 -> Toast.makeText(
-                    context,
-                    "Le mot de passe doit contenir entre 4 et 12 caractères, avec 1 minuscule, 1 majuscule et 1 chiffre",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-            if (checkPassword == 0) {
-                thirdStep.password = password
-                viewModel = ViewModelProvider(this).get(ResetPasswordViewModel::class.java)
-                viewModel.updatePassword(thirdStep).observe(viewLifecycleOwner, Observer {
-                    it?.let { resource ->
-                        when (resource.status) {
-                            Status.SUCCESS -> {
-                                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                                Log.e("Update password", it.message)
-                                findNavController().navigate(R.id.navigation_login_inf)
-                            }
-                            Status.ERROR -> {
-                                Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
-                                Log.e("Update password", it.message)
-                            }
-                        }
-
-                    }
-                })
-            }
+            updatePassword(view = view)
         }
     }
 
-    fun checkToken(token: String) {
+    /**
+     * Vérification Code reçu par mail
+     * 2ème étape pour la récupération du mot de passe
+     */
+    private fun checkToken(token: String) {
         viewModel = ViewModelProvider(this).get(ResetPasswordViewModel::class.java)
-        viewModel.checkToken(token).observe(this, Observer {
+        viewModel.checkToken(token = token).observe(this, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
@@ -133,10 +96,68 @@ class UpdatePassword : Fragment() {
                     }
                     Status.ERROR -> {
                         Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
-                        Log.e("Check Token", it.message)
+                        Log.e("Check Token", it.message!!)
                     }
                 }
             }
         })
+    }
+
+    /**
+     *  Modification du mot de passe
+     *  3ème étape pour la récupération du mot de passe
+     */
+    private fun updatePassword(view: View) {
+        val thirdStep = ResetPasswordThirdStepModel()
+        thirdStep.email = arguments?.get("email") as String
+        thirdStep.token =
+            view.findViewById<TextInputEditText>(R.id.updatePasswordToken).text.toString()
+        val password =
+            view.findViewById<TextInputEditText>(R.id.updatePasswordNewPassword).text.toString()
+        val passwordCheck =
+            view.findViewById<TextInputEditText>(R.id.updatePasswordNewPasswordConfirm).text.toString()
+        val checkPassword = checkInput.checkPassword(password, passwordCheck)
+        when (checkPassword) {
+            1 -> Toast.makeText(
+                context,
+                "Le mot de passe ne doit pas être vide",
+                Toast.LENGTH_LONG
+            ).show()
+            2 -> Toast.makeText(
+                context,
+                "Le mot de passe de confirmation ne doit pas être vide",
+                Toast.LENGTH_LONG
+            ).show()
+            3 -> Toast.makeText(
+                context,
+                "Le mot de passe et le mot de passe de confirmation ne doivent pas être différents",
+                Toast.LENGTH_LONG
+            ).show()
+            4 -> Toast.makeText(
+                context,
+                "Le mot de passe doit contenir entre 4 et 12 caractères, avec 1 minuscule, 1 majuscule et 1 chiffre",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+        if (checkPassword == 0) {
+            thirdStep.password = password
+            viewModel = ViewModelProvider(this).get(ResetPasswordViewModel::class.java)
+            viewModel.updatePassword(form = thirdStep).observe(viewLifecycleOwner, Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                            Log.e("Update password", it.message!!)
+                            findNavController().navigate(R.id.navigation_login_inf)
+                        }
+                        Status.ERROR -> {
+                            Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                            Log.e("Update password", it.message!!)
+                        }
+                    }
+
+                }
+            })
+        }
     }
 }

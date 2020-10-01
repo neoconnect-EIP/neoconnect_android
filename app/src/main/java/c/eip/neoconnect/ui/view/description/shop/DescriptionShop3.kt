@@ -10,7 +10,9 @@ import c.eip.neoconnect.R
 
 
 class DescriptionShop3 : Fragment() {
-
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

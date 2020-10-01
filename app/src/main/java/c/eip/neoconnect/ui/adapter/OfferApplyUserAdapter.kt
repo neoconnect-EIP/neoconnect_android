@@ -20,12 +20,18 @@ import c.eip.neoconnect.utils.Status
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
+/**
+ * Adapter pour la Liste des Influenceurs ayant postulés à une offre
+ */
 class OfferApplyUserAdapter(
     private val users: ArrayList<OffreApplyUserResponseModel>,
     private val viewModel: OffresViewModel, private val lifecycleOwner: LifecycleOwner
 ) :
     RecyclerView.Adapter<OfferApplyUserAdapter.OfferApplyUserHolder>() {
 
+    /**
+     * Déclaration du layout des éléments qui s'afficheront
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OfferApplyUserHolder {
         val view =
             LayoutInflater.from(parent.context)
@@ -33,10 +39,16 @@ class OfferApplyUserAdapter(
         return OfferApplyUserHolder(view)
     }
 
+    /**
+     * Récupération du nombre d'élément de la liste
+     */
     override fun getItemCount(): Int {
         return users.size
     }
 
+    /**
+     * Liaison entre les éléments de la liste users et le layout
+     */
     override fun onBindViewHolder(holder: OfferApplyUserHolder, position: Int) {
         holder.bindItems(users[position])
     }
@@ -65,18 +77,18 @@ class OfferApplyUserAdapter(
                 choice.idOffer = user.idOffer
                 choice.status = true
                 val token = DataGetter.INSTANCE.getToken(itemView.context)
-                viewModel.choiceApply(token!!, choice).observe(lifecycleOwner, Observer {
+                viewModel.choiceApply(token = token!!, choice = choice).observe(lifecycleOwner, Observer {
                     it?.let { resource ->
                         when (resource.status) {
                             Status.SUCCESS -> {
                                 Toast.makeText(itemView.context, it.message, Toast.LENGTH_SHORT)
                                     .show()
-                                Log.i("Choice Apply", it.message)
+                                Log.i("Choice Apply", it.message!!)
                             }
                             Status.ERROR -> {
                                 Toast.makeText(itemView.context, it.message, Toast.LENGTH_SHORT)
                                     .show()
-                                Log.e("Choice Apply", it.message)
+                                Log.e("Choice Apply", it.message!!)
                             }
                         }
                     }
@@ -88,18 +100,18 @@ class OfferApplyUserAdapter(
                 choice.idOffer = user.idOffer
                 choice.status = false
                 val token = DataGetter.INSTANCE.getToken(itemView.context)
-                viewModel.choiceApply(token!!, choice).observe(lifecycleOwner, Observer {
+                viewModel.choiceApply(token = token!!, choice = choice).observe(lifecycleOwner, Observer {
                     it?.let { resource ->
                         when (resource.status) {
                             Status.SUCCESS -> {
                                 Toast.makeText(itemView.context, it.message, Toast.LENGTH_SHORT)
                                     .show()
-                                Log.i("Choice Apply", it.message)
+                                Log.i("Choice Apply", it.message!!)
                             }
                             Status.ERROR -> {
                                 Toast.makeText(itemView.context, it.message, Toast.LENGTH_SHORT)
                                     .show()
-                                Log.e("Choice Apply", it.message)
+                                Log.e("Choice Apply", it.message!!)
                             }
                         }
                     }

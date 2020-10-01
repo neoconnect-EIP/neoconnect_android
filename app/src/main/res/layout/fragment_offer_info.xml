@@ -17,7 +17,6 @@
 
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_margin_vertical_end_offer_info"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -176,7 +175,6 @@
                     android:textSize="18sp" />
 
                 <View
-                    android:id="@+id/divider_offer_1"
                     android:layout_width="75dp"
                     android:layout_height="1dp"
                     android:background="#445964" />
