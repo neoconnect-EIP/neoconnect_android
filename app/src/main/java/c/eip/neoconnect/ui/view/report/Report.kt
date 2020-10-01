@@ -25,6 +25,11 @@ class Report : Fragment() {
     private lateinit var userViewModel: UserViewModel
     private var reportState: Int = 0
 
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     * Initialisation d'une liste déroulante
+     * Mise en place du fond selon Influenceur ou Boutique
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -66,6 +71,10 @@ class Report : Fragment() {
         return inflate
     }
 
+    /**
+     * Mise en place des interaction possible
+     * Déplacement entre les vues
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<ImageView>(R.id.reportButton).setOnClickListener {
@@ -79,7 +88,10 @@ class Report : Fragment() {
         }
     }
 
-    private fun reportOffer(token: String,offerId: Int, view: View) {
+    /**
+     * Signaler une offre
+     */
+    private fun reportOffer(token: String, offerId: Int, view: View) {
         val reportList = resources.getStringArray(R.array.offerReportSpinner)
         val reportOffer = OffreReportModel()
         reportOffer.subject = reportList[reportState]
@@ -87,24 +99,27 @@ class Report : Fragment() {
             view.findViewById<TextInputEditText>(R.id.reportMessage).text.toString()
         reportOffer.offreName = arguments?.get("name") as String
         offresViewModel = ViewModelProvider(this).get(OffresViewModel::class.java)
-        offresViewModel.reportOffer(token, offerId, reportOffer)
+        offresViewModel.reportOffer(token = token, id = offerId, report = reportOffer)
             .observe(viewLifecycleOwner, Observer {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
                             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                            Log.i("Report Offer", it.message)
+                            Log.i("Report Offer", it.message!!)
                             findNavController().popBackStack()
                         }
                         Status.ERROR -> {
                             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                            Log.e("Report Offer", it.message)
+                            Log.e("Report Offer", it.message!!)
                         }
                     }
                 }
             })
     }
 
+    /**
+     * Signaler un utilisateur
+     */
     private fun reportUser(token: String, offerId: String, view: View) {
         val reportList = resources.getStringArray(R.array.userReportSpinner)
         val reportUser = UserReportModel()
@@ -113,20 +128,21 @@ class Report : Fragment() {
             view.findViewById<TextInputEditText>(R.id.reportMessage).text.toString()
         reportUser.pseudo = arguments?.get("name") as String
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-        userViewModel.reportUser(token, offerId.toInt(), reportUser).observe(viewLifecycleOwner, Observer {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                        Log.i("Report User", it.message)
-                        findNavController().popBackStack()
-                    }
-                    Status.ERROR -> {
-                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                        Log.e("Report User", it.message)
+        userViewModel.reportUser(token = token, id = offerId.toInt(), report = reportUser)
+            .observe(viewLifecycleOwner, Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                            Log.i("Report User", it.message!!)
+                            findNavController().popBackStack()
+                        }
+                        Status.ERROR -> {
+                            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                            Log.e("Report User", it.message!!)
+                        }
                     }
                 }
-            }
-        })
+            })
     }
 }

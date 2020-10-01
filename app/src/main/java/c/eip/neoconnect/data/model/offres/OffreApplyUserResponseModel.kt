@@ -3,6 +3,9 @@ package c.eip.neoconnect.data.model.offres
 import c.eip.neoconnect.data.model.ImagePicture
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Modèle Réponse pour la Récupération de tout les Influenceurs ayant postulés à une offre
+ */
 class OffreApplyUserResponseModel {
     @SerializedName("id")
     var id: Int = 0

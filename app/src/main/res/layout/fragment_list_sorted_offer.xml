@@ -16,7 +16,6 @@
 
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_margin_vertical_end_sorted_list_offer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -42,7 +41,6 @@
         app:layout_constraintTop_toBottomOf="@id/guideline_margin_horizontal_sorted_list_offer" />
 
     <TextView
-        android:id="@+id/pb_list_sorted_offer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="20dp"
@@ -61,9 +59,10 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="60dp"
-        app:layout_constraintStart_toStartOf="@id/guideline_margin_vertical_start_sorted_list_offer"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/backButton"/>
+        app:layout_constraintStart_toStartOf="@id/guideline_margin_vertical_start_sorted_list_offer"
+        app:layout_constraintTop_toBottomOf="@id/backButton" />
+
     <LinearLayout
         android:id="@+id/choiceSortingLayout"
         android:layout_width="match_parent"
@@ -75,6 +74,7 @@
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="@id/guideline_margin_vertical_start_sorted_list_offer"
         app:layout_constraintTop_toBottomOf="@id/backButton">
+
         <TextView
             android:id="@+id/sortBySubject"
             android:layout_width="match_parent"
@@ -83,6 +83,7 @@
             android:text="@string/formSujet"
             android:textColor="@color/white"
             android:textSize="16sp" />
+
         <TextView
             android:id="@+id/sortBySex"
             android:layout_width="match_parent"
@@ -104,6 +105,7 @@
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="@id/guideline_margin_vertical_start_sorted_list_offer"
         app:layout_constraintTop_toBottomOf="@id/backButton">
+
         <TextView
             android:id="@+id/sortByHomme"
             android:layout_width="match_parent"
@@ -112,6 +114,7 @@
             android:text="@string/formSexM"
             android:textColor="@color/white"
             android:textSize="16sp" />
+
         <TextView
             android:id="@+id/sortByFemme"
             android:layout_width="match_parent"
@@ -120,12 +123,13 @@
             android:text="@string/formSexF"
             android:textColor="@color/white"
             android:textSize="16sp" />
+
         <TextView
             android:id="@+id/sortByUnisexe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="25dp"
-            android:text="Unisexe"
+            android:text="@string/unisexe"
             android:textColor="@color/white"
             android:textSize="16sp" />
     </LinearLayout>
@@ -141,52 +145,58 @@
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="@id/guideline_margin_vertical_start_sorted_list_offer"
         app:layout_constraintTop_toBottomOf="@id/backButton">
+
         <TextView
             android:id="@+id/sortByMode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="25dp"
-            android:text="Mode"
+            android:text="@string/mode"
             android:textColor="@color/white"
             android:textSize="16sp" />
+
         <TextView
             android:id="@+id/sortByHighTech"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="25dp"
-            android:text="High Tech"
+            android:text="@string/hightech"
             android:textColor="@color/white"
             android:textSize="16sp" />
+
         <TextView
             android:id="@+id/sortBySport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="25dp"
-            android:text="Sport"
+            android:text="@string/sport"
             android:textColor="@color/white"
             android:textSize="16sp" />
+
         <TextView
             android:id="@+id/sortByNourriture"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="25dp"
-            android:text="Nourriture"
+            android:text="@string/nourriture"
             android:textColor="@color/white"
             android:textSize="16sp" />
+
         <TextView
             android:id="@+id/sortByJeux"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="25dp"
-            android:text="Jeux vidéos"
+            android:text="@string/jeuxvideos"
             android:textColor="@color/white"
             android:textSize="16sp" />
+
         <TextView
             android:id="@+id/sortByCosmétique"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="25dp"
-            android:text="Cosmétique"
+            android:text="@string/cosmetique"
             android:textColor="@color/white"
             android:textSize="16sp" />
     </LinearLayout>

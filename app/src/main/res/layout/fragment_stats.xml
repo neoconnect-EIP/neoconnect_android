@@ -5,7 +5,7 @@
     android:id="@+id/statsLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.view.Stats">
+    tools:context=".ui.view.stats.Stats">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_margin_vertical_start_stats"
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:text="La moyenne de mes notes :"
+            android:text="@string/myAverage"
             android:textColor="@color/white"
             android:textSize="18sp" />
 

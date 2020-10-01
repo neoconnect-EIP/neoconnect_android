@@ -34,7 +34,6 @@
         app:layout_constraintGuide_percent="0.40" />
 
     <ImageView
-        android:id="@+id/logo_select_side"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:contentDescription="@string/contDescLanding"
@@ -46,7 +45,6 @@
         app:layout_constraintTop_toBottomOf="@id/guideline_margin_start_logo_select_side_horizontal" />
 
     <TextView
-        android:id="@+id/welcomeLanding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -65,7 +63,6 @@
         app:layout_constraintGuide_percent="0.65" />
 
     <View
-        android:id="@+id/divider_selection_side"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#445964"

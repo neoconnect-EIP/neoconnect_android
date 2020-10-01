@@ -13,18 +13,30 @@ import c.eip.neoconnect.data.model.message.AllChannelResponse
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
+/**
+ * Adapter pour tout les canaux de discussions
+ */
 class ChatAdapter(private val listChannel: List<AllChannelResponse>) :
     RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
 
+    /**
+     * Déclaration du layout des éléments qui s'afficheront
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_list_channel, parent, false)
         return ChatHolder(view)
     }
 
+    /**
+     * Récupération du nombre d'élément de la liste
+     */
     override fun getItemCount(): Int {
         return listChannel.size
     }
 
+    /**
+     * Liaison entre les éléments de la liste listChannel et le layout
+     */
     override fun onBindViewHolder(holder: ChatHolder, position: Int) {
         holder.bindItems(listChannel[position])
     }

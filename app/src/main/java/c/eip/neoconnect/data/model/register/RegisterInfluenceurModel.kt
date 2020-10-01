@@ -2,6 +2,9 @@ package c.eip.neoconnect.data.model.register
 
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Modèle Requête Inscription Influenceur
+ */
 class RegisterInfluenceurModel {
     @SerializedName("pseudo")
     var pseudo: String? = ""

@@ -61,7 +61,6 @@
             android:textSize="25sp" />
 
         <ScrollView
-            android:id="@+id/containerScrollView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="100dp">
@@ -80,7 +79,6 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/subtitleRegister1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="10dp"

@@ -3,6 +3,9 @@ package c.eip.neoconnect.data.model.offres
 import c.eip.neoconnect.data.model.ImagePicture
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Modèle Requête pour l'Ajout d'une offre
+ */
 class OffreModel {
     @SerializedName("productImg")
     var productImg: List<ImagePicture> = emptyList()

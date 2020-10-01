@@ -21,6 +21,10 @@ class RegisterInf3 : Fragment() {
     private lateinit var viewModel: RegisterViewModel
     private var themeState: Int = 0
 
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     * Initialisation d'une liste déroulante
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,7 +33,8 @@ class RegisterInf3 : Fragment() {
         val themeList = resources.getStringArray(R.array.themeSpinner)
         val themeSpinner = inflate.findViewById<Spinner>(R.id.themeSpinner)
         if (themeSpinner != null) {
-            val themeAdapter = ArrayAdapter(requireContext(), R.layout.layout_spinner_item, themeList)
+            val themeAdapter =
+                ArrayAdapter(requireContext(), R.layout.layout_spinner_item, themeList)
             themeSpinner.adapter = themeAdapter
         }
         themeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -48,6 +53,11 @@ class RegisterInf3 : Fragment() {
         return inflate
     }
 
+    /**
+     * Mise en place des interaction possible
+     * Déplacement entre les vues
+     * Inscription Influenceur
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.backButton).setOnClickListener {
@@ -141,21 +151,22 @@ class RegisterInf3 : Fragment() {
                 influenceur.theme = themeList[themeState]
             }
             viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
-            viewModel.registerInfluencer(influenceur).observe(viewLifecycleOwner, Observer {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                            Log.i("Inscription", "Influenceur ${influenceur.pseudo} inscrit")
-                            findNavController().navigate(R.id.navigation_login_inf)
-                        }
-                        Status.ERROR -> {
-                            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                            Log.e("Inscription", "Echec inscription influenceur ${it.message}")
+            viewModel.registerInfluencer(registerInfluenceurModel = influenceur)
+                .observe(viewLifecycleOwner, Observer {
+                    it?.let { resource ->
+                        when (resource.status) {
+                            Status.SUCCESS -> {
+                                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                                Log.i("Inscription", "Influenceur ${influenceur.pseudo} inscrit")
+                                findNavController().navigate(R.id.navigation_login_inf)
+                            }
+                            Status.ERROR -> {
+                                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                                Log.e("Inscription", "Echec inscription influenceur ${it.message}")
+                            }
                         }
                     }
-                }
-            })
+                })
         }
     }
 }

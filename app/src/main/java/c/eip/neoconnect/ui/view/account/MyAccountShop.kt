@@ -18,6 +18,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 class MyAccountShop : Fragment() {
 
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     * Affichage de l'image de profil ou d'une image par défaut
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,6 +39,10 @@ class MyAccountShop : Fragment() {
         return inflate
     }
 
+    /**
+     * Mise en place des interaction possible
+     * Déplacement entre les vues
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.logoutButton).setOnClickListener {

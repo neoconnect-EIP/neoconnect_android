@@ -11,11 +11,14 @@ import kotlinx.coroutines.Dispatchers
 class ShopViewModel : ViewModel() {
     private val shopRepository = ShopRepository()
 
+    /**
+     * Récupération de son profil Boutique
+     */
     fun getProfilShop(token: String) = liveData(Dispatchers.IO) {
         try {
             emit(
                 Resource.success(
-                    data = shopRepository.getProfilShop(token),
+                    data = shopRepository.getProfilShop(token = token),
                     message = "Récupération des données réussie"
                 )
             )
@@ -24,11 +27,14 @@ class ShopViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Récupération d'un autre profil Boutique
+     */
     fun getOtherShop(token: String, id: Int) = liveData(Dispatchers.IO) {
         try {
             emit(
                 Resource.success(
-                    data = shopRepository.getOtherShop(token, id),
+                    data = shopRepository.getOtherShop(token = token, id = id),
                     message = "Récupération des données réussie"
                 )
             )
@@ -37,11 +43,14 @@ class ShopViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Mise à jour de son compte Boutique
+     */
     fun updateProfilShop(token: String, shop: RegisterShopModel) = liveData(Dispatchers.IO) {
         try {
             emit(
                 Resource.success(
-                    data = shopRepository.updateProfilShop(token, shop),
+                    data = shopRepository.updateProfilShop(token = token, shop = shop),
                     message = "Mise à jour réussie"
                 )
             )
@@ -50,11 +59,14 @@ class ShopViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Recherche d'une Boutique
+     */
     fun searchShop(token: String, keyword: SearchModel) = liveData(Dispatchers.IO) {
         try {
             emit(
                 Resource.success(
-                    data = shopRepository.searchShop(token, keyword),
+                    data = shopRepository.searchShop(token = token, keyword = keyword),
                     message = "Utilisateur trouvé"
                 )
             )

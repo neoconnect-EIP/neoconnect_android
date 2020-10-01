@@ -2,6 +2,9 @@ package c.eip.neoconnect.data.model.contact
 
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Modèle Requête pour Contacter avec POST /user/feedback
+ */
 class FeedbackModel {
     @SerializedName("environnement")
     var environnement: String? = null

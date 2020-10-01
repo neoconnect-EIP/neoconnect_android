@@ -8,8 +8,18 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class Constants {
     companion object {
+        /**
+         *  Adresse IP de l'API
+         *
+         *  168.63.65.106 = Serveur Prod / Azure
+         *  192.168.0.27 = Localhost
+         */
         private const val BASE_URL = "http://168.63.65.106:8080/"
         //        private const val BASE_URL = "http://192.168.0.27:8080/"
+
+        /**
+         *  Init de Retrofit et des services
+         */
         private val gson: Gson = GsonBuilder().setLenient().create()
         private var retrofit: Retrofit =
             Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(

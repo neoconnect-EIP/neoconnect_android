@@ -23,6 +23,9 @@ import com.google.android.material.textfield.TextInputEditText
 class ForgotPassword : Fragment() {
     private lateinit var viewModel: ResetPasswordViewModel
 
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,49 +33,62 @@ class ForgotPassword : Fragment() {
         return inflater.inflate(R.layout.fragment_forgot_password, container, false)
     }
 
+    /**
+     * Mise en place des interaction possible
+     * Déplacement entre les vues
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.backButton).setOnClickListener {
             findNavController().popBackStack()
         }
+
         view.findViewById<TextView>(R.id.resetPasswordButton).setOnClickListener {
-            val checkEmail: Boolean =
-                if (view.findViewById<TextInputEditText>(R.id.resetPasswordEmail).text.toString()
-                        .trim()
-                        .isNotBlank() && view.findViewById<TextInputEditText>(R.id.resetPasswordEmail).text.toString()
-                        .trim().isNotEmpty()
-                ) {
-                    true
-                } else {
-                    Toast.makeText(
-                        context,
-                        "L'adresse mail ne doit pas être vide",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    false
-                }
-            if (checkEmail) {
-                val firstStep = ResetPasswordFirstStepModel()
-                firstStep.email =
-                    view.findViewById<TextInputEditText>(R.id.resetPasswordEmail).text.toString()
-                viewModel = ViewModelProvider(this).get(ResetPasswordViewModel::class.java)
-                viewModel.forgotPassword(firstStep).observe(viewLifecycleOwner, Observer {
-                    it?.let { resource ->
-                        when (resource.status) {
-                            Status.SUCCESS -> {
-                                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                                Log.i("Reset password", "Email envoyé à ${firstStep.email}")
-                                val bundle = bundleOf("email" to firstStep.email)
-                                findNavController().navigate(R.id.navigation_password_update, bundle)
-                            }
-                            Status.ERROR -> {
-                                Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
-                                Log.e("Reset password", it.message)
-                            }
+            forgotPassword(view = view)
+        }
+    }
+
+    /**
+     * Mot de passe oublié
+     * 1ère étape pour la récupération du mot de passe
+     */
+    private fun forgotPassword(view: View) {
+        val emailInput =
+            view.findViewById<TextInputEditText>(R.id.resetPasswordEmail).text.toString()
+        val checkEmail: Boolean =
+            if (emailInput.trim().isNotBlank() && emailInput.trim().isNotEmpty()) {
+                true
+            } else {
+                Toast.makeText(
+                    context,
+                    "L'adresse mail ne doit pas être vide",
+                    Toast.LENGTH_LONG
+                ).show()
+                false
+            }
+        if (checkEmail) {
+            val firstStep = ResetPasswordFirstStepModel()
+            firstStep.email = emailInput
+            viewModel = ViewModelProvider(this).get(ResetPasswordViewModel::class.java)
+            viewModel.forgotPassword(email = firstStep).observe(viewLifecycleOwner, Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                            Log.i("Reset password", "Email envoyé à ${firstStep.email}")
+                            val bundle = bundleOf("email" to firstStep.email)
+                            findNavController().navigate(
+                                R.id.navigation_password_update,
+                                bundle
+                            )
+                        }
+                        Status.ERROR -> {
+                            Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                            Log.e("Reset password", it.message!!)
                         }
                     }
-                })
-            }
+                }
+            })
         }
     }
 }

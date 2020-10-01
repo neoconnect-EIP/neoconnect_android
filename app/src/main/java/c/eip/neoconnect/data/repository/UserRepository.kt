@@ -9,14 +9,26 @@ import c.eip.neoconnect.utils.Constants
 class UserRepository {
     private var userService: UserService = Constants.userService
 
+    /**
+     * Noter un utilisateur
+     */
     suspend fun markUser(token: String, id: Int, mark: MarkModel) =
         userService.rateUser(token, id, mark)
 
+    /**
+     * Commenter un utilisateur
+     */
     suspend fun commentUser(token: String, id: Int, comment: CommentModel) =
         userService.commentUser(token, id, comment)
 
+    /**
+     * Supprimer son compte
+     */
     suspend fun deleteAccount(token: String) = userService.deleteAccount(token)
 
+    /**
+     * Signaler un utilisateur
+     */
     suspend fun reportUser(token: String, id: Int, report: UserReportModel) =
         userService.reportUser(token, id, report)
 }

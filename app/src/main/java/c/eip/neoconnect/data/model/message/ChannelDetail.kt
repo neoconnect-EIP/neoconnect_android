@@ -1,8 +1,11 @@
-package c.eip.neoconnect.data.model
+package c.eip.neoconnect.data.model.message
 
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
+/**
+ * Modèle Message Privé
+ */
 class ChannelDetail {
     @SerializedName("userId")
     var userId: String? = "0"

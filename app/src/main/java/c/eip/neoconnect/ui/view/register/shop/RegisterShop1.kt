@@ -28,6 +28,9 @@ class RegisterShop1 : Fragment() {
     private val encoder = Encoder()
     val bundle = bundleOf()
 
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,6 +45,10 @@ class RegisterShop1 : Fragment() {
         return inflate
     }
 
+    /**
+     * Mise en place des interaction possible
+     * Déplacement entre les vues
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.backButton).setOnClickListener {
@@ -107,6 +114,10 @@ class RegisterShop1 : Fragment() {
         }
     }
 
+    /**
+     * Vérifier permissions
+     * Ouvrir storage
+     */
     private fun openGallery() {
         if (context?.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_DENIED) {
             val intent = Intent(Intent.ACTION_PICK)
@@ -119,6 +130,10 @@ class RegisterShop1 : Fragment() {
         }
     }
 
+    /**
+     * Sélection d'une image
+     * Affichage de l'image sélectionné
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (data != null) {

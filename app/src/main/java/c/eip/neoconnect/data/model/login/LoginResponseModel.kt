@@ -2,6 +2,9 @@ package c.eip.neoconnect.data.model.login
 
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Modèle Réponse à la connexion Influenceur ou Marque
+ */
 class LoginResponseModel {
     @SerializedName("userId")
     var idUser: Int = 0

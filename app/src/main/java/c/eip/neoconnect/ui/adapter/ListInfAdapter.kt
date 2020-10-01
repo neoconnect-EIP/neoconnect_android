@@ -13,19 +13,31 @@ import c.eip.neoconnect.data.model.profil.InfluenceurResponseModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
+/**
+ * Adapter pour la Liste des Influenceurs
+ */
 class ListInfAdapter(private val listInf: ArrayList<InfluenceurResponseModel>) :
     RecyclerView.Adapter<ListInfAdapter.ListInfHolder>() {
 
+    /**
+     * Déclaration du layout des éléments qui s'afficheront
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListInfHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.layout_list_user, parent, false)
         return ListInfHolder(view)
     }
 
+    /**
+     * Récupération du nombre d'élément de la liste
+     */
     override fun getItemCount(): Int {
         return listInf.size
     }
 
+    /**
+     * Liaison entre les éléments de la liste listInf et le layout
+     */
     override fun onBindViewHolder(holder: ListInfHolder, position: Int) {
         holder.bindItems(listInf[position])
     }

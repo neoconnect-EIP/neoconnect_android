@@ -21,6 +21,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainViewInf : Fragment() {
     private lateinit var viewModel: InfViewModel
 
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,7 +31,7 @@ class MainViewInf : Fragment() {
         val inflate = inflater.inflate(R.layout.fragment_main_view_inf, container, false)
         val token = DataGetter.INSTANCE.getToken(requireContext())
         viewModel = ViewModelProvider(this).get(InfViewModel::class.java)
-        viewModel.getProfilInf(token!!).observe(viewLifecycleOwner, Observer {
+        viewModel.getProfilInf(token = token!!).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
@@ -42,6 +45,10 @@ class MainViewInf : Fragment() {
         return inflate
     }
 
+    /**
+     * Mise en place des interaction possible
+     * Déplacement entre les vues
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         parentFragmentManager.beginTransaction().replace(R.id.container, FeedInf())

@@ -13,19 +13,31 @@ import c.eip.neoconnect.data.model.offres.OffreResponseModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
+/**
+ * Adapter pour Fil d'actualité Offres
+ */
 class FeedOfferAdapter(private val offers: List<OffreResponseModel>) :
     RecyclerView.Adapter<FeedOfferAdapter.OfferHolder>() {
 
+    /**
+     * Déclaration du layout des éléments qui s'afficheront
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OfferHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.layout_list_feed, parent, false)
         return OfferHolder(view)
     }
 
+    /**
+     * Récupération du nombre d'élément de la liste
+     */
     override fun getItemCount(): Int {
         return offers.size
     }
 
+    /**
+     * Liaison entre les éléments de la liste offers et le layout
+     */
     override fun onBindViewHolder(holder: OfferHolder, position: Int) {
         holder.bindItems(offers[position])
     }

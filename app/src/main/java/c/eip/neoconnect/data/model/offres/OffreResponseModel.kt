@@ -4,6 +4,9 @@ import c.eip.neoconnect.data.model.ImagePicture
 import c.eip.neoconnect.data.model.comment.CommentModel
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Modèle Réponse pour la Récupération d'une offre
+ */
 class OffreResponseModel {
     @SerializedName("id")
     var id: Int = 0

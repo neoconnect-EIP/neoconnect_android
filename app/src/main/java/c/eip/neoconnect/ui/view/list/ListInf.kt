@@ -21,46 +21,54 @@ import c.eip.neoconnect.utils.Status
 class ListInf : Fragment() {
     private lateinit var viewModel: ListViewModel
 
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val inflate = inflater.inflate(R.layout.fragment_list_inf, container, false)
-        val token = DataGetter.INSTANCE.getToken(requireContext())
+        getListInf(view = inflate)
+        return inflate
+    }
 
+    /**
+     * Récupération de la liste des Influenceurs
+     */
+    private fun getListInf(view: View) {
+        val token = DataGetter.INSTANCE.getToken(requireContext())
+        val recyclerListView = view.findViewById<RecyclerView>(R.id.recyclerListInf)
         viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
-        viewModel.getListInf(token!!).observe(viewLifecycleOwner, Observer {
-            it?.let {resource ->
+        viewModel.getListInf(token = token!!).observe(viewLifecycleOwner, Observer {
+            it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
                         if (it.data!!.isEmpty()) {
-                            inflate.findViewById<TextView>(R.id.pb_list_inf).visibility =
+                            view.findViewById<TextView>(R.id.pb_list_inf).visibility =
                                 View.VISIBLE
                         } else {
-                            inflate.findViewById<TextView>(R.id.pb_list_inf).visibility =
+                            view.findViewById<TextView>(R.id.pb_list_inf).visibility =
                                 View.GONE
                             Log.i(
                                 "List Inf",
                                 "Récupération des influenceurs réussie"
                             )
-                            val recyclerListView =
-                                inflate.findViewById<RecyclerView>(R.id.recyclerListInf)
-                            recyclerListView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                            recyclerListView.layoutManager =
+                                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                             val adapter = ListInfAdapter(it.data)
                             adapter.notifyDataSetChanged()
                             recyclerListView.adapter = adapter
                         }
                     }
                     Status.ERROR -> {
-                        inflate.findViewById<TextView>(R.id.pb_list_inf).visibility =
+                        view.findViewById<TextView>(R.id.pb_list_inf).visibility =
                             View.VISIBLE
-                        inflate.findViewById<RecyclerView>(R.id.recyclerListInf).visibility =
-                            View.GONE
-                        Log.e("List Inf", it.message)
+                        recyclerListView.visibility = View.GONE
+                        Log.e("List Inf", it.message!!)
                     }
                 }
             }
         })
-        return inflate
     }
 }

@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:text="Noter"
+            android:text="@string/review"
             android:textColor="@color/white"
             android:textSize="25sp" />
 
@@ -72,7 +72,7 @@
             android:layout_height="200dp"
             android:alpha="0.7"
             android:gravity="center"
-            android:hint="Commentaire"
+            android:hint="@string/formCommentaire"
             android:inputType="textMultiLine"
             android:padding="15dp"
             android:textColor="@color/white"

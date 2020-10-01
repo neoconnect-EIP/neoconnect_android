@@ -8,10 +8,17 @@ import androidx.recyclerview.widget.RecyclerView
 import c.eip.neoconnect.R
 import c.eip.neoconnect.data.model.comment.CommentModel
 
+/**
+ * Adapter pour Liste des commentaires
+ */
 class StatsCommentAdapter(
     private val listComment: List<CommentModel>
 ) :
     RecyclerView.Adapter<StatsCommentAdapter.StatsHolder>() {
+
+    /**
+     * Déclaration du layout des éléments qui s'afficheront
+     */
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -22,6 +29,9 @@ class StatsCommentAdapter(
         return StatsHolder(view)
     }
 
+    /**
+     * Récupération du nombre d'élément de la liste
+     */
     override fun getItemCount(): Int {
         return listComment.size
     }

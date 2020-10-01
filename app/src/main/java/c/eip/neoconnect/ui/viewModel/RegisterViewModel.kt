@@ -11,14 +11,16 @@ import kotlinx.coroutines.Dispatchers
 class RegisterViewModel : ViewModel() {
     private val authRepository = AuthRepository()
 
-    fun registerInfluencer(RegisterInfluenceurModel: RegisterInfluenceurModel) =
+    /**
+     * Inscription influenceur
+     */
+    fun registerInfluencer(registerInfluenceurModel: RegisterInfluenceurModel) =
         liveData(Dispatchers.IO) {
             try {
                 emit(
                     Resource.success(
-                        data = authRepository.registerInfluencer(
-                            RegisterInfluenceurModel
-                        ), message = "Inscription réussie"
+                        data = authRepository.registerInfluencer(registerInfluenceurModel = registerInfluenceurModel),
+                        message = "Inscription réussie"
                     )
                 )
             } catch (e: Exception) {
@@ -26,11 +28,14 @@ class RegisterViewModel : ViewModel() {
             }
         }
 
+    /**
+     * Inscription Boutique
+     */
     fun registerShop(registerShopModel: RegisterShopModel) = liveData(Dispatchers.IO) {
         try {
             emit(
                 Resource.success(
-                    data = authRepository.registerShop(registerShopModel),
+                    data = authRepository.registerShop(registerShopModel = registerShopModel),
                     message = "Inscription réussie"
                 )
             )

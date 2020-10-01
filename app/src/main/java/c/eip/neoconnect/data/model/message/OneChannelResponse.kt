@@ -1,8 +1,10 @@
 package c.eip.neoconnect.data.model.message
 
-import c.eip.neoconnect.data.model.ChannelDetail
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Modèle Réponse pour la Récupération d'un canal de discussion
+ */
 class OneChannelResponse {
     @SerializedName("id")
     var id: Int? = 0

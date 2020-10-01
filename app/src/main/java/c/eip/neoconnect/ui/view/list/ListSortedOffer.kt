@@ -26,6 +26,9 @@ class ListSortedOffer : Fragment() {
     private lateinit var viewModel: ListViewModel
     private var viewState: Int = 0
 
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,59 +38,13 @@ class ListSortedOffer : Fragment() {
         inflate.findViewById<LinearLayout>(R.id.choiceSortingSujetLayout).visibility = View.GONE
         inflate.findViewById<LinearLayout>(R.id.choiceSortingLayout).visibility = View.VISIBLE
         inflate.findViewById<RecyclerView>(R.id.recyclerSortedListOffer).visibility = View.GONE
-//        var sex: String? = null
-//        var brand: String? = null
-//        var color: String? = null
-//        if (!requireArguments().isEmpty) {
-//            when {
-//                arguments?.get("sex") != null -> {
-//                    sex = arguments?.get("sex") as String
-//                }
-//                arguments?.get("brand") != null -> {
-//                    brand = arguments?.get("brand") as String
-//                }
-//                arguments?.get("color") != null -> {
-//                    color = arguments?.get("color") as String
-//                }
-//            }
-//        }
-//        viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
-//        viewModel.getOffers(token!!, sex, color, brand).observe(viewLifecycleOwner, Observer {
-//            it?.let { resource ->
-//                when (resource.status) {
-//                    Status.SUCCESS -> {
-//                        if (it.data!!.isEmpty()) {
-//                            inflate.findViewById<TextView>(R.id.pb_list_sorted_offer).visibility =
-//                                View.VISIBLE
-//                        } else {
-//                            inflate.findViewById<TextView>(R.id.pb_list_sorted_offer).visibility =
-//                                View.GONE
-//                            Log.i(
-//                                "List Sorted Offer",
-//                                "Récupération des offres réussie"
-//                            )
-//                            val recyclerSortedListView =
-//                                inflate.findViewById<RecyclerView>(R.id.recyclerSortedListOffer)
-//                            recyclerSortedListView.layoutManager =
-//                                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-//                            val adapter = OfferAdapter(it.data, "list")
-//                            adapter.notifyDataSetChanged()
-//                            recyclerSortedListView.adapter = adapter
-//                        }
-//                    }
-//                    Status.ERROR -> {
-//                        inflate.findViewById<TextView>(R.id.pb_list_sorted_offer).visibility =
-//                            View.VISIBLE
-//                        inflate.findViewById<RecyclerView>(R.id.recyclerSortedListOffer).visibility =
-//                            View.GONE
-//                        Log.e("List Sorted Offer", it.message)
-//                    }
-//                }
-//            }
-//        })
         return inflate
     }
 
+    /**
+     * Mise en place des interaction possible
+     * Déplacement entre les vues
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.backButton).setOnClickListener {
@@ -210,12 +167,18 @@ class ListSortedOffer : Fragment() {
         }
     }
 
+    /**
+     * Récupération de la liste des Offres filtrés
+     */
     private fun sortOffer(sortingType: String, sortingValue: String, view: View) {
         val token = DataGetter.INSTANCE.getToken(requireContext())
         viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
         when (sortingType) {
             "productSex" -> {
-                viewModel.getOffers(token!!, sortingValue, null, null, null).observe(
+                viewModel.getOffers(
+                    token = token!!, sex = sortingValue, color = null,
+                    brand = null, subject = null
+                ).observe(
                     viewLifecycleOwner,
                     Observer {
                         it?.let { resource ->
@@ -239,14 +202,17 @@ class ListSortedOffer : Fragment() {
                                         "Impossible de trouver une offre avec ce filtre",
                                         Toast.LENGTH_LONG
                                     )
-                                    Log.e("Filter offer", it.message)
+                                    Log.e("Filter offer", it.message!!)
                                 }
                             }
                         }
                     })
             }
             "productSubject" -> {
-                viewModel.getOffers(token!!, null, null, null, sortingValue).observe(
+                viewModel.getOffers(
+                    token = token!!, sex = null, color = null,
+                    brand = null, subject = sortingValue
+                ).observe(
                     viewLifecycleOwner,
                     Observer {
                         it?.let { resource ->
@@ -270,7 +236,7 @@ class ListSortedOffer : Fragment() {
                                         "Impossible de trouver une offre avec ce filtre",
                                         Toast.LENGTH_LONG
                                     )
-                                    Log.e("Filter offer", it.message)
+                                    Log.e("Filter offer", it.message!!)
                                 }
                             }
                         }

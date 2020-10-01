@@ -12,11 +12,14 @@ import kotlinx.coroutines.Dispatchers
 class ContactViewModel : ViewModel() {
     private val utilsRepository = UtilsRepository()
 
+    /**
+     * Envoyer un mail à contact.neoconnect@gmail.com
+     */
     fun contactUs(contact: ContactModel) = liveData(Dispatchers.IO) {
         try {
             emit(
                 Resource.success(
-                    data = utilsRepository.contactUs(contact),
+                    data = utilsRepository.contactUs(contact = contact),
                     message = "Mail envoyé avec succès"
                 )
             )
@@ -25,11 +28,14 @@ class ContactViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Envoyer un mail à un utilisateur
+     */
     fun contactUser(contact: ContactUserModel) = liveData(Dispatchers.IO) {
         try {
             emit(
                 Resource.success(
-                    data = utilsRepository.contactUser(contact),
+                    data = utilsRepository.contactUser(contact = contact),
                     message = "Mail envoyé avec succès à ${contact.dest}"
                 )
             )
@@ -38,11 +44,14 @@ class ContactViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Envoyer un message pouvant servir de Retour Utilisateur à contact.neoconnect@gmail.com
+     */
     fun sendFeedback(message: FeedbackModel) = liveData(Dispatchers.IO) {
         try {
             emit(
                 Resource.success(
-                    data = utilsRepository.sendFeedback(message),
+                    data = utilsRepository.sendFeedback(message = message),
                     message = "Mail envoyé avec succès"
                 )
             )

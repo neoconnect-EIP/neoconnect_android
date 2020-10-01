@@ -21,6 +21,10 @@ class RegisterShop4 : Fragment() {
     private lateinit var viewModel: RegisterViewModel
     private var themeState: Int = 0
 
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     * Initialisation d'une liste déroulante
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,7 +33,8 @@ class RegisterShop4 : Fragment() {
         val themeList = resources.getStringArray(R.array.themeSpinner)
         val themeSpinner = inflate.findViewById<Spinner>(R.id.themeSpinner)
         if (themeSpinner != null) {
-            val themeAdapter = ArrayAdapter(requireContext(), R.layout.layout_spinner_item, themeList)
+            val themeAdapter =
+                ArrayAdapter(requireContext(), R.layout.layout_spinner_item, themeList)
             themeSpinner.adapter = themeAdapter
         }
         themeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -48,6 +53,11 @@ class RegisterShop4 : Fragment() {
         return inflate
     }
 
+    /**
+     * Mise en place des interaction possible
+     * Déplacement entre les vues
+     * Inscription Marque
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.backButton).setOnClickListener {
@@ -119,7 +129,7 @@ class RegisterShop4 : Fragment() {
                 shop.theme = themeList[themeState]
             }
             viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
-            viewModel.registerShop(shop).observe(viewLifecycleOwner, Observer {
+            viewModel.registerShop(registerShopModel = shop).observe(viewLifecycleOwner, Observer {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
