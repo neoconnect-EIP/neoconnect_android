@@ -14,10 +14,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import c.eip.neoconnect.MainViewInf
-import c.eip.neoconnect.MainViewShop
 import c.eip.neoconnect.R
 import c.eip.neoconnect.data.model.contact.ContactUserModel
+import c.eip.neoconnect.ui.view.feed.FeedInf
+import c.eip.neoconnect.ui.view.feed.FeedShop
 import c.eip.neoconnect.ui.viewModel.ContactViewModel
 import c.eip.neoconnect.utils.DataGetter
 import c.eip.neoconnect.utils.Status
@@ -61,11 +61,11 @@ class ContactUser : Fragment() {
         view.findViewById<TextView>(R.id.sendMailButton).setOnClickListener {
             val contactModel = ContactUserModel()
             if (DataGetter.INSTANCE.getUserType(requireContext()) == "shop") {
-                contactModel.pseudo = MainViewShop.shopData?.pseudo
-                contactModel.email = MainViewShop.shopData?.email
+                contactModel.pseudo = FeedShop.shopData?.pseudo
+                contactModel.email = FeedShop.shopData?.email
             } else if (DataGetter.INSTANCE.getUserType(requireContext()) == "influencer") {
-                contactModel.pseudo = MainViewInf.influenceurData?.pseudo
-                contactModel.email = MainViewInf.influenceurData?.email
+                contactModel.pseudo = FeedInf.influenceurData?.pseudo
+                contactModel.email = FeedInf.influenceurData?.email
             }
             contactModel.dest = arguments?.get("dest") as String
             contactModel.objet =

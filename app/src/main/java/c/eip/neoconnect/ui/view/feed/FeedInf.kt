@@ -13,18 +13,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import c.eip.neoconnect.MainViewInf
 import c.eip.neoconnect.R
 import c.eip.neoconnect.data.model.offres.OffreResponseModel
+import c.eip.neoconnect.data.model.profil.InfluenceurResponseModel
 import c.eip.neoconnect.data.model.profil.ShopResponseModel
 import c.eip.neoconnect.ui.adapter.FeedOfferAdapter
 import c.eip.neoconnect.ui.adapter.FeedShopAdapter
 import c.eip.neoconnect.ui.viewModel.FeedViewModel
+import c.eip.neoconnect.ui.viewModel.InfViewModel
 import c.eip.neoconnect.utils.DataGetter
 import c.eip.neoconnect.utils.Status
 
 class FeedInf : Fragment() {
-    private lateinit var viewModel: FeedViewModel
+    private lateinit var feedViewModel: FeedViewModel
+    private lateinit var infViewModel: InfViewModel
 
     /**
      * Creation de la vue. Déclaration du layout à afficher
@@ -34,12 +36,26 @@ class FeedInf : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val inflate = inflater.inflate(R.layout.fragment_feed_inf, container, false)
-        val title = "Bonjour, ${MainViewInf.influenceurData?.pseudo}"
-        inflate.findViewById<TextView>(R.id.titleFeed).text = title
-
         val token = DataGetter.INSTANCE.getToken(requireContext())
-        viewModel = ViewModelProvider(this).get(FeedViewModel::class.java)
-        viewModel.getFeed(token = token!!).observe(viewLifecycleOwner, Observer {
+
+        infViewModel = ViewModelProvider(this).get(InfViewModel::class.java)
+        infViewModel.getProfilInf(token = token!!).observe(viewLifecycleOwner, Observer {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        influenceurData = it.data
+                        val title = "Bonjour, ${influenceurData?.pseudo}"
+                        inflate.findViewById<TextView>(R.id.titleFeed).text = title
+                    }
+                    Status.ERROR -> {
+                    }
+                }
+
+            }
+        })
+
+        feedViewModel = ViewModelProvider(this).get(FeedViewModel::class.java)
+        feedViewModel.getFeed(token = token).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
@@ -133,5 +149,9 @@ class FeedInf : Fragment() {
             adapter.notifyDataSetChanged()
             recyclerView.adapter = adapter
         }
+    }
+
+    companion object {
+        var influenceurData: InfluenceurResponseModel? = InfluenceurResponseModel()
     }
 }

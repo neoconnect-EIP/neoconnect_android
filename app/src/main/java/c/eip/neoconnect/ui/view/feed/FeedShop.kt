@@ -13,27 +13,43 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import c.eip.neoconnect.MainViewShop
 import c.eip.neoconnect.R
 import c.eip.neoconnect.data.model.profil.InfluenceurResponseModel
+import c.eip.neoconnect.data.model.profil.ShopResponseModel
 import c.eip.neoconnect.ui.adapter.FeedInfAdapter
 import c.eip.neoconnect.ui.viewModel.FeedViewModel
+import c.eip.neoconnect.ui.viewModel.ShopViewModel
 import c.eip.neoconnect.utils.DataGetter
 import c.eip.neoconnect.utils.Status
 
 class FeedShop : Fragment() {
-    private lateinit var viewModel: FeedViewModel
+    private lateinit var feedViewModel: FeedViewModel
+    private lateinit var shopViewModel: ShopViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val inflate = inflater.inflate(R.layout.fragment_feed_shop, container, false)
-        val title = "Bonjour, ${MainViewShop.shopData?.pseudo}"
-        inflate.findViewById<TextView>(R.id.titleFeed).text = title
         val token = DataGetter.INSTANCE.getToken(requireContext())
-        viewModel = ViewModelProvider(this).get(FeedViewModel::class.java)
-        viewModel.getFeed(token = token!!).observe(viewLifecycleOwner, Observer {
+        shopViewModel = ViewModelProvider(this).get(ShopViewModel::class.java)
+        shopViewModel.getProfilShop(token = token!!).observe(viewLifecycleOwner, Observer {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        shopData = it.data
+                        val title = "Bonjour, ${shopData?.pseudo}"
+                        inflate.findViewById<TextView>(R.id.titleFeed).text = title
+                    }
+                    Status.ERROR -> {
+                    }
+                }
+
+            }
+        })
+
+        feedViewModel = ViewModelProvider(this).get(FeedViewModel::class.java)
+        feedViewModel.getFeed(token = token).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
@@ -87,5 +103,9 @@ class FeedShop : Fragment() {
             adapter.notifyDataSetChanged()
             recyclerView.adapter = adapter
         }
+    }
+
+    companion object {
+        var shopData: ShopResponseModel? = ShopResponseModel()
     }
 }

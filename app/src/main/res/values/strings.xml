@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Neoconnect</string>
-
     <string name="contDescLanding">Image Landing View</string>
     <string name="contDescDesc">Image Desc View</string>
     <string name="contDescLogin">Image Login View</string>
@@ -9,27 +8,9 @@
     <string name="contDescProfil">Image Profil View</string>
     <string name="contDescOffer">Image Offer View</string>
     <string name="contDescUser">Image User View</string>
-    <string name="welcomeLanding">Bienvenue sur Neoconnect</string>
     <string name="influenceur">Influenceur</string>
-    <string name="influenceurPopulaires">Influenceurs populaires</string>
-    <string name="influenceurTendances">Influenceurs du moment</string>
-    <string name="influenceurNotes">Influenceurs les mieux notés</string>
     <string name="shop">Boutique</string>
-    <string name="shopPopulaires">Boutiques populaires</string>
-    <string name="shopTendances">Boutiques du moment</string>
-    <string name="shopNotes">Boutiques les mieux notés</string>
-    <string name="offresPopulaires">Offres populaires</string>
-    <string name="offresTendances">Offres du moment</string>
-    <string name="offresNotes">Offres les mieux notés</string>
-    <string name="login">Se connecter</string>
-    <string name="nextPage">Page suivante</string>
-    <string name="noAccount">Vous n\'avez pas encore de compte ?</string>
-    <string name="createAccount">Créer un compte</string>
-    <string name="deleteMyAccount">Supprimer son compte</string>
-    <string name="forgetPassword">Mot de passe oublié ?</string>
-    <string name="subtitleForgetPassword">Veuillez entrer votre adresse email. Un code à fournir vous sera envoyé.</string>
-    <string name="subtitleUpdatePassword">Veuillez entrer votre code temporaire ainsi que votre nouveau mot de passe.</string>
-    <string name="updatePassword">Nouveau mot de passe</string>
+    <string name="offres">Voir les offres</string>
     <string name="back">Retour</string>
     <string name="average">Moyenne</string>
     <string name="submit">Valider</string>
@@ -40,143 +21,27 @@
     <string name="delete">Supprimer</string>
     <string name="apply">Postuler</string>
     <string name="contact">Contacter</string>
+    <string name="share">Partager</string>
     <string name="offerApplyUser">Candidatures</string>
     <string name="review">Noter</string>
     <string name="code">Code</string>
+    <string name="notDefined">Non indiqué</string>
+    <string name="follow">S\'abonner</string>
     <string name="report">Signaler</string>
     <string name="accept">Accepter</string>
     <string name="decline">Refuser</string>
     <string name="chat">Messagerie</string>
     <string name="myAverage">La moyenne de mes notes :</string>
-    <string name="sendCode">Envoyer le code</string>
-    <string name="myOfferInf">Offres postulées</string>
-    <string name="myOfferShop">Mes offres</string>
-    <string name="noOfferShop">Impossible de récupérer vos offres ou vous n\'avez pas encore ajoutés d\'offres</string>
-    <string name="noOfferInf">Impossible de récupérer vos offres ou vous n\'avez pas encore postulé à des offres</string>
-    <string name="noOffer">Impossible de récupérer les offres</string>
-    <string name="noInf">Impossible de récupérer la liste des influenceurs</string>
-    <string name="noShop">Impossible de récupérer la liste des boutiques</string>
-    <string name="noFeed">Impossible de récupérer le fil d\'actualité</string>
     <string name="noChat">Vous n’avez aucun message</string>
-    <string name="noShopTendance">Il n\'y a pas de boutiques du moment.</string>
-    <string name="noShopPopulaire">Il n\'y a pas de boutiques populaires pour le moment.</string>
-    <string name="noShopNotes">Il n\'y a pas de boutiques avec des notes pour le moment.</string>
-    <string name="noOffreTendance">Il n\'y a pas d\'offres du moment.</string>
-    <string name="noOffrePopulaire">Il n\'y a pas d\'offres populaires pour le moment.</string>
-    <string name="noOffreNotes">Il n\'y a pas d\'offres avec des notes pour le moment.</string>
-    <string name="noInfTendance">Il n\'y a pas d\'influenceurs du moment.</string>
-    <string name="noInfPopulaire">Il n\'y a pas d\'influenceurs populaires pour le moment.</string>
-    <string name="noInfNotes">Il n\'y a pas d\'influenceurs avec des notes pour le moment.</string>
-    <string name="noOffrePending">Il n\'y a pas de candidatures à des offres en attente</string>
-    <string name="noOffreAccepted">Il n\'y a pas de candidatures à des offres acceptées</string>
-    <string name="noOffreRefused">Il n\'y a pas de candidatures à des offres refusées</string>
-    <string name="offrePending">Offres en attente</string>
-    <string name="offreAccepted">Offres acceptées</string>
-    <string name="offreRefused">Offres refusées</string>
-    <string name="myStats">Mes statistiques</string>
-    <string name="myAccount">Mon compte</string>
-    <string name="searchShop">Rechercher une marque</string>
-    <string name="contactUs">Nous contacter</string>
-    <string name="searchInf">Rechercher un influenceur</string>
-    <string name="profil">Voir mon profil</string>
+    <string name="description">Description</string>
+    <string name="profilTheme">Thème :</string>
     <string name="insertOffer">Ajouter une offre</string>
+    <string name="sendMessage">Envoyer un message</string>
     <string name="editOffer">Modifier une offre</string>
-    <string name="registerConfirm">Valider l\'inscription</string>
     <string name="titleRegister1">Informations de compte</string>
     <string name="titleRegister2">Informations personnelles</string>
     <string name="titleRegister3">Informations légales</string>
     <string name="titleRegister4">Informations complémentaires</string>
     <string name="subtitleRegister1">Veillez à remplir tout les champs</string>
-    <string name="switchToShop">Je suis une boutique</string>
-    <string name="switchToInf">Je suis un influenceur</string>
-    <string name="titleLoginInf">Connexion Influenceur</string>
-    <string name="titleLoginShop">Connexion Boutique</string>
     <string name="sharePub">Partagez vos publications</string>
-    <string name="formPseudo">Pseudo</string>
-    <string name="formEmail">Email</string>
-    <string name="formPassword">Mot de passe</string>
-    <string name="formPasswordConfirm">Répétez le mot de passe</string>
-
-    <string name="formName">Nom</string>
-    <string name="formVille">Ville</string>
-    <string name="formPostal">Code Postal</string>
-    <string name="formPhone">Téléphone</string>
-    <string name="sex">Sexe</string>
-    <string name="formSexM">Homme</string>
-    <string name="formSexF">Femme</string>
-
-    <string name="formSociety">Société</string>
-    <string name="formFonction">Fonction</string>
-    <string name="formSujet">Sujet</string>
-    <string name="formWebsite">Site Web</string>
-    <string name="formFacebook">Facebook</string>
-    <string name="formTwitter">Twitter</string>
-    <string name="formInstagram">Instagram</string>
-    <string name="formSnapchat">Snapchat</string>
-    <string name="formPinterest">Pinterest</string>
-    <string name="formTwitch">Twitch</string>
-    <string name="formYoutube">Youtube</string>
-    <string name="formTiktok">Tiktok</string>
-
-    <string name="formFacebookLink">Lien vers la publication Facebook</string>
-    <string name="formTwitterLink">Lien vers la publication Twitter</string>
-    <string name="formInstagramLink">Lien vers la publication Instagram</string>
-    <string name="formSnapchatLink">Lien vers la publication Snapchat</string>
-    <string name="formPinterestLink">Lien vers la publication Pinterest</string>
-    <string name="formTwitchLink">Lien vers la publication Twitch</string>
-    <string name="formYoutubeLink">Lien vers la publication Youtube</string>
-    <string name="formTiktokLink">Lien vers la publication Tiktok</string>
-
-    <string name="formFeature">Fonctionnalité</string>
-    <string name="formCommentaire">Commentaire</string>
-    <string name="formMessage">Message</string>
-    <string name="privateMessage">Message privé</string>
-
-    <string name="formProductName">Nom de l\'offre</string>
-    <string name="formProductSubject">Sujet de l\'offre</string>
-    <string name="formProductSexe">Sexe de l\'offre</string>
-    <string name="formProductDescription">Description de l\'offre</string>
-    <string name="formProductBrand">Marque de l\'offre</string>
-    <string name="formProductColor">Couleur de l\'offre</string>
-    <string name="unisexe">Unisexe</string>
-    <string name="hightech">High Tech</string>
-    <string name="mode">Mode</string>
-    <string name="sport">Sport</string>
-    <string name="nourriture">Nourriture</string>
-    <string name="jeuxvideos">Jeux Vidéos</string>
-    <string name="cosmetique">Cosmétique</string>
-
-    <string name="navbarHome">Accueil</string>
-    <string name="navbarSearch">Rechercher</string>
-    <string name="navbarInsertOffer">Ajouter une offre</string>
-    <string name="navbarChat">Messagerie</string>
-    <string name="navbarProfil">Profil</string>
-
-    <string-array name="themeSpinner">
-        <item>Thème</item>
-        <item>Mode</item>
-        <item>Cosmétique</item>
-        <item>Jeu vidéo</item>
-        <item>High Tech</item>
-        <item>Food</item>
-        <item>Sport / Fitness</item>
-    </string-array>
-
-    <string-array name="contactSpinner">
-        <item>Bug</item>
-        <item>Amélioration</item>
-        <item>Commentaire</item>
-        <item>Contact</item>
-    </string-array>
-
-    <string-array name="offerReportSpinner">
-        <item>Offre inapproprié</item>
-        <item>Contenu offensant / illicite</item>
-    </string-array>
-
-    <string-array name="userReportSpinner">
-        <item>Comportement inapproprié ou haineux</item>
-        <item>Contenu offensant</item>
-    </string-array>
-
 </resources>

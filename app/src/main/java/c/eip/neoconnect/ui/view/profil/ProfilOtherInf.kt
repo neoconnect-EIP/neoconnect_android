@@ -6,10 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.activity.addCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -40,16 +38,19 @@ class ProfilOtherInf : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val inflate = inflater.inflate(R.layout.fragment_profil_other_inf, container, false)
-        when {
-            arguments?.get("mode") == 0 -> {
+        when (arguments?.get("mode")) {
+            0 -> {
                 getOtherProfilInf(inflate = inflate)
             }
-            arguments?.get("mode") == 1 -> {
+            1 -> {
                 resultSearchProfilInf(inflate = inflate)
             }
             else -> {
                 findNavController().popBackStack()
             }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            findNavController().popBackStack()
         }
         return inflate
     }
@@ -68,6 +69,9 @@ class ProfilOtherInf : Fragment() {
         }
         view.findViewById<Button>(R.id.contactByMPProfilButton).setOnClickListener {
             sendPrivateMessage()
+        }
+        view.findViewById<ImageView>(R.id.settingsButton).setOnClickListener {
+            settingsOption(view = view)
         }
         view.findViewById<Button>(R.id.markProfilButton).setOnClickListener {
             val bundleMark = bundleOf()
@@ -183,28 +187,49 @@ class ProfilOtherInf : Fragment() {
             } else {
                 message.userId = Search.searchResponse?.id.toString()
             }
-            chatViewModel.postMessage(token = token!!, message = message).observe(viewLifecycleOwner, Observer {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            Toast.makeText(
-                                context,
-                                "Message envoyé",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            mAlertDialog.dismiss()
-                        }
-                        Status.ERROR -> {
-                            Toast.makeText(
-                                context,
-                                "Impossible d'envoyer votre message",
-                                Toast.LENGTH_LONG
-                            ).show()
-                            Log.e("One Chat", it.message!!)
+            chatViewModel.postMessage(token = token!!, message = message)
+                .observe(viewLifecycleOwner, Observer {
+                    it?.let { resource ->
+                        when (resource.status) {
+                            Status.SUCCESS -> {
+                                Toast.makeText(
+                                    context,
+                                    "Message envoyé",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                mAlertDialog.dismiss()
+                            }
+                            Status.ERROR -> {
+                                Toast.makeText(
+                                    context,
+                                    "Impossible d'envoyer votre message",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                Log.e("One Chat", it.message!!)
+                            }
                         }
                     }
-                }
-            })
+                })
         }
+    }
+
+    /**
+     * Option pour le profil (Noter, Signaler)
+     */
+    private fun settingsOption(view: View) {
+        val popupMenu = PopupMenu(context, view.findViewById(R.id.settingsButton))
+        popupMenu.menuInflater.inflate(R.menu.profil_menu, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.markUser -> {
+                    findNavController().navigate(R.id.navigation_mark_user)
+                }
+                R.id.reportUser -> {
+                    findNavController().navigate(R.id.navigation_report, bundleOf("type" to "user"))
+                }
+            }
+            true
+        }
+        popupMenu.show()
     }
 }

@@ -1,6 +1,7 @@
 package c.eip.neoconnect.ui.view.login
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +14,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import c.eip.neoconnect.MainViewInf
+import c.eip.neoconnect.MainViewShop
 import c.eip.neoconnect.R
 import c.eip.neoconnect.data.model.login.LoginModel
 import c.eip.neoconnect.ui.viewModel.LoginViewModel
@@ -109,10 +112,14 @@ class LoginShop : Fragment() {
                             )
                             when (it.data?.userType) {
                                 "shop" -> {
-                                    findNavController().navigate(R.id.navigation_main_view_shop)
+                                    val intent = Intent(context, MainViewShop::class.java).apply {}
+                                    this.activity?.finish()
+                                    startActivity(intent)
                                 }
                                 "influencer" -> {
-                                    findNavController().navigate(R.id.navigation_main_view_inf)
+                                    val intent = Intent(context, MainViewInf::class.java).apply {}
+                                    this.activity?.finish()
+                                    startActivity(intent)
                                 }
                                 else -> {
                                     Log.i("Connexion", "Connexion en tant que 3ème partie")

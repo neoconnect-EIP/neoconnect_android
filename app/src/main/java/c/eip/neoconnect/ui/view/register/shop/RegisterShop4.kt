@@ -127,23 +127,27 @@ class RegisterShop4 : Fragment() {
             if (themeState != 0) {
                 val themeList = resources.getStringArray(R.array.themeSpinner)
                 shop.theme = themeList[themeState]
-            }
-            viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
-            viewModel.registerShop(registerShopModel = shop).observe(viewLifecycleOwner, Observer {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                            Log.i("Inscription", "Boutique ${shop.pseudo} inscrit")
-                            findNavController().navigate(R.id.navigation_login_shop)
-                        }
-                        Status.ERROR -> {
-                            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                            Log.e("Inscription", "Echec inscription boutique ${it.message}")
+                viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
+                viewModel.registerShop(registerShopModel = shop).observe(viewLifecycleOwner, Observer {
+                    it?.let { resource ->
+                        when (resource.status) {
+                            Status.SUCCESS -> {
+                                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                                Log.i("Inscription", "Boutique ${shop.pseudo} inscrit")
+                                findNavController().navigate(R.id.navigation_login_shop)
+                            }
+                            Status.ERROR -> {
+                                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                                Log.e("Inscription", "Echec inscription boutique ${it.message}")
+                            }
                         }
                     }
-                }
-            })
+                })
+            } else {
+                Toast.makeText(context, "Un thème doit être choisi", Toast.LENGTH_LONG)
+                    .show()
+            }
+
         }
     }
 }

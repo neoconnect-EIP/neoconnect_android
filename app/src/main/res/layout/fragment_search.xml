@@ -30,6 +30,8 @@
         app:layout_constraintTop_toBottomOf="@+id/guideline_margin_start_horizontal_search">
 
         <LinearLayout
+            android:alpha="0.5"
+            android:background="#252D40"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">

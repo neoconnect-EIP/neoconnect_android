@@ -54,11 +54,11 @@ class FeedOfferAdapter(private val offers: List<OffreResponseModel>) :
             }
             itemView.findViewById<TextView>(R.id.feedCardName).text = offer.productName
             itemView.findViewById<TextView>(R.id.feedCardSubject).text = offer.productSubject
-            if (offer.average.isNullOrEmpty()) {
-                itemView.findViewById<TextView>(R.id.feedCardAverage).text = "0 ★"
+            if (offer.brand.isNullOrEmpty()) {
+                itemView.findViewById<TextView>(R.id.feedCardShop).text =
+                    itemView.context.getString(R.string.notDefined)
             } else {
-                val average = String.format("%.1f", offer.average!!.toFloat()) + " ★"
-                itemView.findViewById<TextView>(R.id.feedCardAverage).text = average
+                itemView.findViewById<TextView>(R.id.feedCardShop).text = offer.brand
             }
 
             itemView.setOnClickListener {

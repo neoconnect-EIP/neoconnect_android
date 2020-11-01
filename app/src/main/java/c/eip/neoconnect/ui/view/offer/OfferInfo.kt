@@ -6,10 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.activity.addCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -50,8 +48,8 @@ class OfferInfo : Fragment() {
             inflate.findViewById<ConstraintLayout>(R.id.offerInfoLayout)
                 .setBackgroundResource(R.drawable.background_shop)
             inflate.findViewById<Button>(R.id.markOfferButton).visibility = View.GONE
+            inflate.findViewById<Button>(R.id.cancelOfferButton).visibility = View.GONE
             inflate.findViewById<Button>(R.id.applyOfferButton).visibility = View.GONE
-            inflate.findViewById<Button>(R.id.reportOfferButton).visibility = View.GONE
             inflate.findViewById<Button>(R.id.editOfferButton).visibility = View.VISIBLE
             inflate.findViewById<Button>(R.id.removeOfferButton).visibility = View.VISIBLE
             recyclerListView.visibility =
@@ -60,7 +58,6 @@ class OfferInfo : Fragment() {
         } else if (DataGetter.INSTANCE.getUserType(requireContext()) == "influencer") {
             inflate.findViewById<ConstraintLayout>(R.id.offerInfoLayout)
                 .setBackgroundResource(R.drawable.background_influencer)
-            inflate.findViewById<Button>(R.id.reportOfferButton).visibility = View.VISIBLE
             inflate.findViewById<Button>(R.id.editOfferButton).visibility = View.GONE
             inflate.findViewById<Button>(R.id.removeOfferButton).visibility = View.GONE
             recyclerListView.visibility =
@@ -68,13 +65,16 @@ class OfferInfo : Fragment() {
             inflate.findViewById<TextView>(R.id.titleCandidature).visibility = View.GONE
             if (arguments?.getString("status") == "accepted") {
                 inflate.findViewById<Button>(R.id.markOfferButton).visibility = View.VISIBLE
+                inflate.findViewById<Button>(R.id.cancelOfferButton).visibility = View.VISIBLE
                 inflate.findViewById<Button>(R.id.applyOfferButton).visibility = View.GONE
             } else if (arguments?.getString("status") == "refused" || arguments?.getString("status") == "pending") {
                 inflate.findViewById<Button>(R.id.markOfferButton).visibility = View.GONE
                 inflate.findViewById<Button>(R.id.applyOfferButton).visibility = View.GONE
+                inflate.findViewById<Button>(R.id.cancelOfferButton).visibility = View.GONE
             } else {
                 inflate.findViewById<Button>(R.id.applyOfferButton).visibility = View.VISIBLE
                 inflate.findViewById<Button>(R.id.markOfferButton).visibility = View.GONE
+                inflate.findViewById<Button>(R.id.cancelOfferButton).visibility = View.GONE
             }
         }
         val userId = arguments?.get("idUser") as Int
@@ -82,13 +82,16 @@ class OfferInfo : Fragment() {
             && DataGetter.INSTANCE.getUserId(requireContext()) != userId
         ) {
             inflate.findViewById<Button>(R.id.markOfferButton).visibility = View.GONE
+            inflate.findViewById<Button>(R.id.cancelOfferButton).visibility = View.GONE
             inflate.findViewById<Button>(R.id.applyOfferButton).visibility = View.GONE
-            inflate.findViewById<Button>(R.id.reportOfferButton).visibility = View.GONE
             inflate.findViewById<Button>(R.id.editOfferButton).visibility = View.GONE
             inflate.findViewById<Button>(R.id.removeOfferButton).visibility = View.GONE
             recyclerListView.visibility = View.GONE
         }
         getOneOffer(inflate = inflate, recyclerView = recyclerListView)
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            findNavController().popBackStack()
+        }
         return inflate
     }
 
@@ -114,9 +117,8 @@ class OfferInfo : Fragment() {
             val bundle = bundleOf("offerId" to offerId)
             findNavController().navigate(R.id.navigation_mark_offer, bundle)
         }
-        view.findViewById<Button>(R.id.reportOfferButton).setOnClickListener {
-            val bundle = bundleOf("type" to "offre", "name" to name, "offerId" to offerId)
-            findNavController().navigate(R.id.navigation_report, bundle)
+        view.findViewById<ImageView>(R.id.settingsButton).setOnClickListener {
+            settingsOption(view = view)
         }
     }
 
@@ -128,57 +130,60 @@ class OfferInfo : Fragment() {
         val token = DataGetter.INSTANCE.getToken(requireContext())
         viewModelList = ViewModelProvider(this).get(ListViewModel::class.java)
         viewModelOffer = ViewModelProvider(this).get(OffresViewModel::class.java)
-        viewModelOffer.getOneOffer(token = token!!, id = offerId).observe(viewLifecycleOwner, Observer {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        if (it.data?.productImg.isNullOrEmpty()) {
-                            inflate.findViewById<ImageView>(R.id.infoOfferPicture1)
-                                .setImageResource(R.drawable.ic_picture_offer)
-                            inflate.findViewById<ImageView>(R.id.infoOfferPicture2).visibility =
-                                View.GONE
-                            inflate.findViewById<ImageView>(R.id.infoOfferPicture3).visibility =
-                                View.GONE
-                            inflate.findViewById<ImageView>(R.id.infoOfferPicture4).visibility =
-                                View.GONE
-                            inflate.findViewById<ImageView>(R.id.infoOfferPicture5).visibility =
-                                View.GONE
-                        } else {
-                            Glide.with(requireContext()).load(it.data!!.productImg[0].imageData)
-                                .fitCenter().error(R.drawable.ic_picture_offer)
-                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                                .into(inflate.findViewById(R.id.infoOfferPicture1))
+        viewModelOffer.getOneOffer(token = token!!, id = offerId)
+            .observe(viewLifecycleOwner, Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            if (it.data?.productImg.isNullOrEmpty()) {
+                                inflate.findViewById<ImageView>(R.id.infoOfferPicture1)
+                                    .setImageResource(R.drawable.ic_picture_offer)
+                                inflate.findViewById<ImageView>(R.id.infoOfferPicture2).visibility =
+                                    View.GONE
+                                inflate.findViewById<ImageView>(R.id.infoOfferPicture3).visibility =
+                                    View.GONE
+                                inflate.findViewById<ImageView>(R.id.infoOfferPicture4).visibility =
+                                    View.GONE
+                                inflate.findViewById<ImageView>(R.id.infoOfferPicture5).visibility =
+                                    View.GONE
+                            } else {
+                                Glide.with(requireContext()).load(it.data!!.productImg[0].imageData)
+                                    .fitCenter().error(R.drawable.ic_picture_offer)
+                                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                    .into(inflate.findViewById(R.id.infoOfferPicture1))
+                            }
+                            name = it.data?.productName
+                            inflate.findViewById<TextView>(R.id.offerName).text =
+                                it.data?.productName
+                            inflate.findViewById<TextView>(R.id.offerSex).text = it.data?.productSex
+                            inflate.findViewById<TextView>(R.id.offerDescrption).text =
+                                it.data?.productDesc
+                            inflate.findViewById<TextView>(R.id.offerColor).text = it.data?.color
+                            inflate.findViewById<TextView>(R.id.offerSubject).text =
+                                it.data?.productSubject
+                            inflate.findViewById<TextView>(R.id.offerAverage).text =
+                                it.data?.average
+                            inflate.findViewById<TextView>(R.id.offerBrand).text = it.data?.brand
+                            getOfferState = true
+                            getOfferApplyUser(
+                                token = token,
+                                offerId = offerId,
+                                recyclerView = recyclerView
+                            )
                         }
-                        name = it.data?.productName
-                        inflate.findViewById<TextView>(R.id.offerName).text = it.data?.productName
-                        inflate.findViewById<TextView>(R.id.offerSex).text = it.data?.productSex
-                        inflate.findViewById<TextView>(R.id.offerDescrption).text =
-                            it.data?.productDesc
-                        inflate.findViewById<TextView>(R.id.offerColor).text = it.data?.color
-                        inflate.findViewById<TextView>(R.id.offerSubject).text =
-                            it.data?.productSubject
-                        inflate.findViewById<TextView>(R.id.offerAverage).text = it.data?.average
-                        inflate.findViewById<TextView>(R.id.offerBrand).text = it.data?.brand
-                        getOfferState = true
-                        getOfferApplyUser(
-                            token = token,
-                            offerId = offerId,
-                            recyclerView = recyclerView
-                        )
-                    }
-                    Status.ERROR -> {
-                        getOfferState = false
-                        Log.e("Get Offer", "$offerId introuvable")
-                        Toast.makeText(
-                            context,
-                            "L'offre recherché est introuvable",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        findNavController().popBackStack()
+                        Status.ERROR -> {
+                            getOfferState = false
+                            Log.e("Get Offer", "$offerId introuvable")
+                            Toast.makeText(
+                                context,
+                                "L'offre recherché est introuvable",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            findNavController().popBackStack()
+                        }
                     }
                 }
-            }
-        })
+            })
     }
 
     /**
@@ -229,21 +234,22 @@ class OfferInfo : Fragment() {
      */
     private fun deleteOffer(token: String?, offerId: Int) {
         viewModelOffer = ViewModelProvider(this).get(OffresViewModel::class.java)
-        viewModelOffer.deleteOffer(token = token!!, id = offerId).observe(viewLifecycleOwner, Observer {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                        Log.i("Delete Offer", it.message!!)
-                        findNavController().popBackStack()
-                    }
-                    Status.ERROR -> {
-                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                        Log.e("Delete Offer", it.message!!)
+        viewModelOffer.deleteOffer(token = token!!, id = offerId)
+            .observe(viewLifecycleOwner, Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                            Log.i("Delete Offer", it.message!!)
+                            findNavController().popBackStack()
+                        }
+                        Status.ERROR -> {
+                            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                            Log.e("Delete Offer", it.message!!)
+                        }
                     }
                 }
-            }
-        })
+            })
     }
 
     /**
@@ -251,20 +257,44 @@ class OfferInfo : Fragment() {
      */
     private fun applyOffer(token: String?, offerId: Int) {
         viewModelOffer = ViewModelProvider(this).get(OffresViewModel::class.java)
-        viewModelOffer.applyOffer(token = token!!, id = offerId).observe(viewLifecycleOwner, Observer {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+        viewModelOffer.applyOffer(token = token!!, id = offerId)
+            .observe(viewLifecycleOwner, Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
 //                            Log.i("Apply Offer", it.message)
-                        findNavController().popBackStack()
-                    }
-                    Status.ERROR -> {
-                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                        Log.e("Apply Offer", it.message!!)
+                            findNavController().popBackStack()
+                        }
+                        Status.ERROR -> {
+                            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                            Log.e("Apply Offer", it.message!!)
+                        }
                     }
                 }
+            })
+    }
+
+    /**
+     * Option pour l'offre (Partager, Signaler)
+     */
+    private fun settingsOption(view: View) {
+        val offerId = arguments?.get("idOffer") as Int
+        val popupMenu = PopupMenu(context, view.findViewById(R.id.settingsButton))
+        popupMenu.menuInflater.inflate(R.menu.offer_menu, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.markUser -> {
+                    findNavController().navigate(R.id.navigation_mark_user)
+                }
+                R.id.reportUser -> {
+                    val bundleReport =
+                        bundleOf("type" to "offre", "name" to name, "offerId" to offerId)
+                    findNavController().navigate(R.id.navigation_report, bundleReport)
+                }
             }
-        })
+            true
+        }
+        popupMenu.show()
     }
 }

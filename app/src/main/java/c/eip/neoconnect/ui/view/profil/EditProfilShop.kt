@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -92,6 +93,9 @@ class EditProfilShop : Fragment() {
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            findNavController().popBackStack()
         }
         return inflate
     }

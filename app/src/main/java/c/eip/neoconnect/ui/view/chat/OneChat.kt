@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -45,6 +46,9 @@ class OneChat : Fragment() {
         val title = "Retour - " + arguments?.get("pseudo") as String
         inflate.findViewById<TextView>(R.id.titleOneChat).text = title
         getCanal(view = inflate)
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            findNavController().popBackStack()
+        }
         return inflate
     }
 

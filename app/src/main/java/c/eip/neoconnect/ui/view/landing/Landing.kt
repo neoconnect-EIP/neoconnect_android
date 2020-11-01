@@ -1,6 +1,7 @@
 package c.eip.neoconnect.ui.view.landing
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import c.eip.neoconnect.MainViewInf
+import c.eip.neoconnect.MainViewShop
 import c.eip.neoconnect.R
 import c.eip.neoconnect.utils.DataGetter
 
@@ -24,9 +27,13 @@ class Landing : Fragment() {
         val inflate = inflater.inflate(R.layout.fragment_landing, container, false)
         if (!DataGetter.INSTANCE.getToken(requireContext()).isNullOrBlank()) {
             if (DataGetter.INSTANCE.getUserType(requireContext()) == "influencer") {
-                findNavController().navigate(R.id.navigation_main_view_inf)
+                val intent = Intent(context, MainViewInf::class.java).apply {}
+                this.activity?.finish()
+                startActivity(intent)
             } else if (DataGetter.INSTANCE.getUserType(requireContext()) == "shop") {
-                findNavController().navigate(R.id.navigation_main_view_shop)
+                val intent = Intent(context, MainViewShop::class.java).apply {}
+                this.activity?.finish()
+                startActivity(intent)
             }
         }
         return inflate

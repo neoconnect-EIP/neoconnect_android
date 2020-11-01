@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -33,6 +34,9 @@ class ProfilInf : Fragment() {
     ): View? {
         val inflate = inflater.inflate(R.layout.fragment_profil_inf, container, false)
         getProfilInf(inflate = inflate)
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            findNavController().popBackStack()
+        }
         return inflate
     }
 

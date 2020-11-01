@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="navbarHome">Accueil</string>
+    <string name="navbarSearch">Rechercher</string>
+    <string name="navbarInsertOffer">Ajouter une offre</string>
+    <string name="navbarChat">Messagerie</string>
+    <string name="navbarProfil">Profil</string>
+</resources>

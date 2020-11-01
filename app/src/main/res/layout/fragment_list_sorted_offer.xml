@@ -85,11 +85,20 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/sortBySex"
+            android:id="@+id/sortByAscendingOrder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="25dp"
-            android:text="@string/sex"
+            android:text="@string/ascOrder"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/sortByDescendingOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="25dp"
+            android:text="@string/descOrder"
             android:textColor="@color/white"
             android:textSize="16sp" />
     </LinearLayout>

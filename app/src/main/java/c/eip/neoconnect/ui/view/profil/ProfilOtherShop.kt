@@ -6,10 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.activity.addCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -40,16 +38,20 @@ class ProfilOtherShop : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val inflate = inflater.inflate(R.layout.fragment_profil_other_shop, container, false)
-        when {
-            arguments?.get("mode") == 0 -> {
+        when (arguments?.get("mode")) {
+             0 -> {
                 getOtherProfilShop(inflate = inflate)
             }
-            arguments?.get("mode") == 1 -> {
+            1 -> {
                 resultSearchProfilShop(inflate = inflate)
             }
             else -> {
                 findNavController().popBackStack()
             }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            findNavController().popBackStack()
         }
         return inflate
     }
@@ -63,22 +65,23 @@ class ProfilOtherShop : Fragment() {
         view.findViewById<Button>(R.id.backButton).setOnClickListener {
             findNavController().popBackStack()
         }
-        view.findViewById<Button>(R.id.contactByMailProfilButton).setOnClickListener {
-            findNavController().navigate(R.id.navigation_contact, bundle)
-        }
-        view.findViewById<Button>(R.id.contactByMPProfilButton).setOnClickListener {
-            sendPrivateMessage()
-        }
-        view.findViewById<Button>(R.id.reportShopButton).setOnClickListener {
-            val bundleReport = bundleOf("type" to "user", "name" to name)
-            if (arguments?.get("mode") == 0) {
-                bundleReport.putString("userId", (arguments?.get("id") as Int).toString())
-            } else {
-                bundleReport.putString("userId", (Search.searchResponse?.id.toString()))
-            }
-            findNavController().navigate(R.id.navigation_report, bundleReport)
+//        view.findViewById<Button>(R.id.contactByMailProfilButton).setOnClickListener {
+//            findNavController().navigate(R.id.navigation_contact, bundle)
+//        }
+//        view.findViewById<Button>(R.id.contactByMPProfilButton).setOnClickListener {
+//            sendPrivateMessage()
+//        }
+//        view.findViewById<Button>(R.id.contactByMailProfilButton).setOnClickListener {
+//            findNavController().navigate(R.id.navigation_contact, bundle)
+//        }
+//        view.findViewById<Button>(R.id.contactByMPProfilButton).setOnClickListener {
+//            sendPrivateMessage()
+//        }
+        view.findViewById<ImageView>(R.id.settingsButton).setOnClickListener {
+            settingsOption(view = view)
         }
     }
+
 
     /**
      * Récupération du profil Boutique
@@ -92,27 +95,20 @@ class ProfilOtherShop : Fragment() {
                 when (resource.status) {
                     Status.SUCCESS -> {
                         if (it.data?.userPicture?.size!! <= 0) {
-                            inflate.findViewById<ImageView>(R.id.otherProfilPicture)
+                            inflate.findViewById<ImageView>(R.id.otherShopPicture)
                                 .setImageResource(R.drawable.ic_picture_shop)
                         } else {
                             Glide.with(requireContext())
                                 .load(it.data.userPicture[0]?.imageData)
                                 .circleCrop().error(R.drawable.ic_picture_shop)
                                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                                .into(inflate.findViewById(R.id.otherProfilPicture))
+                                .into(inflate.findViewById(R.id.otherShopPicture))
                         }
                         name = it.data.pseudo
-                        inflate.findViewById<TextView>(R.id.otherProfilPseudo).text =
+                        inflate.findViewById<TextView>(R.id.otherShopPseudo).text =
                             it.data.pseudo
-                        inflate.findViewById<TextView>(R.id.otherProfilSubject).text =
+                        inflate.findViewById<TextView>(R.id.otherShopSubject).text =
                             it.data.theme
-                        if (it.data.average.isNullOrBlank()) {
-                            inflate.findViewById<TextView>(R.id.otherProfilAverage).text =
-                                "0"
-                        } else {
-                            inflate.findViewById<TextView>(R.id.otherProfilAverage).text =
-                                it.data.average
-                        }
                         bundle.putString("dest", it.data.email)
 
                     }
@@ -175,28 +171,55 @@ class ProfilOtherShop : Fragment() {
             } else {
                 message.userId = Search.searchResponse?.id.toString()
             }
-            chatViewModel.postMessage(token = token!!, message = message).observe(viewLifecycleOwner, Observer {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            Toast.makeText(
-                                context,
-                                "Message envoyé",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            mAlertDialog.dismiss()
-                        }
-                        Status.ERROR -> {
-                            Toast.makeText(
-                                context,
-                                "Impossible d'envoyer votre message",
-                                Toast.LENGTH_LONG
-                            ).show()
-                            Log.e("One Chat", it.message!!)
+            chatViewModel.postMessage(token = token!!, message = message)
+                .observe(viewLifecycleOwner, Observer {
+                    it?.let { resource ->
+                        when (resource.status) {
+                            Status.SUCCESS -> {
+                                Toast.makeText(
+                                    context,
+                                    "Message envoyé",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                mAlertDialog.dismiss()
+                            }
+                            Status.ERROR -> {
+                                Toast.makeText(
+                                    context,
+                                    "Impossible d'envoyer votre message",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                Log.e("One Chat", it.message!!)
+                            }
                         }
                     }
-                }
-            })
+                })
         }
+    }
+
+    /**
+     * Option pour le profil (Noter, Signaler)
+     */
+    private fun settingsOption(view: View) {
+        val popupMenu = PopupMenu(context, view.findViewById(R.id.settingsButton))
+        popupMenu.menuInflater.inflate(R.menu.profil_menu, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.markUser -> {
+                    findNavController().navigate(R.id.navigation_mark_user)
+                }
+                R.id.reportUser -> {
+                    val bundleReport = bundleOf("type" to "user", "name" to name)
+                    if (arguments?.get("mode") == 0) {
+                        bundleReport.putString("userId", (arguments?.get("id") as Int).toString())
+                    } else {
+                        bundleReport.putString("userId", (Search.searchResponse?.id.toString()))
+                    }
+                    findNavController().navigate(R.id.navigation_report, bundleReport)
+                }
+            }
+            true
+        }
+        popupMenu.show()
     }
 }

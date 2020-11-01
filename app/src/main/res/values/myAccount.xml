@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="offrePending">Offres en attente</string>
+    <string name="offreAccepted">Offres acceptées</string>
+    <string name="offreRefused">Offres refusées</string>
+    <string name="noOffrePending">Il n\'y a pas de candidatures à des offres en attente</string>
+    <string name="noOffreAccepted">Il n\'y a pas de candidatures à des offres acceptées</string>
+    <string name="noOffreRefused">Il n\'y a pas de candidatures à des offres refusées</string>
+
+    <string name="myAccount">Mon compte</string>
+    <string name="myStats">Mes statistiques</string>
+    <string name="contactUs">Nous contacter</string>
+
+    <string name="profil">Voir mon profil</string>
+    <string name="deleteMyAccount">Supprimer son compte</string>
+
+    <string name="myOfferInf">Offres postulées</string>
+    <string name="myOfferShop">Mes offres</string>
+    <string name="noOfferShop">Impossible de récupérer vos offres ou vous n\'avez pas encore ajoutés d\'offres</string>
+    <string name="noOfferInf">Impossible de récupérer vos offres ou vous n\'avez pas encore postulé à des offres</string>
+
+</resources>

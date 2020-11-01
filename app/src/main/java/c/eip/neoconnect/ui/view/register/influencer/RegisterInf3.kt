@@ -149,24 +149,33 @@ class RegisterInf3 : Fragment() {
             if (themeState != 0) {
                 val themeList = resources.getStringArray(R.array.themeSpinner)
                 influenceur.theme = themeList[themeState]
-            }
-            viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
-            viewModel.registerInfluencer(registerInfluenceurModel = influenceur)
-                .observe(viewLifecycleOwner, Observer {
-                    it?.let { resource ->
-                        when (resource.status) {
-                            Status.SUCCESS -> {
-                                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                                Log.i("Inscription", "Influenceur ${influenceur.pseudo} inscrit")
-                                findNavController().navigate(R.id.navigation_login_inf)
-                            }
-                            Status.ERROR -> {
-                                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                                Log.e("Inscription", "Echec inscription influenceur ${it.message}")
+                viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
+                viewModel.registerInfluencer(registerInfluenceurModel = influenceur)
+                    .observe(viewLifecycleOwner, Observer {
+                        it?.let { resource ->
+                            when (resource.status) {
+                                Status.SUCCESS -> {
+                                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                                    Log.i(
+                                        "Inscription",
+                                        "Influenceur ${influenceur.pseudo} inscrit"
+                                    )
+                                    findNavController().navigate(R.id.navigation_login_inf)
+                                }
+                                Status.ERROR -> {
+                                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                                    Log.e(
+                                        "Inscription",
+                                        "Echec inscription influenceur ${it.message}"
+                                    )
+                                }
                             }
                         }
-                    }
-                })
+                    })
+            } else {
+                Toast.makeText(context, "Un thème doit être choisi", Toast.LENGTH_LONG)
+                    .show()
+            }
         }
     }
 }
