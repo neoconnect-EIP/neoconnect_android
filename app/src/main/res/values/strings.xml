@@ -9,7 +9,10 @@
     <string name="contDescOffer">Image Offer View</string>
     <string name="contDescUser">Image User View</string>
     <string name="influenceur">Influenceur</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
     <string name="shop">Boutique</string>
+    <string name="offre">Offres</string>
     <string name="offres">Voir les offres</string>
     <string name="back">Retour</string>
     <string name="average">Moyenne</string>

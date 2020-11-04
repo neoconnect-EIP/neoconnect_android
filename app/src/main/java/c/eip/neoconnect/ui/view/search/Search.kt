@@ -77,8 +77,8 @@ class Search : Fragment() {
             tabLayout.setSelectedTabIndicatorColor(resources.getColor(R.color.white, null))
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                 when (position) {
-                    0 -> tab.setIcon(R.drawable.icon_shop_white)
-                    1 -> tab.setIcon(R.drawable.icon_offre_white)
+                    0 -> tab.setText(R.string.shop)
+                    1 -> tab.setText(R.string.offre)
                 }
             }.attach()
         }

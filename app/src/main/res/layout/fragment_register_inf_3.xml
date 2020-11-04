@@ -295,7 +295,7 @@
                             android:alpha="0.7"
                             android:overlapAnchor="false"
                             android:padding="10dp"
-                            android:popupBackground="@color/descInf"
+                            android:popupBackground="@color/spinnerInf"
                             android:textAlignment="textStart" />
                     </LinearLayout>
                 </LinearLayout>

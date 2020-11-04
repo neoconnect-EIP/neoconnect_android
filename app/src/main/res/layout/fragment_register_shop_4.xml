@@ -185,7 +185,7 @@
                     android:alpha="0.7"
                     android:overlapAnchor="false"
                     android:padding="10dp"
-                    android:popupBackground="@color/descShop" />
+                    android:popupBackground="@color/spinnerShop" />
             </LinearLayout>
 
         </LinearLayout>

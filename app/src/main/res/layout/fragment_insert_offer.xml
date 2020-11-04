@@ -131,6 +131,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="30dp"
+            android:visibility="gone"
             android:orientation="horizontal">
 
             <TextView
@@ -203,7 +204,7 @@
                 android:layout_height="wrap_content"
                 android:alpha="0.7"
                 android:overlapAnchor="false"
-                android:popupBackground="@color/descShop"
+                android:popupBackground="@color/spinnerShop"
                 android:textAlignment="textStart" />
         </LinearLayout>
 
@@ -219,6 +220,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:alpha="0.7"
+                android:visibility="gone"
                 android:hint="@string/formProductColor"
                 android:inputType="text"
                 android:textColor="@color/white"

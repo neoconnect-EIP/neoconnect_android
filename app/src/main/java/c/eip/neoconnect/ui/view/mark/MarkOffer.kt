@@ -1,6 +1,8 @@
 package c.eip.neoconnect.ui.view.mark
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +19,7 @@ import c.eip.neoconnect.data.model.comment.CommentModel
 import c.eip.neoconnect.data.model.mark.MarkModel
 import c.eip.neoconnect.ui.viewModel.CommentMarkViewModel
 import c.eip.neoconnect.ui.viewModel.OffresViewModel
+import c.eip.neoconnect.utils.CheckInput
 import c.eip.neoconnect.utils.DataGetter
 import c.eip.neoconnect.utils.Status
 import com.google.android.material.textfield.TextInputEditText
@@ -25,6 +28,7 @@ class MarkOffer : Fragment() {
     private lateinit var viewModel: CommentMarkViewModel
     private lateinit var offresViewModel: OffresViewModel
     private var viewState: Int = 0
+    private var check = CheckInput()
 
     /**
      * Creation de la vue. Déclaration du layout à afficher
@@ -59,79 +63,176 @@ class MarkOffer : Fragment() {
                 viewState = 0
             }
         }
-
         view.findViewById<TextView>(R.id.skipSharePublication).setOnClickListener {
             viewState = 1
             view.findViewById<LinearLayout>(R.id.markOfferLayout).visibility = View.VISIBLE
             view.findViewById<LinearLayout>(R.id.sharePublicationLayout).visibility = View.GONE
         }
 
+        val links = PublicationLinksModel()
+        view.findViewById<TextInputEditText>(R.id.shareFacebookPublication)
+            .addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(s: Editable?) {
+                    val facebookLink =
+                        view.findViewById<TextInputEditText>(R.id.shareFacebookPublication)
+                    if (!check.checkLinksFacebook(facebookLink.text.toString()) &&
+                        facebookLink.text.toString().trim().isNotBlank() &&
+                        facebookLink.text.toString().trim().isNotEmpty()
+                    ) {
+                        facebookLink.error = "Non valide"
+                    } else {
+                        links.facebook = facebookLink.text.toString()
+                    }
+                }
+
+                override fun beforeTextChanged(
+                    s: CharSequence?, start: Int, count: Int, after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+            })
+        view.findViewById<TextInputEditText>(R.id.shareTwitterPublication)
+            .addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(s: Editable?) {
+                    val twitterLink =
+                        view.findViewById<TextInputEditText>(R.id.shareTwitterPublication)
+                    if (!check.checkLinksTwitter(twitterLink.text.toString()) &&
+                        twitterLink.text.toString().trim().isNotBlank() &&
+                        twitterLink.text.toString().trim().isNotEmpty()
+                    ) {
+                        twitterLink.error = "Non valide"
+                    } else {
+                        links.twitter = twitterLink.text.toString()
+                    }
+                }
+
+                override fun beforeTextChanged(
+                    s: CharSequence?, start: Int, count: Int, after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+            })
+
+        view.findViewById<TextInputEditText>(R.id.shareInstagramPublication)
+            .addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(s: Editable?) {
+                    val instagramLink =
+                        view.findViewById<TextInputEditText>(R.id.shareInstagramPublication)
+                    if (!check.checkLinksInstagram(instagramLink.text.toString()) &&
+                        instagramLink.text.toString().trim().isNotBlank() &&
+                        instagramLink.text.toString().trim().isNotEmpty()
+                    ) {
+                        instagramLink.error = "Non valide"
+                    } else {
+                        links.instagram = instagramLink.text.toString()
+                    }
+                }
+
+                override fun beforeTextChanged(
+                    s: CharSequence?, start: Int, count: Int, after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+            })
+        view.findViewById<TextInputEditText>(R.id.sharePinterestPublication)
+            .addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(s: Editable?) {
+                    val pinterestLink =
+                        view.findViewById<TextInputEditText>(R.id.sharePinterestPublication)
+                    if (!check.checkLinksPinterest(pinterestLink.text.toString()) &&
+                        pinterestLink.text.toString().trim().isNotBlank() &&
+                        pinterestLink.text.toString().trim().isNotEmpty()
+                    ) {
+                        pinterestLink.error = "Non valide"
+                    } else {
+                        links.pinterest = pinterestLink.text.toString()
+                    }
+                }
+
+                override fun beforeTextChanged(
+                    s: CharSequence?, start: Int, count: Int, after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+            })
+        view.findViewById<TextInputEditText>(R.id.shareTwitchPublication)
+            .addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(s: Editable?) {
+                    val twitchLink =
+                        view.findViewById<TextInputEditText>(R.id.shareTwitchPublication)
+                    if (!check.checkLinksTwitch(twitchLink.text.toString()) &&
+                        twitchLink.text.toString().trim().isNotBlank() &&
+                        twitchLink.text.toString().trim().isNotEmpty()
+                    ) {
+                        twitchLink.error = "Non valide"
+                    } else {
+                        links.twitch = twitchLink.text.toString()
+                    }
+                }
+
+                override fun beforeTextChanged(
+                    s: CharSequence?, start: Int, count: Int, after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+            })
+        view.findViewById<TextInputEditText>(R.id.shareYoutubePublication)
+            .addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(s: Editable?) {
+                    val youtubeLink =
+                        view.findViewById<TextInputEditText>(R.id.shareYoutubePublication)
+                    if (!check.checkLinksYoutube(youtubeLink.text.toString()) &&
+                        youtubeLink.text.toString().trim().isNotBlank() &&
+                        youtubeLink.text.toString().trim().isNotEmpty()
+                    ) {
+                        youtubeLink.error = "Non valide"
+                    } else {
+                        links.youtube = youtubeLink.text.toString()
+                    }
+                }
+
+                override fun beforeTextChanged(
+                    s: CharSequence?, start: Int, count: Int, after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+            })
+        view.findViewById<TextInputEditText>(R.id.shareTiktokPublication)
+            .addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(s: Editable?) {
+                    val tiktokLink =
+                        view.findViewById<TextInputEditText>(R.id.shareTiktokPublication)
+                    if (!check.checkLinksTiktok(tiktokLink.text.toString()) &&
+                        tiktokLink.text.toString().trim().isNotBlank() &&
+                        tiktokLink.text.toString().trim().isNotEmpty()
+                    ) {
+                        tiktokLink.error = "Non valide"
+                    } else {
+                        links.youtube = tiktokLink.text.toString()
+                    }
+                }
+
+                override fun beforeTextChanged(
+                    s: CharSequence?, start: Int, count: Int, after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+            })
         view.findViewById<ImageView>(R.id.sharePublicationButton).setOnClickListener {
-            val links = PublicationLinksModel()
-            if (view.findViewById<TextInputEditText>(R.id.shareFacebookPublication).text.toString()
-                    .trim().isNotBlank() &&
-                view.findViewById<TextInputEditText>(R.id.shareFacebookPublication).text.toString()
-                    .trim().isNotEmpty()
-            ) {
-                links.facebook =
-                    view.findViewById<TextInputEditText>(R.id.shareFacebookPublication).text.toString()
-            }
-            if (view.findViewById<TextInputEditText>(R.id.shareTwitterPublication).text.toString()
-                    .trim().isNotBlank() &&
-                view.findViewById<TextInputEditText>(R.id.shareTwitterPublication).text.toString()
-                    .trim().isNotEmpty()
-            ) {
-                links.twitter =
-                    view.findViewById<TextInputEditText>(R.id.shareTwitterPublication).text.toString()
-            }
-            if (view.findViewById<TextInputEditText>(R.id.shareSnapchatPublication).text.toString()
-                    .trim().isNotBlank() &&
-                view.findViewById<TextInputEditText>(R.id.shareSnapchatPublication).text.toString()
-                    .trim().isNotEmpty()
-            ) {
-                links.snapchat =
-                    view.findViewById<TextInputEditText>(R.id.shareSnapchatPublication).text.toString()
-            }
-            if (view.findViewById<TextInputEditText>(R.id.shareInstagramPublication).text.toString()
-                    .trim().isNotBlank() &&
-                view.findViewById<TextInputEditText>(R.id.shareInstagramPublication).text.toString()
-                    .trim().isNotEmpty()
-            ) {
-                links.instagram =
-                    view.findViewById<TextInputEditText>(R.id.shareInstagramPublication).text.toString()
-            }
-            if (view.findViewById<TextInputEditText>(R.id.sharePinterestPublication).text.toString()
-                    .trim().isNotBlank() &&
-                view.findViewById<TextInputEditText>(R.id.sharePinterestPublication).text.toString()
-                    .trim().isNotEmpty()
-            ) {
-                links.pinterest =
-                    view.findViewById<TextInputEditText>(R.id.sharePinterestPublication).text.toString()
-            }
-            if (view.findViewById<TextInputEditText>(R.id.shareTwitchPublication).text.toString()
-                    .trim().isNotBlank() &&
-                view.findViewById<TextInputEditText>(R.id.shareTwitchPublication).text.toString()
-                    .trim().isNotEmpty()
-            ) {
-                links.twitch =
-                    view.findViewById<TextInputEditText>(R.id.shareTwitchPublication).text.toString()
-            }
-            if (view.findViewById<TextInputEditText>(R.id.shareYoutubePublication).text.toString()
-                    .trim().isNotBlank() &&
-                view.findViewById<TextInputEditText>(R.id.shareYoutubePublication).text.toString()
-                    .trim().isNotEmpty()
-            ) {
-                links.youtube =
-                    view.findViewById<TextInputEditText>(R.id.shareYoutubePublication).text.toString()
-            }
-            if (view.findViewById<TextInputEditText>(R.id.shareTiktokPublication).text.toString()
-                    .trim().isNotBlank() &&
-                view.findViewById<TextInputEditText>(R.id.shareTiktokPublication).text.toString()
-                    .trim().isNotEmpty()
-            ) {
-                links.tiktok =
-                    view.findViewById<TextInputEditText>(R.id.shareTiktokPublication).text.toString()
-            }
             sharePub(view = view, token = token, offerId = offerId, links = links)
         }
 
