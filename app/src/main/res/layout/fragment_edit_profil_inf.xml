@@ -340,7 +340,7 @@
                         android:gravity="center_horizontal"
                         android:overlapAnchor="false"
                         android:padding="10dp"
-                        android:popupBackground="@color/descInf" />
+                        android:popupBackground="@color/spinnerInf" />
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

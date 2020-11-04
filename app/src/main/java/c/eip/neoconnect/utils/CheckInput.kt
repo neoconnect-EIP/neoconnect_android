@@ -53,4 +53,53 @@ class CheckInput {
 
         return checkDigit && checkLower && checkUpper && checkLength
     }
+
+    /**
+     *  Vérifie lien facebook pendant le partage d'une offre
+     */
+    fun checkLinksFacebook(str: String): Boolean {
+        return str.startsWith("https://www.facebook.com/") || str.startsWith("facebook.com")
+    }
+
+    /**
+     *  Vérifie lien twitter pendant le partage d'une offre
+     */
+    fun checkLinksTwitter(str: String): Boolean {
+        return str.startsWith("https://www.twitter.com/") || str.startsWith("twitter.com")
+    }
+
+    /**
+     *  Vérifie lien instagram pendant le partage d'une offre
+     */
+    fun checkLinksInstagram(str: String): Boolean {
+        return str.startsWith("https://www.instagram.com/") || str.startsWith("instagram.com")
+    }
+
+    /**
+     *  Vérifie lien pinterest pendant le partage d'une offre
+     */
+    fun checkLinksPinterest(str: String): Boolean {
+        return str.startsWith("https://www.pinterest.fr/") || str.startsWith("pinterest.fr")
+    }
+
+    /**
+     *  Vérifie lien twitch pendant le partage d'une offre
+     */
+    fun checkLinksTwitch(str: String): Boolean {
+        return str.startsWith("https://www.twitch.tv/") || str.startsWith("twitch.tv")
+    }
+
+    /**
+     *  Vérifie lien youtube pendant le partage d'une offre
+     */
+    fun checkLinksYoutube(str: String): Boolean {
+        return str.startsWith("https://www.youtube.com/") || str.startsWith("youtube.com")
+    }
+
+    /**
+     *  Vérifie lien tiktok pendant le partage d'une offre
+     */
+    fun checkLinksTiktok(str: String): Boolean {
+        return str.startsWith("https://www.tiktok.com/") || str.startsWith("tiktok.com")
+    }
 }

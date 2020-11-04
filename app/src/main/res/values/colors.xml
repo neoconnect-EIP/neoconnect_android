@@ -7,6 +7,7 @@
     <color name="white">@android:color/white</color>
     <color name="descShop">#9BC269</color>
     <color name="descInf">#3C9DC0</color>
-
+    <color name="spinnerShop">#1B5E20</color>
+    <color name="spinnerInf">#0D47A1</color>
     <color name="main_font_color">#393A61</color>
 </resources>

@@ -48,11 +48,11 @@ class Report : Fragment() {
             spinner.adapter = adapter
         }
         if (DataGetter.INSTANCE.getUserType(requireContext()) == "influencer") {
-            spinner.setPopupBackgroundResource(R.color.descInf)
+            spinner.setPopupBackgroundResource(R.color.spinnerInf)
             inflate.findViewById<ConstraintLayout>(R.id.reportLayout)
                 .setBackgroundResource(R.drawable.background_influencer)
         } else if (DataGetter.INSTANCE.getUserType(requireContext()) == "shop") {
-            spinner.setPopupBackgroundResource(R.color.descShop)
+            spinner.setPopupBackgroundResource(R.color.spinnerShop)
             inflate.findViewById<ConstraintLayout>(R.id.reportLayout)
                 .setBackgroundResource(R.drawable.background_shop)
         }

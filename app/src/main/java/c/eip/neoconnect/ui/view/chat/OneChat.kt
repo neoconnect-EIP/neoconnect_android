@@ -24,6 +24,7 @@ import c.eip.neoconnect.utils.DataGetter
 import c.eip.neoconnect.utils.Status
 import com.google.android.material.textfield.TextInputEditText
 
+
 class OneChat : Fragment() {
     private lateinit var viewModel: ChatViewModel
 
@@ -81,7 +82,7 @@ class OneChat : Fragment() {
     private fun getCanal(view: View) {
         val token = DataGetter.INSTANCE.getToken(requireContext())
         viewModel = ViewModelProvider(this).get(ChatViewModel::class.java)
-        viewModel.getOneChannel(token = token!!, id =  arguments?.get("id") as Int)
+        viewModel.getOneChannel(token = token!!, id = arguments?.get("id") as Int)
             .observe(viewLifecycleOwner, Observer {
                 it?.let { resource ->
                     when (resource.status) {
@@ -106,6 +107,7 @@ class OneChat : Fragment() {
                             userDest = it.data.user_2
                             adapter.notifyDataSetChanged()
                             recyclerOneChat.adapter = adapter
+                            recyclerOneChat.scrollToPosition(adapter.itemCount - 1)
                         }
                         Status.ERROR -> {
                             Toast.makeText(
