@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -38,6 +39,9 @@ class ListSortedOffer : Fragment() {
         inflate.findViewById<LinearLayout>(R.id.choiceSortingSujetLayout).visibility = View.GONE
         inflate.findViewById<LinearLayout>(R.id.choiceSortingLayout).visibility = View.VISIBLE
         inflate.findViewById<RecyclerView>(R.id.recyclerSortedListOffer).visibility = View.GONE
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            findNavController().popBackStack()
+        }
         return inflate
     }
 
@@ -58,13 +62,22 @@ class ListSortedOffer : Fragment() {
                 view.findViewById<RecyclerView>(R.id.recyclerSortedListOffer).visibility = View.GONE
             }
         }
-        view.findViewById<TextView>(R.id.sortBySex).setOnClickListener {
-            viewState = 1
-            view.findViewById<LinearLayout>(R.id.choiceSortingSexLayout).visibility = View.VISIBLE
+        view.findViewById<TextView>(R.id.sortByAscendingOrder).setOnClickListener {
+            view.findViewById<LinearLayout>(R.id.choiceSortingSexLayout).visibility = View.GONE
             view.findViewById<LinearLayout>(R.id.choiceSortingSujetLayout).visibility =
                 View.GONE
             view.findViewById<LinearLayout>(R.id.choiceSortingLayout).visibility = View.GONE
-            view.findViewById<RecyclerView>(R.id.recyclerSortedListOffer).visibility = View.GONE
+            view.findViewById<RecyclerView>(R.id.recyclerSortedListOffer).visibility = View.VISIBLE
+            sortOffer("order", "ascending", view)
+        }
+
+        view.findViewById<TextView>(R.id.sortByDescendingOrder).setOnClickListener {
+            view.findViewById<LinearLayout>(R.id.choiceSortingSexLayout).visibility = View.GONE
+            view.findViewById<LinearLayout>(R.id.choiceSortingSujetLayout).visibility =
+                View.GONE
+            view.findViewById<LinearLayout>(R.id.choiceSortingLayout).visibility = View.GONE
+            view.findViewById<RecyclerView>(R.id.recyclerSortedListOffer).visibility = View.VISIBLE
+            sortOffer("order", "descending", view)
         }
 
         view.findViewById<TextView>(R.id.sortBySubject).setOnClickListener {
@@ -103,17 +116,16 @@ class ListSortedOffer : Fragment() {
                 View.GONE
             view.findViewById<LinearLayout>(R.id.choiceSortingLayout).visibility = View.GONE
             view.findViewById<RecyclerView>(R.id.recyclerSortedListOffer).visibility = View.VISIBLE
-            sortOffer("productSex", "Unisexe", view)
+            sortOffer("productSubject", "Mode", view)
         }
 
         view.findViewById<TextView>(R.id.sortByMode).setOnClickListener {
             viewState = 2
-            view.findViewById<LinearLayout>(R.id.choiceSortingSexLayout).visibility = View.GONE
+            view.findViewById<LinearLayout>(R.id.choiceSortingSexLayout).visibility = View.VISIBLE
             view.findViewById<LinearLayout>(R.id.choiceSortingSujetLayout).visibility =
                 View.GONE
             view.findViewById<LinearLayout>(R.id.choiceSortingLayout).visibility = View.GONE
-            view.findViewById<RecyclerView>(R.id.recyclerSortedListOffer).visibility = View.VISIBLE
-            sortOffer("productSubject", "Mode", view)
+            view.findViewById<RecyclerView>(R.id.recyclerSortedListOffer).visibility = View.GONE
         }
 
         view.findViewById<TextView>(R.id.sortByHighTech).setOnClickListener {
@@ -158,12 +170,11 @@ class ListSortedOffer : Fragment() {
 
         view.findViewById<TextView>(R.id.sortByCosmétique).setOnClickListener {
             viewState = 2
-            view.findViewById<LinearLayout>(R.id.choiceSortingSexLayout).visibility = View.GONE
+            view.findViewById<LinearLayout>(R.id.choiceSortingSexLayout).visibility = View.VISIBLE
             view.findViewById<LinearLayout>(R.id.choiceSortingSujetLayout).visibility =
                 View.GONE
             view.findViewById<LinearLayout>(R.id.choiceSortingLayout).visibility = View.GONE
-            view.findViewById<RecyclerView>(R.id.recyclerSortedListOffer).visibility = View.VISIBLE
-            sortOffer("productSubject", "Cosmétique", view)
+            view.findViewById<RecyclerView>(R.id.recyclerSortedListOffer).visibility = View.GONE
         }
     }
 

@@ -18,7 +18,7 @@
         android:icon="@drawable/navbar_chat"
         android:title="@string/navbarChat" />
     <item
-        android:id="@+id/navigation_profil"
+        android:id="@+id/navigation_my_account_shop"
         android:icon="@drawable/navbar_profil"
         android:title="@string/navbarProfil" />
 </menu>

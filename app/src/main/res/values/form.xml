@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="formPseudo">Pseudo</string>
+    <string name="formEmail">Email</string>
+    <string name="formPassword">Mot de passe</string>
+    <string name="formPasswordConfirm">Répétez le mot de passe</string>
+
+    <string name="formName">Nom</string>
+    <string name="formVille">Ville</string>
+    <string name="formPostal">Code Postal</string>
+    <string name="formPhone">Téléphone</string>
+    <string name="sex">Sexe</string>
+    <string name="formSexM">Homme</string>
+    <string name="formSexF">Femme</string>
+
+    <string name="formSociety">Société</string>
+    <string name="formFonction">Fonction</string>
+    <string name="formSujet">Sujet</string>
+    <string name="formWebsite">Site Web</string>
+    <string name="formFacebook">Facebook</string>
+    <string name="formTwitter">Twitter</string>
+    <string name="formInstagram">Instagram</string>
+    <string name="formSnapchat">Snapchat</string>
+    <string name="formPinterest">Pinterest</string>
+    <string name="formTwitch">Twitch</string>
+    <string name="formYoutube">Youtube</string>
+    <string name="formTiktok">Tiktok</string>
+
+    <string name="formFacebookLink">Lien vers la publication Facebook</string>
+    <string name="formTwitterLink">Lien vers la publication Twitter</string>
+    <string name="formInstagramLink">Lien vers la publication Instagram</string>
+    <string name="formSnapchatLink">Lien vers la publication Snapchat</string>
+    <string name="formPinterestLink">Lien vers la publication Pinterest</string>
+    <string name="formTwitchLink">Lien vers la publication Twitch</string>
+    <string name="formYoutubeLink">Lien vers la publication Youtube</string>
+    <string name="formTiktokLink">Lien vers la publication Tiktok</string>
+
+    <string name="formFeature">Fonctionnalité</string>
+    <string name="formCommentaire">Commentaire</string>
+    <string name="formMessage">Message</string>
+    <string name="privateMessage">Message privé</string>
+
+    <string name="formProductName">Nom de l\'offre</string>
+    <string name="formProductSubject">Sujet de l\'offre</string>
+    <string name="formProductSexe">Sexe de l\'offre</string>
+    <string name="formProductDescription">Description de l\'offre</string>
+    <string name="formProductBrand">Marque de l\'offre</string>
+    <string name="formProductColor">Couleur de l\'offre</string>
+    <string name="unisexe">Unisexe</string>
+    <string name="hightech">High Tech</string>
+    <string name="mode">Mode</string>
+    <string name="sport">Sport</string>
+    <string name="nourriture">Nourriture</string>
+    <string name="jeuxvideos">Jeux Vidéos</string>
+    <string name="cosmetique">Cosmétique</string>
+</resources>

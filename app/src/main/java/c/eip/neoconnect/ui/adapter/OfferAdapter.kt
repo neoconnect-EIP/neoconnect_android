@@ -54,12 +54,6 @@ class OfferAdapter(private val offers: ArrayList<OffreResponseModel>, private va
             }
             itemView.findViewById<TextView>(R.id.offerName).text = offer.productName
             itemView.findViewById<TextView>(R.id.offerSubject).text = offer.productSubject
-            if (offer.average.isNullOrEmpty()) {
-                itemView.findViewById<TextView>(R.id.offerAverage).text = "0 ★"
-            } else {
-                val average = String.format("%.2f", offer.average!!.toFloat()) + " ★"
-                itemView.findViewById<TextView>(R.id.offerAverage).text = average
-            }
 
             itemView.setOnClickListener {
                 val bundle = bundleOf("idUser" to offer.idUser)

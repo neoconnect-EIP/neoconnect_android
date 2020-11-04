@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="welcomeLanding">Bienvenue sur Neoconnect</string>
+    <string name="login">Se connecter</string>
+    <string name="noAccount">Vous n\'avez pas encore de compte ?</string>
+    <string name="createAccount">Créer un compte</string>
+    <string name="forgetPassword">Mot de passe oublié ?</string>
+    <string name="updatePassword">Nouveau mot de passe</string>
+    <string name="subtitleForgetPassword">Veuillez entrer votre adresse email. Un code à fournir vous sera envoyé.</string>
+    <string name="subtitleUpdatePassword">Veuillez entrer votre code temporaire ainsi que votre nouveau mot de passe.</string>
+    <string name="switchToShop">Je suis une boutique</string>
+    <string name="switchToInf">Je suis un influenceur</string>
+    <string name="titleLoginInf">Connexion Influenceur</string>
+    <string name="titleLoginShop">Connexion Boutique</string>
+    <string name="registerConfirm">Valider l\'inscription</string>
+    <string name="nextPage">Page suivante</string>
+    <string name="sendCode">Envoyer le code</string>
+</resources>

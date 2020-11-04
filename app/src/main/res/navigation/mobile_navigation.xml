@@ -65,100 +65,10 @@
         android:label="fragment_register_inf_3"
         tools:layout="@layout/fragment_register_inf_3" />
     <fragment
-        android:id="@+id/navigation_main_view_shop"
-        android:name="c.eip.neoconnect.MainViewShop"
-        android:label="fragment_main_view_shop"
-        tools:layout="@layout/fragment_main_view_shop" />
-    <fragment
-        android:id="@+id/navigation_main_view_inf"
-        android:name="c.eip.neoconnect.MainViewInf"
-        android:label="fragment_main_view_inf"
-        tools:layout="@layout/fragment_main_view_inf" />
-    <fragment
-        android:id="@+id/navigation_insert_offer"
-        android:name="c.eip.neoconnect.ui.view.offer.InsertOffer"
-        android:label="fragment_insert_offer"
-        tools:layout="@layout/fragment_insert_offer" />
-    <fragment
-        android:id="@+id/navigation_edit_offer"
-        android:name="c.eip.neoconnect.ui.view.offer.EditOffer"
-        android:label="fragment_edit_offer"
-        tools:layout="@layout/fragment_edit_offer" />
-    <fragment
-        android:id="@+id/navigation_my_account_shop"
-        android:name="c.eip.neoconnect.ui.view.account.MyAccountShop"
-        android:label="fragment_my_account_shop"
-        tools:layout="@layout/fragment_my_account_shop" />
-    <fragment
-        android:id="@+id/navigation_my_account_inf"
-        android:name="c.eip.neoconnect.ui.view.account.MyAccountInf"
-        android:label="fragment_my_account_inf"
-        tools:layout="@layout/fragment_my_account_inf" />
-    <fragment
-        android:id="@+id/navigation_profil_inf"
-        android:name="c.eip.neoconnect.ui.view.profil.ProfilInf"
-        android:label="fragment_profil_inf"
-        tools:layout="@layout/fragment_profil_inf" />
-    <fragment
-        android:id="@+id/navigation_profil_shop"
-        android:name="c.eip.neoconnect.ui.view.profil.ProfilShop"
-        android:label="fragment_profil_shop"
-        tools:layout="@layout/fragment_profil_shop" />
-    <fragment
-        android:id="@+id/navigation_offer_shop"
-        android:name="c.eip.neoconnect.ui.view.offer.ShopOffer"
-        android:label="fragment_shop_offer"
-        tools:layout="@layout/fragment_shop_offer" />
-    <fragment
-        android:id="@+id/navigation_offer_inf"
-        android:name="c.eip.neoconnect.ui.view.offer.InfOffer"
-        android:label="fragment_inf_offer"
-        tools:layout="@layout/fragment_inf_offer" />
-    <fragment
-        android:id="@+id/navigation_offer_info"
-        android:name="c.eip.neoconnect.ui.view.offer.OfferInfo"
-        android:label="fragment_offer_info"
-        tools:layout="@layout/fragment_offer_info" />
-    <fragment
-        android:id="@+id/navigation_other_profil_inf"
-        android:name="c.eip.neoconnect.ui.view.profil.ProfilOtherInf"
-        android:label="fragment_profil_other_inf"
-        tools:layout="@layout/fragment_profil_other_inf" />
-    <fragment
-        android:id="@+id/navigation_other_profil_shop"
-        android:name="c.eip.neoconnect.ui.view.profil.ProfilOtherShop"
-        android:label="fragment_profil_other_shop"
-        tools:layout="@layout/fragment_profil_other_shop" />
-    <fragment
-        android:id="@+id/navigation_edit_profil_inf"
-        android:name="c.eip.neoconnect.ui.view.profil.EditProfilInf"
-        android:label="fragment_edit_profil_inf"
-        tools:layout="@layout/fragment_edit_profil_inf" />
-    <fragment
-        android:id="@+id/navigation_edit_profil_shop"
-        android:name="c.eip.neoconnect.ui.view.profil.EditProfilShop"
-        android:label="fragment_edit_profil_shop"
-        tools:layout="@layout/fragment_edit_profil_shop" />
-    <fragment
         android:id="@+id/navigation_contact"
         android:name="c.eip.neoconnect.ui.view.contact.ContactUs"
         android:label="fragment_contact"
         tools:layout="@layout/fragment_contact" />
-    <fragment
-        android:id="@+id/navigation_feed_inf"
-        android:name="c.eip.neoconnect.ui.view.feed.FeedInf"
-        android:label="fragment_feed_inf"
-        tools:layout="@layout/fragment_feed_inf" />
-    <fragment
-        android:id="@+id/navigation_feed_shop"
-        android:name="c.eip.neoconnect.ui.view.feed.FeedShop"
-        android:label="fragment_feed_shop"
-        tools:layout="@layout/fragment_feed_shop" />
-    <fragment
-        android:id="@+id/navigation_chat"
-        android:name="c.eip.neoconnect.ui.view.chat.Chat"
-        android:label="fragment_chat"
-        tools:layout="@layout/fragment_chat" />
     <fragment
         android:id="@+id/navigation_password_forgot"
         android:name="c.eip.neoconnect.ui.view.forgotPassword.ForgotPassword"
@@ -169,36 +79,4 @@
         android:name="c.eip.neoconnect.ui.view.forgotPassword.UpdatePassword"
         android:label="fragment_update_password"
         tools:layout="@layout/fragment_update_password" />
-    <fragment
-        android:id="@+id/navigation_list_sorted_offer"
-        android:name="c.eip.neoconnect.ui.view.list.ListSortedOffer"
-        android:label="fragment_list_sorted_offer"
-        tools:layout="@layout/fragment_list_sorted_offer" />
-
-    <fragment
-        android:id="@+id/navigation_message"
-        android:name="c.eip.neoconnect.ui.view.chat.OneChat"
-        android:label="fragment_one_chat"
-        tools:layout="@layout/fragment_one_chat" />
-
-    <fragment
-        android:id="@+id/navigation_mark_offer"
-        android:name="c.eip.neoconnect.ui.view.mark.MarkOffer"
-        android:label="fragment_mark_offer"
-        tools:layout="@layout/fragment_mark_offer" />
-    <fragment
-        android:id="@+id/navigation_mark_user"
-        android:name="c.eip.neoconnect.ui.view.mark.MarkUser"
-        android:label="fragment_mark_user"
-        tools:layout="@layout/fragment_mark_user" />
-    <fragment
-        android:id="@+id/navigation_stats"
-        android:name="c.eip.neoconnect.ui.view.stats.Stats"
-        android:label="fragment_stats"
-        tools:layout="@layout/fragment_stats" />
-    <fragment
-        android:id="@+id/navigation_report"
-        android:name="c.eip.neoconnect.ui.view.report.Report"
-        android:label="fragment_report"
-        tools:layout="@layout/fragment_report" />
 </navigation>

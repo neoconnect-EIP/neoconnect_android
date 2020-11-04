@@ -13,13 +13,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import c.eip.neoconnect.MainViewShop
+import androidx.navigation.fragment.findNavController
 import c.eip.neoconnect.R
 import c.eip.neoconnect.data.model.ImagePicture
 import c.eip.neoconnect.data.model.offres.OffreModel
+import c.eip.neoconnect.ui.view.feed.FeedShop
 import c.eip.neoconnect.ui.viewModel.OffresViewModel
 import c.eip.neoconnect.utils.DataGetter
 import c.eip.neoconnect.utils.Encoder
@@ -61,6 +63,9 @@ class InsertOffer : Fragment() {
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            findNavController().popBackStack()
         }
         return inflate
     }
@@ -167,7 +172,7 @@ class InsertOffer : Fragment() {
             offer.productSex = productSex
             offer.productDesc = productDesc
             offer.productSubject = productSubject
-            offer.brand = MainViewShop.shopData?.pseudo
+            offer.brand = FeedShop.shopData?.pseudo
             offer.color = productColor
             viewModel = ViewModelProvider(this).get(OffresViewModel::class.java)
             viewModel.insertOffer(token = token!!, offre = offer)

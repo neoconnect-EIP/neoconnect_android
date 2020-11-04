@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
@@ -54,12 +55,8 @@ class FeedShopAdapter(private val listShop: List<ShopResponseModel>) :
             }
             itemView.findViewById<TextView>(R.id.feedCardName).text = shop.pseudo
             itemView.findViewById<TextView>(R.id.feedCardSubject).text = shop.theme
-            if (shop.average.isNullOrEmpty()) {
-                itemView.findViewById<TextView>(R.id.feedCardAverage).text = "0 ★"
-            } else {
-                val average = String.format("%.1f", shop.average!!.toFloat()) + " ★"
-                itemView.findViewById<TextView>(R.id.feedCardAverage).text = average
-            }
+            itemView.findViewById<TextView>(R.id.feedCardShop).visibility = View.GONE
+            itemView.findViewById<LinearLayout>(R.id.feedCardLayout).setPadding(20, 20, 20, 20)
 
             itemView.setOnClickListener {
                 val bundle = bundleOf("mode" to 0, "id" to shop.id)

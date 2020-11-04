@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -33,6 +34,9 @@ class InfOffer : Fragment() {
     ): View? {
         val inflate = inflater.inflate(R.layout.fragment_inf_offer, container, false)
         getOfferApplied(inflate = inflate)
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            findNavController().popBackStack()
+        }
         return inflate
     }
 

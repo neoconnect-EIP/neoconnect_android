@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="themeSpinner">
+        <item>Thème</item>
+        <item>Mode</item>
+        <item>Cosmétique</item>
+        <item>Jeu vidéo</item>
+        <item>High Tech</item>
+        <item>Food</item>
+        <item>Sport / Fitness</item>
+    </string-array>
+
+    <string-array name="contactSpinner">
+        <item>Bug</item>
+        <item>Amélioration</item>
+        <item>Commentaire</item>
+        <item>Contact</item>
+    </string-array>
+
+    <string-array name="offerReportSpinner">
+        <item>Offre inapproprié</item>
+        <item>Contenu offensant / illicite</item>
+    </string-array>
+
+    <string-array name="userReportSpinner">
+        <item>Comportement inapproprié ou haineux</item>
+        <item>Contenu offensant</item>
+    </string-array>
+</resources>
