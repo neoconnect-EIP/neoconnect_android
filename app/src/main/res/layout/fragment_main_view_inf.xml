@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_influencer"
-    tools:context=".MainViewInf">
+    tools:context=".main.MainViewInf">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_inf_fragment"

@@ -73,16 +73,16 @@ class AuthRepositoryTest {
         loginInf()
     }
 
-    private fun registerShop() {
-        shop.email = "android@shop.test"
+    @Test
+    fun registerShop() {
+        shop.email = "android1@shop.test"
         shop.fullName = "android shop"
         shop.city = "Kaunas"
         shop.postal = "43110"
         shop.phone = "11111111111"
-        shop.society = "Kaunas & Co"
-        shop.fonction = "Vendeur"
         shop.website = "google.lt"
-        shop.theme = "Mode"
+        shop.theme = "4"
+        shop.userDescription = "Description Shop"
         val call = runBlocking {
             authRepository.registerShop(shop)
         }

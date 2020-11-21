@@ -4,10 +4,16 @@
         <item>Thème</item>
         <item>Mode</item>
         <item>Cosmétique</item>
-        <item>Jeu vidéo</item>
-        <item>High Tech</item>
-        <item>Food</item>
-        <item>Sport / Fitness</item>
+        <item>High tech</item>
+        <item>Nourriture</item>
+        <item>Jeux Vidéo</item>
+        <item>Sport/Fitness</item>
+    </string-array>
+
+    <string-array name="sexSpinner">
+        <item>Homme</item>
+        <item>Femme</item>
+        <item>Unisexe</item>
     </string-array>
 
     <string-array name="contactSpinner">

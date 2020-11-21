@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="searchShop">Saisir un nom de boutique ici pour la rechercher</string>
+    <string name="searchShop">Saisir un nom de marque ici pour la rechercher</string>
     <string name="searchInf">Saisir un nom d\'influenceur ici pour le rechercher</string>
+    <string name="searchOffer">Rechercher une offre</string>
 
     <string name="noInf">Impossible de récupérer la liste des influenceurs</string>
-    <string name="noShop">Impossible de récupérer la liste des boutiques</string>
+    <string name="noShop">Impossible de récupérer la liste des marques</string>
     <string name="noOffer">Impossible de récupérer les offres</string>
 
     <string name="ascOrder">Ordre ascendant</string>

@@ -5,6 +5,7 @@ import androidx.lifecycle.liveData
 import c.eip.neoconnect.data.repository.InfRepository
 import c.eip.neoconnect.data.repository.OffresRepository
 import c.eip.neoconnect.data.repository.ShopRepository
+import c.eip.neoconnect.data.repository.UserRepository
 import c.eip.neoconnect.utils.Resource
 import kotlinx.coroutines.Dispatchers
 
@@ -12,6 +13,7 @@ class ListViewModel : ViewModel() {
     private val offresRepository = OffresRepository()
     private val infRepository = InfRepository()
     private val shopRepository = ShopRepository()
+    private val userRepository = UserRepository()
 
     /**
      * Récupération de la liste des Influenceusrs inscrits
@@ -30,14 +32,14 @@ class ListViewModel : ViewModel() {
     }
 
     /**
-     * Récupération de la liste des Boutiques inscrites
+     * Récupération de la liste des Marques inscrites
      */
     fun getListShop(token: String) = liveData(Dispatchers.IO) {
         try {
             emit(
                 Resource.success(
                     data = infRepository.getListShop(token = token),
-                    message = "Récupération des boutiques réussie"
+                    message = "Récupération des marques réussie"
                 )
             )
         } catch (e: Exception) {
@@ -71,7 +73,7 @@ class ListViewModel : ViewModel() {
         }
 
     /**
-     * Récupération de toutes les offres ajoutées par une Boutique
+     * Récupération de toutes les offres ajoutées par une Marque
      */
     fun getMyOffersShop(token: String, id: Int) = liveData(Dispatchers.IO) {
         try {
@@ -111,6 +113,38 @@ class ListViewModel : ViewModel() {
                 Resource.success(
                     data = offresRepository.getOfferApplyUser(token = token, id = id),
                     message = "Récupération des offres réussie"
+                )
+            )
+        } catch (e: Exception) {
+            emit(Resource.error(data = null, message = e.message ?: "Une erreur est survenue"))
+        }
+    }
+
+    /**
+     * Récupération de suggestion d'offres
+     */
+    fun suggestionOffer(token: String) = liveData(Dispatchers.IO) {
+        try {
+            emit(
+                Resource.success(
+                    data = offresRepository.suggestionOffer(token = token),
+                    message = "Récupération des suggestions d'offres réussie"
+                )
+            )
+        } catch (e: Exception) {
+            emit(Resource.error(data = null, message = e.message ?: "Une erreur est survenue"))
+        }
+    }
+
+    /**
+     * Récupération de suggestion d'offres
+     */
+    fun suggestionUser(token: String) = liveData(Dispatchers.IO) {
+        try {
+            emit(
+                Resource.success(
+                    data = userRepository.suggestionUser(token = token),
+                    message = "Récupération des suggestions d'offres réussie"
                 )
             )
         } catch (e: Exception) {

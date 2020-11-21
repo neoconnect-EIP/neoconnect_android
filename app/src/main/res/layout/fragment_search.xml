@@ -28,37 +28,13 @@
         android:orientation="vertical"
         app:layout_constraintStart_toEndOf="@+id/guideline_margin_start_vertical_search"
         app:layout_constraintTop_toBottomOf="@+id/guideline_margin_start_horizontal_search">
-
-        <LinearLayout
-            android:alpha="0.5"
-            android:background="#252D40"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/searchKeyword"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:gravity="center"
-                android:imeOptions="actionSearch"
-                android:inputType="text"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textCursorDrawable="@null"
-                android:textSize="18sp" />
-
-        </LinearLayout>
-
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/searchTab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            app:tabTextColor="@color/white"
-            app:tabBackground="@android:color/transparent" />
+            app:tabBackground="@android:color/transparent"
+            app:tabTextColor="@color/white" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/searchPager"

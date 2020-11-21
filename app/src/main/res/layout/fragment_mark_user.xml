@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/markUserLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_shop"
     tools:context=".ui.view.mark.MarkUser">
 
     <androidx.constraintlayout.widget.Guideline
@@ -38,6 +38,7 @@
         android:padding="10dp"
         android:text="@string/back"
         android:textColor="@color/white"
+        android:textSize="22sp"
         app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_mark_user"
         app:layout_constraintTop_toBottomOf="@id/guideline_margin_horizontal_mark_user" />
 

@@ -16,7 +16,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 /**
  * Adapter pour la Liste des Offres
  */
-class OfferAdapter(private val offers: ArrayList<OffreResponseModel>, private val type: String) :
+class OfferAdapter(
+    private val offers: ArrayList<OffreResponseModel>,
+    private val type: String,
+    private val userType: String
+) :
     RecyclerView.Adapter<OfferAdapter.OfferHolder>() {
 
     /**
@@ -54,7 +58,29 @@ class OfferAdapter(private val offers: ArrayList<OffreResponseModel>, private va
             }
             itemView.findViewById<TextView>(R.id.offerName).text = offer.productName
             itemView.findViewById<TextView>(R.id.offerSubject).text = offer.productSubject
+            if (userType == "shop") {
+                val offerNbApplied = itemView.findViewById<TextView>(R.id.offerNbApplied)
+                offerNbApplied.visibility = View.VISIBLE
+                itemView.findViewById<View>(R.id.fillerSpace).visibility = View.GONE
+                if (!offer.apply.isNullOrEmpty()) {
+                    var counter = 0
+                    offer.apply.forEach { element ->
+                        if (element.status == "pending") {
+                            counter += 1
+                        }
+                    }
+                    val cntrText = "$counter candidature(s) en attente"
+                    offerNbApplied.text = cntrText
+                } else {
+                    val cntrText = "0 candidature(s) en attente"
+                    offerNbApplied.text = cntrText
+                }
 
+            } else {
+                val offerNbApplied = itemView.findViewById<TextView>(R.id.offerNbApplied)
+                offerNbApplied.visibility = View.GONE
+                itemView.findViewById<View>(R.id.fillerSpace).visibility = View.VISIBLE
+            }
             itemView.setOnClickListener {
                 val bundle = bundleOf("idUser" to offer.idUser)
                 if (type == "applied") {
@@ -62,6 +88,7 @@ class OfferAdapter(private val offers: ArrayList<OffreResponseModel>, private va
                     bundle.putString("status", offer.status)
                 } else {
                     bundle.putInt("idOffer", offer.id)
+                    bundle.putString("status", offer.status)
                 }
                 itemView.findNavController().navigate(R.id.navigation_offer_info, bundle)
             }

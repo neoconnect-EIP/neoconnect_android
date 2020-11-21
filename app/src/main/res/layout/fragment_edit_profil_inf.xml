@@ -38,6 +38,7 @@
         android:padding="10dp"
         android:text="@string/back"
         android:textColor="@color/white"
+        android:textSize="22sp"
         app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_edit_profil_inf"
         app:layout_constraintTop_toBottomOf="@id/guideline_margin_horizontal_edit_profil_inf" />
 
@@ -46,8 +47,10 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/confirm"
+        android:padding="10dp"
+        android:text="@string/edit"
         android:textColor="@color/white"
+        android:textSize="22sp"
         app:layout_constraintEnd_toStartOf="@id/guideline_margin_vertical_end_edit_profil_inf"
         app:layout_constraintTop_toBottomOf="@id/guideline_margin_horizontal_edit_profil_inf" />
 
@@ -55,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="50dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="60dp"
         app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_edit_profil_inf"
         app:layout_constraintTop_toBottomOf="@id/saveButton">
 
@@ -78,53 +81,16 @@
                 android:layout_height="1dp"
                 android:background="#445964" />
 
-            <TextView
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editProfilDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="25dp"
-                android:text="@string/titleRegister1"
+                android:layout_margin="20dp"
+                android:background="@android:color/transparent"
+                android:hint="@string/description"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="25dp">
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline_margin_horizontal_start_edit_profil_inf_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.05" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline_margin_horizontal_end_edit_profil_inf_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.95" />
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editProfilPseudo"
-                    android:layout_width="125dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="25dp"
-                    android:hint="@string/formPseudo"
-                    android:textColorHint="@color/white"
-                    app:layout_constraintStart_toEndOf="@id/guideline_margin_horizontal_start_edit_profil_inf_1"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editProfilEmail"
-                    android:layout_width="175dp"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/formEmail"
-                    android:textColorHint="@color/white"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline_margin_horizontal_end_edit_profil_inf_1"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:textColorHint="@color/white" />
 
             <View
                 android:layout_width="75dp"
@@ -135,78 +101,113 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="25dp"
-                android:text="@string/titleRegister2"
+                android:text="@string/titleRegister1"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="25dp">
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp">
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline_margin_horizontal_start_edit_profil_inf_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.05" />
+                <TextView
+                    android:id="@+id/editProfilPseudo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:hint="@string/formPseudo"
+                    android:textColorHint="@color/white" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline_margin_horizontal_end_edit_profil_inf_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.95" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editProfilEmail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:hint="@string/formEmail"
+                    android:textColorHint="@color/white" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="75dp"
+                android:layout_height="1dp"
+                android:background="#445964" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="25dp"
+                android:text="@string/titleRegister3"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintStart_toEndOf="@id/guideline_margin_horizontal_start_edit_profil_inf_2"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editProfilNom"
-                        android:layout_width="150dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="25dp"
                         android:layout_marginBottom="25dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
                         android:hint="@string/formName"
                         android:textColorHint="@color/white" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editProfilPhone"
-                        android:layout_width="150dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="25dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
                         android:hint="@string/formPhone"
                         android:textColorHint="@color/white" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toStartOf="@id/guideline_margin_horizontal_end_edit_profil_inf_2"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editProfilVille"
-                        android:layout_width="150dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="25dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
                         android:hint="@string/formVille"
                         android:textColorHint="@color/white" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editProfilPostal"
-                        android:layout_width="150dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
                         android:hint="@string/formPostal"
                         android:textColorHint="@color/white" />
                 </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
             <View
                 android:layout_width="75dp"
@@ -222,128 +223,126 @@
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="25dp">
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline_margin_horizontal_start_edit_profil_inf_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.05" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline_margin_horizontal_end_edit_profil_inf_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.95" />
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:baselineAligned="false">
 
                 <LinearLayout
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingBottom="25dp"
-                    app:layout_constraintStart_toEndOf="@id/guideline_margin_horizontal_start_edit_profil_inf_3"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editProfilFacebook"
-                        android:layout_width="150dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="25dp"
                         android:layout_marginBottom="25dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
                         android:hint="@string/formFacebook"
                         android:textColorHint="@color/white" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editProfilTwitter"
-                        android:layout_width="150dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="25dp"
                         android:layout_marginBottom="25dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
                         android:hint="@string/formTwitter"
                         android:textColorHint="@color/white" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editProfilYoutube"
-                        android:layout_width="150dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="25dp"
                         android:layout_marginBottom="25dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
                         android:hint="@string/formYoutube"
                         android:textColorHint="@color/white" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editProfilPinterest"
-                        android:layout_width="150dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="25dp"
+                        android:layout_marginBottom="25dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
                         android:hint="@string/formPinterest"
                         android:textColorHint="@color/white" />
+
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingBottom="25dp"
-                    app:layout_constraintEnd_toStartOf="@id/guideline_margin_horizontal_end_edit_profil_inf_3"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editProfilInstagram"
-                        android:layout_width="150dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="25dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
                         android:hint="@string/formInstagram"
                         android:textColorHint="@color/white" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editProfilSnapchat"
-                        android:layout_width="150dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="25dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
                         android:hint="@string/formSnapchat"
                         android:textColorHint="@color/white" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editProfilTwitch"
-                        android:layout_width="150dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="25dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
                         android:hint="@string/formTwitch"
                         android:textColorHint="@color/white" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editProfilTiktok"
-                        android:layout_width="150dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="25dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
                         android:hint="@string/formTiktok"
                         android:textColorHint="@color/white" />
                 </LinearLayout>
+            </LinearLayout>
 
-                <LinearLayout
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="30dp"
+                android:baselineAligned="false">
+
+                <Spinner
+                    android:id="@+id/editProfilSubject"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
-
-                    <Spinner
-                        android:id="@+id/editProfilSubject"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:overlapAnchor="false"
-                        android:padding="10dp"
-                        android:popupBackground="@color/spinnerInf" />
-                </LinearLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:overlapAnchor="false"
+                    android:popupBackground="@color/spinnerInf" />
+            </LinearLayout>
 
         </LinearLayout>
 

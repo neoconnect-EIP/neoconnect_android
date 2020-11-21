@@ -14,10 +14,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import c.eip.neoconnect.MainViewInf
-import c.eip.neoconnect.MainViewShop
 import c.eip.neoconnect.R
 import c.eip.neoconnect.data.model.login.LoginModel
+import c.eip.neoconnect.main.MainViewInf
+import c.eip.neoconnect.main.MainViewShop
 import c.eip.neoconnect.ui.viewModel.LoginViewModel
 import c.eip.neoconnect.utils.DataGetter
 import c.eip.neoconnect.utils.Status
@@ -52,13 +52,16 @@ class LoginShop : Fragment() {
         view.findViewById<Button>(R.id.forgotPassword).setOnClickListener {
             findNavController().navigate(R.id.navigation_password_forgot)
         }
+        view.findViewById<Button>(R.id.FAQbutton).setOnClickListener {
+            findNavController().navigate(R.id.navigation_faq, bundleOf("type" to "shop"))
+        }
         view.findViewById<Button>(R.id.connectButton).setOnClickListener {
             login(view = view)
         }
     }
 
     /**
-     * Connexion Boutique
+     * Connexion Marque
      */
     private fun login(view: View) {
         val pseudoInput = view.findViewById<TextInputEditText>(R.id.loginPseudo)
@@ -110,6 +113,7 @@ class LoginShop : Fragment() {
                                 requireContext(),
                                 it.data?.userType
                             )
+                            DataGetter.INSTANCE.saveTheme(requireContext(), it.data?.theme)
                             when (it.data?.userType) {
                                 "shop" -> {
                                     val intent = Intent(context, MainViewShop::class.java).apply {}

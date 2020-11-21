@@ -100,6 +100,7 @@ class ContactUs : Fragment() {
                 .setBackgroundResource(R.drawable.background_selection_side)
             inflate.findViewById<TextInputEditText>(R.id.sendMailPseudo).visibility =
                 View.VISIBLE
+            spinner.visibility = View.GONE
         }
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             findNavController().popBackStack()

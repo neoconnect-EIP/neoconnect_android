@@ -55,10 +55,10 @@ class FeedOfferAdapter(private val offers: List<OffreResponseModel>) :
             itemView.findViewById<TextView>(R.id.feedCardName).text = offer.productName
             itemView.findViewById<TextView>(R.id.feedCardSubject).text = offer.productSubject
             if (offer.brand.isNullOrEmpty()) {
-                itemView.findViewById<TextView>(R.id.feedCardShop).text =
+                itemView.findViewById<TextView>(R.id.feedCardExtra).text =
                     itemView.context.getString(R.string.notDefined)
             } else {
-                itemView.findViewById<TextView>(R.id.feedCardShop).text = offer.brand
+                itemView.findViewById<TextView>(R.id.feedCardExtra).text = offer.brand
             }
 
             itemView.setOnClickListener {

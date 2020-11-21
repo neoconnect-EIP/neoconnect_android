@@ -1,12 +1,12 @@
 package c.eip.neoconnect.data.model.profil
 
-import c.eip.neoconnect.data.model.ImagePicture
 import c.eip.neoconnect.data.model.comment.CommentModel
+import c.eip.neoconnect.data.model.image.ImagePicture
 import c.eip.neoconnect.data.model.mark.MarkModel
 import com.google.gson.annotations.SerializedName
 
 /**
- * Modèle Boutique
+ * Modèle Marque
  */
 class ShopResponseModel {
     @SerializedName("id")
@@ -51,4 +51,6 @@ class ShopResponseModel {
     var comment: List<CommentModel> = emptyList()
     @SerializedName("mark")
     var mark: List<MarkModel> = emptyList()
+    @SerializedName("nbOfferPosted")
+    var nbOfferPosted: Int = 0
 }

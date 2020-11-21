@@ -1,6 +1,6 @@
 package c.eip.neoconnect.data.model.message
 
-import c.eip.neoconnect.data.model.ImagePicture
+import c.eip.neoconnect.data.model.image.ImagePicture
 import com.google.gson.annotations.SerializedName
 
 /**

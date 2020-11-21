@@ -1,10 +1,13 @@
 package c.eip.neoconnect.ui.view.chat
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -71,8 +74,18 @@ class OneChat : Fragment() {
                 ?.replace(view.id, fragment)?.commit()
         }
 
-        view.findViewById<ImageView>(R.id.sendChatMessageButton).setOnClickListener {
-            sendMessage(view = view)
+        val insertMessageInput = view.findViewById<TextInputEditText>(R.id.insertChatMessage)
+        insertMessageInput.setOnEditorActionListener { _, actionId, _ ->
+            return@setOnEditorActionListener when (actionId) {
+                EditorInfo.IME_ACTION_SEND -> {
+                    sendMessage(view = view)
+                    val imm =
+                        requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(view.windowToken, 0)
+                    true
+                }
+                else -> false
+            }
         }
     }
 

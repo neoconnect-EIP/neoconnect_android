@@ -21,7 +21,7 @@ class OffresRepositoryTest {
 
     @BeforeEach
     fun setup() {
-        loginInf.pseudo = "testInf1"
+        loginInf.pseudo = "EricChheu"
         loginInf.password = "Azer1234"
         loginShop.pseudo = "testShop1"
         loginShop.password = "Azer1234"
@@ -63,6 +63,15 @@ class OffresRepositoryTest {
         val userId = getTokenInf(loginInf).idUser
         val call = runBlocking {
             offresRepository.getMyOfferInf(token, userId)
+        }
+        Assertions.assertNotNull(call)
+    }
+
+    @Test
+    fun suggestionOffer() {
+        val token = getTokenInf(loginInf).token
+        val call = runBlocking {
+            offresRepository.suggestionOffer(token)
         }
         Assertions.assertNotNull(call)
     }

@@ -58,15 +58,20 @@ class Chat : Fragment() {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        view.findViewById<TextView>(R.id.pb_chat).visibility = View.GONE
-                        view.findViewById<ScrollView>(R.id.chatScrollView).visibility =
-                            View.VISIBLE
-                        val recyclerChat = view.findViewById<RecyclerView>(R.id.recyclerViewChat)
-                        recyclerChat.layoutManager =
-                            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                        val adapter = ChatAdapter(it.data!!)
-                        adapter.notifyDataSetChanged()
-                        recyclerChat.adapter = adapter
+                        if (it.data!!.isEmpty()) {
+                            view.findViewById<TextView>(R.id.pb_chat).visibility = View.VISIBLE
+                        } else {
+                            view.findViewById<TextView>(R.id.pb_chat).visibility = View.GONE
+                            view.findViewById<ScrollView>(R.id.chatScrollView).visibility =
+                                View.VISIBLE
+                            val recyclerChat =
+                                view.findViewById<RecyclerView>(R.id.recyclerViewChat)
+                            recyclerChat.layoutManager =
+                                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                            val adapter = ChatAdapter(it.data)
+                            adapter.notifyDataSetChanged()
+                            recyclerChat.adapter = adapter
+                        }
                     }
                     Status.ERROR -> {
                         view.findViewById<TextView>(R.id.pb_chat).visibility = View.VISIBLE

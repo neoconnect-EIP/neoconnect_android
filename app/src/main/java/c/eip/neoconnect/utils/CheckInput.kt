@@ -12,7 +12,8 @@ class CheckInput {
      *  Vérifie format de l'adresse mail
      */
     fun checkEmail(email: String): Boolean {
-        return !(email.isEmpty() || email.startsWith("@") || email.endsWith("@"))
+        return !(email.isEmpty() || email.startsWith("@") ||
+                email.endsWith("@") || !(email.contains("@")))
     }
 
     /**

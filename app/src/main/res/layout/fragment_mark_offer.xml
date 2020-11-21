@@ -38,58 +38,11 @@
         android:padding="10dp"
         android:text="@string/back"
         android:textColor="@color/white"
+        android:textSize="22sp"
         app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_mark_offer"
         app:layout_constraintTop_toBottomOf="@id/guideline_margin_horizontal_mark_offer" />
 
     <LinearLayout
-        android:id="@+id/markOfferLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone"
-        app:layout_constraintEnd_toStartOf="@id/guideline_margin_vertical_end_mark_offer"
-        app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_mark_offer"
-        app:layout_constraintTop_toBottomOf="@id/backButton">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="@string/review"
-            android:textColor="@color/white"
-            android:textSize="25sp" />
-
-        <RatingBar
-            android:id="@+id/markOfferRatingBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="30dp"
-            android:numStars="5"
-            android:stepSize="0.5" />
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/markOfferComment"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:alpha="0.7"
-            android:gravity="center"
-            android:hint="@string/formCommentaire"
-            android:inputType="textMultiLine"
-            android:padding="15dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white" />
-
-        <ImageView
-            android:id="@+id/markOfferSendButton"
-            android:layout_width="80dp"
-            android:layout_height="75dp"
-            android:background="@android:drawable/ic_menu_send"
-            android:contentDescription="@string/contDescDesc" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/sharePublicationLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -143,7 +96,6 @@
             android:textSize="18sp" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/shareSnapchatPublication"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:alpha="0.7"
@@ -206,28 +158,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/sharePublicationButton"
+                android:layout_width="80dp"
+                android:layout_height="75dp"
+                android:background="@android:drawable/ic_menu_send"
+                android:contentDescription="@string/contDescDesc" />
 
-            <TextView
-                android:id="@+id/skipSharePublication"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:alpha="0.7"
-                android:text="@string/skip" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="end">
-
-                <ImageView
-                    android:id="@+id/sharePublicationButton"
-                    android:layout_width="80dp"
-                    android:layout_height="75dp"
-                    android:background="@android:drawable/ic_menu_send"
-                    android:contentDescription="@string/contDescDesc" />
-            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

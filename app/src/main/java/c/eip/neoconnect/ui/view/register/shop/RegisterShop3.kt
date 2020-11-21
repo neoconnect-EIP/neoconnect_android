@@ -22,17 +22,21 @@ class RegisterShop3 : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val inflate = inflater.inflate(R.layout.fragment_register_shop_3, container, false)
-        if (arguments?.get("society") != null) {
-            inflate.findViewById<TextInputEditText>(R.id.registerSociety)
-                ?.setText(arguments?.get("society") as String)
+        if (arguments?.get("name") != null) {
+            inflate.findViewById<TextInputEditText>(R.id.registerName)
+                ?.setText(arguments?.get("name") as String)
         }
-        if (arguments?.get("fonction") != null) {
-            inflate.findViewById<TextInputEditText>(R.id.registerFonction)
-                ?.setText(arguments?.get("fonction") as String)
+        if (arguments?.get("ville") != null) {
+            inflate.findViewById<TextInputEditText>(R.id.registerVille)
+                ?.setText(arguments?.get("ville") as String)
         }
-        if (arguments?.get("website") != null) {
-            inflate.findViewById<TextInputEditText>(R.id.registerWebsite)
-                ?.setText(arguments?.get("website") as String)
+        if (arguments?.get("postal") != null) {
+            inflate.findViewById<TextInputEditText>(R.id.registerPostal)
+                ?.setText(arguments?.get("postal") as String)
+        }
+        if (arguments?.get("phone") != null) {
+            inflate.findViewById<TextInputEditText>(R.id.registerPhone)
+                ?.setText(arguments?.get("phone") as String)
         }
         return inflate
     }
@@ -49,32 +53,41 @@ class RegisterShop3 : Fragment() {
         view.findViewById<Button>(R.id.nextPageRegister).setOnClickListener {
             val bundle = bundleOf()
             bundle.putAll(arguments)
-            when (view.findViewById<TextInputEditText>(R.id.registerSociety).text.toString().trim()
-                .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerSociety).text.toString()
+            when (view.findViewById<TextInputEditText>(R.id.registerName).text.toString().trim()
+                .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerName).text.toString()
                 .trim().isNotEmpty()) {
                 true -> bundle.putString(
-                    "society",
-                    view.findViewById<TextInputEditText>(R.id.registerSociety).text.toString()
+                    "name",
+                    view.findViewById<TextInputEditText>(R.id.registerName).text.toString()
                 )
-                false -> bundle.putString("society", null)
+                false -> bundle.putString("name", null)
             }
-            when (view.findViewById<TextInputEditText>(R.id.registerFonction).text.toString().trim()
-                .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerFonction).text.toString()
+            when (view.findViewById<TextInputEditText>(R.id.registerVille).text.toString().trim()
+                .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerVille).text.toString()
                 .trim().isNotEmpty()) {
                 true -> bundle.putString(
-                    "fonction",
-                    view.findViewById<TextInputEditText>(R.id.registerFonction).text.toString()
+                    "ville",
+                    view.findViewById<TextInputEditText>(R.id.registerVille).text.toString()
                 )
-                false -> bundle.putString("fonction", null)
+                false -> bundle.putString("ville", null)
             }
-            when (view.findViewById<TextInputEditText>(R.id.registerWebsite).text.toString().trim()
-                .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerWebsite).text.toString()
+            when (view.findViewById<TextInputEditText>(R.id.registerPostal).text.toString().trim()
+                .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerPostal).text.toString()
                 .trim().isNotEmpty()) {
                 true -> bundle.putString(
-                    "website",
-                    view.findViewById<TextInputEditText>(R.id.registerWebsite).text.toString()
+                    "postal",
+                    view.findViewById<TextInputEditText>(R.id.registerPostal).text.toString()
                 )
-                false -> bundle.putString("website", null)
+                false -> bundle.putString("postal", null)
+            }
+            when (view.findViewById<TextInputEditText>(R.id.registerPhone).text.toString().trim()
+                .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerPhone).text.toString()
+                .trim().isNotEmpty()) {
+                true -> bundle.putString(
+                    "phone",
+                    view.findViewById<TextInputEditText>(R.id.registerPhone).text.toString()
+                )
+                false -> bundle.putString("phone", null)
             }
             findNavController().navigate(R.id.navigation_register_shop_4, bundle)
         }

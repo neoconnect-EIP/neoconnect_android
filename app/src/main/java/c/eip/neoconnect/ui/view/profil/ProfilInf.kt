@@ -2,6 +2,7 @@ package c.eip.neoconnect.ui.view.profil
 
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import c.eip.neoconnect.R
 import c.eip.neoconnect.data.model.profil.InfluenceurResponseModel
+import c.eip.neoconnect.main.MainActivity
 import c.eip.neoconnect.ui.viewModel.InfViewModel
 import c.eip.neoconnect.ui.viewModel.UserViewModel
 import c.eip.neoconnect.utils.DataGetter
@@ -76,6 +78,7 @@ class ProfilInf : Fragment() {
                                 .error(R.drawable.ic_picture_inf)
                                 .into(inflate.findViewById(R.id.myProfilPicture))
                         }
+                        inflate.findViewById<TextView>(R.id.profilDescription).text = it.data?.userDescription
                         inflate.findViewById<TextView>(R.id.profilPseudo).text = it.data?.pseudo
                         inflate.findViewById<TextView>(R.id.profilEmail).text = it.data?.email
                         inflate.findViewById<TextView>(R.id.profilNom).text = it.data?.fullName
@@ -105,7 +108,7 @@ class ProfilInf : Fragment() {
     }
 
     /**
-     * Option pour son profil (Supprimer)
+     * Option pour son profil (Supprimer, Modifier)
      */
     private fun settingsOption(view: View) {
         val popupMenu = PopupMenu(context, view.findViewById(R.id.settingsButton))
@@ -118,7 +121,7 @@ class ProfilInf : Fragment() {
                             .inflate(R.layout.dialog_delete_account, null)
                     val mAlertDialogBuilder =
                         AlertDialog.Builder(requireContext()).setView(mDialogView)
-                            .setTitle("Êtes-vous sûr de vouloir supprimer votre compte ?\n Cette action est irréversible.")
+                            .setTitle("Êtes-vous sûr de vouloir supprimer votre compte ?")
                     val mAlertDialog = mAlertDialogBuilder.show()
                     mDialogView.findViewById<TextView>(R.id.yesDeleteAccount).setOnClickListener {
                         deleteAccount()
@@ -140,6 +143,9 @@ class ProfilInf : Fragment() {
         popupMenu.show()
     }
 
+    /**
+     * Supprimer son compte
+     */
     private fun deleteAccount() {
         val token = DataGetter.INSTANCE.getToken(requireContext())
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
@@ -161,7 +167,9 @@ class ProfilInf : Fragment() {
                             if (DataGetter.INSTANCE.getToken(requireContext())
                                     .isNullOrEmpty()
                             ) {
-                                findNavController().navigate(R.id.navigation_login_inf)
+                                val intent = Intent(context, MainActivity::class.java).apply {}
+                                this.activity?.finish()
+                                startActivity(intent)
                             }
                         }
                         Status.ERROR -> {

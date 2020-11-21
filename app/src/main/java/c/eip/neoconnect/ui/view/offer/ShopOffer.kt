@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.addCallback
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -32,7 +33,18 @@ class ShopOffer : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val inflate = inflater.inflate(R.layout.fragment_shop_offer, container, false)
-        getShopOffer(inflate = inflate)
+        val userType = DataGetter.INSTANCE.getUserType(requireContext())
+        if (userType == "shop") {
+            inflate.findViewById<ConstraintLayout>(R.id.layoutShopOffer)
+                .setBackgroundResource(R.drawable.background_shop)
+            val userId = DataGetter.INSTANCE.getUserId(requireContext())
+            getShopOffer(inflate = inflate, userId = userId, userType = "shop")
+        } else if (userType == "influencer") {
+            inflate.findViewById<ConstraintLayout>(R.id.layoutShopOffer)
+                .setBackgroundResource(R.drawable.background_influencer)
+            val id = arguments?.get("id") as Int
+            getShopOffer(inflate = inflate, userId = id, userType = "inf")
+        }
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             findNavController().popBackStack()
         }
@@ -51,11 +63,10 @@ class ShopOffer : Fragment() {
     }
 
     /**
-     * Liste des offres postées par une boutique
+     * Liste des offres postées par une marque
      */
-    private fun getShopOffer(inflate: View) {
+    private fun getShopOffer(inflate: View, userId: Int, userType: String) {
         val token = DataGetter.INSTANCE.getToken(requireContext())
-        val userId = DataGetter.INSTANCE.getUserId(requireContext())
 
         viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
         viewModel.getMyOffersShop(token = token!!, id = userId)
@@ -81,7 +92,7 @@ class ShopOffer : Fragment() {
                                         LinearLayoutManager.VERTICAL,
                                         false
                                     )
-                                val adapter = OfferAdapter(it.data, "list")
+                                val adapter = OfferAdapter(it.data, "list", userType)
                                 adapter.notifyDataSetChanged()
                                 recyclerListView.adapter = adapter
                             }

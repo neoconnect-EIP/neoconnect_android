@@ -40,13 +40,15 @@
         app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_edit_offer"
         app:layout_constraintTop_toBottomOf="@id/guideline_margin_horizontal_edit_offer" />
 
-    <TextView
+    <Button
         android:id="@+id/backButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:text="@string/back"
         android:textColor="@color/white"
+        android:textSize="22sp"
         app:layout_constraintEnd_toStartOf="@id/guideline_margin_vertical_end_edit_offer"
         app:layout_constraintTop_toBottomOf="@id/guideline_margin_horizontal_edit_offer" />
 
@@ -92,14 +94,12 @@
                 android:id="@+id/editOfferPicture1"
                 android:layout_width="125dp"
                 android:layout_height="125dp"
-                android:background="@drawable/ic_picture_offer"
                 android:contentDescription="@string/contDescInsertOffer" />
 
             <ImageView
                 android:id="@+id/editOfferPicture2"
                 android:layout_width="125dp"
                 android:layout_height="125dp"
-                android:background="@drawable/ic_picture_offer"
                 android:contentDescription="@string/contDescInsertOffer"
                 android:visibility="gone" />
 
@@ -107,7 +107,6 @@
                 android:id="@+id/editOfferPicture3"
                 android:layout_width="125dp"
                 android:layout_height="125dp"
-                android:background="@drawable/ic_picture_offer"
                 android:contentDescription="@string/contDescInsertOffer"
                 android:visibility="gone" />
 
@@ -115,7 +114,6 @@
                 android:id="@+id/editOfferPicture4"
                 android:layout_width="125dp"
                 android:layout_height="125dp"
-                android:background="@drawable/ic_picture_offer"
                 android:contentDescription="@string/contDescInsertOffer"
                 android:visibility="gone" />
 
@@ -123,53 +121,8 @@
                 android:id="@+id/editOfferPicture5"
                 android:layout_width="125dp"
                 android:layout_height="125dp"
-                android:background="@drawable/ic_picture_offer"
                 android:contentDescription="@string/contDescInsertOffer"
                 android:visibility="gone" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="30dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="4dp"
-                android:text="@string/sex"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-            <RadioGroup
-                android:id="@+id/editOfferSex"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/editOfferSexHomme"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:buttonTint="@color/descShop"
-                    android:padding="5dp"
-                    android:text="@string/formSexM"
-
-                    android:textColor="@color/white" />
-
-                <RadioButton
-                    android:id="@+id/editOfferSexFemme"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:buttonTint="@color/descShop"
-                    android:padding="5dp"
-                    android:text="@string/formSexF"
-                    android:textColor="@color/white" />
-            </RadioGroup>
         </LinearLayout>
 
         <LinearLayout
@@ -182,8 +135,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editOfferDescription"
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
+                android:layout_height="wrap_content"
                 android:alpha="0.7"
+                android:lines="6"
                 android:hint="@string/formProductDescription"
                 android:inputType="textMultiLine"
                 android:textColor="@color/white"
@@ -201,32 +155,24 @@
 
             <Spinner
                 android:id="@+id/editThemeOffreSpinner"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:alpha="0.7"
                 android:overlapAnchor="false"
-                android:popupBackground="@color/descShop"
+                android:popupBackground="@color/spinnerShop"
                 android:textAlignment="textStart" />
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="20dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editOfferColor"
-                android:layout_width="match_parent"
+            <Spinner
+                android:id="@+id/editSexOffreSpinner"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:overlapAnchor="false"
                 android:alpha="0.7"
-                android:hint="@string/formProductColor"
-                android:inputType="text"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textCursorDrawable="@null"
-                android:textSize="18sp" />
+                android:popupBackground="@color/spinnerShop"
+                android:textAlignment="textStart"
+                android:visibility="gone" />
         </LinearLayout>
 
         <Button

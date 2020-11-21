@@ -26,6 +26,9 @@ class FeedShop : Fragment() {
     private lateinit var feedViewModel: FeedViewModel
     private lateinit var shopViewModel: ShopViewModel
 
+    /**
+     * Creation de la vue. Déclaration du layout à afficher
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

@@ -38,6 +38,7 @@
         android:padding="10dp"
         android:text="@string/back"
         android:textColor="@color/white"
+        android:textSize="22sp"
         app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_my_inf_offer"
         app:layout_constraintTop_toBottomOf="@id/guideline_margin_horizontal_my_inf_offer" />
 
@@ -49,6 +50,7 @@
         android:layout_marginEnd="20dp"
         android:gravity="center"
         android:text="@string/noOfferInf"
+        android:textColor="@color/white"
         android:textSize="20sp"
         android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@id/guideline_margin_vertical_end_my_inf_offer"
@@ -66,18 +68,6 @@
         app:layout_constraintEnd_toStartOf="@id/guideline_margin_vertical_end_my_inf_offer"
         app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_my_inf_offer"
         app:layout_constraintTop_toBottomOf="@id/backButton" />
-
-    <TextView
-        android:id="@+id/pb_applied_offer_pending"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="25dp"
-        android:text="@string/noOffrePending"
-        android:textAlignment="center"
-        android:visibility="gone"
-        app:layout_constraintEnd_toStartOf="@id/guideline_margin_vertical_end_my_inf_offer"
-        app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_my_inf_offer"
-        app:layout_constraintTop_toBottomOf="@id/titlePendingApplied" />
 
     <ScrollView
         android:id="@+id/scrollOfferPending"
@@ -111,17 +101,7 @@
         app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_my_inf_offer"
         app:layout_constraintTop_toBottomOf="@id/scrollOfferPending" />
 
-    <TextView
-        android:id="@+id/pb_applied_offer_accepted"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="25dp"
-        android:text="@string/noOffreAccepted"
-        android:textAlignment="center"
-        android:visibility="gone"
-        app:layout_constraintEnd_toStartOf="@id/guideline_margin_vertical_end_my_inf_offer"
-        app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_my_inf_offer"
-        app:layout_constraintTop_toBottomOf="@id/titleAcceptedApplied" />
+
 
     <ScrollView
         android:id="@+id/scrollOfferAccepted"
@@ -155,17 +135,7 @@
         app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_my_inf_offer"
         app:layout_constraintTop_toBottomOf="@id/scrollOfferAccepted" />
 
-    <TextView
-        android:id="@+id/pb_applied_offer_refused"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="25dp"
-        android:text="@string/noOffreRefused"
-        android:textAlignment="center"
-        android:visibility="gone"
-        app:layout_constraintEnd_toStartOf="@id/guideline_margin_vertical_end_my_inf_offer"
-        app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_my_inf_offer"
-        app:layout_constraintTop_toBottomOf="@id/titleRefusedApplied" />
+
 
     <ScrollView
         android:id="@+id/scrollOfferRefused"
@@ -184,4 +154,40 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp" />
     </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/scrollOfferRefused">
+        <TextView
+            android:id="@+id/pb_applied_offer_pending"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="25dp"
+            android:text="@string/noOffrePending"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/pb_applied_offer_accepted"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="25dp"
+            android:text="@string/noOffreAccepted"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/pb_applied_offer_refused"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="25dp"
+            android:text="@string/noOffreRefused"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

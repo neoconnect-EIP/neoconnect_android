@@ -12,7 +12,7 @@ class ShopViewModel : ViewModel() {
     private val shopRepository = ShopRepository()
 
     /**
-     * Récupération de son profil Boutique
+     * Récupération de son profil Marque
      */
     fun getProfilShop(token: String) = liveData(Dispatchers.IO) {
         try {
@@ -28,7 +28,7 @@ class ShopViewModel : ViewModel() {
     }
 
     /**
-     * Récupération d'un autre profil Boutique
+     * Récupération d'un autre profil Marque
      */
     fun getOtherShop(token: String, id: Int) = liveData(Dispatchers.IO) {
         try {
@@ -44,7 +44,7 @@ class ShopViewModel : ViewModel() {
     }
 
     /**
-     * Mise à jour de son compte Boutique
+     * Mise à jour de son compte Marque
      */
     fun updateProfilShop(token: String, shop: RegisterShopModel) = liveData(Dispatchers.IO) {
         try {
@@ -60,7 +60,7 @@ class ShopViewModel : ViewModel() {
     }
 
     /**
-     * Recherche d'une Boutique
+     * Recherche d'une Marque
      */
     fun searchShop(token: String, keyword: SearchModel) = liveData(Dispatchers.IO) {
         try {
@@ -68,6 +68,54 @@ class ShopViewModel : ViewModel() {
                 Resource.success(
                     data = shopRepository.searchShop(token = token, keyword = keyword),
                     message = "Utilisateur trouvé"
+                )
+            )
+        } catch (e: Exception) {
+            emit(Resource.error(data = null, message = e.message ?: "Une erreur est survenue"))
+        }
+    }
+
+    /**
+     * Voir abonnées d'une marque
+     */
+    fun getFollowShop(token: String, id: Int) = liveData(Dispatchers.IO) {
+        try {
+            emit(
+                Resource.success(
+                    data = shopRepository.getFollowShop(token = token, id = id),
+                    message = "Récupération des abonnements réussi"
+                )
+            )
+        } catch (e: Exception) {
+            emit(Resource.error(data = null, message = e.message ?: "Une erreur est survenue"))
+        }
+    }
+
+    /**
+     * Suivre une marque
+     */
+    fun followShop(token: String, id: Int) = liveData(Dispatchers.IO) {
+        try {
+            emit(
+                Resource.success(
+                    data = shopRepository.followShop(token = token, id = id),
+                    message = "Abonnement réussi"
+                )
+            )
+        } catch (e: Exception) {
+            emit(Resource.error(data = null, message = e.message ?: "Une erreur est survenue"))
+        }
+    }
+
+    /**
+     * Ne plus suivre une marque
+     */
+    fun unfollowShop(token: String, id: Int) = liveData(Dispatchers.IO) {
+        try {
+            emit(
+                Resource.success(
+                    data = shopRepository.unfollowShop(token = token, id = id),
+                    message = "Désabonnement réussi"
                 )
             )
         } catch (e: Exception) {

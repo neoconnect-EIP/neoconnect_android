@@ -2,53 +2,50 @@ package c.eip.neoconnect.ui.view.register.influencer
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.RadioGroup
+import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import c.eip.neoconnect.R
-import c.eip.neoconnect.data.model.register.RegisterInfluenceurModel
-import c.eip.neoconnect.ui.viewModel.RegisterViewModel
-import c.eip.neoconnect.utils.Status
 import com.google.android.material.textfield.TextInputEditText
 
 class RegisterInf3 : Fragment() {
-    private lateinit var viewModel: RegisterViewModel
-    private var themeState: Int = 0
 
     /**
      * Creation de la vue. Déclaration du layout à afficher
-     * Initialisation d'une liste déroulante
      */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val inflate = inflater.inflate(R.layout.fragment_register_inf_3, container, false)
-        val themeList = resources.getStringArray(R.array.themeSpinner)
-        val themeSpinner = inflate.findViewById<Spinner>(R.id.themeSpinner)
-        if (themeSpinner != null) {
-            val themeAdapter =
-                ArrayAdapter(requireContext(), R.layout.layout_spinner_item, themeList)
-            themeSpinner.adapter = themeAdapter
+        if (arguments?.get("name") != null) {
+            inflate.findViewById<TextInputEditText>(R.id.registerName)
+                ?.setText(arguments?.get("name") as String)
         }
-        themeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                themeState = position
+        if (arguments?.get("sexe") != null) {
+            if (arguments?.get("sexe") == "Homme") {
+                inflate.findViewById<RadioGroup>(R.id.registerSex).check(R.id.registerSexHomme)
+            } else if (arguments?.get("sexe") == "Femme") {
+                inflate.findViewById<RadioGroup>(R.id.registerSex).check(R.id.registerSexFemme)
             }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
+        }
+        if (arguments?.get("ville") != null) {
+            inflate.findViewById<TextInputEditText>(R.id.registerVille)
+                ?.setText(arguments?.get("ville") as String)
+        }
+        if (arguments?.get("postal") != null) {
+            inflate.findViewById<TextInputEditText>(R.id.registerPostal)
+                ?.setText(arguments?.get("postal") as String)
+        }
+        if (arguments?.get("phone") != null) {
+            inflate.findViewById<TextInputEditText>(R.id.registerPhone)
+                ?.setText(arguments?.get("phone") as String)
         }
         return inflate
     }
@@ -56,125 +53,71 @@ class RegisterInf3 : Fragment() {
     /**
      * Mise en place des interaction possible
      * Déplacement entre les vues
-     * Inscription Influenceur
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.backButton).setOnClickListener {
             findNavController().navigate(R.id.navigation_register_inf_2, arguments)
         }
-        view.findViewById<Button>(R.id.endRegisterButton).setOnClickListener {
-            val influenceur = RegisterInfluenceurModel()
-            influenceur.userPicture = RegisterInf1.registerProfilPictureInf
-            if (arguments?.get("pseudo") != null) {
-                influenceur.pseudo = arguments?.get("pseudo") as String
+        view.findViewById<Button>(R.id.nextPageRegister).setOnClickListener {
+            val bundle = bundleOf()
+            bundle.putAll(arguments)
+            when (view.findViewById<TextInputEditText>(R.id.registerName).text.toString().trim()
+                .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerName).text.toString()
+                .trim().isNotEmpty()) {
+                true -> bundle.putString(
+                    "name",
+                    view.findViewById<TextInputEditText>(R.id.registerName).text.toString()
+                )
+                false -> bundle.putString("name", null)
             }
-            if (arguments?.get("email") != null) {
-                influenceur.email = arguments?.get("email") as String
+            val checkSex =
+                when (view.findViewById<RadioGroup>(R.id.registerSex).checkedRadioButtonId) {
+                    R.id.registerSexHomme -> {
+                        bundle.putString("sexe", "Homme")
+                        true
+                    }
+                    R.id.registerSexFemme -> {
+                        bundle.putString("sexe", "Femme")
+                        true
+                    }
+                    else -> false
+                }
+            when (view.findViewById<TextInputEditText>(R.id.registerVille).text.toString().trim()
+                .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerVille).text.toString()
+                .trim().isNotEmpty()) {
+                true -> bundle.putString(
+                    "ville",
+                    view.findViewById<TextInputEditText>(R.id.registerVille).text.toString()
+                )
+                false -> bundle.putString("ville", null)
             }
-            if (arguments?.get("password") != null) {
-                influenceur.password = arguments?.get("password") as String
+            when (view.findViewById<TextInputEditText>(R.id.registerPostal).text.toString().trim()
+                .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerPostal).text.toString()
+                .trim().isNotEmpty()) {
+                true -> bundle.putString(
+                    "postal",
+                    view.findViewById<TextInputEditText>(R.id.registerPostal).text.toString()
+                )
+                false -> bundle.putString("postal", null)
             }
-            if (arguments?.get("name") != null) {
-                influenceur.fullName = arguments?.get("name") as String
+            when (view.findViewById<TextInputEditText>(R.id.registerPhone).text.toString().trim()
+                .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerPhone).text.toString()
+                .trim().isNotEmpty()) {
+                true -> bundle.putString(
+                    "phone",
+                    view.findViewById<TextInputEditText>(R.id.registerPhone).text.toString()
+                )
+                false -> bundle.putString("phone", null)
             }
-            if (arguments?.get("sexe") != null) {
-                influenceur.sexe = arguments?.get("sexe") as String
-            }
-            if (arguments?.get("ville") != null) {
-                influenceur.city = arguments?.get("ville") as String
-            }
-            if (arguments?.get("postal") != null) {
-                influenceur.postal = arguments?.get("postal") as String
-            }
-            if (arguments?.get("phone") != null) {
-                influenceur.phone = arguments?.get("phone") as String
-            }
-            if (view.findViewById<TextInputEditText>(R.id.registerFacebook).text.toString().trim()
-                    .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerFacebook).text.toString()
-                    .trim().isNotEmpty()
-            ) {
-                influenceur.facebook =
-                    view.findViewById<TextInputEditText>(R.id.registerFacebook).text.toString()
-            }
-            if (view.findViewById<TextInputEditText>(R.id.registerTwitter).text.toString().trim()
-                    .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerTwitter).text.toString()
-                    .trim().isNotEmpty()
-            ) {
-                influenceur.twitter =
-                    view.findViewById<TextInputEditText>(R.id.registerTwitter).text.toString()
-            }
-            if (view.findViewById<TextInputEditText>(R.id.registerInstagram).text.toString().trim()
-                    .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerInstagram).text.toString()
-                    .trim().isNotEmpty()
-            ) {
-                influenceur.instagram =
-                    view.findViewById<TextInputEditText>(R.id.registerInstagram).text.toString()
-            }
-            if (view.findViewById<TextInputEditText>(R.id.registerSnapchat).text.toString().trim()
-                    .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerSnapchat).text.toString()
-                    .trim().isNotEmpty()
-            ) {
-                influenceur.snapchat =
-                    view.findViewById<TextInputEditText>(R.id.registerSnapchat).text.toString()
-            }
-            if (view.findViewById<TextInputEditText>(R.id.registerYoutube).text.toString().trim()
-                    .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerYoutube).text.toString()
-                    .trim().isNotEmpty()
-            ) {
-                influenceur.youtube =
-                    view.findViewById<TextInputEditText>(R.id.registerYoutube).text.toString()
-            }
-            if (view.findViewById<TextInputEditText>(R.id.registerTwitch).text.toString().trim()
-                    .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerTwitch).text.toString()
-                    .trim().isNotEmpty()
-            ) {
-                influenceur.twitch =
-                    view.findViewById<TextInputEditText>(R.id.registerTwitch).text.toString()
-            }
-            if (view.findViewById<TextInputEditText>(R.id.registerPinterest).text.toString().trim()
-                    .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerPinterest).text.toString()
-                    .trim().isNotEmpty()
-            ) {
-                influenceur.pinterest =
-                    view.findViewById<TextInputEditText>(R.id.registerPinterest).text.toString()
-            }
-            if (view.findViewById<TextInputEditText>(R.id.registerTiktok).text.toString().trim()
-                    .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerTiktok).text.toString()
-                    .trim().isNotEmpty()
-            ) {
-                influenceur.tiktok =
-                    view.findViewById<TextInputEditText>(R.id.registerTiktok).text.toString()
-            }
-            if (themeState != 0) {
-                val themeList = resources.getStringArray(R.array.themeSpinner)
-                influenceur.theme = themeList[themeState]
-                viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
-                viewModel.registerInfluencer(registerInfluenceurModel = influenceur)
-                    .observe(viewLifecycleOwner, Observer {
-                        it?.let { resource ->
-                            when (resource.status) {
-                                Status.SUCCESS -> {
-                                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                                    Log.i(
-                                        "Inscription",
-                                        "Influenceur ${influenceur.pseudo} inscrit"
-                                    )
-                                    findNavController().navigate(R.id.navigation_login_inf)
-                                }
-                                Status.ERROR -> {
-                                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                                    Log.e(
-                                        "Inscription",
-                                        "Echec inscription influenceur ${it.message}"
-                                    )
-                                }
-                            }
-                        }
-                    })
+            if (checkSex) {
+                findNavController().navigate(R.id.navigation_register_inf_4, bundle)
             } else {
-                Toast.makeText(context, "Un thème doit être choisi", Toast.LENGTH_LONG)
-                    .show()
+                Toast.makeText(
+                    context,
+                    "Le champ sexe est vide",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }

@@ -8,16 +8,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import c.eip.neoconnect.MainViewInf
-import c.eip.neoconnect.MainViewShop
 import c.eip.neoconnect.R
 import c.eip.neoconnect.data.model.login.LoginModel
+import c.eip.neoconnect.main.MainViewInf
+import c.eip.neoconnect.main.MainViewShop
 import c.eip.neoconnect.ui.viewModel.LoginViewModel
 import c.eip.neoconnect.utils.DataGetter
 import c.eip.neoconnect.utils.Status
@@ -42,7 +43,7 @@ class LoginInf : Fragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<Button>(R.id.switchToShopButton).setOnClickListener {
+        view.findViewById<TextView>(R.id.switchToShopButton).setOnClickListener {
             findNavController().navigate(R.id.navigation_login_shop)
         }
         view.findViewById<Button>(R.id.registerButton).setOnClickListener {
@@ -51,6 +52,9 @@ class LoginInf : Fragment() {
         }
         view.findViewById<Button>(R.id.forgotPassword).setOnClickListener {
             findNavController().navigate(R.id.navigation_password_forgot)
+        }
+        view.findViewById<Button>(R.id.FAQbutton).setOnClickListener {
+            findNavController().navigate(R.id.navigation_faq, bundleOf("type" to "inf"))
         }
         view.findViewById<Button>(R.id.connectButton).setOnClickListener {
             login(view = view)
@@ -108,6 +112,7 @@ class LoginInf : Fragment() {
                             DataGetter.INSTANCE.saveToken(requireContext(), it.data?.token)
                             DataGetter.INSTANCE.saveUserId(requireContext(), it.data?.idUser)
                             DataGetter.INSTANCE.saveUserType(requireContext(), it.data?.userType)
+                            DataGetter.INSTANCE.saveTheme(requireContext(), it.data?.theme)
                             when (it.data?.userType) {
                                 "shop" -> {
                                     val intent = Intent(context, MainViewShop::class.java).apply {}

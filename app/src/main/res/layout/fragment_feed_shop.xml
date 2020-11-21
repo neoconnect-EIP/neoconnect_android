@@ -47,6 +47,7 @@
         android:layout_marginEnd="20dp"
         android:gravity="center"
         android:text="@string/noFeed"
+        android:textColor="@color/white"
         android:textSize="20sp"
         android:visibility="gone"
         app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_feed_shop"
@@ -83,6 +84,7 @@
                 android:padding="25dp"
                 android:text="@string/noInfTendance"
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -112,6 +114,7 @@
                 android:padding="25dp"
                 android:text="@string/noInfPopulaire"
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -141,6 +144,7 @@
                 android:padding="25dp"
                 android:text="@string/noInfNotes"
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView

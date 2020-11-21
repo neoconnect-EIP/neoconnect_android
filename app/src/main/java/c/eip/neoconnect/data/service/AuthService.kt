@@ -16,13 +16,13 @@ interface AuthService {
     suspend fun registerInf(@Body influenceur: RegisterInfluenceurModel): RegisterResponseModel
 
     /**
-     * Inscription Boutique
+     * Inscription Marque
      */
     @POST("/shop/register")
     suspend fun registerShop(@Body shop: RegisterShopModel): RegisterResponseModel
 
     /**
-     * Connexion en Influenceur ou Boutique
+     * Connexion en Influenceur ou Marque
      */
     @POST("/login")
     suspend fun login(@Body loginModel: LoginModel): LoginResponseModel

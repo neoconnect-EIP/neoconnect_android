@@ -1,7 +1,7 @@
 package c.eip.neoconnect.data.model.profil
 
-import c.eip.neoconnect.data.model.ImagePicture
 import c.eip.neoconnect.data.model.comment.CommentModel
+import c.eip.neoconnect.data.model.image.ImagePicture
 import c.eip.neoconnect.data.model.mark.MarkModel
 import com.google.gson.annotations.SerializedName
 
@@ -77,4 +77,16 @@ class InfluenceurResponseModel {
 
     @SerializedName("mark")
     var mark: List<MarkModel> = emptyList()
+
+    @SerializedName("visitNumber")
+    var visitNumber: Int? = 0
+
+    @SerializedName("countParrainage")
+    var countParrainage: Int? = 0
+
+    @SerializedName("codeParrainage")
+    var codeParrainage: String? = ""
+
+    @SerializedName("nbOfferApplied")
+    var nbOfferApplied: Int? = 0
 }

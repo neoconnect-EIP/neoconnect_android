@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="question1">Qu\'est ce que Neoconnect ?</string>
+    <string name="reponse1">
+        Neoconnect est une plateforme de mise en relation entre les influenceurs et les marques. <br/>
+        Nous privilégions une évolution coopérative pour nos utilisateurs. Le principe sera qu’un influenceur aura accès à une liste de d’offres auxquelles il pourra postuler.<br/>
+        Si la marque accepte sa candidature, elle devra lui envoyer le produit que l’influenceur devra partager sur ses réseaux sociaux.
+    </string>
+
+    <string name="question2">Est-ce gratuit ?</string>
+    <string name="reponse2">Oui, Neoconnect est entièrement gratuite pour les influenceurs mais un abonnement sera obligatoire pour les marques.</string>
+
+    <string name="question3">Pourquoi utiliser Neoconnect ?</string>
+    <string name="reponse3">
+        En tant qu’influenceur, utiliser Neoconnect vous permettra de gagner en visibilité et donc gagner des abonnés. De plus vous gagnerez un produit qui devra être partager sur vos réseaux sociaux.<br/><br/>
+        En tant que marque, utiliser Neoconnect vous permettra de gagner en visibilité et donc avoir plus de clientèles sans passer par une agence de communication.</string>
+
+    <string name="question4" tools:ignore="Typos">Pourquoi nous et pas un autre service qui nous ressemble ?</string>
+    <string name="reponse4">Avec nous, n’importe votre domaine, que ce soit High Tech, Mode, Cosmétique, Sport, Jeu Vidéo ou Food, vous trouverez des offres ou des influenceurs qui vous conviendront.</string>
+
+    <string name="question5">Quels langages seront disponibles ?</string>
+    <string name="reponse5">L’application et le site seront disponibles uniquement en français pour commencer.</string>
+
+    <string name="question6">Sur quels appareils est disponible l\'application ?</string>
+    <string name="reponse6">Pour l’application mobile Android, il faut un appareil avec Android 8.0 minimum.<br/><br/>
+        Pour l’application mobile iOS, il faut un appareil avec iOS 13 minimum.</string>
+</resources>

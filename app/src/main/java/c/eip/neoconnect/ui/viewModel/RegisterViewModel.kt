@@ -1,5 +1,6 @@
 package c.eip.neoconnect.ui.viewModel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import c.eip.neoconnect.data.model.register.RegisterInfluenceurModel
@@ -29,7 +30,7 @@ class RegisterViewModel : ViewModel() {
         }
 
     /**
-     * Inscription Boutique
+     * Inscription Marque
      */
     fun registerShop(registerShopModel: RegisterShopModel) = liveData(Dispatchers.IO) {
         try {
@@ -40,6 +41,8 @@ class RegisterViewModel : ViewModel() {
                 )
             )
         } catch (e: Exception) {
+            Log.e("Error", e.localizedMessage!!)
+            Log.e("Error", e.cause.toString())
             emit(Resource.error(data = null, message = e.message ?: "Une erreur est survenue"))
         }
     }

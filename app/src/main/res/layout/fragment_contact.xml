@@ -16,7 +16,6 @@
         app:layout_constraintGuide_percent="0.05" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_margin_vertical_end_contact"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -38,6 +37,7 @@
         android:padding="10dp"
         android:text="@string/back"
         android:textColor="@color/white"
+        android:textSize="22sp"
         app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_contact"
         app:layout_constraintTop_toBottomOf="@id/guideline_margin_horizontal_contact" />
 

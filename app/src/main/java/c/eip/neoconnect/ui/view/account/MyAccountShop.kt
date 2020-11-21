@@ -10,10 +10,11 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.addCallback
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import c.eip.neoconnect.MainActivity
 import c.eip.neoconnect.R
+import c.eip.neoconnect.main.MainActivity
 import c.eip.neoconnect.ui.view.feed.FeedShop
 import c.eip.neoconnect.utils.DataGetter
 import com.bumptech.glide.Glide
@@ -67,7 +68,10 @@ class MyAccountShop : Fragment() {
             findNavController().navigate(R.id.navigation_contact)
         }
         view.findViewById<TextView>(R.id.goToMyStats).setOnClickListener {
-            findNavController().navigate(R.id.navigation_stats)
+            findNavController().navigate(R.id.navigation_stats, bundleOf("profil" to "me"))
+        }
+        view.findViewById<TextView>(R.id.goToFAQ).setOnClickListener {
+            findNavController().navigate(R.id.navigation_faq)
         }
     }
 }

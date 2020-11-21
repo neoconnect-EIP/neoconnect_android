@@ -64,32 +64,31 @@ class ProfilOtherInf : Fragment() {
         view.findViewById<Button>(R.id.backButton).setOnClickListener {
             findNavController().popBackStack()
         }
-        view.findViewById<Button>(R.id.contactByMailProfilButton).setOnClickListener {
-            findNavController().navigate(R.id.navigation_contact, bundle)
+        view.findViewById<TextView>(R.id.contactUser).setOnClickListener {
+            val mDialogView =
+                LayoutInflater.from(requireContext())
+                    .inflate(R.layout.dialog_chat, null)
+            val mAlertDialogBuilder =
+                AlertDialog.Builder(requireContext()).setView(mDialogView)
+                    .setTitle("Comment voulez-vous le contacter ?")
+            val mAlertDialog = mAlertDialogBuilder.show()
+            mDialogView.findViewById<TextView>(R.id.byMailButton).setOnClickListener {
+                mAlertDialog.dismiss()
+                findNavController().navigate(R.id.navigation_contact, bundle)
+            }
+            mDialogView.findViewById<TextView>(R.id.byPrivateMessageButton).setOnClickListener {
+                mAlertDialog.dismiss()
+                sendPrivateMessage()
+            }
         }
-        view.findViewById<Button>(R.id.contactByMPProfilButton).setOnClickListener {
-            sendPrivateMessage()
+        view.findViewById<TextView>(R.id.otherInfStats).setOnClickListener {
+            findNavController().navigate(
+                R.id.navigation_stats,
+                bundleOf("profil" to "other", "id" to arguments?.get("id"))
+            )
         }
         view.findViewById<ImageView>(R.id.settingsButton).setOnClickListener {
             settingsOption(view = view)
-        }
-        view.findViewById<Button>(R.id.markProfilButton).setOnClickListener {
-            val bundleMark = bundleOf()
-            if (arguments?.get("mode") == 0) {
-                bundleMark.putString("userId", (arguments?.get("id") as Int).toString())
-            } else {
-                bundleMark.putString("userId", (Search.searchResponse?.id.toString()))
-            }
-            findNavController().navigate(R.id.navigation_mark_user, bundleMark)
-        }
-        view.findViewById<Button>(R.id.reportInfButton).setOnClickListener {
-            val bundleReport = bundleOf("type" to "user", "name" to name)
-            if (arguments?.get("mode") == 0) {
-                bundleReport.putString("userId", (arguments?.get("id") as Int).toString())
-            } else {
-                bundleReport.putString("userId", (Search.searchResponse?.id.toString()))
-            }
-            findNavController().navigate(R.id.navigation_report, bundleReport)
         }
     }
 
@@ -105,27 +104,31 @@ class ProfilOtherInf : Fragment() {
                 when (resource.status) {
                     Status.SUCCESS -> {
                         if (it.data?.userPicture?.size!! <= 0) {
-                            inflate.findViewById<ImageView>(R.id.otherProfilPicture)
+                            inflate.findViewById<ImageView>(R.id.otherInfPicture)
                                 .setImageResource(R.drawable.ic_picture_inf)
                         } else {
                             Glide.with(requireContext())
                                 .load(it.data.userPicture[0]?.imageData)
                                 .circleCrop().error(R.drawable.ic_picture_inf)
                                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                                .into(inflate.findViewById(R.id.otherProfilPicture))
+                                .into(inflate.findViewById(R.id.otherInfPicture))
                         }
                         name = it.data.pseudo
-                        inflate.findViewById<TextView>(R.id.otherProfilPseudo).text =
+                        inflate.findViewById<TextView>(R.id.otherInfPseudo).text =
                             it.data.pseudo
-                        inflate.findViewById<TextView>(R.id.otherProfilSubject).text =
-                            it.data.theme
+                        val theme = "Thème : " + it.data.theme
+                        inflate.findViewById<TextView>(R.id.otherInfSubject).text = theme
+                        val average = inflate.findViewById<TextView>(R.id.otherInfAverage)
                         if (it.data.average.isNullOrBlank()) {
-                            inflate.findViewById<TextView>(R.id.otherProfilAverage).text =
-                                "0"
+                            average.setText(R.string.noNotes)
+                            inflate.findViewById<TextView>(R.id.otherInfStats).visibility =
+                                View.GONE
                         } else {
-                            inflate.findViewById<TextView>(R.id.otherProfilAverage).text =
-                                it.data.average
+                            val note = "Note : " + it.data.average + "/ 5"
+                            average.text = note
                         }
+                        val nbOfferApplied = "${it.data.nbOfferApplied}\n offres en cours"
+                        inflate.findViewById<TextView>(R.id.otherInfNbOffers).text = nbOfferApplied
                         bundle.putString("dest", it.data.email)
                     }
                     Status.ERROR -> {
@@ -148,22 +151,31 @@ class ProfilOtherInf : Fragment() {
      */
     private fun resultSearchProfilInf(inflate: View) {
         if (Search.searchResponse?.userPicture?.size!! <= 0) {
-            inflate.findViewById<ImageView>(R.id.otherProfilPicture)
+            inflate.findViewById<ImageView>(R.id.otherInfPicture)
                 .setImageResource(R.drawable.ic_picture_inf)
         } else {
             Glide.with(requireContext())
                 .load(Search.searchResponse?.userPicture?.get(0)?.imageData)
                 .circleCrop().error(R.drawable.ic_picture_inf)
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                .into(inflate.findViewById(R.id.otherProfilPicture))
+                .into(inflate.findViewById(R.id.otherInfPicture))
         }
         name = Search.searchResponse?.pseudo
-        inflate.findViewById<TextView>(R.id.otherProfilPseudo).text =
+        inflate.findViewById<TextView>(R.id.otherInfPseudo).text =
             Search.searchResponse?.pseudo
-        inflate.findViewById<TextView>(R.id.otherProfilSubject).text =
-            Search.searchResponse?.theme
-        inflate.findViewById<TextView>(R.id.otherProfilAverage).text =
-            Search.searchResponse?.average.toString()
+        val theme = "Thème : " + Search.searchResponse?.theme
+        inflate.findViewById<TextView>(R.id.otherInfSubject).text = theme
+        val average = inflate.findViewById<TextView>(R.id.otherInfAverage)
+        if (Search.searchResponse?.average == null) {
+            average.setText(R.string.noNotes)
+            inflate.findViewById<TextView>(R.id.otherInfStats).visibility =
+                View.GONE
+        } else {
+            val note = "Note : " + Search.searchResponse?.average.toString() + "/ 5"
+            average.text = note
+        }
+        val nbOfferApplied = "${Search.searchResponse?.nbOfferApplied}\n offres en cours"
+        inflate.findViewById<TextView>(R.id.otherInfNbOffers).text = nbOfferApplied
         bundle.putString("dest", Search.searchResponse?.email)
     }
 
@@ -218,14 +230,26 @@ class ProfilOtherInf : Fragment() {
      */
     private fun settingsOption(view: View) {
         val popupMenu = PopupMenu(context, view.findViewById(R.id.settingsButton))
-        popupMenu.menuInflater.inflate(R.menu.profil_menu, popupMenu.menu)
+        popupMenu.menuInflater.inflate(R.menu.other_profil_menu, popupMenu.menu)
         popupMenu.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.markUser -> {
-                    findNavController().navigate(R.id.navigation_mark_user)
+                    val bundleMark = bundleOf()
+                    if (arguments?.get("mode") == 0) {
+                        bundleMark.putString("userId", (arguments?.get("id") as Int).toString())
+                    } else {
+                        bundleMark.putString("userId", (Search.searchResponse?.id.toString()))
+                    }
+                    findNavController().navigate(R.id.navigation_mark_user, bundleMark)
                 }
                 R.id.reportUser -> {
-                    findNavController().navigate(R.id.navigation_report, bundleOf("type" to "user"))
+                    val bundleReport = bundleOf("type" to "user", "name" to name)
+                    if (arguments?.get("mode") == 0) {
+                        bundleReport.putString("userId", (arguments?.get("id") as Int).toString())
+                    } else {
+                        bundleReport.putString("userId", (Search.searchResponse?.id.toString()))
+                    }
+                    findNavController().navigate(R.id.navigation_report, bundleReport)
                 }
             }
             true

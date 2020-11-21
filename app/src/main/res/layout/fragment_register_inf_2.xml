@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_influencer"
-    tools:context=".ui.view.register.influencer.RegisterInf2">
+    tools:context=".ui.view.register.influencer.RegisterInf1">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_margin_vertical_start_register_inf"
@@ -38,6 +38,7 @@
         android:padding="10dp"
         android:text="@string/back"
         android:textColor="@color/white"
+        android:textSize="22sp"
         app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_register_inf"
         app:layout_constraintTop_toBottomOf="@id/guideline_margin_horizontal_register_inf" />
 
@@ -72,6 +73,13 @@
                 android:text="@string/subtitleRegister1"
                 android:textSize="20sp" />
 
+            <ImageView
+                android:id="@+id/registerProfilPicture"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@drawable/ic_picture_inf"
+                android:contentDescription="@string/contDescRegister" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -82,14 +90,15 @@
                 android:background="@drawable/input_inf">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/registerName"
+                    android:id="@+id/registerDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
                     android:alpha="0.7"
+                    android:gravity="center"
                     android:background="@android:color/transparent"
-                    android:hint="@string/formName"
-                    android:inputType="text"
+                    android:hint="@string/formDescription"
+                    android:inputType="textMultiLine"
+                    android:lines="6"
                     android:padding="10dp"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
@@ -97,117 +106,6 @@
                     android:textSize="18sp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="20dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="4dp"
-                    android:text="@string/sex"
-                    android:textSize="18sp"/>
-
-                <RadioGroup
-                    android:id="@+id/registerSex"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/registerSexHomme"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:buttonTint="@color/descInf"
-                        android:padding="5dp"
-                        android:text="@string/formSexM" />
-
-                    <RadioButton
-                        android:id="@+id/registerSexFemme"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/descInf"
-                        android:padding="5dp"
-                        android:text="@string/formSexF" />
-                </RadioGroup>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/input_inf">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/registerVille"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:alpha="0.7"
-                    android:background="@android:color/transparent"
-                    android:hint="@string/formVille"
-                    android:inputType="text"
-                    android:padding="10dp"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
-                    android:textCursorDrawable="@null"
-                    android:textSize="18sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/input_inf">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/registerPostal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:alpha="0.7"
-                    android:background="@android:color/transparent"
-                    android:hint="@string/formPostal"
-                    android:inputType="text"
-                    android:padding="10dp"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
-                    android:textCursorDrawable="@null"
-                    android:textSize="18sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/input_inf">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/registerPhone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:alpha="0.7"
-                    android:background="@android:color/transparent"
-                    android:hint="@string/formPhone"
-                    android:inputType="phone"
-                    android:padding="10dp"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
-                    android:textCursorDrawable="@null"
-                    android:textSize="18sp" />
-            </LinearLayout>
         </LinearLayout>
 
         <Button

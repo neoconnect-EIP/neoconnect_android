@@ -1,4 +1,4 @@
-package c.eip.neoconnect.data.model
+package c.eip.neoconnect.data.model.linksPublication
 
 import com.google.gson.annotations.SerializedName
 

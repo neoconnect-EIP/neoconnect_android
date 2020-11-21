@@ -1,6 +1,8 @@
 package c.eip.neoconnect.ui.view.profil
 
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import c.eip.neoconnect.R
 import c.eip.neoconnect.data.model.profil.ShopResponseModel
+import c.eip.neoconnect.main.MainActivity
 import c.eip.neoconnect.ui.viewModel.ShopViewModel
 import c.eip.neoconnect.ui.viewModel.UserViewModel
 import c.eip.neoconnect.utils.DataGetter
@@ -75,14 +78,13 @@ class ProfilShop : Fragment() {
                                 .error(R.drawable.ic_picture_shop)
                                 .into(inflate.findViewById(R.id.myProfilPicture))
                         }
+                        inflate.findViewById<TextView>(R.id.profilDescription).text = it.data?.userDescription
                         inflate.findViewById<TextView>(R.id.profilPseudo).text = it.data?.pseudo
                         inflate.findViewById<TextView>(R.id.profilEmail).text = it.data?.email
                         inflate.findViewById<TextView>(R.id.profilNom).text = it.data?.fullName
                         inflate.findViewById<TextView>(R.id.profilPhone).text = it.data?.phone
                         inflate.findViewById<TextView>(R.id.profilVille).text = it.data?.city
                         inflate.findViewById<TextView>(R.id.profilPostal).text = it.data?.postal
-                        inflate.findViewById<TextView>(R.id.profilSociety).text = it.data?.society
-                        inflate.findViewById<TextView>(R.id.profilFunction).text = it.data?.fonction
                         inflate.findViewById<TextView>(R.id.profilWebsite).text = it.data?.website
                         inflate.findViewById<TextView>(R.id.profilFacebook).text = it.data?.facebook
                         inflate.findViewById<TextView>(R.id.profilTwitter).text = it.data?.twitter
@@ -102,7 +104,7 @@ class ProfilShop : Fragment() {
     }
 
     /**
-     * Option pour son profil (Supprimer)
+     * Option pour son profil (Supprimer, Modifier)
      */
     private fun settingsOption(view: View) {
         val popupMenu = PopupMenu(context, view.findViewById(R.id.settingsButton))
@@ -110,54 +112,81 @@ class ProfilShop : Fragment() {
         popupMenu.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.deleteMyAccount -> {
-                    val token = DataGetter.INSTANCE.getToken(requireContext())
-                    userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-                    userViewModel.deleteAccount(token = token!!)
-                        .observe(viewLifecycleOwner, Observer { deleteResponse ->
-                            deleteResponse?.let { resources ->
-                                when (resources.status) {
-                                    Status.SUCCESS -> {
-                                        Toast.makeText(
-                                            context,
-                                            deleteResponse.message,
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        Log.i(
-                                            "Suppression de compte",
-                                            "${DataGetter.INSTANCE.getUserId(requireContext())}"
-                                        )
-                                        DataGetter.INSTANCE.clearData(requireContext())
-                                        if (DataGetter.INSTANCE.getToken(requireContext())
-                                                .isNullOrEmpty()
-                                        ) {
-                                            findNavController().navigate(R.id.navigation_login_shop)
-                                        }
-                                    }
-                                    Status.ERROR -> {
-                                        Log.e(
-                                            "Suppression de compte",
-                                            deleteResponse.message.toString()
-                                        )
-                                        Toast.makeText(
-                                            context,
-                                            deleteResponse.message,
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        if (DataGetter.INSTANCE.getToken(requireContext())
-                                                .isNullOrEmpty()
-                                        ) {
-                                            findNavController().navigate(R.id.navigation_login_shop)
-                                        }
-                                    }
-                                }
-                            }
-                        })
+                    val mDialogView =
+                        LayoutInflater.from(requireContext())
+                            .inflate(R.layout.dialog_delete_account, null)
+                    val mAlertDialogBuilder =
+                        AlertDialog.Builder(requireContext()).setView(mDialogView)
+                            .setTitle("Êtes-vous sûr de vouloir supprimer votre compte ?")
+                    val mAlertDialog = mAlertDialogBuilder.show()
+                    mDialogView.findViewById<TextView>(R.id.yesDeleteAccount).setOnClickListener {
+                        deleteAccount()
+                        mAlertDialog.dismiss()
+                    }
+                    mDialogView.findViewById<TextView>(R.id.noDeleteAccount).setOnClickListener {
+                        Toast.makeText(
+                            context,
+                            "Suppression de compte annulé",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        mAlertDialog.dismiss()
+                    }
                 }
                 R.id.editProfil -> findNavController().navigate(R.id.navigation_edit_profil_shop)
             }
             true
         }
         popupMenu.show()
+    }
+
+    /**
+     * Supprimer son compte
+     */
+    private fun deleteAccount() {
+        val token = DataGetter.INSTANCE.getToken(requireContext())
+        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        userViewModel.deleteAccount(token = token!!)
+            .observe(viewLifecycleOwner, Observer { deleteResponse ->
+                deleteResponse?.let { resources ->
+                    when (resources.status) {
+                        Status.SUCCESS -> {
+                            Toast.makeText(
+                                context,
+                                deleteResponse.message,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            Log.i(
+                                "Suppression de compte",
+                                "${DataGetter.INSTANCE.getUserId(requireContext())}"
+                            )
+                            DataGetter.INSTANCE.clearData(requireContext())
+                            if (DataGetter.INSTANCE.getToken(requireContext())
+                                    .isNullOrEmpty()
+                            ) {
+                                val intent = Intent(context, MainActivity::class.java).apply {}
+                                this.activity?.finish()
+                                startActivity(intent)
+                            }
+                        }
+                        Status.ERROR -> {
+                            Log.e(
+                                "Suppression de compte",
+                                deleteResponse.message.toString()
+                            )
+                            Toast.makeText(
+                                context,
+                                deleteResponse.message,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            if (DataGetter.INSTANCE.getToken(requireContext())
+                                    .isNullOrEmpty()
+                            ) {
+                                findNavController().navigate(R.id.navigation_login_shop)
+                            }
+                        }
+                    }
+                }
+            })
     }
 
     companion object {

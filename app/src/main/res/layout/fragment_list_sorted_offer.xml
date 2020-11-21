@@ -37,6 +37,7 @@
         android:padding="10dp"
         android:text="@string/back"
         android:textColor="@color/white"
+        android:textSize="22sp"
         app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_sorted_list_offer"
         app:layout_constraintTop_toBottomOf="@id/guideline_margin_horizontal_sorted_list_offer" />
 

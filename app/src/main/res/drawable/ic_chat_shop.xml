@@ -1,9 +1,11 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:tools="http://schemas.android.com/tools"
     android:width="869dp"
     android:height="634.74dp"
     android:viewportWidth="869"
-    android:viewportHeight="634.74">
+    android:viewportHeight="634.74"
+    tools:ignore="VectorRaster">
   <path
       android:pathData="M832.91,158.19L401.45,158.19c-42.38,0 -76.74,34.69 -76.74,77.48L324.71,503.85a36.26,36.26 0,0 0,36.09 36.44h274c9.12,31.56 32,75.06 89.64,94.45l-16.27,-94.45L832.91,540.29a36.26,36.26 0,0 0,36.09 -36.44L869,194.63A36.26,36.26 0,0 0,832.91 158.19Z">
     <aapt:attr name="android:fillColor">

@@ -16,13 +16,13 @@ class AuthRepository {
         authService.registerInf(registerInfluenceurModel)
 
     /**
-     * Inscription Boutique
+     * Inscription Marque
      */
     suspend fun registerShop(registerShopModel: RegisterShopModel) =
         authService.registerShop(registerShopModel)
 
     /**
-     * Connexion en Influenceur ou Boutique
+     * Connexion en Influenceur ou Marque
      */
     suspend fun login(loginModel: LoginModel) = authService.login(loginModel)
 }
