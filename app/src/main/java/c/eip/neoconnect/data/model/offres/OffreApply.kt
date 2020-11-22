@@ -3,7 +3,7 @@ package c.eip.neoconnect.data.model.offres
 import com.google.gson.annotations.SerializedName
 
 /**
- * Modèle Requête pour Postuler à une offre
+ * Modèle Requête pour Accepter ou Refuser une candidature à une offre
  */
 class OffreApply {
     @SerializedName("idUser")

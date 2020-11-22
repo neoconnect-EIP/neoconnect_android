@@ -111,6 +111,12 @@ class InfOffer : Fragment() {
                             if (it.data!!.isEmpty()) {
                                 inflate.findViewById<TextView>(R.id.pb_list_my_offers).visibility =
                                     View.VISIBLE
+                                inflate.findViewById<TextView>(R.id.titlePendingApplied).visibility =
+                                    View.GONE
+                                inflate.findViewById<TextView>(R.id.titleAcceptedApplied).visibility =
+                                    View.GONE
+                                inflate.findViewById<TextView>(R.id.titleRefusedApplied).visibility =
+                                    View.GONE
                             } else {
                                 inflate.findViewById<TextView>(R.id.pb_list_my_offers).visibility =
                                     View.GONE
@@ -157,6 +163,12 @@ class InfOffer : Fragment() {
                         Status.ERROR -> {
                             inflate.findViewById<TextView>(R.id.pb_list_my_offers).visibility =
                                 View.VISIBLE
+                            inflate.findViewById<TextView>(R.id.titlePendingApplied).visibility =
+                                View.GONE
+                            inflate.findViewById<TextView>(R.id.titleAcceptedApplied).visibility =
+                                View.GONE
+                            inflate.findViewById<TextView>(R.id.titleRefusedApplied).visibility =
+                                View.GONE
                         }
                     }
                 }
@@ -179,7 +191,7 @@ class InfOffer : Fragment() {
             recyclerView.visibility = View.VISIBLE
             recyclerView.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            val adapter = OfferAdapter(offers, "applied")
+            val adapter = OfferAdapter(offers, "applied", "inf")
             adapter.notifyDataSetChanged()
             recyclerView.adapter = adapter
         }

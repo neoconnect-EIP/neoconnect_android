@@ -27,7 +27,7 @@ class UserRepositoryTest {
 
     @BeforeEach
     fun setup() {
-        loginInf.pseudo = "testInf1"
+        loginInf.pseudo = "EricChheu"
         loginInf.password = "Azer1234"
         loginShop.pseudo = "testShop1"
         loginShop.password = "Azer1234"
@@ -92,6 +92,15 @@ class UserRepositoryTest {
     }
 
     @Test
+    fun followShop() {
+        val token = getTokenInf(loginInf)
+        val call = runBlocking {
+            shopRepository.followShop(token, 1)
+        }
+        Assertions.assertNotNull(call)
+    }
+
+    @Test
     fun getProfilShop() {
         val token = getTokenShop(loginShop)
         val call = runBlocking {
@@ -148,6 +157,15 @@ class UserRepositoryTest {
         comment.comment = "Ok"
         val call = runBlocking {
             userRepository.commentUser(token, 39, comment)
+        }
+        Assertions.assertNotNull(call)
+    }
+
+    @Test
+    fun suggestionUser() {
+        val token = getTokenInf(loginInf)
+        val call = runBlocking {
+            userRepository.suggestionUser(token)
         }
         Assertions.assertNotNull(call)
     }

@@ -203,7 +203,7 @@ class ListSortedOffer : Fragment() {
                                             LinearLayoutManager.VERTICAL,
                                             false
                                         )
-                                    val adapter = OfferAdapter(it.data!!, "list")
+                                    val adapter = OfferAdapter(it.data!!, "list", "inf")
                                     adapter.notifyDataSetChanged()
                                     recyclerSortedListView.adapter = adapter
                                 }
@@ -237,7 +237,7 @@ class ListSortedOffer : Fragment() {
                                             LinearLayoutManager.VERTICAL,
                                             false
                                         )
-                                    val adapter = OfferAdapter(it.data!!, "list")
+                                    val adapter = OfferAdapter(it.data!!, "list", "inf")
                                     adapter.notifyDataSetChanged()
                                     recyclerSortedListView.adapter = adapter
                                 }

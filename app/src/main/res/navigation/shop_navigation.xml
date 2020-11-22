@@ -5,7 +5,7 @@
     app:startDestination="@id/navigation_home">
     <fragment
         android:id="@+id/navigation_main_view_shop"
-        android:name="c.eip.neoconnect.MainViewShop"
+        android:name="c.eip.neoconnect.main.MainViewShop"
         android:label="fragment_main_view_shop"
         tools:layout="@layout/fragment_main_view_shop" />
     <fragment
@@ -54,6 +54,11 @@
         android:label="fragment_offer_info"
         tools:layout="@layout/fragment_offer_info" />
     <fragment
+        android:id="@+id/navigation_offer_applied"
+        android:name="c.eip.neoconnect.ui.view.offer.OfferApply"
+        android:label="fragment_offer_apply"
+        tools:layout="@layout/fragment_offer_apply" />
+    <fragment
         android:id="@+id/navigation_other_profil_inf"
         android:name="c.eip.neoconnect.ui.view.profil.ProfilOtherInf"
         android:label="fragment_profil_other_inf"
@@ -88,4 +93,9 @@
         android:name="c.eip.neoconnect.ui.view.report.Report"
         android:label="fragment_report"
         tools:layout="@layout/fragment_report" />
+    <fragment
+        android:id="@+id/navigation_faq"
+        android:name="c.eip.neoconnect.ui.view.faq.FAQ"
+        android:label="fragment_faq"
+        tools:layout="@layout/fragment_faq" />
 </navigation>

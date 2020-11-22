@@ -40,7 +40,7 @@ class UtilsRepository {
     suspend fun updatePassword(form: ResetPasswordThirdStepModel) = utilsService.updatePassword(form)
 
     /**
-     * Récupération du fil d'actualité côté Influenceur et Boutique
+     * Récupération du fil d'actualité côté Influenceur et Marque
      */
     suspend fun getFeed(token: String) = utilsService.getFeed(token)
 

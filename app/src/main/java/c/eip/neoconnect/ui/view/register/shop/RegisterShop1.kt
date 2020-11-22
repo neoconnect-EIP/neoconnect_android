@@ -1,31 +1,20 @@
 package c.eip.neoconnect.ui.view.register.shop
 
-import android.Manifest
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.os.Bundle
-import android.provider.MediaStore
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import c.eip.neoconnect.R
 import c.eip.neoconnect.utils.CheckInput
-import c.eip.neoconnect.utils.Encoder
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.textfield.TextInputEditText
 
 class RegisterShop1 : Fragment() {
     private val checkInput = CheckInput()
-    private val encoder = Encoder()
     val bundle = bundleOf()
 
     /**
@@ -53,11 +42,6 @@ class RegisterShop1 : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.backButton).setOnClickListener {
             findNavController().navigate(R.id.navigation_login_shop)
-        }
-        view.findViewById<ImageView>(R.id.registerProfilPicture).setOnClickListener {
-            val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
-            requestPermissions(permissions, 1001)
-            openGallery()
         }
         view.findViewById<Button>(R.id.nextPageRegister).setOnClickListener {
             val pseudo = view.findViewById<TextInputEditText>(R.id.registerPseudo)?.text.toString()
@@ -112,43 +96,5 @@ class RegisterShop1 : Fragment() {
                 findNavController().navigate(R.id.navigation_register_shop_2, bundle)
             }
         }
-    }
-
-    /**
-     * Vérifier permissions
-     * Ouvrir storage
-     */
-    private fun openGallery() {
-        if (context?.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_DENIED) {
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = "image/*"
-            startActivityForResult(intent, 1)
-        } else {
-            val toast = Toast.makeText(context, "Autorisation non accordé", Toast.LENGTH_LONG)
-            toast.setGravity(Gravity.TOP, 0, 0)
-            toast.show()
-        }
-    }
-
-    /**
-     * Sélection d'une image
-     * Affichage de l'image sélectionné
-     */
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (data != null) {
-            val selectedImage = data.data
-            Glide.with(requireContext()).load(selectedImage).circleCrop()
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                .into(requireView().findViewById(R.id.registerProfilPicture))
-            view?.findViewById<ImageView>(R.id.registerProfilPicture)?.background = null
-            val bitmap: Bitmap =
-                MediaStore.Images.Media.getBitmap(context?.contentResolver, selectedImage)
-            registerProfilPictureShop = encoder.encodeTobase64(bitmap)
-        }
-    }
-
-    companion object {
-        var registerProfilPictureShop: String = ""
     }
 }

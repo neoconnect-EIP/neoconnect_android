@@ -3,7 +3,5 @@
     <item
         android:id="@+id/shareOfferButton"
         android:title="@string/share" />
-    <item
-        android:id="@+id/reportOffer"
-        android:title="@string/report" />
+    <item android:title="@string/report" />
 </menu>

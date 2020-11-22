@@ -1,7 +1,10 @@
 package c.eip.neoconnect.data.service
 
 import c.eip.neoconnect.data.model.comment.CommentModel
+import c.eip.neoconnect.data.model.follows.FollowsResponseModel
 import c.eip.neoconnect.data.model.mark.MarkModel
+import c.eip.neoconnect.data.model.parrainage.ParrainageModel
+import c.eip.neoconnect.data.model.profil.ShopResponseModel
 import c.eip.neoconnect.data.model.report.UserReportModel
 import retrofit2.http.*
 
@@ -41,4 +44,22 @@ interface UserService {
         @Path("id") id: Int?,
         @Body report: UserReportModel
     ): String
+
+    /**
+     * Suggestions d'offres
+     */
+    @GET("/user/suggestion")
+    suspend fun suggestionUser(@Header("authorization") token: String?): ArrayList<ShopResponseModel>
+
+    /**
+     * Récupération des abonnements
+     */
+    @GET("/user/follow")
+    suspend fun getFollows(@Header("authorization") token: String?): ArrayList<FollowsResponseModel>
+
+    /**
+     * Entrer un code parrainage
+     */
+    @POST("/insertParrainage")
+    suspend fun insertCodeParrainage(@Body code: ParrainageModel): String
 }

@@ -1,7 +1,7 @@
 package c.eip.neoconnect.data.model.offres
 
-import c.eip.neoconnect.data.model.ImagePicture
 import c.eip.neoconnect.data.model.comment.CommentModel
+import c.eip.neoconnect.data.model.image.ImagePicture
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -34,4 +34,6 @@ class OffreResponseModel {
     var comment: List<CommentModel> = emptyList()
     @SerializedName("status")
     var status: String? = null
+    @SerializedName("apply")
+    var apply: List<OffresApplied> = emptyList()
 }

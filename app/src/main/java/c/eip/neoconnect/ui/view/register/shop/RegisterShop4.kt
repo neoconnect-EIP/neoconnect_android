@@ -65,9 +65,12 @@ class RegisterShop4 : Fragment() {
         }
         view.findViewById<Button>(R.id.endRegisterButton).setOnClickListener {
             val shop = RegisterShopModel()
-            shop.userPicture = RegisterShop1.registerProfilPictureShop
+            shop.userPicture = RegisterShop2.registerProfilPictureShop
             if (arguments?.get("pseudo") != null) {
                 shop.pseudo = arguments?.get("pseudo") as String
+            }
+            if (arguments?.get("userDescription") != null) {
+                shop.userDescription = arguments?.get("userDescription") as String
             }
             if (arguments?.get("email") != null) {
                 shop.email = arguments?.get("email") as String
@@ -87,14 +90,12 @@ class RegisterShop4 : Fragment() {
             if (arguments?.get("phone") != null) {
                 shop.phone = arguments?.get("phone") as String
             }
-            if (arguments?.get("society") != null) {
-                shop.society = arguments?.get("society") as String
-            }
-            if (arguments?.get("fonction") != null) {
-                shop.fonction = arguments?.get("fonction") as String
-            }
-            if (arguments?.get("website") != null) {
-                shop.website = arguments?.get("website") as String
+            if (view.findViewById<TextInputEditText>(R.id.registerWebsite).text.toString().trim()
+                    .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerWebsite).text.toString()
+                    .trim().isNotEmpty()
+            ) {
+                shop.website =
+                    view.findViewById<TextInputEditText>(R.id.registerWebsite).text.toString()
             }
             if (view.findViewById<TextInputEditText>(R.id.registerFacebook).text.toString().trim()
                     .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerFacebook).text.toString()
@@ -125,24 +126,25 @@ class RegisterShop4 : Fragment() {
                     view.findViewById<TextInputEditText>(R.id.registerSnapchat).text.toString()
             }
             if (themeState != 0) {
-                val themeList = resources.getStringArray(R.array.themeSpinner)
-                shop.theme = themeList[themeState]
+                shop.theme = themeState.toString()
                 viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
-                viewModel.registerShop(registerShopModel = shop).observe(viewLifecycleOwner, Observer {
-                    it?.let { resource ->
-                        when (resource.status) {
-                            Status.SUCCESS -> {
-                                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                                Log.i("Inscription", "Boutique ${shop.pseudo} inscrit")
-                                findNavController().navigate(R.id.navigation_login_shop)
-                            }
-                            Status.ERROR -> {
-                                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                                Log.e("Inscription", "Echec inscription boutique ${it.message}")
+                viewModel.registerShop(registerShopModel = shop)
+                    .observe(viewLifecycleOwner, Observer {
+                        it?.let { resource ->
+                            when (resource.status) {
+                                Status.SUCCESS -> {
+                                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                                    Log.i("Inscription", "Marque ${shop.pseudo} inscrit")
+                                    findNavController().navigate(R.id.navigation_login_shop)
+                                }
+                                Status.ERROR -> {
+                                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                                    Log.e("Inscription", "Echec inscription marque ${it.message}")
+                                    Log.e("Inscription", it.message.toString())
+                                }
                             }
                         }
-                    }
-                })
+                    })
             } else {
                 Toast.makeText(context, "Un thème doit être choisi", Toast.LENGTH_LONG)
                     .show()

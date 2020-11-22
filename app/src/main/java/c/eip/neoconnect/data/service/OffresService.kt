@@ -1,13 +1,11 @@
 package c.eip.neoconnect.data.service
 
-import c.eip.neoconnect.data.model.PublicationLinksModel
 import c.eip.neoconnect.data.model.comment.CommentModel
+import c.eip.neoconnect.data.model.linksPublication.PublicationLinksModel
 import c.eip.neoconnect.data.model.mark.MarkModel
-import c.eip.neoconnect.data.model.offres.OffreApply
-import c.eip.neoconnect.data.model.offres.OffreApplyUserResponseModel
-import c.eip.neoconnect.data.model.offres.OffreModel
-import c.eip.neoconnect.data.model.offres.OffreResponseModel
+import c.eip.neoconnect.data.model.offres.*
 import c.eip.neoconnect.data.model.report.OffreReportModel
+import c.eip.neoconnect.data.model.resetPassword.ResetPasswordFirstStepModel
 import retrofit2.http.*
 
 interface OffresService {
@@ -26,7 +24,7 @@ interface OffresService {
     ): ArrayList<OffreResponseModel>
 
     /**
-     * Récupération de toutes les offres ajoutées par une Boutique
+     * Récupération de toutes les offres ajoutées par une Marque
      */
     @GET("/offer/shop/{id}")
     suspend fun getMyOfferShop(
@@ -68,7 +66,16 @@ interface OffresService {
     suspend fun applyOffer(
         @Header("authorization") token: String?,
         @Path("id") id: Int?
-    ): OffreResponseModel
+    ): ApplyModel
+
+    /**
+     * Annuler candidature à une offre
+     */
+    @DELETE("/offer/noapply/{id}")
+    suspend fun cancelApplyOffer(
+        @Header("authorization") token: String?,
+        @Path("id") id: Int?
+    ): String
 
     /**
      * Commenter une Offre
@@ -133,12 +140,28 @@ interface OffresService {
     ): String
 
     /**
-     * Indiquer qu'un produit a été partagé en partageant les liens des posts à la Boutique
+     * Partager une offre avec un autre utilisateur
      */
-    @POST("offer/sharePublication/{id}")
+    @POST("/offer/share/{id}")
+    suspend fun shareOffer(
+        @Header("authorization") token: String?,
+        @Path("id") id: Int?,
+        @Body email: ResetPasswordFirstStepModel
+    ): String
+
+    /**
+     * Indiquer qu'un produit a été partagé en partageant les liens des posts à la Marque
+     */
+    @POST("/offer/sharePublication/{id}")
     suspend fun sharePublication(
         @Header("authorization") token: String?,
         @Path("id") id: Int?,
         @Body links: PublicationLinksModel
     ): String
+
+    /**
+     * Suggestions d'offres
+     */
+    @GET("/offer/suggestion")
+    suspend fun suggestionOffer(@Header("authorization") token: String?): ArrayList<OffreResponseModel>
 }

@@ -19,6 +19,10 @@ class DataGetter {
         context.getSharedPreferences("user", 0).edit().putString("userType", userType).apply()
     }
 
+    fun saveTheme(context: Context, theme: String?) {
+        context.getSharedPreferences("user", 0).edit().putString("theme", theme).apply()
+    }
+
     /**
      * Récupération des données depuis les préférences de l'application
      * Données récupérables : Token, UserId, UserType
@@ -33,6 +37,10 @@ class DataGetter {
 
     fun getUserType(context: Context): String? {
         return context.getSharedPreferences("user", 0).getString("userType", "")
+    }
+
+    fun getTheme(context: Context): String? {
+        return context.getSharedPreferences("user", 0).getString("theme", "")
     }
 
     /**

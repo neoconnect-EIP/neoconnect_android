@@ -39,6 +39,7 @@
         android:padding="10dp"
         android:text="@string/back"
         android:textColor="@color/white"
+        android:textSize="22sp"
         app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_offer_info"
         app:layout_constraintTop_toBottomOf="@id/guideline_margin_horizontal_offer_info" />
 
@@ -59,7 +60,7 @@
         android:hint="@string/formProductName"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="24sp"
         app:layout_constraintTop_toBottomOf="@id/settingsButton" />
 
     <ScrollView
@@ -74,48 +75,68 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <LinearLayout
+            <ImageView
+                android:id="@+id/infoOfferPicture"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_margin="20dp"
+                android:contentDescription="@string/contDescOffer"
+                android:visibility="gone" />
+
+            <HorizontalScrollView
+                android:id="@+id/hScrollViewOfferInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_margin="20dp">
 
-                <ImageView
-                    android:id="@+id/infoOfferPicture1"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:contentDescription="@string/contDescOffer" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/infoOfferPicture2"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:contentDescription="@string/contDescOffer"
-                    android:visibility="gone" />
+                    <ImageView
+                        android:id="@+id/infoOfferPicture1"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="20dp"
+                        android:contentDescription="@string/contDescOffer"
+                        android:visibility="gone" />
 
-                <ImageView
-                    android:id="@+id/infoOfferPicture3"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:contentDescription="@string/contDescOffer"
-                    android:visibility="gone" />
+                    <ImageView
+                        android:id="@+id/infoOfferPicture2"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="20dp"
+                        android:contentDescription="@string/contDescOffer"
+                        android:visibility="gone" />
 
-                <ImageView
-                    android:id="@+id/infoOfferPicture4"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:contentDescription="@string/contDescOffer"
-                    android:visibility="gone" />
+                    <ImageView
+                        android:id="@+id/infoOfferPicture3"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="20dp"
+                        android:contentDescription="@string/contDescOffer"
+                        android:visibility="gone" />
 
-                <ImageView
-                    android:id="@+id/infoOfferPicture5"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:contentDescription="@string/contDescOffer"
-                    android:visibility="gone" />
-            </LinearLayout>
+                    <ImageView
+                        android:id="@+id/infoOfferPicture4"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="20dp"
+                        android:contentDescription="@string/contDescOffer"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/infoOfferPicture5"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="20dp"
+                        android:contentDescription="@string/contDescOffer"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </HorizontalScrollView>
 
             <View
                 android:layout_width="100dp"
@@ -149,20 +170,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:hint="@string/formProductDescription"
+                    android:lines="4"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/offerColor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:hint="@string/formProductColor"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/offerSubject"
@@ -173,27 +184,6 @@
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/offerBrand"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:hint="@string/formProductBrand"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/offerAverage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:hint="@string/average"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:visibility="gone" />
 
                 <View
                     android:layout_width="75dp"
@@ -220,66 +210,24 @@
                     <Button
                         android:id="@+id/markOfferButton"
                         style="@style/Widget.AppCompat.Button.Borderless"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_main_inf"
                         android:padding="10dp"
-                        android:text="@string/submit"
+                        android:text="@string/conclude"
                         android:textColor="@color/white" />
 
-                    <Space
-                        android:layout_width="30dp"
-                        android:layout_height="0dp" />
                     <Button
                         android:id="@+id/cancelOfferButton"
                         style="@style/Widget.AppCompat.Button.Borderless"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:background="@drawable/button_main_inf"
                         android:padding="10dp"
                         android:text="@string/cancel"
                         android:textColor="@color/white" />
 
-
-                    <Button
-                        android:id="@+id/editOfferButton"
-                        style="@style/Widget.AppCompat.Button.Borderless"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="20dp"
-                        android:background="@drawable/button_main_shop"
-                        android:padding="10dp"
-                        android:text="@string/edit"
-                        android:textColor="@color/white" />
-
-                    <Button
-                        android:id="@+id/removeOfferButton"
-                        style="@style/Widget.AppCompat.Button.Borderless"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/button_main_shop"
-                        android:padding="10dp"
-                        android:text="@string/delete"
-                        android:textColor="@color/white" />
                 </LinearLayout>
-
-                <TextView
-                    android:id="@+id/titleCandidature"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/offerApplyUser"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerListOfferApplyUser"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="60dp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

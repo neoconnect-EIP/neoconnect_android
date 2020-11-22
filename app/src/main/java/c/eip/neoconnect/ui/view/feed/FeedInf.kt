@@ -129,7 +129,7 @@ class FeedInf : Fragment() {
     }
 
     /**
-     * Récupération Fil D'actualité Boutiques
+     * Récupération Fil D'actualité Marques
      */
     private fun feedShop(
         listShop: List<ShopResponseModel>?,

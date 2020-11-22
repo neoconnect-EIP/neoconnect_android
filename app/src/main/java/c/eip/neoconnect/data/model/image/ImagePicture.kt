@@ -1,4 +1,4 @@
-package c.eip.neoconnect.data.model
+package c.eip.neoconnect.data.model.image
 
 import com.google.gson.annotations.SerializedName
 

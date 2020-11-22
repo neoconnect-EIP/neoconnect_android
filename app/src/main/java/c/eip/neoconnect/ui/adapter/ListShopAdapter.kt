@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 /**
- * Adapter pour la Liste des Boutiques
+ * Adapter pour la Liste des Marques
  */
 class ListShopAdapter(private val listShop: ArrayList<ShopResponseModel>) :
     RecyclerView.Adapter<ListShopAdapter.ListShopHolder>() {

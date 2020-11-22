@@ -9,12 +9,12 @@
     <string name="noInfPopulaire">Il n\'y a pas d\'influenceurs populaires pour le moment.</string>
     <string name="noInfNotes">Il n\'y a pas d\'influenceurs avec des notes pour le moment.</string>
 
-    <string name="shopPopulaires">Boutiques populaires</string>
-    <string name="shopTendances">Boutiques du moment</string>
-    <string name="shopNotes">Boutiques les mieux notés</string>
-    <string name="noShopTendance">Il n\'y a pas de boutiques du moment.</string>
-    <string name="noShopPopulaire">Il n\'y a pas de boutiques populaires pour le moment.</string>
-    <string name="noShopNotes">Il n\'y a pas de boutiques avec des notes pour le moment.</string>
+    <string name="shopPopulaires">Marques populaires</string>
+    <string name="shopTendances">Marques du moment</string>
+    <string name="shopNotes">Marques les mieux notés</string>
+    <string name="noShopTendance">Il n\'y a pas de marques du moment.</string>
+    <string name="noShopPopulaire">Il n\'y a pas de marques populaires pour le moment.</string>
+    <string name="noShopNotes">Il n\'y a pas de marques avec des notes pour le moment.</string>
 
     <string name="offresPopulaires">Offres populaires</string>
     <string name="offresTendances">Offres du moment</string>

@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
@@ -45,18 +44,25 @@ class FeedInfAdapter(private val listInf: List<InfluenceurResponseModel>) :
 
     inner class InfHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindItems(inf: InfluenceurResponseModel) {
+            val feedCardPicture = itemView.findViewById<ImageView>(R.id.feedCardPicture)
+            feedCardPicture.maxHeight = 125
+            feedCardPicture.maxWidth = 125
             if (inf.userPicture.isNullOrEmpty()) {
-                itemView.findViewById<ImageView>(R.id.feedCardPicture)
-                    .setImageResource(R.drawable.ic_picture_inf)
+                feedCardPicture.setImageResource(R.drawable.ic_picture_inf)
             } else {
-                Glide.with(itemView.context).load(inf.userPicture[0]?.imageData).fitCenter()
+                Glide.with(itemView.context).load(inf.userPicture[0]?.imageData).circleCrop()
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE).error(R.drawable.ic_picture_inf)
-                    .into(itemView.findViewById(R.id.feedCardPicture))
+                    .into(feedCardPicture)
             }
             itemView.findViewById<TextView>(R.id.feedCardName).text = inf.pseudo
             itemView.findViewById<TextView>(R.id.feedCardSubject).text = inf.theme
-            itemView.findViewById<TextView>(R.id.feedCardShop).visibility = View.GONE
-            itemView.findViewById<LinearLayout>(R.id.feedCardLayout).setPadding(20, 20, 20, 20)
+            if (inf.average != null && inf.mark.isNotEmpty()) {
+                val extra = inf.average + " ★ (" + inf.mark.size.toString() + ")"
+                itemView.findViewById<TextView>(R.id.feedCardExtra).text = extra
+            } else {
+                val extra = "0 ★ (0)"
+                itemView.findViewById<TextView>(R.id.feedCardExtra).text = extra
+            }
 
             itemView.setOnClickListener {
                 val bundle = bundleOf("mode" to 0, "id" to inf.id)

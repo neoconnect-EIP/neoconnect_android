@@ -9,7 +9,7 @@ import c.eip.neoconnect.data.model.profil.ShopResponseModel
  */
 class FeedResponseModel {
     /**
-     * Fil d'actualité côté Boutique
+     * Fil d'actualité côté Marque
      */
     var listInfPopulaire = emptyList<InfluenceurResponseModel>()
     var listInfTendances = emptyList<InfluenceurResponseModel>()

@@ -11,7 +11,7 @@ class LoginViewModel : ViewModel() {
     private val authRepository = AuthRepository()
 
     /**
-     * Connexion en Influenceur ou Boutique
+     * Connexion en Influenceur ou Marque
      */
     fun login(loginModel: LoginModel) = liveData(Dispatchers.IO) {
         try {

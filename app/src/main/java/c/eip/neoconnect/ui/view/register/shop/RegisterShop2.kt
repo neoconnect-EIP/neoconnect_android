@@ -1,18 +1,30 @@
 package c.eip.neoconnect.ui.view.register.shop
 
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import c.eip.neoconnect.R
+import c.eip.neoconnect.utils.Encoder
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.textfield.TextInputEditText
 
 class RegisterShop2 : Fragment() {
+    private val encoder = Encoder()
 
     /**
      * Creation de la vue. Déclaration du layout à afficher
@@ -22,21 +34,9 @@ class RegisterShop2 : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val inflate = inflater.inflate(R.layout.fragment_register_shop_2, container, false)
-        if (arguments?.get("name") != null) {
-            inflate.findViewById<TextInputEditText>(R.id.registerName)
-                ?.setText(arguments?.get("name") as String)
-        }
-        if (arguments?.get("ville") != null) {
-            inflate.findViewById<TextInputEditText>(R.id.registerVille)
-                ?.setText(arguments?.get("ville") as String)
-        }
-        if (arguments?.get("postal") != null) {
-            inflate.findViewById<TextInputEditText>(R.id.registerPostal)
-                ?.setText(arguments?.get("postal") as String)
-        }
-        if (arguments?.get("phone") != null) {
-            inflate.findViewById<TextInputEditText>(R.id.registerPhone)
-                ?.setText(arguments?.get("phone") as String)
+        if (arguments?.get("userDescription") != null) {
+            inflate.findViewById<TextInputEditText>(R.id.registerDescription)
+                ?.setText(arguments?.get("userDescription") as String)
         }
         return inflate
     }
@@ -50,46 +50,63 @@ class RegisterShop2 : Fragment() {
         view.findViewById<Button>(R.id.backButton).setOnClickListener {
             findNavController().navigate(R.id.navigation_register_shop, arguments)
         }
+        view.findViewById<ImageView>(R.id.registerProfilPicture).setOnClickListener {
+            val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+            requestPermissions(permissions, 1001)
+            openGallery()
+        }
         view.findViewById<Button>(R.id.nextPageRegister).setOnClickListener {
             val bundle = bundleOf()
             bundle.putAll(arguments)
-            when (view.findViewById<TextInputEditText>(R.id.registerName).text.toString().trim()
-                .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerName).text.toString()
+            when (view.findViewById<TextInputEditText>(R.id.registerDescription).text.toString()
+                .trim()
+                .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerDescription).text.toString()
                 .trim().isNotEmpty()) {
                 true -> bundle.putString(
-                    "name",
-                    view.findViewById<TextInputEditText>(R.id.registerName).text.toString()
+                    "userDescription",
+                    view.findViewById<TextInputEditText>(R.id.registerDescription).text.toString()
                 )
-                false -> bundle.putString("name", null)
-            }
-            when (view.findViewById<TextInputEditText>(R.id.registerVille).text.toString().trim()
-                .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerVille).text.toString()
-                .trim().isNotEmpty()) {
-                true -> bundle.putString(
-                    "ville",
-                    view.findViewById<TextInputEditText>(R.id.registerVille).text.toString()
-                )
-                false -> bundle.putString("ville", null)
-            }
-            when (view.findViewById<TextInputEditText>(R.id.registerPostal).text.toString().trim()
-                .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerPostal).text.toString()
-                .trim().isNotEmpty()) {
-                true -> bundle.putString(
-                    "postal",
-                    view.findViewById<TextInputEditText>(R.id.registerPostal).text.toString()
-                )
-                false -> bundle.putString("postal", null)
-            }
-            when (view.findViewById<TextInputEditText>(R.id.registerPhone).text.toString().trim()
-                .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerPhone).text.toString()
-                .trim().isNotEmpty()) {
-                true -> bundle.putString(
-                    "phone",
-                    view.findViewById<TextInputEditText>(R.id.registerPhone).text.toString()
-                )
-                false -> bundle.putString("phone", null)
+                false -> bundle.putString("userDescription", null)
             }
             findNavController().navigate(R.id.navigation_register_shop_3, bundle)
         }
+    }
+
+    /**
+     * Vérifier permissions
+     * Ouvrir storage
+     */
+    private fun openGallery() {
+        if (context?.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_DENIED) {
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "image/*"
+            startActivityForResult(intent, 1)
+        } else {
+            val toast = Toast.makeText(context, "Autorisation non accordé", Toast.LENGTH_LONG)
+            toast.setGravity(Gravity.TOP, 0, 0)
+            toast.show()
+        }
+    }
+
+    /**
+     * Sélection d'une image
+     * Affichage de l'image sélectionné
+     */
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data != null) {
+            val selectedImage = data.data
+            Glide.with(requireContext()).load(selectedImage).circleCrop()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .into(requireView().findViewById(R.id.registerProfilPicture))
+            view?.findViewById<ImageView>(R.id.registerProfilPicture)?.background = null
+            val bitmap: Bitmap =
+                MediaStore.Images.Media.getBitmap(context?.contentResolver, selectedImage)
+            registerProfilPictureShop = encoder.encodeTobase64(bitmap)
+        }
+    }
+
+    companion object {
+        var registerProfilPictureShop: String = ""
     }
 }

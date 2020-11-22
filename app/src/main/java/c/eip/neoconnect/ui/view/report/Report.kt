@@ -29,12 +29,12 @@ class Report : Fragment() {
     /**
      * Creation de la vue. Déclaration du layout à afficher
      * Initialisation d'une liste déroulante
-     * Mise en place du fond selon Influenceur ou Boutique
+     * Mise en place du fond selon Influenceur ou Marque
      */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View? {  
         val inflate = inflater.inflate(R.layout.fragment_report, container, false)
         var reportList: Array<String> = emptyArray()
         if (arguments?.get("type") == "offre") {
@@ -81,6 +81,9 @@ class Report : Fragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        view.findViewById<Button>(R.id.backButton).setOnClickListener {
+            findNavController().popBackStack()
+        }
         view.findViewById<ImageView>(R.id.reportButton).setOnClickListener {
             val token = DataGetter.INSTANCE.getToken(requireContext())
             if (arguments?.get("type") == "offre") {

@@ -115,5 +115,19 @@
             android:text="@string/contactUs"
             android:textColor="@color/white"
             android:textSize="16sp" />
+
+        <View
+            android:layout_width="75dp"
+            android:layout_height="1dp"
+            android:background="#445964" />
+
+        <TextView
+            android:id="@+id/goToFAQ"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="25dp"
+            android:text="@string/FAQTitle"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

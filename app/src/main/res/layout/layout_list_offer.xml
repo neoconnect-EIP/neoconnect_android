@@ -39,7 +39,16 @@
             android:textAlignment="center"
             android:textColor="@color/white"/>
 
+        <TextView
+            android:id="@+id/offerNbApplied"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:visibility="gone"/>
         <View
+            android:id="@+id/fillerSpace"
             android:layout_width="match_parent"
             android:layout_height="50dp" />
 

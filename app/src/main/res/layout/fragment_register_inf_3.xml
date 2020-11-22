@@ -38,9 +38,9 @@
         android:padding="10dp"
         android:text="@string/back"
         android:textColor="@color/white"
+        android:textSize="22sp"
         app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_register_inf"
         app:layout_constraintTop_toBottomOf="@id/guideline_margin_horizontal_register_inf" />
-
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -52,269 +52,173 @@
         app:layout_constraintTop_toBottomOf="@id/backButton">
 
         <TextView
-            android:id="@id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:text="@string/titleRegister4"
+            android:text="@string/titleRegister3"
             android:textColor="@color/white"
             android:textSize="25sp" />
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="100dp">
+            android:background="@drawable/container_description"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:padding="10dp"
+                android:text="@string/subtitleRegister1"
+                android:textSize="20sp" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/input_inf">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/registerName"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/container_description"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="@string/subtitleRegister1"
-                        android:textSize="20sp" />
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="40dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="40dp"
-                        android:layout_marginBottom="20dp"
-                        android:background="@drawable/input_inf">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/registerFacebook"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="15dp"
-                            android:alpha="0.7"
-                            android:background="@android:color/transparent"
-                            android:hint="@string/formFacebook"
-                            android:inputType="text"
-                            android:padding="10dp"
-                            android:textColor="@color/white"
-                            android:textColorHint="@color/white"
-                            android:textCursorDrawable="@null"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="40dp"
-                        android:layout_marginEnd="40dp"
-                        android:layout_marginBottom="20dp"
-                        android:background="@drawable/input_inf">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/registerTwitter"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="15dp"
-                            android:alpha="0.7"
-                            android:background="@android:color/transparent"
-                            android:hint="@string/formTwitter"
-                            android:inputType="text"
-                            android:padding="10dp"
-                            android:textColor="@color/white"
-                            android:textColorHint="@color/white"
-                            android:textCursorDrawable="@null"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="40dp"
-                        android:layout_marginEnd="40dp"
-                        android:layout_marginBottom="20dp"
-                        android:background="@drawable/input_inf">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/registerInstagram"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="15dp"
-                            android:alpha="0.7"
-                            android:background="@android:color/transparent"
-                            android:hint="@string/formInstagram"
-                            android:inputType="text"
-                            android:padding="10dp"
-                            android:textColor="@color/white"
-                            android:textColorHint="@color/white"
-                            android:textCursorDrawable="@null"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="40dp"
-                        android:layout_marginEnd="40dp"
-                        android:layout_marginBottom="20dp"
-                        android:background="@drawable/input_inf">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/registerSnapchat"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="15dp"
-                            android:alpha="0.7"
-                            android:background="@android:color/transparent"
-                            android:hint="@string/formSnapchat"
-                            android:inputType="text"
-                            android:padding="10dp"
-                            android:textColor="@color/white"
-                            android:textColorHint="@color/white"
-                            android:textCursorDrawable="@null"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="40dp"
-                        android:layout_marginEnd="40dp"
-                        android:layout_marginBottom="20dp"
-                        android:background="@drawable/input_inf">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/registerYoutube"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="15dp"
-                            android:alpha="0.7"
-                            android:background="@android:color/transparent"
-                            android:hint="@string/formYoutube"
-                            android:inputType="text"
-                            android:padding="10dp"
-                            android:textColor="@color/white"
-                            android:textColorHint="@color/white"
-                            android:textCursorDrawable="@null"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="40dp"
-                        android:layout_marginEnd="40dp"
-                        android:layout_marginBottom="20dp"
-                        android:background="@drawable/input_inf">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/registerTwitch"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="15dp"
-                            android:alpha="0.7"
-                            android:background="@android:color/transparent"
-                            android:hint="@string/formTwitch"
-                            android:inputType="text"
-                            android:padding="10dp"
-                            android:textColor="@color/white"
-                            android:textColorHint="@color/white"
-                            android:textCursorDrawable="@null"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="40dp"
-                        android:layout_marginEnd="40dp"
-                        android:layout_marginBottom="20dp"
-                        android:background="@drawable/input_inf">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/registerPinterest"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="15dp"
-                            android:alpha="0.7"
-                            android:background="@android:color/transparent"
-                            android:hint="@string/formPinterest"
-                            android:inputType="text"
-                            android:padding="10dp"
-                            android:textColor="@color/white"
-                            android:textColorHint="@color/white"
-                            android:textCursorDrawable="@null"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="40dp"
-                        android:layout_marginEnd="40dp"
-                        android:layout_marginBottom="20dp"
-                        android:background="@drawable/input_inf">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/registerTiktok"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="15dp"
-                            android:alpha="0.7"
-                            android:background="@android:color/transparent"
-                            android:hint="@string/formTiktok"
-                            android:inputType="text"
-                            android:padding="10dp"
-                            android:textColor="@color/white"
-                            android:textColorHint="@color/white"
-                            android:textCursorDrawable="@null"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="40dp"
-                        android:layout_marginEnd="40dp"
-                        android:layout_marginBottom="20dp"
-                        android:background="@drawable/input_inf">
-
-                        <Spinner
-                            android:id="@+id/themeSpinner"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="15dp"
-                            android:alpha="0.7"
-                            android:overlapAnchor="false"
-                            android:padding="10dp"
-                            android:popupBackground="@color/spinnerInf"
-                            android:textAlignment="textStart" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <Button
-                    android:id="@+id/endRegisterButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/button_main_inf"
-                    android:gravity="center"
-                    android:padding="15dp"
-                    android:text="@string/registerConfirm"
-                    android:textColor="@color/white" />
+                    android:layout_marginStart="15dp"
+                    android:alpha="0.7"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/formName"
+                    android:inputType="text"
+                    android:padding="10dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textCursorDrawable="@null"
+                    android:textSize="18sp" />
             </LinearLayout>
 
-        </ScrollView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:text="@string/sex"
+                    android:textSize="18sp" />
+
+                <RadioGroup
+                    android:id="@+id/registerSex"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/registerSexHomme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:buttonTint="@color/descInf"
+                        android:padding="5dp"
+                        android:text="@string/formSexM" />
+
+                    <RadioButton
+                        android:id="@+id/registerSexFemme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/descInf"
+                        android:padding="5dp"
+                        android:text="@string/formSexF" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/input_inf">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/registerVille"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:alpha="0.7"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/formVille"
+                    android:inputType="text"
+                    android:padding="10dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textCursorDrawable="@null"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/input_inf">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/registerPostal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:alpha="0.7"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/formPostal"
+                    android:inputType="text"
+                    android:padding="10dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textCursorDrawable="@null"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/input_inf">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/registerPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:alpha="0.7"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/formPhone"
+                    android:inputType="phone"
+                    android:padding="10dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textCursorDrawable="@null"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/nextPageRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/button_main_inf"
+            android:padding="15dp"
+            android:text="@string/nextPage"
+            android:textColor="@color/white" />
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

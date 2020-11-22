@@ -5,6 +5,7 @@
     <string name="formPassword">Mot de passe</string>
     <string name="formPasswordConfirm">Répétez le mot de passe</string>
 
+    <string name="formDescription">Description de votre profil</string>
     <string name="formName">Nom</string>
     <string name="formVille">Ville</string>
     <string name="formPostal">Code Postal</string>
@@ -13,8 +14,6 @@
     <string name="formSexM">Homme</string>
     <string name="formSexF">Femme</string>
 
-    <string name="formSociety">Société</string>
-    <string name="formFonction">Fonction</string>
     <string name="formSujet">Sujet</string>
     <string name="formWebsite">Site Web</string>
     <string name="formFacebook">Facebook</string>
@@ -44,8 +43,6 @@
     <string name="formProductSubject">Sujet de l\'offre</string>
     <string name="formProductSexe">Sexe de l\'offre</string>
     <string name="formProductDescription">Description de l\'offre</string>
-    <string name="formProductBrand">Marque de l\'offre</string>
-    <string name="formProductColor">Couleur de l\'offre</string>
     <string name="unisexe">Unisexe</string>
     <string name="hightech">High Tech</string>
     <string name="mode">Mode</string>

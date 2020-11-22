@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import c.eip.neoconnect.MainViewInf
-import c.eip.neoconnect.MainViewShop
 import c.eip.neoconnect.R
+import c.eip.neoconnect.main.MainViewInf
+import c.eip.neoconnect.main.MainViewShop
 import c.eip.neoconnect.utils.DataGetter
 
 class Landing : Fragment() {

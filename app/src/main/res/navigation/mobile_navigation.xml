@@ -65,6 +65,11 @@
         android:label="fragment_register_inf_3"
         tools:layout="@layout/fragment_register_inf_3" />
     <fragment
+        android:id="@+id/navigation_register_inf_4"
+        android:name="c.eip.neoconnect.ui.view.register.influencer.RegisterInf4"
+        android:label="fragment_register_inf_4"
+        tools:layout="@layout/fragment_register_inf_4" />
+    <fragment
         android:id="@+id/navigation_contact"
         android:name="c.eip.neoconnect.ui.view.contact.ContactUs"
         android:label="fragment_contact"
@@ -79,4 +84,9 @@
         android:name="c.eip.neoconnect.ui.view.forgotPassword.UpdatePassword"
         android:label="fragment_update_password"
         tools:layout="@layout/fragment_update_password" />
+    <fragment
+        android:id="@+id/navigation_faq"
+        android:name="c.eip.neoconnect.ui.view.faq.FAQ"
+        android:label="fragment_faq"
+        tools:layout="@layout/fragment_faq" />
 </navigation>

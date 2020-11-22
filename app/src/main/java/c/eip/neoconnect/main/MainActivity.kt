@@ -1,12 +1,17 @@
-package c.eip.neoconnect
+package c.eip.neoconnect.main
 
 import android.content.res.Resources
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
+import c.eip.neoconnect.R
 
 class MainActivity : AppCompatActivity() {
 
+    /**
+     * Création Activity
+     * Mise en place de la navigation Landing Page / Connexion / Inscription
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

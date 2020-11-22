@@ -1,11 +1,6 @@
 package c.eip.neoconnect.ui.view.account
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,18 +9,17 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.addCallback
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import c.eip.neoconnect.MainActivity
 import c.eip.neoconnect.R
+import c.eip.neoconnect.main.MainActivity
 import c.eip.neoconnect.ui.view.feed.FeedInf
 import c.eip.neoconnect.utils.DataGetter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 class MyAccountInf : Fragment() {
-    private var notificationManager: NotificationManager? = null
-
     /**
      * Creation de la vue. Déclaration du layout à afficher
      * Affichage de l'image de profil ou d'une image par défaut
@@ -73,36 +67,14 @@ class MyAccountInf : Fragment() {
             findNavController().navigate(R.id.navigation_contact)
         }
         view.findViewById<TextView>(R.id.goToMyStats).setOnClickListener {
-            findNavController().navigate(R.id.navigation_stats)
+            findNavController().navigate(R.id.navigation_stats, bundleOf("profil" to "me"))
         }
-        view.findViewById<TextView>(R.id.testButton).setOnClickListener {
-            notificationManager =
-                activity?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?
-            createNotificationChannel(
-                "c.eip.neoconnect",
-                "Nom de channel Test Notification",
-                "Description Channel Test Notification"
-            )
-            sendNotification()
+        view.findViewById<TextView>(R.id.goToFAQ).setOnClickListener {
+            findNavController().navigate(R.id.navigation_faq)
+        }
+        view.findViewById<TextView>(R.id.goToParrainage).setOnClickListener {
+            findNavController().navigate(R.id.navigation_parrainage)
         }
     }
 
-    private fun createNotificationChannel(id: String, name: String, description: String) {
-        val importance = NotificationManager.IMPORTANCE_HIGH
-        val channel = NotificationChannel(id, name, importance)
-
-        channel.description = description
-        channel.enableLights(true)
-        channel.lightColor = Color.GREEN
-        channel.enableVibration(false)
-        notificationManager?.createNotificationChannel(channel)
-    }
-
-    private fun sendNotification() {
-        val channelId = "c.eip.neoconnect"
-        val notification = Notification.Builder(requireContext(), channelId)
-            .setContentTitle("Titre Notification crée").setContentText("Contenu Notification")
-            .setSmallIcon(R.drawable.logo).setChannelId(channelId).build()
-        notificationManager?.notify(101, notification)
-    }
 }

@@ -59,17 +59,38 @@ class OfferApplyUserAdapter(
                 itemView.findViewById<ImageView>(R.id.userPicture)
                     .setImageResource(R.drawable.ic_picture_inf)
             } else {
-                Glide.with(itemView.context).load(user.userPicture[0].imageData).fitCenter()
+                Glide.with(itemView.context).load(user.userPicture[0].imageData).circleCrop()
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE).error(R.drawable.ic_picture_shop)
                     .into(itemView.findViewById(R.id.userPicture))
             }
             itemView.findViewById<TextView>(R.id.userPseudo).text = user.pseudo
-            itemView.findViewById<TextView>(R.id.userTheme).text = user.theme
             if (user.average.isNullOrEmpty()) {
-                itemView.findViewById<TextView>(R.id.userAverage).text = "0 ★"
+                itemView.findViewById<TextView>(R.id.userAverage).setText(R.string.noNotes)
             } else {
-                val average = String.format("%.2f", user.average!!.toFloat()) + " ★"
+                val average = String.format("%.2f", user.average!!.toFloat()) + " /5★"
                 itemView.findViewById<TextView>(R.id.userAverage).text = average
+            }
+            val resultButton = itemView.findViewById<Button>(R.id.resultButton)
+            when (user.status) {
+                "accepted" -> {
+                    itemView.findViewById<Button>(R.id.acceptApplyButton).visibility = View.GONE
+                    itemView.findViewById<Button>(R.id.declineApplyButton).visibility = View.GONE
+                    resultButton.setBackgroundResource(R.drawable.button_accepted)
+                    resultButton.setText(R.string.accepted)
+                    resultButton.visibility = View.VISIBLE
+                }
+                "refused" -> {
+                    itemView.findViewById<Button>(R.id.acceptApplyButton).visibility = View.GONE
+                    itemView.findViewById<Button>(R.id.declineApplyButton).visibility = View.GONE
+                    resultButton.setBackgroundResource(R.drawable.button_decline)
+                    resultButton.setText(R.string.refused)
+                    resultButton.visibility = View.VISIBLE
+                }
+                "pending" -> {
+                    itemView.findViewById<Button>(R.id.acceptApplyButton).visibility = View.VISIBLE
+                    itemView.findViewById<Button>(R.id.declineApplyButton).visibility = View.VISIBLE
+                    resultButton.visibility = View.GONE
+                }
             }
             itemView.findViewById<Button>(R.id.acceptApplyButton).setOnClickListener {
                 val choice = OffreApply()

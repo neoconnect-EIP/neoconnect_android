@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="c.eip.neoconnect.MainActivity">
+    tools:context="c.eip.neoconnect.main.MainActivity">
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/navbar_home"

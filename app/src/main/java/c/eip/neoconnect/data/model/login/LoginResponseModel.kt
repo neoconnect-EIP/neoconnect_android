@@ -12,4 +12,6 @@ class LoginResponseModel {
     var userType: String = ""
     @SerializedName("token")
     var token: String = ""
+    @SerializedName("theme")
+    var theme: String = ""
 }

@@ -34,7 +34,7 @@ interface InfService {
     ): InfluenceurResponseModel
 
     /**
-     * Récupération de la liste des Boutiques inscrites
+     * Récupération de la liste des Marques inscrites
      */
     @GET("/inf/listShop")
     suspend fun getListShop(@Header("authorization") token: String?): ArrayList<ShopResponseModel>

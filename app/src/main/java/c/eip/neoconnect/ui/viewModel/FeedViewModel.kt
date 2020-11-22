@@ -10,7 +10,7 @@ class FeedViewModel : ViewModel() {
     private val utilsRepository = UtilsRepository()
 
     /**
-     * Récupération du fil d'actualité côté Influenceur et Boutique
+     * Récupération du fil d'actualité côté Influenceur et Marque
      */
     fun getFeed(token: String) = liveData(Dispatchers.IO) {
         try {

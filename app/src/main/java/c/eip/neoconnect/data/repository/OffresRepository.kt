@@ -1,11 +1,12 @@
 package c.eip.neoconnect.data.repository
 
-import c.eip.neoconnect.data.model.PublicationLinksModel
 import c.eip.neoconnect.data.model.comment.CommentModel
+import c.eip.neoconnect.data.model.linksPublication.PublicationLinksModel
 import c.eip.neoconnect.data.model.mark.MarkModel
 import c.eip.neoconnect.data.model.offres.OffreApply
 import c.eip.neoconnect.data.model.offres.OffreModel
 import c.eip.neoconnect.data.model.report.OffreReportModel
+import c.eip.neoconnect.data.model.resetPassword.ResetPasswordFirstStepModel
 import c.eip.neoconnect.data.service.OffresService
 import c.eip.neoconnect.utils.Constants
 
@@ -32,7 +33,7 @@ class OffresRepository {
     suspend fun getOneOffer(token: String, id: Int) = offresService.getOneOffer(token, id)
 
     /**
-     * Récupération de toutes les offres ajoutées par une Boutique
+     * Récupération de toutes les offres ajoutées par une Marque
      */
     suspend fun getMyOfferShop(token: String, id: Int) = offresService.getMyOfferShop(token, id)
 
@@ -65,6 +66,11 @@ class OffresRepository {
     suspend fun applyOffer(token: String, id: Int) = offresService.applyOffer(token, id)
 
     /**
+     * Annuler candidature à une Offre
+     */
+    suspend fun cancelApplyOffer(token: String, id: Int) = offresService.cancelApplyOffer(token, id)
+
+    /**
      * Commenter une Offre
      */
     suspend fun commentOffer(token: String, id: Int, comment: CommentModel) =
@@ -94,8 +100,19 @@ class OffresRepository {
         offresService.reportOffer(token, id, report)
 
     /**
-     * Indiquer qu'un produit a été partagé en partageant les liens des posts à la Boutique
+     * Partager une offre avec un autre utilisateur
+     */
+    suspend fun shareOffer(token: String, id: Int, email: ResetPasswordFirstStepModel) =
+        offresService.shareOffer(token, id, email)
+
+    /**
+     * Indiquer qu'un produit a été partagé en partageant les liens des posts à la Marque
      */
     suspend fun sharePublication(token: String, id: Int, links: PublicationLinksModel) =
         offresService.sharePublication(token, id, links)
+
+    /**
+     * Suggestions d'offres
+     */
+    suspend fun suggestionOffer(token: String) = offresService.suggestionOffer(token)
 }

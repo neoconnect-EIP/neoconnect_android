@@ -7,6 +7,8 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -21,6 +23,7 @@ import androidx.navigation.fragment.findNavController
 import c.eip.neoconnect.R
 import c.eip.neoconnect.data.model.register.RegisterShopModel
 import c.eip.neoconnect.ui.viewModel.ShopViewModel
+import c.eip.neoconnect.utils.CheckInput
 import c.eip.neoconnect.utils.DataGetter
 import c.eip.neoconnect.utils.Encoder
 import c.eip.neoconnect.utils.Status
@@ -33,6 +36,7 @@ class EditProfilShop : Fragment() {
     private var profilData = ProfilShop.shopData
     private var themeState: Int = 0
     private val encoder = Encoder()
+    private val checkInput = CheckInput()
 
     /**
      * Creation de la vue. Déclaration du layout à afficher
@@ -50,16 +54,16 @@ class EditProfilShop : Fragment() {
                 .circleCrop().diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .error(R.drawable.ic_picture_shop)
                 .into(inflate.findViewById(R.id.editMyProfilPicture))
+            editProfilPictureShop = profilData?.userPicture?.get(0)?.imageData!!
         }
-        inflate.findViewById<TextInputEditText>(R.id.editProfilPseudo).setText(profilData?.pseudo)
+        inflate.findViewById<TextInputEditText>(R.id.editProfilDescription)
+            .setText(profilData?.userDescription)
+        inflate.findViewById<TextView>(R.id.editProfilPseudo).text = profilData?.pseudo
         inflate.findViewById<TextInputEditText>(R.id.editProfilEmail).setText(profilData?.email)
         inflate.findViewById<TextInputEditText>(R.id.editProfilNom).setText(profilData?.fullName)
         inflate.findViewById<TextInputEditText>(R.id.editProfilPhone).setText(profilData?.phone)
         inflate.findViewById<TextInputEditText>(R.id.editProfilVille).setText(profilData?.city)
         inflate.findViewById<TextInputEditText>(R.id.editProfilPostal).setText(profilData?.postal)
-        inflate.findViewById<TextInputEditText>(R.id.editProfilSociety).setText(profilData?.society)
-        inflate.findViewById<TextInputEditText>(R.id.editProfilFunction)
-            .setText(profilData?.fonction)
         inflate.findViewById<TextInputEditText>(R.id.editProfilWebsite).setText(profilData?.website)
         inflate.findViewById<TextInputEditText>(R.id.editProfilFacebook)
             .setText(profilData?.facebook)
@@ -106,14 +110,57 @@ class EditProfilShop : Fragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        view.findViewById<Button>(R.id.backButton).setOnClickListener {
+            findNavController().popBackStack()
+        }
         view.findViewById<ImageView>(R.id.editMyProfilPicture).setOnClickListener {
             val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
             requestPermissions(permissions, 1001)
             openGallery()
         }
+        val descInput = view.findViewById<TextInputEditText>(R.id.editProfilDescription)
+        var checkDesc = true
+        descInput.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
 
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (descInput.text.toString().length < 3) {
+                    descInput.error = "La description doit contenir plus de 3 caractères"
+                    checkDesc = false
+                } else {
+                    descInput.error = null
+                    checkDesc = true
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+            }
+        })
+        val emailInput = view.findViewById<TextInputEditText>(R.id.editProfilEmail)
+        var checkEmailBool = true
+        emailInput.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                val checkEmail = checkInput.checkEmail(emailInput.text.toString())
+                if (!checkEmail) {
+                    emailInput.error = "L'adresse mail doit être valide"
+                    checkEmailBool = false
+                } else {
+                    emailInput.error = null
+                    checkEmailBool = true
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+            }
+        })
         view.findViewById<TextView>(R.id.saveButton).setOnClickListener {
-            editProfilShop(view = view)
+            if (checkEmailBool && checkDesc) {
+                editProfilShop(view = view)
+            }
         }
     }
 
@@ -152,24 +199,19 @@ class EditProfilShop : Fragment() {
     }
 
     /**
-     * Modifier son profil Boutique
+     * Modifier son profil Marque
      */
     private fun editProfilShop(view: View) {
         val token = DataGetter.INSTANCE.getToken(requireContext())
         val shop = RegisterShopModel()
         shop.userPicture = editProfilPictureShop
-        shop.pseudo =
-            view.findViewById<TextInputEditText>(R.id.editProfilPseudo).text.toString()
+        shop.userDescription =
+            view.findViewById<TextInputEditText>(R.id.editProfilDescription).text.toString()
         shop.email = view.findViewById<TextInputEditText>(R.id.editProfilEmail).text.toString()
-        shop.fullName = view.findViewById<TextInputEditText>(R.id.editProfilNom).text.toString()
         shop.phone = view.findViewById<TextInputEditText>(R.id.editProfilPhone).text.toString()
         shop.city = view.findViewById<TextInputEditText>(R.id.editProfilVille).text.toString()
         shop.postal =
             view.findViewById<TextInputEditText>(R.id.editProfilPostal).text.toString()
-        shop.society =
-            view.findViewById<TextInputEditText>(R.id.editProfilSociety).text.toString()
-        shop.fonction =
-            view.findViewById<TextInputEditText>(R.id.editProfilFunction).text.toString()
         shop.website =
             view.findViewById<TextInputEditText>(R.id.editProfilWebsite).text.toString()
         shop.facebook =
@@ -181,8 +223,7 @@ class EditProfilShop : Fragment() {
         shop.snapchat =
             view.findViewById<TextInputEditText>(R.id.editProfilSnapchat).text.toString()
         if (themeState != 0) {
-            val themeList = resources.getStringArray(R.array.themeSpinner)
-            shop.theme = themeList[themeState]
+            shop.theme = themeState.toString()
         }
         viewModel = ViewModelProvider(this).get(ShopViewModel::class.java)
         viewModel.updateProfilShop(token = token!!, shop = shop)
@@ -190,6 +231,7 @@ class EditProfilShop : Fragment() {
                 it.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
+                            DataGetter.INSTANCE.saveTheme(requireContext(), themeState.toString())
                             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                             Log.i("Edit Shop", "Shop ${shop.pseudo} mis à jour")
                             findNavController().popBackStack()
@@ -197,8 +239,6 @@ class EditProfilShop : Fragment() {
                         Status.ERROR -> {
                             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                             Log.e("Edit Shop", "Echec mise à jour shop ${it.message}")
-                        }
-                        else -> {
                         }
                     }
                 }

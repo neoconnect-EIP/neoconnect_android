@@ -25,7 +25,7 @@ class InfRepository {
         infService.updateInfProfil(token, influenceur)
 
     /**
-     * Récupération de la liste des Boutiques inscrites
+     * Récupération de la liste des Marques inscrites
      */
     suspend fun getListShop(token: String) = infService.getListShop(token)
 

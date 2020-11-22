@@ -1,6 +1,6 @@
 package c.eip.neoconnect.data.model.offres
 
-import c.eip.neoconnect.data.model.ImagePicture
+import c.eip.neoconnect.data.model.image.ImagePicture
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -21,4 +21,6 @@ class OffreApplyUserResponseModel {
     var pseudo: String? = ""
     @SerializedName("userPicture")
     var userPicture: List<ImagePicture> = emptyList()
+    @SerializedName("status")
+    var status: String? = ""
 }

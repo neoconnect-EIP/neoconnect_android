@@ -47,6 +47,7 @@
         android:layout_marginEnd="20dp"
         android:gravity="center"
         android:text="@string/noFeed"
+        android:textColor="@color/white"
         android:textSize="20sp"
         android:visibility="gone"
         app:layout_constraintStart_toEndOf="@id/guideline_margin_vertical_start_feed_inf"
@@ -83,6 +84,7 @@
                 android:padding="25dp"
                 android:text="@string/noOffreTendance"
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -112,6 +114,7 @@
                 android:padding="25dp"
                 android:text="@string/noOffrePopulaire"
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -141,6 +144,7 @@
                 android:padding="25dp"
                 android:text="@string/noOffreNotes"
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -170,6 +174,7 @@
                 android:padding="25dp"
                 android:text="@string/noShopTendance"
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -199,6 +204,7 @@
                 android:padding="25dp"
                 android:text="@string/noShopPopulaire"
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -225,11 +231,12 @@
                 android:id="@+id/pb_feed_shop_notes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="25dp"
                 android:layout_marginBottom="140dp"
-                android:textAlignment="center"
+                android:padding="25dp"
                 android:text="@string/noShopNotes"
-                android:visibility="gone"/>
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerFeedListShopNotes"

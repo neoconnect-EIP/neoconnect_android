@@ -51,7 +51,7 @@ interface UtilsService {
     suspend fun updatePassword(@Body formValue: ResetPasswordThirdStepModel): String
 
     /**
-     * Récupération du fil d'actualité côté Influenceur et Boutique
+     * Récupération du fil d'actualité côté Influenceur et Marque
      */
     @GET("/actuality")
     suspend fun getFeed(@Header("authorization") token: String?): FeedResponseModel

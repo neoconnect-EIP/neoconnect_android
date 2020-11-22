@@ -2,10 +2,11 @@ package c.eip.neoconnect.ui.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import c.eip.neoconnect.data.model.PublicationLinksModel
+import c.eip.neoconnect.data.model.linksPublication.PublicationLinksModel
 import c.eip.neoconnect.data.model.offres.OffreApply
 import c.eip.neoconnect.data.model.offres.OffreModel
 import c.eip.neoconnect.data.model.report.OffreReportModel
+import c.eip.neoconnect.data.model.resetPassword.ResetPasswordFirstStepModel
 import c.eip.neoconnect.data.repository.OffresRepository
 import c.eip.neoconnect.utils.Resource
 import kotlinx.coroutines.Dispatchers
@@ -78,6 +79,22 @@ class OffresViewModel : ViewModel() {
     }
 
     /**
+     * Postuler à une Offre
+     */
+    fun cancelApplyOffer(token: String, id: Int) = liveData(Dispatchers.IO) {
+        try {
+            emit(
+                Resource.success(
+                    data = offresRepository.cancelApplyOffer(token = token, id = id),
+                    message = "Candidature à l'offre $id annulé"
+                )
+            )
+        } catch (e: Exception) {
+            emit(Resource.error(data = null, message = e.message ?: "Une erreur est survenue"))
+        }
+    }
+
+    /**
      * Supprimer une offre que l'on a posté
      */
     fun deleteOffer(token: String, id: Int) = liveData(Dispatchers.IO) {
@@ -132,7 +149,26 @@ class OffresViewModel : ViewModel() {
     }
 
     /**
-     * Indiquer qu'un produit a été partagé en partageant les liens des posts à la Boutique
+     * Partager une offre avec un autre utilisateur
+     */
+    fun shareOffer(token: String, id: Int, email: ResetPasswordFirstStepModel) = liveData(Dispatchers.IO) {
+        try {
+            emit(
+                Resource.success(
+                    data = offresRepository.shareOffer(
+                        token = token, id = id,
+                        email = email
+                    ),
+                    message = "Offre partagé avec succès"
+                )
+            )
+        } catch (e: Exception) {
+            emit(Resource.error(data = null, message = e.message ?: "Une erreur est survenue"))
+        }
+    }
+
+    /**
+     * Indiquer qu'un produit a été partagé en partageant les liens des posts à la Marque
      */
     fun sharePublication(token: String, id: Int, links: PublicationLinksModel) =
         liveData(Dispatchers.IO) {
