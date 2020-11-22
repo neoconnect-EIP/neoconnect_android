@@ -53,7 +53,7 @@ class OfferAdapter(
                     .setImageResource(R.drawable.ic_picture_offer)
             } else {
                 Glide.with(itemView.context).load(offer.productImg[0].imageData).fitCenter()
-                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE).error(R.drawable.ic_picture_shop)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE).error(R.drawable.ic_picture_shop)
                     .into(itemView.findViewById(R.id.offerPicture))
             }
             itemView.findViewById<TextView>(R.id.offerName).text = offer.productName

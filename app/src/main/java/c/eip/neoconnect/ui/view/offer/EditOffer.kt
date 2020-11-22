@@ -31,6 +31,7 @@ import c.eip.neoconnect.utils.Status
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.textfield.TextInputEditText
+import java.time.LocalDateTime
 
 class EditOffer : Fragment() {
     private lateinit var viewModel: OffresViewModel
@@ -71,7 +72,8 @@ class EditOffer : Fragment() {
             ) {
                 themeOffreState = position
                 if (themeOffreState == 1 || themeOffreState == 2) {
-                    inflate.findViewById<Spinner>(R.id.editSexOffreSpinner).visibility = View.VISIBLE
+                    inflate.findViewById<Spinner>(R.id.editSexOffreSpinner).visibility =
+                        View.VISIBLE
                 } else {
                     inflate.findViewById<Spinner>(R.id.editSexOffreSpinner).visibility = View.GONE
                 }
@@ -108,12 +110,36 @@ class EditOffer : Fragment() {
         view.findViewById<Button>(R.id.backButton).setOnClickListener {
             findNavController().popBackStack()
         }
+        view.findViewById<ImageView>(R.id.editOfferPicture).setOnClickListener {
+            val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+            requestPermissions(permissions, 1001)
+            openGallery()
+        }
         view.findViewById<ImageView>(R.id.editOfferPicture1).setOnClickListener {
             val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
             requestPermissions(permissions, 1001)
             openGallery()
         }
-
+        view.findViewById<ImageView>(R.id.editOfferPicture2).setOnClickListener {
+            val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+            requestPermissions(permissions, 1001)
+            openGallery()
+        }
+        view.findViewById<ImageView>(R.id.editOfferPicture3).setOnClickListener {
+            val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+            requestPermissions(permissions, 1001)
+            openGallery()
+        }
+        view.findViewById<ImageView>(R.id.editOfferPicture4).setOnClickListener {
+            val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+            requestPermissions(permissions, 1001)
+            openGallery()
+        }
+        view.findViewById<ImageView>(R.id.editOfferPicture5).setOnClickListener {
+            val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+            requestPermissions(permissions, 1001)
+            openGallery()
+        }
         val nameOfferInput = view.findViewById<TextInputEditText>(R.id.editOfferName)
         var checkProductName = false
         nameOfferInput.addTextChangedListener(object : TextWatcher {
@@ -163,6 +189,7 @@ class EditOffer : Fragment() {
                 }
             }
         })
+
         val themeOfferInput = themeOffreState.toString()
         var checkProductTheme = false
         if (themeOfferInput.isNotBlank() || themeOfferInput.isNotEmpty() || themeOffreState > 0) {
@@ -175,17 +202,24 @@ class EditOffer : Fragment() {
             }
         }
         view.findViewById<Button>(R.id.editOfferButton).setOnClickListener {
-            if (checkProductName && checkProductDesc && checkProductTheme && editOfferPicture.size > 0) {
+            val productPictures = ArrayList<ImagePicture>()
+            if (newPictures.size > 0) {
+                productPictures.addAll(newPictures)
+            } else {
+                productPictures.addAll(editOfferPicture)
+            }
+            if (checkProductName && checkProductDesc && checkProductTheme && productPictures.size > 0) {
                 val offer = OffreModel()
                 val token = DataGetter.INSTANCE.getToken(requireContext())
                 val offreSexList = resources.getStringArray(R.array.sexSpinner)
-                val sexOfferInput = offreSexList[sexOffreState]
-                offer.productImg = editOfferPicture
+                val offreThemeList = resources.getStringArray(R.array.themeSpinner)
+                offer.productImg = productPictures
                 offer.productName = nameOfferInput.text.toString()
                 offer.productDesc = descOfferInput.text.toString()
-                offer.productSubject = themeOfferInput
+                offer.productSubject = offreThemeList[themeOffreState]
                 offer.brand = FeedShop.shopData?.pseudo
                 if (themeOffreState == 1 || themeOffreState == 2) {
+                    val sexOfferInput = offreSexList[sexOffreState]
                     offer.productSex = sexOfferInput
                 }
                 editOffer(token = token!!, offre = offer)
@@ -205,6 +239,7 @@ class EditOffer : Fragment() {
         if (context?.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_DENIED) {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
             startActivityForResult(intent, 1)
         } else {
             val toast = Toast.makeText(context, "Autorisation non accordé", Toast.LENGTH_LONG)
@@ -220,16 +255,132 @@ class EditOffer : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (data != null) {
-            val selectedImage = data.data
-            Glide.with(requireContext()).load(selectedImage)
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                .into(requireView().findViewById(R.id.insertOfferPicture1))
-            view?.findViewById<ImageView>(R.id.insertOfferPicture1)?.background = null
-            val bitmap: Bitmap =
-                MediaStore.Images.Media.getBitmap(context?.contentResolver, selectedImage)
-            val picture = ImagePicture()
-            picture.imageData = encoder.encodeTobase64(bitmap)
-            editOfferPicture.add(picture)
+            if (data.clipData != null) {
+                val count = data.clipData!!.itemCount
+                for (i in 0 until count) {
+                    val bitmap: Bitmap =
+                        MediaStore.Images.Media.getBitmap(
+                            context?.contentResolver,
+                            data.clipData!!.getItemAt(i).uri
+                        )
+                    val resized = Bitmap.createScaledBitmap(bitmap, 300, 300, true)
+                    val imagePicture = ImagePicture()
+                    imagePicture.imageData = encoder.encodeTobase64(resized)
+                    val userId = DataGetter.INSTANCE.getUserId(requireContext())
+                    imagePicture.imageName = userId.toString() + "_" + i.toString() + "_" + LocalDateTime.now()
+                    newPictures.add(imagePicture)
+                }
+                val picture = view?.findViewById<ImageView>(R.id.editOfferPicture)
+                val picture1 = view?.findViewById<ImageView>(R.id.editOfferPicture1)
+                val picture2 = view?.findViewById<ImageView>(R.id.editOfferPicture2)
+                val picture3 = view?.findViewById<ImageView>(R.id.editOfferPicture3)
+                val picture4 = view?.findViewById<ImageView>(R.id.editOfferPicture4)
+                val picture5 = view?.findViewById<ImageView>(R.id.editOfferPicture5)
+                when (count) {
+                    1 -> {
+                        view?.findViewById<HorizontalScrollView>(R.id.hScrollViewOfferInsert)?.visibility =
+                            View.GONE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(0).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.editOfferPicture))
+                        picture?.visibility = View.VISIBLE
+                        picture1?.visibility = View.GONE
+                        picture2?.visibility = View.GONE
+                        picture3?.visibility = View.GONE
+                        picture4?.visibility = View.GONE
+                        picture5?.visibility = View.GONE
+                        picture?.background = null
+                    }
+                    2 -> {
+                        picture?.visibility = View.GONE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(0).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.editOfferPicture1))
+                        picture1?.background = null
+                        picture1?.visibility = View.VISIBLE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(1).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.editOfferPicture2))
+                        picture2?.background = null
+                        picture2?.visibility = View.VISIBLE
+                        picture3?.visibility = View.GONE
+                        picture4?.visibility = View.GONE
+                        picture5?.visibility = View.GONE
+                    }
+                    3 -> {
+                        picture?.visibility = View.GONE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(0).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.editOfferPicture1))
+                        picture1?.background = null
+                        picture1?.visibility = View.VISIBLE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(1).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.editOfferPicture2))
+                        picture2?.background = null
+                        picture2?.visibility = View.VISIBLE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(2).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.editOfferPicture3))
+                        picture3?.background = null
+                        picture3?.visibility = View.VISIBLE
+                        picture4?.visibility = View.GONE
+                        picture5?.visibility = View.GONE
+                    }
+                    4 -> {
+                        picture?.visibility = View.GONE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(0).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.editOfferPicture1))
+                        picture1?.background = null
+                        picture1?.visibility = View.VISIBLE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(1).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.editOfferPicture2))
+                        picture2?.background = null
+                        picture2?.visibility = View.VISIBLE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(2).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.editOfferPicture3))
+                        picture3?.background = null
+                        picture3?.visibility = View.VISIBLE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(3).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.editOfferPicture4))
+                        picture4?.background = null
+                        picture4?.visibility = View.VISIBLE
+                        picture5?.visibility = View.GONE
+                    }
+                    5 -> {
+                        picture?.visibility = View.GONE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(0).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.editOfferPicture1))
+                        picture1?.background = null
+                        picture1?.visibility = View.VISIBLE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(1).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.editOfferPicture2))
+                        picture2?.background = null
+                        picture2?.visibility = View.VISIBLE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(2).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.editOfferPicture3))
+                        picture3?.background = null
+                        picture3?.visibility = View.VISIBLE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(3).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.editOfferPicture4))
+                        picture4?.background = null
+                        picture4?.visibility = View.VISIBLE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(4).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.editOfferPicture5))
+                        picture5?.background = null
+                        picture5?.visibility = View.VISIBLE
+                    }
+                }
+            }
         }
     }
 
@@ -256,10 +407,126 @@ class EditOffer : Fragment() {
                             inflate.findViewById<ImageView>(R.id.editOfferPicture5).visibility =
                                 View.GONE
                         } else {
-                            Glide.with(requireContext()).load(it.data!!.productImg[0].imageData)
-                                .fitCenter().error(R.drawable.ic_picture_offer)
-                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                                .into(inflate.findViewById(R.id.editOfferPicture1))
+                            editOfferPicture.addAll(it.data?.productImg!!)
+                            when (it.data.productImg.size) {
+                                1 -> {
+                                    inflate.findViewById<HorizontalScrollView>(R.id.hScrollViewOfferInfo).visibility =
+                                        View.GONE
+                                    inflate.findViewById<ImageView>(R.id.editOfferPicture).visibility =
+                                        View.VISIBLE
+                                    Glide.with(requireContext())
+                                        .load(it.data.productImg[0].imageData)
+                                        .fitCenter().error(R.drawable.ic_picture_offer)
+                                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                        .into(inflate.findViewById(R.id.editOfferPicture))
+                                }
+                                2 -> {
+                                    inflate.findViewById<ImageView>(R.id.editOfferPicture1).visibility =
+                                        View.VISIBLE
+                                    inflate.findViewById<ImageView>(R.id.editOfferPicture2).visibility =
+                                        View.VISIBLE
+                                    Glide.with(requireContext())
+                                        .load(it.data.productImg[0].imageData)
+                                        .fitCenter().error(R.drawable.ic_picture_offer)
+                                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                        .into(inflate.findViewById(R.id.editOfferPicture1))
+                                    Glide.with(requireContext())
+                                        .load(it.data.productImg[1].imageData)
+                                        .fitCenter().error(R.drawable.ic_picture_offer)
+                                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                        .into(inflate.findViewById(R.id.editOfferPicture2))
+                                }
+                                3 -> {
+                                    inflate.findViewById<ImageView>(R.id.editOfferPicture1).visibility =
+                                        View.VISIBLE
+                                    inflate.findViewById<ImageView>(R.id.editOfferPicture2).visibility =
+                                        View.VISIBLE
+                                    inflate.findViewById<ImageView>(R.id.editOfferPicture3).visibility =
+                                        View.VISIBLE
+                                    Glide.with(requireContext())
+                                        .load(it.data.productImg[0].imageData)
+                                        .fitCenter().error(R.drawable.ic_picture_offer)
+                                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                        .into(inflate.findViewById(R.id.editOfferPicture1))
+                                    Glide.with(requireContext())
+                                        .load(it.data.productImg[1].imageData)
+                                        .fitCenter().error(R.drawable.ic_picture_offer)
+                                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                        .into(inflate.findViewById(R.id.editOfferPicture2))
+                                    Glide.with(requireContext())
+                                        .load(it.data.productImg[2].imageData)
+                                        .fitCenter().error(R.drawable.ic_picture_offer)
+                                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                        .into(inflate.findViewById(R.id.editOfferPicture3))
+                                }
+                                4 -> {
+                                    inflate.findViewById<ImageView>(R.id.editOfferPicture1).visibility =
+                                        View.VISIBLE
+                                    inflate.findViewById<ImageView>(R.id.editOfferPicture2).visibility =
+                                        View.VISIBLE
+                                    inflate.findViewById<ImageView>(R.id.editOfferPicture3).visibility =
+                                        View.VISIBLE
+                                    inflate.findViewById<ImageView>(R.id.editOfferPicture4).visibility =
+                                        View.VISIBLE
+                                    Glide.with(requireContext())
+                                        .load(it.data.productImg[0].imageData)
+                                        .fitCenter().error(R.drawable.ic_picture_offer)
+                                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                        .into(inflate.findViewById(R.id.editOfferPicture1))
+                                    Glide.with(requireContext())
+                                        .load(it.data.productImg[1].imageData)
+                                        .fitCenter().error(R.drawable.ic_picture_offer)
+                                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                        .into(inflate.findViewById(R.id.editOfferPicture2))
+                                    Glide.with(requireContext())
+                                        .load(it.data.productImg[2].imageData)
+                                        .fitCenter().error(R.drawable.ic_picture_offer)
+                                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                        .into(inflate.findViewById(R.id.editOfferPicture3))
+                                    Glide.with(requireContext())
+                                        .load(it.data.productImg[3].imageData)
+                                        .fitCenter().error(R.drawable.ic_picture_offer)
+                                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                        .into(inflate.findViewById(R.id.editOfferPicture4))
+                                }
+                                5 -> {
+                                    inflate.findViewById<ImageView>(R.id.editOfferPicture1).visibility =
+                                        View.VISIBLE
+                                    inflate.findViewById<ImageView>(R.id.editOfferPicture2).visibility =
+                                        View.VISIBLE
+                                    inflate.findViewById<ImageView>(R.id.editOfferPicture3).visibility =
+                                        View.VISIBLE
+                                    inflate.findViewById<ImageView>(R.id.editOfferPicture4).visibility =
+                                        View.VISIBLE
+                                    inflate.findViewById<ImageView>(R.id.editOfferPicture5).visibility =
+                                        View.VISIBLE
+                                    Glide.with(requireContext())
+                                        .load(it.data.productImg[0].imageData)
+                                        .fitCenter().error(R.drawable.ic_picture_offer)
+                                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                        .into(inflate.findViewById(R.id.editOfferPicture1))
+                                    Glide.with(requireContext())
+                                        .load(it.data.productImg[1].imageData)
+                                        .fitCenter().error(R.drawable.ic_picture_offer)
+                                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                        .into(inflate.findViewById(R.id.editOfferPicture2))
+                                    Glide.with(requireContext())
+                                        .load(it.data.productImg[2].imageData)
+                                        .fitCenter().error(R.drawable.ic_picture_offer)
+                                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                        .into(inflate.findViewById(R.id.editOfferPicture3))
+                                    Glide.with(requireContext())
+                                        .load(it.data.productImg[3].imageData)
+                                        .fitCenter().error(R.drawable.ic_picture_offer)
+                                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                        .into(inflate.findViewById(R.id.editOfferPicture4))
+                                    Glide.with(requireContext())
+                                        .load(it.data.productImg[4].imageData)
+                                        .fitCenter().error(R.drawable.ic_picture_offer)
+                                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                        .into(inflate.findViewById(R.id.editOfferPicture5))
+                                }
+                            }
                         }
                         inflate.findViewById<TextInputEditText>(R.id.editOfferName)
                             .setText(it.data?.productName)
@@ -314,5 +581,6 @@ class EditOffer : Fragment() {
 
     companion object {
         var editOfferPicture: ArrayList<ImagePicture> = ArrayList()
+        var newPictures: ArrayList<ImagePicture> = ArrayList()
     }
 }

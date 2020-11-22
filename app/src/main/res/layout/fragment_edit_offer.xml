@@ -82,48 +82,68 @@
                 android:textSize="22sp" />
         </LinearLayout>
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/editOfferPicture"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_margin="20dp"
+            android:contentDescription="@string/contDescOffer"
+            android:visibility="gone" />
+
+        <HorizontalScrollView
+            android:id="@+id/hScrollViewOfferEdit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/editOfferPicture1"
-                android:layout_width="125dp"
-                android:layout_height="125dp"
-                android:contentDescription="@string/contDescInsertOffer" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/editOfferPicture2"
-                android:layout_width="125dp"
-                android:layout_height="125dp"
-                android:contentDescription="@string/contDescInsertOffer"
-                android:visibility="gone" />
+                <ImageView
+                    android:id="@+id/editOfferPicture1"
+                    android:layout_width="125dp"
+                    android:layout_height="125dp"
+                    android:layout_margin="20dp"
+                    android:contentDescription="@string/contDescInsertOffer"
+                    android:visibility="gone" />
 
-            <ImageView
-                android:id="@+id/editOfferPicture3"
-                android:layout_width="125dp"
-                android:layout_height="125dp"
-                android:contentDescription="@string/contDescInsertOffer"
-                android:visibility="gone" />
+                <ImageView
+                    android:id="@+id/editOfferPicture2"
+                    android:layout_width="125dp"
+                    android:layout_height="125dp"
+                    android:layout_margin="20dp"
+                    android:contentDescription="@string/contDescInsertOffer"
+                    android:visibility="gone" />
 
-            <ImageView
-                android:id="@+id/editOfferPicture4"
-                android:layout_width="125dp"
-                android:layout_height="125dp"
-                android:contentDescription="@string/contDescInsertOffer"
-                android:visibility="gone" />
+                <ImageView
+                    android:id="@+id/editOfferPicture3"
+                    android:layout_width="125dp"
+                    android:layout_height="125dp"
+                    android:layout_margin="20dp"
+                    android:contentDescription="@string/contDescInsertOffer"
+                    android:visibility="gone" />
 
-            <ImageView
-                android:id="@+id/editOfferPicture5"
-                android:layout_width="125dp"
-                android:layout_height="125dp"
-                android:contentDescription="@string/contDescInsertOffer"
-                android:visibility="gone" />
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/editOfferPicture4"
+                    android:layout_width="125dp"
+                    android:layout_height="125dp"
+                    android:layout_margin="20dp"
+                    android:contentDescription="@string/contDescInsertOffer"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/editOfferPicture5"
+                    android:layout_width="125dp"
+                    android:layout_height="125dp"
+                    android:layout_margin="20dp"
+                    android:contentDescription="@string/contDescInsertOffer"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </HorizontalScrollView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -137,9 +157,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:alpha="0.7"
-                android:lines="6"
                 android:hint="@string/formProductDescription"
                 android:inputType="textMultiLine"
+                android:lines="6"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textCursorDrawable="@null"
@@ -156,8 +176,8 @@
             <Spinner
                 android:id="@+id/editThemeOffreSpinner"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:alpha="0.7"
                 android:overlapAnchor="false"
                 android:popupBackground="@color/spinnerShop"
@@ -168,8 +188,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:overlapAnchor="false"
                 android:alpha="0.7"
+                android:overlapAnchor="false"
                 android:popupBackground="@color/spinnerShop"
                 android:textAlignment="textStart"
                 android:visibility="gone" />

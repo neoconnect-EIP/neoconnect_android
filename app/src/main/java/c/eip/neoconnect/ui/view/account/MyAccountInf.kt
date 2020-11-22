@@ -1,10 +1,6 @@
 package c.eip.neoconnect.ui.view.account
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,8 +20,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 class MyAccountInf : Fragment() {
-    private var notificationManager: NotificationManager? = null
-
     /**
      * Creation de la vue. Déclaration du layout à afficher
      * Affichage de l'image de profil ou d'une image par défaut
@@ -83,22 +77,4 @@ class MyAccountInf : Fragment() {
         }
     }
 
-    private fun createNotificationChannel(id: String, name: String, description: String) {
-        val importance = NotificationManager.IMPORTANCE_HIGH
-        val channel = NotificationChannel(id, name, importance)
-
-        channel.description = description
-        channel.enableLights(true)
-        channel.lightColor = Color.GREEN
-        channel.enableVibration(false)
-        notificationManager?.createNotificationChannel(channel)
-    }
-
-    private fun sendNotification() {
-        val channelId = "c.eip.neoconnect"
-        val notification = Notification.Builder(requireContext(), channelId)
-            .setContentTitle("Titre Notification crée").setContentText("Contenu Notification")
-            .setSmallIcon(R.drawable.logo).setChannelId(channelId).build()
-        notificationManager?.notify(101, notification)
-    }
 }

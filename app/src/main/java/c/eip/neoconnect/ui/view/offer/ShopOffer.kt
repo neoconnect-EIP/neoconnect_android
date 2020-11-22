@@ -100,6 +100,7 @@ class ShopOffer : Fragment() {
                         Status.ERROR -> {
                             inflate.findViewById<TextView>(R.id.pb_list_my_offers).visibility =
                                 View.VISIBLE
+                            Log.e("Shop Offer", it.message.toString())
                         }
                     }
                 }

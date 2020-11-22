@@ -31,6 +31,7 @@ import c.eip.neoconnect.utils.Status
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.textfield.TextInputEditText
+import java.time.LocalDateTime
 
 class InsertOffer : Fragment() {
     private lateinit var viewModel: OffresViewModel
@@ -168,18 +169,50 @@ class InsertOffer : Fragment() {
             }
         }
         view.findViewById<TextView>(R.id.resetForm).setOnClickListener {
+            view.findViewById<ImageView>(R.id.insertOfferPicture).setImageURI(null)
             view.findViewById<ImageView>(R.id.insertOfferPicture1).setImageURI(null)
             view.findViewById<ImageView>(R.id.insertOfferPicture2).setImageURI(null)
             view.findViewById<ImageView>(R.id.insertOfferPicture3).setImageURI(null)
             view.findViewById<ImageView>(R.id.insertOfferPicture4).setImageURI(null)
             view.findViewById<ImageView>(R.id.insertOfferPicture5).setImageURI(null)
+            view.findViewById<ImageView>(R.id.insertOfferPicture).visibility = View.VISIBLE
+            view.findViewById<ImageView>(R.id.insertOfferPicture1).visibility = View.GONE
+            view.findViewById<ImageView>(R.id.insertOfferPicture2).visibility = View.GONE
+            view.findViewById<ImageView>(R.id.insertOfferPicture3).visibility = View.GONE
+            view.findViewById<ImageView>(R.id.insertOfferPicture4).visibility = View.GONE
+            view.findViewById<ImageView>(R.id.insertOfferPicture5).visibility = View.GONE
             nameOfferInput.text = null
             nameOfferInput.error = null
             descOfferInput.text = null
             descOfferInput.error = null
             view.findViewById<Spinner>(R.id.themeOffreSpinner).setSelection(0)
         }
+        view.findViewById<ImageView>(R.id.insertOfferPicture).setOnClickListener {
+            val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+            requestPermissions(permissions, 1001)
+            openGallery()
+        }
         view.findViewById<ImageView>(R.id.insertOfferPicture1).setOnClickListener {
+            val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+            requestPermissions(permissions, 1001)
+            openGallery()
+        }
+        view.findViewById<ImageView>(R.id.insertOfferPicture2).setOnClickListener {
+            val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+            requestPermissions(permissions, 1001)
+            openGallery()
+        }
+        view.findViewById<ImageView>(R.id.insertOfferPicture3).setOnClickListener {
+            val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+            requestPermissions(permissions, 1001)
+            openGallery()
+        }
+        view.findViewById<ImageView>(R.id.insertOfferPicture4).setOnClickListener {
+            val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+            requestPermissions(permissions, 1001)
+            openGallery()
+        }
+        view.findViewById<ImageView>(R.id.insertOfferPicture5).setOnClickListener {
             val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
             requestPermissions(permissions, 1001)
             openGallery()
@@ -198,7 +231,7 @@ class InsertOffer : Fragment() {
                     val sexOfferInput = offreSexList[sexOffreState]
                     offer.productSex = sexOfferInput
                 }
-                insertOffer(view = view, token = token!!, offre = offer)
+                insertOffer(token = token!!, offre = offer)
             } else if (!checkProductTheme) {
                 Toast.makeText(context, "Un thème doit être sélectionné", Toast.LENGTH_SHORT).show()
             } else if ((themeOffreState == 1 || themeOffreState == 2) && sexOffreState < 0) {
@@ -215,6 +248,7 @@ class InsertOffer : Fragment() {
         if (context?.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_DENIED) {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
             startActivityForResult(intent, 1)
         } else {
             val toast = Toast.makeText(context, "Autorisation non accordé", Toast.LENGTH_LONG)
@@ -230,23 +264,137 @@ class InsertOffer : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (data != null) {
-            val selectedImage = data.data
-            Glide.with(requireContext()).load(selectedImage)
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                .into(requireView().findViewById(R.id.insertOfferPicture1))
-            view?.findViewById<ImageView>(R.id.insertOfferPicture1)?.background = null
-            val bitmap: Bitmap =
-                MediaStore.Images.Media.getBitmap(context?.contentResolver, selectedImage)
-            val picture = ImagePicture()
-            picture.imageData = encoder.encodeTobase64(bitmap)
-            insertOfferPicture.add(picture)
+            if (data.clipData != null) {
+                val count = data.clipData!!.itemCount
+                insertOfferPicture.clear()
+                for (i in 0 until count) {
+                    val bitmap: Bitmap =
+                        MediaStore.Images.Media.getBitmap( context?.contentResolver, data.clipData!!.getItemAt(i).uri)
+                    val resized = Bitmap.createScaledBitmap(bitmap, 300, 300, true)
+                    val imagePicture = ImagePicture()
+                    imagePicture.imageData = encoder.encodeTobase64(resized)
+                    val userId = DataGetter.INSTANCE.getUserId(requireContext())
+                    imagePicture.imageName = userId.toString() + "_" + i.toString() + LocalDateTime.now()
+                    insertOfferPicture.add(imagePicture)
+                }
+                val picture = view?.findViewById<ImageView>(R.id.insertOfferPicture)
+                val picture1 = view?.findViewById<ImageView>(R.id.insertOfferPicture1)
+                val picture2 = view?.findViewById<ImageView>(R.id.insertOfferPicture2)
+                val picture3 = view?.findViewById<ImageView>(R.id.insertOfferPicture3)
+                val picture4 = view?.findViewById<ImageView>(R.id.insertOfferPicture4)
+                val picture5 = view?.findViewById<ImageView>(R.id.insertOfferPicture5)
+                when (count) {
+                    1 -> {
+                        view?.findViewById<HorizontalScrollView>(R.id.hScrollViewOfferInsert)?.visibility =
+                            View.GONE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(0).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.insertOfferPicture))
+                        picture?.visibility = View.VISIBLE
+                        picture?.background = null
+                        picture1?.visibility = View.GONE
+                        picture2?.visibility = View.GONE
+                        picture3?.visibility = View.GONE
+                        picture4?.visibility = View.GONE
+                        picture5?.visibility = View.GONE
+                    }
+                    2 -> {
+                        picture?.visibility = View.GONE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(0).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.insertOfferPicture1))
+                        picture1?.background = null
+                        picture1?.visibility = View.VISIBLE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(1).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.insertOfferPicture2))
+                        picture2?.background = null
+                        picture2?.visibility = View.VISIBLE
+                        picture3?.visibility = View.GONE
+                        picture4?.visibility = View.GONE
+                        picture5?.visibility = View.GONE
+                    }
+                    3 -> {
+                        picture?.visibility = View.GONE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(0).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.insertOfferPicture1))
+                        picture1?.background = null
+                        picture1?.visibility = View.VISIBLE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(1).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.insertOfferPicture2))
+                        picture2?.background = null
+                        picture2?.visibility = View.VISIBLE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(2).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.insertOfferPicture3))
+                        picture3?.background = null
+                        picture3?.visibility = View.VISIBLE
+                        picture4?.visibility = View.GONE
+                        picture5?.visibility = View.GONE
+                    }
+                    4 -> {
+                        picture?.visibility = View.GONE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(0).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.insertOfferPicture1))
+                        picture1?.background = null
+                        picture1?.visibility = View.VISIBLE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(1).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.insertOfferPicture2))
+                        picture2?.background = null
+                        picture2?.visibility = View.VISIBLE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(2).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.insertOfferPicture3))
+                        picture3?.background = null
+                        picture3?.visibility = View.VISIBLE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(3).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.insertOfferPicture4))
+                        picture4?.background = null
+                        picture4?.visibility = View.VISIBLE
+                        picture5?.visibility = View.GONE
+                    }
+                    5 -> {
+                        picture?.visibility = View.GONE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(0).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.insertOfferPicture1))
+                        picture1?.background = null
+                        picture1?.visibility = View.VISIBLE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(1).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.insertOfferPicture2))
+                        picture2?.background = null
+                        picture2?.visibility = View.VISIBLE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(2).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.insertOfferPicture3))
+                        picture3?.background = null
+                        picture3?.visibility = View.VISIBLE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(3).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.insertOfferPicture4))
+                        picture4?.background = null
+                        picture4?.visibility = View.VISIBLE
+                        Glide.with(requireContext()).load(data.clipData!!.getItemAt(4).uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into(requireView().findViewById(R.id.insertOfferPicture5))
+                        picture5?.background = null
+                        picture5?.visibility = View.VISIBLE
+                    }
+                }
+            }
         }
     }
 
     /**
      * Poster une nouvelle offre
      */
-    private fun insertOffer(view: View, token: String, offre: OffreModel) {
+    private fun insertOffer(token: String, offre: OffreModel) {
         viewModel = ViewModelProvider(this).get(OffresViewModel::class.java)
         viewModel.insertOffer(token = token, offre = offre)
             .observe(viewLifecycleOwner, Observer {
@@ -258,19 +406,7 @@ class InsertOffer : Fragment() {
                                 "Offre",
                                 "${DataGetter.INSTANCE.getUserId(requireContext())} a ajouté l'offre ${it.data?.id}"
                             )
-                            view.findViewById<ImageView>(R.id.insertOfferPicture1).setImageURI(null)
-                            view.findViewById<ImageView>(R.id.insertOfferPicture2).setImageURI(null)
-                            view.findViewById<ImageView>(R.id.insertOfferPicture3).setImageURI(null)
-                            view.findViewById<ImageView>(R.id.insertOfferPicture4).setImageURI(null)
-                            view.findViewById<ImageView>(R.id.insertOfferPicture5).setImageURI(null)
-                            val name = view.findViewById<TextInputEditText>(R.id.insertOfferName)
-                            name.setError(null, null)
-                            name.text = null
-                            val description =
-                                view.findViewById<TextInputEditText>(R.id.insertOfferDescription)
-                            description.setError(null, null)
-                            description.text = null
-                            view.findViewById<Spinner>(R.id.themeOffreSpinner).setSelection(0)
+                            findNavController().navigate(R.id.navigation_insert_offer)
                         }
                         Status.ERROR -> {
                             Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
@@ -283,6 +419,6 @@ class InsertOffer : Fragment() {
     }
 
     companion object {
-        var insertOfferPicture: ArrayList<ImagePicture> = ArrayList()
+        var insertOfferPicture = ArrayList<ImagePicture>()
     }
 }

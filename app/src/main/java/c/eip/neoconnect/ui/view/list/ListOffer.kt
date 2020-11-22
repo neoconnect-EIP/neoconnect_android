@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -147,6 +148,8 @@ class ListOffer : Fragment() {
                                     View.VISIBLE
                                 view.findViewById<FloatingActionButton>(R.id.filterOfferButton).visibility =
                                     View.GONE
+                                view.findViewById<LinearLayout>(R.id.searchKeywordLayout).visibility =
+                                    View.GONE
                             } else {
                                 view.findViewById<TextView>(R.id.pb_list_offer).visibility =
                                     View.GONE
@@ -167,6 +170,8 @@ class ListOffer : Fragment() {
                             }
                         }
                         Status.ERROR -> {
+                            view.findViewById<LinearLayout>(R.id.searchKeywordLayout).visibility =
+                                View.GONE
                             view.findViewById<FloatingActionButton>(R.id.filterOfferButton).visibility =
                                 View.GONE
                             view.findViewById<TextView>(R.id.pb_list_offer).visibility =

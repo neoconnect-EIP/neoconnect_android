@@ -53,7 +53,7 @@ class OfferInfo : Fragment() {
             inflate.findViewById<ConstraintLayout>(R.id.offerInfoLayout)
                 .setBackgroundResource(R.drawable.background_influencer)
             when (arguments?.getString("status")) {
-                 "accepted" -> {
+                "accepted" -> {
                     inflate.findViewById<Button>(R.id.markOfferButton).visibility = View.VISIBLE
                     inflate.findViewById<Button>(R.id.cancelOfferButton).visibility = View.GONE
                     inflate.findViewById<Button>(R.id.applyOfferButton).visibility = View.GONE
@@ -143,10 +143,125 @@ class OfferInfo : Fragment() {
                                 inflate.findViewById<ImageView>(R.id.infoOfferPicture5).visibility =
                                     View.GONE
                             } else {
-                                Glide.with(requireContext()).load(it.data!!.productImg[0].imageData)
-                                    .fitCenter().error(R.drawable.ic_picture_offer)
-                                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                                    .into(inflate.findViewById(R.id.infoOfferPicture1))
+                                when (it.data?.productImg!!.size) {
+                                    1 -> {
+                                        inflate.findViewById<HorizontalScrollView>(R.id.hScrollViewOfferInfo).visibility =
+                                            View.GONE
+                                        inflate.findViewById<ImageView>(R.id.infoOfferPicture).visibility =
+                                            View.VISIBLE
+                                        Glide.with(requireContext())
+                                            .load(it.data.productImg[0].imageData)
+                                            .fitCenter().error(R.drawable.ic_picture_offer)
+                                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                            .into(inflate.findViewById(R.id.infoOfferPicture))
+                                    }
+                                    2 -> {
+                                        inflate.findViewById<ImageView>(R.id.infoOfferPicture1).visibility =
+                                            View.VISIBLE
+                                        inflate.findViewById<ImageView>(R.id.infoOfferPicture2).visibility =
+                                            View.VISIBLE
+                                        Glide.with(requireContext())
+                                            .load(it.data.productImg[0].imageData)
+                                            .fitCenter().error(R.drawable.ic_picture_offer)
+                                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                            .into(inflate.findViewById(R.id.infoOfferPicture1))
+                                        Glide.with(requireContext())
+                                            .load(it.data.productImg[1].imageData)
+                                            .fitCenter().error(R.drawable.ic_picture_offer)
+                                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                            .into(inflate.findViewById(R.id.infoOfferPicture2))
+                                    }
+                                    3 -> {
+                                        inflate.findViewById<ImageView>(R.id.infoOfferPicture1).visibility =
+                                            View.VISIBLE
+                                        inflate.findViewById<ImageView>(R.id.infoOfferPicture2).visibility =
+                                            View.VISIBLE
+                                        inflate.findViewById<ImageView>(R.id.infoOfferPicture3).visibility =
+                                            View.VISIBLE
+                                        Glide.with(requireContext())
+                                            .load(it.data.productImg[0].imageData)
+                                            .fitCenter().error(R.drawable.ic_picture_offer)
+                                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                            .into(inflate.findViewById(R.id.infoOfferPicture1))
+                                        Glide.with(requireContext())
+                                            .load(it.data.productImg[1].imageData)
+                                            .fitCenter().error(R.drawable.ic_picture_offer)
+                                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                            .into(inflate.findViewById(R.id.infoOfferPicture2))
+                                        Glide.with(requireContext())
+                                            .load(it.data.productImg[2].imageData)
+                                            .fitCenter().error(R.drawable.ic_picture_offer)
+                                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                            .into(inflate.findViewById(R.id.infoOfferPicture3))
+                                    }
+                                    4 -> {
+                                        inflate.findViewById<ImageView>(R.id.infoOfferPicture1).visibility =
+                                            View.VISIBLE
+                                        inflate.findViewById<ImageView>(R.id.infoOfferPicture2).visibility =
+                                            View.VISIBLE
+                                        inflate.findViewById<ImageView>(R.id.infoOfferPicture3).visibility =
+                                            View.VISIBLE
+                                        inflate.findViewById<ImageView>(R.id.infoOfferPicture4).visibility =
+                                            View.VISIBLE
+                                        Glide.with(requireContext())
+                                            .load(it.data.productImg[0].imageData)
+                                            .fitCenter().error(R.drawable.ic_picture_offer)
+                                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                            .into(inflate.findViewById(R.id.infoOfferPicture1))
+                                        Glide.with(requireContext())
+                                            .load(it.data.productImg[1].imageData)
+                                            .fitCenter().error(R.drawable.ic_picture_offer)
+                                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                            .into(inflate.findViewById(R.id.infoOfferPicture2))
+                                        Glide.with(requireContext())
+                                            .load(it.data.productImg[2].imageData)
+                                            .fitCenter().error(R.drawable.ic_picture_offer)
+                                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                            .into(inflate.findViewById(R.id.infoOfferPicture3))
+                                        Glide.with(requireContext())
+                                            .load(it.data.productImg[3].imageData)
+                                            .fitCenter().error(R.drawable.ic_picture_offer)
+                                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                            .into(inflate.findViewById(R.id.infoOfferPicture4))
+                                    }
+                                    5 -> {
+                                        inflate.findViewById<ImageView>(R.id.infoOfferPicture1).visibility =
+                                            View.VISIBLE
+                                        inflate.findViewById<ImageView>(R.id.infoOfferPicture2).visibility =
+                                            View.VISIBLE
+                                        inflate.findViewById<ImageView>(R.id.infoOfferPicture3).visibility =
+                                            View.VISIBLE
+                                        inflate.findViewById<ImageView>(R.id.infoOfferPicture4).visibility =
+                                            View.VISIBLE
+                                        inflate.findViewById<ImageView>(R.id.infoOfferPicture5).visibility =
+                                            View.VISIBLE
+                                        Glide.with(requireContext())
+                                            .load(it.data.productImg[0].imageData)
+                                            .fitCenter().error(R.drawable.ic_picture_offer)
+                                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                            .into(inflate.findViewById(R.id.infoOfferPicture1))
+                                        Glide.with(requireContext())
+                                            .load(it.data.productImg[1].imageData)
+                                            .fitCenter().error(R.drawable.ic_picture_offer)
+                                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                            .into(inflate.findViewById(R.id.infoOfferPicture2))
+                                        Glide.with(requireContext())
+                                            .load(it.data.productImg[2].imageData)
+                                            .fitCenter().error(R.drawable.ic_picture_offer)
+                                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                            .into(inflate.findViewById(R.id.infoOfferPicture3))
+                                        Glide.with(requireContext())
+                                            .load(it.data.productImg[3].imageData)
+                                            .fitCenter().error(R.drawable.ic_picture_offer)
+                                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                            .into(inflate.findViewById(R.id.infoOfferPicture4))
+                                        Glide.with(requireContext())
+                                            .load(it.data.productImg[4].imageData)
+                                            .fitCenter().error(R.drawable.ic_picture_offer)
+                                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                            .into(inflate.findViewById(R.id.infoOfferPicture5))
+                                    }
+                                }
                             }
                             name = it.data?.productName
                             inflate.findViewById<TextView>(R.id.offerName).text =

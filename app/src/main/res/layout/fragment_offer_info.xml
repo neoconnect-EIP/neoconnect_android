@@ -75,48 +75,68 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <LinearLayout
+            <ImageView
+                android:id="@+id/infoOfferPicture"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_margin="20dp"
+                android:contentDescription="@string/contDescOffer"
+                android:visibility="gone" />
+
+            <HorizontalScrollView
+                android:id="@+id/hScrollViewOfferInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_margin="20dp">
 
-                <ImageView
-                    android:id="@+id/infoOfferPicture1"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:contentDescription="@string/contDescOffer" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/infoOfferPicture2"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:contentDescription="@string/contDescOffer"
-                    android:visibility="gone" />
+                    <ImageView
+                        android:id="@+id/infoOfferPicture1"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="20dp"
+                        android:contentDescription="@string/contDescOffer"
+                        android:visibility="gone" />
 
-                <ImageView
-                    android:id="@+id/infoOfferPicture3"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:contentDescription="@string/contDescOffer"
-                    android:visibility="gone" />
+                    <ImageView
+                        android:id="@+id/infoOfferPicture2"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="20dp"
+                        android:contentDescription="@string/contDescOffer"
+                        android:visibility="gone" />
 
-                <ImageView
-                    android:id="@+id/infoOfferPicture4"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:contentDescription="@string/contDescOffer"
-                    android:visibility="gone" />
+                    <ImageView
+                        android:id="@+id/infoOfferPicture3"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="20dp"
+                        android:contentDescription="@string/contDescOffer"
+                        android:visibility="gone" />
 
-                <ImageView
-                    android:id="@+id/infoOfferPicture5"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:contentDescription="@string/contDescOffer"
-                    android:visibility="gone" />
-            </LinearLayout>
+                    <ImageView
+                        android:id="@+id/infoOfferPicture4"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="20dp"
+                        android:contentDescription="@string/contDescOffer"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/infoOfferPicture5"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="20dp"
+                        android:contentDescription="@string/contDescOffer"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </HorizontalScrollView>
 
             <View
                 android:layout_width="100dp"

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.os.bundleOf
@@ -114,6 +115,8 @@ class ListInf : Fragment() {
                         if (it.data!!.isEmpty()) {
                             view.findViewById<TextView>(R.id.pb_list_inf).visibility =
                                 View.VISIBLE
+                            view.findViewById<LinearLayout>(R.id.searchKeywordLayout).visibility =
+                                View.GONE
                         } else {
                             view.findViewById<TextView>(R.id.pb_list_inf).visibility =
                                 View.GONE
@@ -131,6 +134,8 @@ class ListInf : Fragment() {
                     Status.ERROR -> {
                         view.findViewById<TextView>(R.id.pb_list_inf).visibility =
                             View.VISIBLE
+                        view.findViewById<LinearLayout>(R.id.searchKeywordLayout).visibility =
+                            View.GONE
                         recyclerListView.visibility = View.GONE
                         view.findViewById<TextInputEditText>(R.id.searchKeyword).visibility =
                             View.GONE

@@ -9,16 +9,22 @@ import com.google.gson.annotations.SerializedName
 class OffreModel {
     @SerializedName("productImg")
     var productImg: List<ImagePicture> = emptyList()
+
     @SerializedName("productName")
-    var productName: String? = ""
+    var productName: String? = null
+
     @SerializedName("productSex")
-    var productSex: String? = ""
+    var productSex: String? = null
+
     @SerializedName("productDesc")
-    var productDesc: String? = ""
+    var productDesc: String? = null
+
     @SerializedName("productSubject")
-    var productSubject: String? = ""
+    var productSubject: String? = null
+
     @SerializedName("brand")
-    var brand: String? = ""
+    var brand: String? = null
+
     @SerializedName("color")
-    var color: String? = ""
+    var color: String? = null
 }

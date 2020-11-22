@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.os.bundleOf
@@ -149,6 +150,8 @@ class ListShop : Fragment() {
                         if (it.data!!.isEmpty()) {
                             view.findViewById<TextView>(R.id.pb_list_shop).visibility =
                                 View.VISIBLE
+                            view.findViewById<LinearLayout>(R.id.searchKeywordLayout).visibility =
+                                View.GONE
                         } else {
                             view.findViewById<TextView>(R.id.pb_list_shop).visibility =
                                 View.GONE
@@ -167,8 +170,11 @@ class ListShop : Fragment() {
                         view.findViewById<TextView>(R.id.pb_list_shop).visibility =
                             View.VISIBLE
                         recyclerListView.visibility = View.GONE
+                        view.findViewById<LinearLayout>(R.id.searchKeywordLayout).visibility =
+                            View.GONE
                         view.findViewById<TextInputEditText>(R.id.searchKeyword).visibility =
                             View.GONE
+
                         Log.e("List Shop", it.message!!)
                     }
                 }
