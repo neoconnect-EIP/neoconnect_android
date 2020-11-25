@@ -102,12 +102,14 @@ class TestMainActivityShop {
     @Test
     fun ftestOfferShop() {
         Espresso.onView(withId(R.id.navigation_my_account_shop)).perform(click())
+        Thread.sleep(1000)
         Espresso.onView(withId(R.id.goToMyOffers)).perform(click())
     }
 
     @Test
     fun gtestStatsShop() {
         Espresso.onView(withId(R.id.navigation_my_account_shop)).perform(click())
+        Thread.sleep(1000)
         Espresso.onView(withId(R.id.goToMyStats)).perform(click())
         Espresso.onView(withId(R.id.statsRatingBar)).check(matches(isDisplayed()))
     }
@@ -128,6 +130,7 @@ class TestMainActivityShop {
     @Test
     fun itestFAQShop() {
         Espresso.onView(withId(R.id.navigation_my_account_shop)).perform(click())
+        Thread.sleep(1000)
         Espresso.onView(withId(R.id.goToFAQ)).perform(click())
         Espresso.onView(withId(R.id.question1)).perform(click())
         Espresso.onView(withId(R.id.reponse1)).check(matches(isDisplayed()))
@@ -149,6 +152,7 @@ class TestMainActivityShop {
     @Test
     fun jtestLogout() {
         Espresso.onView(withId(R.id.navigation_my_account_shop)).perform(click())
+        Thread.sleep(3000)
         Espresso.onView(withId(R.id.logoutButton)).perform(click())
     }
 }

@@ -68,7 +68,7 @@ class ListSortedOffer : Fragment() {
                 View.GONE
             view.findViewById<LinearLayout>(R.id.choiceSortingLayout).visibility = View.GONE
             view.findViewById<RecyclerView>(R.id.recyclerSortedListOffer).visibility = View.VISIBLE
-            sortOffer("order", "ascending", view)
+            sortOffer("order", "asc", view)
         }
 
         view.findViewById<TextView>(R.id.sortByDescendingOrder).setOnClickListener {
@@ -77,7 +77,7 @@ class ListSortedOffer : Fragment() {
                 View.GONE
             view.findViewById<LinearLayout>(R.id.choiceSortingLayout).visibility = View.GONE
             view.findViewById<RecyclerView>(R.id.recyclerSortedListOffer).visibility = View.VISIBLE
-            sortOffer("order", "descending", view)
+            sortOffer("order", "desc", view)
         }
 
         view.findViewById<TextView>(R.id.sortBySubject).setOnClickListener {
@@ -188,7 +188,7 @@ class ListSortedOffer : Fragment() {
             "productSex" -> {
                 viewModel.getOffers(
                     token = token!!, sex = sortingValue, color = null,
-                    brand = null, subject = null
+                    brand = null, subject = null, order = null, popularity = null
                 ).observe(
                     viewLifecycleOwner,
                     Observer {
@@ -222,7 +222,41 @@ class ListSortedOffer : Fragment() {
             "productSubject" -> {
                 viewModel.getOffers(
                     token = token!!, sex = null, color = null,
-                    brand = null, subject = sortingValue
+                    brand = null, subject = sortingValue, order = null, popularity = null
+                ).observe(
+                    viewLifecycleOwner,
+                    Observer {
+                        it?.let { resource ->
+                            when (resource.status) {
+                                Status.SUCCESS -> {
+                                    val recyclerSortedListView =
+                                        view.findViewById<RecyclerView>(R.id.recyclerSortedListOffer)
+                                    recyclerSortedListView.layoutManager =
+                                        LinearLayoutManager(
+                                            context,
+                                            LinearLayoutManager.VERTICAL,
+                                            false
+                                        )
+                                    val adapter = OfferAdapter(it.data!!, "list", "inf")
+                                    adapter.notifyDataSetChanged()
+                                    recyclerSortedListView.adapter = adapter
+                                }
+                                Status.ERROR -> {
+                                    Toast.makeText(
+                                        context,
+                                        "Impossible de trouver une offre avec ce filtre",
+                                        Toast.LENGTH_LONG
+                                    )
+                                    Log.e("Filter offer", it.message!!)
+                                }
+                            }
+                        }
+                    })
+            }
+            "order" -> {
+                viewModel.getOffers(
+                    token = token!!, sex = null, color = null,
+                    brand = null, subject = null, order = sortingValue, popularity = null
                 ).observe(
                     viewLifecycleOwner,
                     Observer {

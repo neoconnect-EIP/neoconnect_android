@@ -4,6 +4,7 @@ import c.eip.neoconnect.data.model.contact.ContactModel
 import c.eip.neoconnect.data.model.contact.ContactUserModel
 import c.eip.neoconnect.data.model.contact.FeedbackModel
 import c.eip.neoconnect.data.model.feed.FeedResponseModel
+import c.eip.neoconnect.data.model.register.CheckFieldModel
 import c.eip.neoconnect.data.model.resetPassword.ResetPasswordFirstStepModel
 import c.eip.neoconnect.data.model.resetPassword.ResetPasswordSecondStepResponseModel
 import c.eip.neoconnect.data.model.resetPassword.ResetPasswordThirdStepModel
@@ -61,4 +62,11 @@ interface UtilsService {
      */
     @POST("/user/feedback")
     suspend fun sendFeedback(@Body message: FeedbackModel): String
+
+    /**
+     * Vérification des champs d'inscription
+     */
+    @POST("/user/checkField")
+    suspend fun checkField(@Body field: CheckFieldModel): Boolean
+
 }

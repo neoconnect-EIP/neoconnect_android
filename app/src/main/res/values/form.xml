@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="formPseudo">Pseudo</string>
-    <string name="formEmail">Email</string>
-    <string name="formPassword">Mot de passe</string>
-    <string name="formPasswordConfirm">Répétez le mot de passe</string>
+    <string name="formPseudo">Pseudo *</string>
+    <string name="formEmail">Email *</string>
+    <string name="formPassword">Mot de passe *</string>
+    <string name="formPasswordConfirm">Répétez le mot de passe *</string>
 
     <string name="formDescription">Description de votre profil</string>
     <string name="formName">Nom</string>
@@ -39,15 +39,15 @@
     <string name="formMessage">Message</string>
     <string name="privateMessage">Message privé</string>
 
-    <string name="formProductName">Nom de l\'offre</string>
+    <string name="formProductName">Nom de l\'offre *</string>
     <string name="formProductSubject">Sujet de l\'offre</string>
     <string name="formProductSexe">Sexe de l\'offre</string>
-    <string name="formProductDescription">Description de l\'offre</string>
+    <string name="formProductDescription">Description de l\'offre *</string>
     <string name="unisexe">Unisexe</string>
     <string name="hightech">High Tech</string>
     <string name="mode">Mode</string>
     <string name="sport">Sport</string>
     <string name="nourriture">Nourriture</string>
-    <string name="jeuxvideos">Jeux Vidéos</string>
+    <string name="jeuxvideos">Jeux Vidéo</string>
     <string name="cosmetique">Cosmétique</string>
 </resources>

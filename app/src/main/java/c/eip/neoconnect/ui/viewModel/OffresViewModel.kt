@@ -140,7 +140,7 @@ class OffresViewModel : ViewModel() {
             emit(
                 Resource.success(
                     data = offresRepository.reportOffer(token = token, id = id, report = report),
-                    message = "Utilisateur $id (${report.offreName} signalé"
+                    message = "Utilisateur $id (${report.offreName}) signalé"
                 )
             )
         } catch (e: Exception) {

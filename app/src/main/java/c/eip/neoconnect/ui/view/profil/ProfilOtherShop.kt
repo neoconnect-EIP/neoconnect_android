@@ -85,7 +85,7 @@ class ProfilOtherShop : Fragment() {
             val mAlertDialog = mAlertDialogBuilder.show()
             mDialogView.findViewById<TextView>(R.id.byMailButton).setOnClickListener {
                 mAlertDialog.dismiss()
-                findNavController().navigate(R.id.navigation_contact, bundle)
+                findNavController().navigate(R.id.navigation_contact_user, bundle)
             }
             mDialogView.findViewById<TextView>(R.id.byPrivateMessageButton).setOnClickListener {
                 mAlertDialog.dismiss()
@@ -159,6 +159,8 @@ class ProfilOtherShop : Fragment() {
                         name = it.data.pseudo
                         inflate.findViewById<TextView>(R.id.otherShopPseudo).text =
                             it.data.pseudo
+                        inflate.findViewById<TextView>(R.id.otherShopDescription).text =
+                            it.data.userDescription
                         val theme = "Thème : " + it.data.theme
                         inflate.findViewById<TextView>(R.id.otherShopSubject).text = theme
                         if (it.data.average.isNullOrBlank()) {

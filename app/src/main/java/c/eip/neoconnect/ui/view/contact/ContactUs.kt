@@ -173,6 +173,20 @@ class ContactUs : Fragment() {
         val feedback = FeedbackModel()
         feedback.environnement = "android"
         val message = view.findViewById<TextInputEditText>(R.id.sendMailMessage).text.toString()
+        if (!DataGetter.INSTANCE.getUserType(requireContext()).isNullOrBlank()) {
+            if (DataGetter.INSTANCE.getUserType(requireContext()) == "shop") {
+                feedback.pseudo = FeedShop.shopData?.pseudo
+                feedback.email = FeedShop.shopData?.email
+            } else if (DataGetter.INSTANCE.getUserType(requireContext()) == "influencer") {
+                feedback.pseudo = FeedInf.influenceurData?.pseudo
+                feedback.email = FeedInf.influenceurData?.email
+            }
+        } else {
+            feedback.pseudo =
+                view.findViewById<TextInputEditText>(R.id.sendMailPseudo).text.toString()
+            feedback.email =
+                view.findViewById<TextInputEditText>(R.id.sendMailEmail).text.toString()
+        }
         when (spinnerState) {
             0 -> {
                 feedback.type = "bug"

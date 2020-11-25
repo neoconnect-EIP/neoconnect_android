@@ -49,7 +49,7 @@ class MainViewShop : AppCompatActivity() {
     }
 
     private fun createNotificationChannel(id: String, name: String, description: String) {
-        val importance = NotificationManager.IMPORTANCE_HIGH
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
         val channel = NotificationChannel(id, name, importance)
         channel.description = description
         channel.enableLights(true)

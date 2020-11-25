@@ -18,4 +18,9 @@ class FeedbackModel {
     @SerializedName("commentaire")
     var commentaire: String? = null
 
+    @SerializedName("email")
+    var email: String? = null
+
+    @SerializedName("pseudo")
+    var pseudo: String? = null
 }

@@ -263,9 +263,8 @@ class EditOffer : Fragment() {
                             context?.contentResolver,
                             data.clipData!!.getItemAt(i).uri
                         )
-                    val resized = Bitmap.createScaledBitmap(bitmap, 300, 300, true)
                     val imagePicture = ImagePicture()
-                    imagePicture.imageData = encoder.encodeTobase64(resized)
+                    imagePicture.imageData = encoder.encodeTobase64(bitmap)
                     val userId = DataGetter.INSTANCE.getUserId(requireContext())
                     imagePicture.imageName = userId.toString() + "_" + i.toString() + "_" + LocalDateTime.now()
                     newPictures.add(imagePicture)

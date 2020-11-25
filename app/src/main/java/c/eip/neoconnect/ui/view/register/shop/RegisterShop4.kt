@@ -2,6 +2,8 @@ package c.eip.neoconnect.ui.view.register.shop
 
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,14 +14,21 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import c.eip.neoconnect.R
+import c.eip.neoconnect.data.model.register.CheckFieldModel
 import c.eip.neoconnect.data.model.register.RegisterShopModel
 import c.eip.neoconnect.ui.viewModel.RegisterViewModel
+import c.eip.neoconnect.ui.viewModel.UserViewModel
 import c.eip.neoconnect.utils.Status
 import com.google.android.material.textfield.TextInputEditText
 
 class RegisterShop4 : Fragment() {
     private lateinit var viewModel: RegisterViewModel
+    private lateinit var userViewModel: UserViewModel
     private var themeState: Int = 0
+    private var facebookCheck = true
+    private var twitterCheck = true
+    private var instagramCheck = true
+    private var snapchatCheck = true
 
     /**
      * Creation de la vue. Déclaration du layout à afficher
@@ -63,6 +72,134 @@ class RegisterShop4 : Fragment() {
         view.findViewById<Button>(R.id.backButton).setOnClickListener {
             findNavController().navigate(R.id.navigation_register_shop_3, arguments)
         }
+        val facebook = view.findViewById<TextInputEditText>(R.id.registerFacebook)
+        val twitter = view.findViewById<TextInputEditText>(R.id.registerTwitter)
+        val instagram = view.findViewById<TextInputEditText>(R.id.registerInstagram)
+        val snapchat = view.findViewById<TextInputEditText>(R.id.registerSnapchat)
+        facebook.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                val field = CheckFieldModel()
+                field.facebook = facebook.text.toString()
+                userViewModel = ViewModelProvider(this@RegisterShop4).get(UserViewModel::class.java)
+                userViewModel.checkField(field = field).observe(viewLifecycleOwner, Observer {
+                    it?.let { resource ->
+                        when (resource.status) {
+                            Status.SUCCESS -> {
+                                if (it.data == true) {
+                                    facebook.error = "Ce compte facebook est déjà enregistré"
+                                    facebookCheck = false
+                                } else {
+                                    facebook.error = null
+                                    facebookCheck = true
+                                }
+                            }
+                            Status.ERROR -> {
+                                Log.e("Check Field", it.message!!)
+                            }
+                        }
+                    }
+                })
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
+        twitter.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                val field = CheckFieldModel()
+                field.twitter = twitter.text.toString()
+                userViewModel = ViewModelProvider(this@RegisterShop4).get(UserViewModel::class.java)
+                userViewModel.checkField(field = field).observe(viewLifecycleOwner, Observer {
+                    it?.let { resource ->
+                        when (resource.status) {
+                            Status.SUCCESS -> {
+                                if (it.data == true) {
+                                    twitter.error = "Ce compte twitter est déjà enregistré"
+                                    twitterCheck = false
+                                } else {
+                                    twitter.error = null
+                                    twitterCheck = true
+                                }
+                            }
+                            Status.ERROR -> {
+                                Log.e("Check Field", it.message!!)
+                            }
+                        }
+                    }
+                })
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
+        instagram.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                val field = CheckFieldModel()
+                field.instagram = instagram.text.toString()
+                userViewModel = ViewModelProvider(this@RegisterShop4).get(UserViewModel::class.java)
+                userViewModel.checkField(field = field).observe(viewLifecycleOwner, Observer {
+                    it?.let { resource ->
+                        when (resource.status) {
+                            Status.SUCCESS -> {
+                                if (it.data == true) {
+                                    instagram.error = "Ce compte instagram est déjà enregistré"
+                                    instagramCheck = false
+                                } else {
+                                    instagram.error = null
+                                    instagramCheck = true
+                                }
+                            }
+                            Status.ERROR -> {
+                                Log.e("Check Field", it.message!!)
+                            }
+                        }
+                    }
+                })
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
+        snapchat.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                val field = CheckFieldModel()
+                field.snapchat = snapchat.text.toString()
+                userViewModel = ViewModelProvider(this@RegisterShop4).get(UserViewModel::class.java)
+                userViewModel.checkField(field = field).observe(viewLifecycleOwner, Observer {
+                    it?.let { resource ->
+                        when (resource.status) {
+                            Status.SUCCESS -> {
+                                if (it.data == true) {
+                                    snapchat.error = "Ce compte snapchat est déjà enregistré"
+                                    snapchatCheck = false
+                                } else {
+                                    snapchat.error = null
+                                    snapchatCheck = true
+                                }
+                            }
+                            Status.ERROR -> {
+                                Log.e("Check Field", it.message!!)
+                            }
+                        }
+                    }
+                })
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
         view.findViewById<Button>(R.id.endRegisterButton).setOnClickListener {
             val shop = RegisterShopModel()
             shop.userPicture = RegisterShop2.registerProfilPictureShop
@@ -97,35 +234,34 @@ class RegisterShop4 : Fragment() {
                 shop.website =
                     view.findViewById<TextInputEditText>(R.id.registerWebsite).text.toString()
             }
-            if (view.findViewById<TextInputEditText>(R.id.registerFacebook).text.toString().trim()
-                    .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerFacebook).text.toString()
-                    .trim().isNotEmpty()
+            if (facebook.text.toString().trim().isNotBlank() &&
+                facebook.text.toString().trim().isNotEmpty()
             ) {
-                shop.facebook =
-                    view.findViewById<TextInputEditText>(R.id.registerFacebook).text.toString()
+                shop.facebook = facebook.text.toString()
             }
-            if (view.findViewById<TextInputEditText>(R.id.registerTwitter).text.toString().trim()
-                    .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerTwitter).text.toString()
-                    .trim().isNotEmpty()
+            if (twitter.text.toString().trim().isNotBlank() &&
+                twitter.text.toString().trim().isNotEmpty()
             ) {
-                shop.twitter =
-                    view.findViewById<TextInputEditText>(R.id.registerTwitter).text.toString()
+                shop.twitter = twitter.text.toString()
             }
-            if (view.findViewById<TextInputEditText>(R.id.registerInstagram).text.toString().trim()
-                    .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerInstagram).text.toString()
-                    .trim().isNotEmpty()
+            if (instagram.text.toString().trim().isNotBlank() &&
+                instagram.text.toString().trim().isNotEmpty()
             ) {
-                shop.instagram =
-                    view.findViewById<TextInputEditText>(R.id.registerInstagram).text.toString()
+                shop.instagram = instagram.text.toString()
             }
-            if (view.findViewById<TextInputEditText>(R.id.registerSnapchat).text.toString().trim()
-                    .isNotBlank() && view.findViewById<TextInputEditText>(R.id.registerSnapchat).text.toString()
-                    .trim().isNotEmpty()
+            if (snapchat.text.toString().trim().isNotBlank() &&
+                snapchat.text.toString().trim().isNotEmpty()
             ) {
-                shop.snapchat =
-                    view.findViewById<TextInputEditText>(R.id.registerSnapchat).text.toString()
+                shop.snapchat = snapchat.text.toString()
             }
-            if (themeState != 0) {
+            var checkNetwork = true
+            if (!facebookCheck || !twitterCheck || !instagramCheck || !snapchatCheck) {
+                Toast.makeText(context,
+                    "Veuillez modifier les réseaux sociaux contenant des erreurs",
+                    Toast.LENGTH_LONG).show()
+                checkNetwork = false
+            }
+            if (checkNetwork && themeState != 0) {
                 shop.theme = themeState.toString()
                 viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
                 viewModel.registerShop(registerShopModel = shop)

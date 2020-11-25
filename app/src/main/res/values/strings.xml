@@ -11,7 +11,9 @@
     <string name="influenceur">Influenceur</string>
     <string name="yes">Oui</string>
     <string name="no">Non</string>
+    <string name="notAvailable">Non disponible</string>
     <string name="shop">Marque</string>
+    <string name="advanced">Plus</string>
     <string name="offre">Offres</string>
     <string name="offres">Voir les offres</string>
     <string name="stats">Voir les stats</string>
@@ -54,4 +56,6 @@
     <string name="moreQuestions">Des questions supplémentaires ?</string>
     <string name="FAQTitle">FAQ</string>
     <string name="insertCodeParrainage">J\'ai été parrainé, je veux entrer mon code !</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

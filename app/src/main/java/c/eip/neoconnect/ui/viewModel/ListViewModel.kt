@@ -52,7 +52,15 @@ class ListViewModel : ViewModel() {
      * ou
      * Récupération de toutes les offres selon un filtre
      */
-    fun getOffers(token: String, sex: String?, color: String?, brand: String?, subject: String?) =
+    fun getOffers(
+        token: String,
+        sex: String?,
+        color: String?,
+        brand: String?,
+        subject: String?,
+        order: String?,
+        popularity: String?
+    ) =
         liveData(Dispatchers.IO) {
             try {
                 emit(
@@ -62,7 +70,9 @@ class ListViewModel : ViewModel() {
                             sex = sex,
                             color = color,
                             brand = brand,
-                            subject = subject
+                            subject = subject,
+                            popularity = popularity,
+                            order = order
                         ),
                         message = "Récupération des offres réussie"
                     )
