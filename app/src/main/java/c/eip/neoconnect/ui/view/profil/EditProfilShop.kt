@@ -21,8 +21,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import c.eip.neoconnect.R
+import c.eip.neoconnect.data.model.register.CheckFieldModel
 import c.eip.neoconnect.data.model.register.RegisterShopModel
 import c.eip.neoconnect.ui.viewModel.ShopViewModel
+import c.eip.neoconnect.ui.viewModel.UserViewModel
 import c.eip.neoconnect.utils.CheckInput
 import c.eip.neoconnect.utils.DataGetter
 import c.eip.neoconnect.utils.Encoder
@@ -33,10 +35,16 @@ import com.google.android.material.textfield.TextInputEditText
 
 class EditProfilShop : Fragment() {
     private lateinit var viewModel: ShopViewModel
+    private lateinit var userViewModel: UserViewModel
     private var profilData = ProfilShop.shopData
     private var themeState: Int = 0
     private val encoder = Encoder()
     private val checkInput = CheckInput()
+    private var emailCheck = false
+    private var facebookCheck = true
+    private var twitterCheck = true
+    private var instagramCheck = true
+    private var snapchatCheck = true
 
     /**
      * Creation de la vue. Déclaration du layout à afficher
@@ -54,7 +62,6 @@ class EditProfilShop : Fragment() {
                 .circleCrop().diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .error(R.drawable.ic_picture_shop)
                 .into(inflate.findViewById(R.id.editMyProfilPicture))
-            editProfilPictureShop = profilData?.userPicture?.get(0)?.imageData!!
         }
         inflate.findViewById<TextInputEditText>(R.id.editProfilDescription)
             .setText(profilData?.userDescription)
@@ -138,28 +145,190 @@ class EditProfilShop : Fragment() {
             }
         })
         val emailInput = view.findViewById<TextInputEditText>(R.id.editProfilEmail)
-        var checkEmailBool = true
         emailInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                val checkEmail = checkInput.checkEmail(emailInput.text.toString())
-                if (!checkEmail) {
-                    emailInput.error = "L'adresse mail doit être valide"
-                    checkEmailBool = false
-                } else {
-                    emailInput.error = null
-                    checkEmailBool = true
-                }
             }
 
             override fun afterTextChanged(p0: Editable?) {
+                val checkEmail = checkInput.checkEmail(emailInput.text.toString())
+                if (!checkEmail) {
+                    emailInput.error = "L'adresse mail doit être valide"
+                    emailCheck = false
+                } else {
+                    val field = CheckFieldModel()
+                    field.email = emailInput.text.toString()
+                    userViewModel =
+                        ViewModelProvider(this@EditProfilShop).get(UserViewModel::class.java)
+                    userViewModel.checkField(field = field).observe(viewLifecycleOwner, Observer {
+                        it?.let { resource ->
+                            when (resource.status) {
+                                Status.SUCCESS -> {
+                                    if (it.data == true) {
+                                        if (emailInput.text.toString() == profilData?.email) {
+                                            emailCheck = true
+                                        } else {
+                                            emailInput.error = "Cette adresse mail est déjà prise"
+                                            emailCheck = false
+                                        }
+                                    } else {
+                                        emailInput.error = null
+                                        emailCheck = true
+                                    }
+                                }
+                                Status.ERROR -> {
+                                    Log.e("Check Field", it.message!!)
+                                }
+                            }
+                        }
+                    })
+                }
+
+            }
+        })
+
+        val facebook = view.findViewById<TextInputEditText>(R.id.editProfilFacebook)
+        val twitter = view.findViewById<TextInputEditText>(R.id.editProfilTwitter)
+        val instagram = view.findViewById<TextInputEditText>(R.id.editProfilInstagram)
+        val snapchat = view.findViewById<TextInputEditText>(R.id.editProfilSnapchat)
+
+        facebook.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                val field = CheckFieldModel()
+                field.facebook = facebook.text.toString()
+                userViewModel =
+                    ViewModelProvider(this@EditProfilShop).get(UserViewModel::class.java)
+                userViewModel.checkField(field = field).observe(viewLifecycleOwner, Observer {
+                    it?.let { resource ->
+                        when (resource.status) {
+                            Status.SUCCESS -> {
+                                if (it.data == true) {
+                                    facebook.error = "Ce compte facebook est déjà enregistré"
+                                    facebookCheck = false
+                                } else {
+                                    facebook.error = null
+                                    facebookCheck = true
+                                }
+                            }
+                            Status.ERROR -> {
+                                Log.e("Check Field", it.message!!)
+                            }
+                        }
+                    }
+                })
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
+        twitter.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                val field = CheckFieldModel()
+                field.twitter = twitter.text.toString()
+                userViewModel =
+                    ViewModelProvider(this@EditProfilShop).get(UserViewModel::class.java)
+                userViewModel.checkField(field = field).observe(viewLifecycleOwner, Observer {
+                    it?.let { resource ->
+                        when (resource.status) {
+                            Status.SUCCESS -> {
+                                if (it.data == true) {
+                                    twitter.error = "Ce compte twitter est déjà enregistré"
+                                    twitterCheck = false
+                                } else {
+                                    twitter.error = null
+                                    twitterCheck = true
+                                }
+                            }
+                            Status.ERROR -> {
+                                Log.e("Check Field", it.message!!)
+                            }
+                        }
+                    }
+                })
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
+        instagram.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                val field = CheckFieldModel()
+                field.instagram = instagram.text.toString()
+                userViewModel =
+                    ViewModelProvider(this@EditProfilShop).get(UserViewModel::class.java)
+                userViewModel.checkField(field = field).observe(viewLifecycleOwner, Observer {
+                    it?.let { resource ->
+                        when (resource.status) {
+                            Status.SUCCESS -> {
+                                if (it.data == true) {
+                                    instagram.error = "Ce compte instagram est déjà enregistré"
+                                    instagramCheck = false
+                                } else {
+                                    instagram.error = null
+                                    instagramCheck = true
+                                }
+                            }
+                            Status.ERROR -> {
+                                Log.e("Check Field", it.message!!)
+                            }
+                        }
+                    }
+                })
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
+        snapchat.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                val field = CheckFieldModel()
+                field.snapchat = snapchat.text.toString()
+                userViewModel =
+                    ViewModelProvider(this@EditProfilShop).get(UserViewModel::class.java)
+                userViewModel.checkField(field = field).observe(viewLifecycleOwner, Observer {
+                    it?.let { resource ->
+                        when (resource.status) {
+                            Status.SUCCESS -> {
+                                if (it.data == true) {
+                                    snapchat.error = "Ce compte snapchat est déjà enregistré"
+                                    snapchatCheck = false
+                                } else {
+                                    snapchat.error = null
+                                    snapchatCheck = true
+                                }
+                            }
+                            Status.ERROR -> {
+                                Log.e("Check Field", it.message!!)
+                            }
+                        }
+                    }
+                })
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
         })
         view.findViewById<TextView>(R.id.saveButton).setOnClickListener {
-            if (checkEmailBool && checkDesc) {
+            if (checkDesc && facebookCheck && twitterCheck && emailCheck && snapchatCheck && instagramCheck) {
                 editProfilShop(view = view)
+            } else {
+                Toast.makeText(context,
+                    "Veuillez modifier les champs contenant des erreurs",
+                    Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -204,24 +373,36 @@ class EditProfilShop : Fragment() {
     private fun editProfilShop(view: View) {
         val token = DataGetter.INSTANCE.getToken(requireContext())
         val shop = RegisterShopModel()
-        shop.userPicture = editProfilPictureShop
-        shop.userDescription =
-            view.findViewById<TextInputEditText>(R.id.editProfilDescription).text.toString()
-        shop.email = view.findViewById<TextInputEditText>(R.id.editProfilEmail).text.toString()
-        shop.phone = view.findViewById<TextInputEditText>(R.id.editProfilPhone).text.toString()
-        shop.city = view.findViewById<TextInputEditText>(R.id.editProfilVille).text.toString()
-        shop.postal =
-            view.findViewById<TextInputEditText>(R.id.editProfilPostal).text.toString()
-        shop.website =
-            view.findViewById<TextInputEditText>(R.id.editProfilWebsite).text.toString()
-        shop.facebook =
-            view.findViewById<TextInputEditText>(R.id.editProfilFacebook).text.toString()
-        shop.twitter =
-            view.findViewById<TextInputEditText>(R.id.editProfilTwitter).text.toString()
-        shop.instagram =
-            view.findViewById<TextInputEditText>(R.id.editProfilInstagram).text.toString()
-        shop.snapchat =
-            view.findViewById<TextInputEditText>(R.id.editProfilSnapchat).text.toString()
+        if (editProfilPictureShop.isNotEmpty()) {
+            shop.userPicture = editProfilPictureShop
+        }
+        if (profilData?.userDescription != view.findViewById<TextInputEditText>(R.id.editProfilDescription).text.toString())
+            shop.userDescription =
+                view.findViewById<TextInputEditText>(R.id.editProfilDescription).text.toString()
+        if (profilData?.email != view.findViewById<TextInputEditText>(R.id.editProfilEmail).text.toString())
+            shop.email = view.findViewById<TextInputEditText>(R.id.editProfilEmail).text.toString()
+        if (profilData?.phone != view.findViewById<TextInputEditText>(R.id.editProfilPhone).text.toString())
+            shop.phone = view.findViewById<TextInputEditText>(R.id.editProfilPhone).text.toString()
+        if (profilData?.city != view.findViewById<TextInputEditText>(R.id.editProfilVille).text.toString())
+            shop.city = view.findViewById<TextInputEditText>(R.id.editProfilVille).text.toString()
+        if (profilData?.postal != view.findViewById<TextInputEditText>(R.id.editProfilPostal).text.toString())
+            shop.postal =
+                view.findViewById<TextInputEditText>(R.id.editProfilPostal).text.toString()
+        if (profilData?.website != view.findViewById<TextInputEditText>(R.id.editProfilWebsite).text.toString())
+            shop.website =
+                view.findViewById<TextInputEditText>(R.id.editProfilWebsite).text.toString()
+        if (profilData?.facebook != view.findViewById<TextInputEditText>(R.id.editProfilFacebook).text.toString())
+            shop.facebook =
+                view.findViewById<TextInputEditText>(R.id.editProfilFacebook).text.toString()
+        if (profilData?.twitter != view.findViewById<TextInputEditText>(R.id.editProfilTwitter).text.toString())
+            shop.twitter =
+                view.findViewById<TextInputEditText>(R.id.editProfilTwitter).text.toString()
+        if (profilData?.instagram != view.findViewById<TextInputEditText>(R.id.editProfilInstagram).text.toString())
+            shop.instagram =
+                view.findViewById<TextInputEditText>(R.id.editProfilInstagram).text.toString()
+        if (profilData?.snapchat != view.findViewById<TextInputEditText>(R.id.editProfilSnapchat).text.toString())
+            shop.snapchat =
+                view.findViewById<TextInputEditText>(R.id.editProfilSnapchat).text.toString()
         if (themeState != 0) {
             shop.theme = themeState.toString()
         }

@@ -23,9 +23,11 @@ class OffresRepository {
         sex: String?,
         color: String?,
         brand: String?,
-        subject: String?
+        subject: String?,
+        order: String?,
+        popularity: String?
     ) =
-        offresService.getAllOffers(token, sex, color, brand, subject)
+        offresService.getAllOffers(token, sex, color, brand, subject, order, popularity)
 
     /**
      * Récupération d'une Offre

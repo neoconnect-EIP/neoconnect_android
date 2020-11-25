@@ -61,5 +61,8 @@ interface UserService {
      * Entrer un code parrainage
      */
     @POST("/insertParrainage")
-    suspend fun insertCodeParrainage(@Body code: ParrainageModel): String
+    suspend fun insertCodeParrainage(
+        @Header("authorization") token: String?,
+        @Body code: ParrainageModel
+    ): String
 }

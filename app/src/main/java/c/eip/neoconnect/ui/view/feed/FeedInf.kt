@@ -71,12 +71,16 @@ class FeedInf : Fragment() {
                             errorText = inflate.findViewById(R.id.pb_feed_offer_populaire)
                         )
 
-                        feedOffres(
-                            listOffer = it.data?.listOfferNotes,
-                            recyclerView = inflate.findViewById(R.id.recyclerFeedListOffresNotes),
-                            errorText = inflate.findViewById(R.id.pb_feed_offer_notes)
-                        )
+//                        feedOffres(
+//                            listOffer = it.data?.listOfferNotes,
+//                            recyclerView = inflate.findViewById(R.id.recyclerFeedListOffresNotes),
+//                            errorText = inflate.findViewById(R.id.pb_feed_offer_notes)
+//                        )
 
+                        inflate.findViewById<RecyclerView>(R.id.recyclerFeedListOffresNotes).visibility =
+                            View.GONE
+                        inflate.findViewById<TextView>(R.id.pb_feed_offer_notes).visibility =
+                            View.GONE
                         feedShop(
                             listShop = it.data?.listShopTendance,
                             recyclerView = inflate.findViewById(R.id.recyclerFeedListShopTendances),

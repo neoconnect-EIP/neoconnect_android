@@ -48,8 +48,9 @@ class MainViewInf : AppCompatActivity() {
             sendNotification(id)
         }, 2000)
     }
+
     private fun createNotificationChannel(id: String, name: String, description: String) {
-        val importance = NotificationManager.IMPORTANCE_HIGH
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
         val channel = NotificationChannel(id, name, importance)
         channel.description = description
         channel.enableLights(true)
@@ -63,7 +64,13 @@ class MainViewInf : AppCompatActivity() {
 
         runBlocking {
             val response = offerRepository.getAllOffers(
-                token = token!!, color = null, brand = null, subject = null, sex = null
+                token = token!!,
+                color = null,
+                brand = null,
+                subject = null,
+                sex = null,
+                order = null,
+                popularity = null
             )
             if (response.isNotEmpty()) {
                 var nbOffers = 0

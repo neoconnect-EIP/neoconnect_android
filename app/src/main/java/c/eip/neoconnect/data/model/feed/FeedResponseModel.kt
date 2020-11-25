@@ -12,7 +12,7 @@ class FeedResponseModel {
      * Fil d'actualité côté Marque
      */
     var listInfPopulaire = emptyList<InfluenceurResponseModel>()
-    var listInfTendances = emptyList<InfluenceurResponseModel>()
+    var listInfTendance = emptyList<InfluenceurResponseModel>()
     var listInfNotes = emptyList<InfluenceurResponseModel>()
 
     /**

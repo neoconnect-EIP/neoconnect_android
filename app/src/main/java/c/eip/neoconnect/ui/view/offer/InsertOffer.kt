@@ -270,9 +270,8 @@ class InsertOffer : Fragment() {
                 for (i in 0 until count) {
                     val bitmap: Bitmap =
                         MediaStore.Images.Media.getBitmap( context?.contentResolver, data.clipData!!.getItemAt(i).uri)
-                    val resized = Bitmap.createScaledBitmap(bitmap, 300, 300, true)
                     val imagePicture = ImagePicture()
-                    imagePicture.imageData = encoder.encodeTobase64(resized)
+                    imagePicture.imageData = encoder.encodeTobase64(bitmap)
                     val userId = DataGetter.INSTANCE.getUserId(requireContext())
                     imagePicture.imageName = userId.toString() + "_" + i.toString() + LocalDateTime.now()
                     insertOfferPicture.add(imagePicture)

@@ -100,7 +100,6 @@ class UpdatePassword : Fragment() {
                             View.VISIBLE
                     }
                     Status.ERROR -> {
-                        Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
                         Log.e("Check Token", it.message!!)
                     }
                 }

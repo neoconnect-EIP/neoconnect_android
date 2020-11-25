@@ -20,7 +20,9 @@ interface OffresService {
         @Query("productSex") sex: String?,
         @Query("brand") brand: String?,
         @Query("color") color: String?,
-        @Query("productSubject") subject: String?
+        @Query("productSubject") subject: String?,
+        @Query("order") order: String?,
+        @Query("popularity") popularity: String?
     ): ArrayList<OffreResponseModel>
 
     /**
@@ -163,5 +165,5 @@ interface OffresService {
      * Suggestions d'offres
      */
     @GET("/offer/suggestion")
-    suspend fun suggestionOffer(@Header("authorization") token: String?): ArrayList<OffreResponseModel>
+    suspend fun suggestionOffer(@Header("authorization") token: String?): ArrayList<OffreSuggestionResponseModel>
 }

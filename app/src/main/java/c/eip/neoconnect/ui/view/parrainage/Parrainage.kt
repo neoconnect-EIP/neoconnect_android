@@ -85,10 +85,20 @@ class Parrainage : Fragment() {
                 AlertDialog.Builder(requireContext()).setView(mDialogView)
             val mAlertDialog = mAlertDialogBuilder.show()
             mDialogView.findViewById<TextView>(R.id.sendCodeParrain).setOnClickListener {
-                sendCodeParrain(
-                    code = mDialogView.findViewById<TextView>(R.id.insertCodeParrain).text.toString(),
-                    mAlertDialog = mAlertDialog
-                )
+                if (mDialogView.findViewById<TextView>(R.id.insertCodeParrain).text.toString() == infData?.codeParrainage) {
+                    Toast.makeText(requireContext(),
+                        "Vous ne pouvez pas entrer votre code",
+                        Toast.LENGTH_LONG).show()
+                } else if (infData?.isParraine == true) {
+                    Toast.makeText(requireContext(),
+                        "Vous avez déjà été parrainé",
+                        Toast.LENGTH_LONG).show()
+                } else {
+                    sendCodeParrain(
+                        code = mDialogView.findViewById<TextView>(R.id.insertCodeParrain).text.toString(),
+                        mAlertDialog = mAlertDialog
+                    )
+                }
             }
         }
     }
@@ -97,30 +107,36 @@ class Parrainage : Fragment() {
      * Ajouter un code de parrainage
      */
     private fun sendCodeParrain(code: String, mAlertDialog: AlertDialog) {
+        val token = DataGetter.INSTANCE.getToken(requireContext())
         userviewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         val codeForm = ParrainageModel()
         codeForm.codeParrainage = code
-        userviewModel.insertCodeParrainage(codeForm).observe(viewLifecycleOwner, Observer {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        mAlertDialog.dismiss()
-                        Toast.makeText(
-                            requireContext(),
-                            it.message.toString(),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                    Status.ERROR -> {
-                        Toast.makeText(
-                            requireContext(),
-                            it.message.toString(),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        Log.e("Send Code Parrainage", it.message.toString())
+        userviewModel.insertCodeParrainage(token = token!!, code = codeForm)
+            .observe(viewLifecycleOwner, Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            mAlertDialog.dismiss()
+                            Toast.makeText(
+                                requireContext(),
+                                it.message.toString(),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            val fragment = Parrainage()
+                            fragment.arguments = arguments
+                            fragmentManager?.beginTransaction()
+                                ?.replace(requireView().id, fragment)?.commit()
+                        }
+                        Status.ERROR -> {
+                            Toast.makeText(
+                                requireContext(),
+                                it.message.toString(),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            Log.e("Send Code Parrainage", it.message.toString())
+                        }
                     }
                 }
-            }
-        })
+            })
     }
 }

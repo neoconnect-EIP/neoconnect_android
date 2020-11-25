@@ -74,7 +74,7 @@ class ProfilOtherInf : Fragment() {
             val mAlertDialog = mAlertDialogBuilder.show()
             mDialogView.findViewById<TextView>(R.id.byMailButton).setOnClickListener {
                 mAlertDialog.dismiss()
-                findNavController().navigate(R.id.navigation_contact, bundle)
+                findNavController().navigate(R.id.navigation_contact_user, bundle)
             }
             mDialogView.findViewById<TextView>(R.id.byPrivateMessageButton).setOnClickListener {
                 mAlertDialog.dismiss()
@@ -116,6 +116,8 @@ class ProfilOtherInf : Fragment() {
                         name = it.data.pseudo
                         inflate.findViewById<TextView>(R.id.otherInfPseudo).text =
                             it.data.pseudo
+                        inflate.findViewById<TextView>(R.id.otherInfDescription).text =
+                            it.data.userDescription
                         val theme = "Thème : " + it.data.theme
                         inflate.findViewById<TextView>(R.id.otherInfSubject).text = theme
                         val average = inflate.findViewById<TextView>(R.id.otherInfAverage)
@@ -174,6 +176,8 @@ class ProfilOtherInf : Fragment() {
             val note = "Note : " + Search.searchResponse?.average.toString() + "/ 5"
             average.text = note
         }
+        inflate.findViewById<TextView>(R.id.otherInfDescription).text =
+            Search.searchResponse?.userDescription
         val nbOfferApplied = "${Search.searchResponse?.nbOfferApplied}\n offres en cours"
         inflate.findViewById<TextView>(R.id.otherInfNbOffers).text = nbOfferApplied
         bundle.putString("dest", Search.searchResponse?.email)

@@ -39,8 +39,11 @@ class UtilsRepositoryTest {
 
     @Test
     fun getFeed() {
+        val token =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksInVzZXJUeXBlIjoic2hvcCIsImlhdCI6MTYwNjA2NzYwNSwiZXhwIjoxNjA2MTU0MDA1fQ.vX2On_5vcQEwuqn6sKm5dyOQqinWtkE4sqKeOkQp9Nc"
+
         val call = runBlocking {
-            utilsRepository.getFeed(token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsInVzZXJUeXBlIjoic2hvcCIsImlhdCI6MTU5NDYzOTkyNSwiZXhwIjoxNTk0NzI2MzI1fQ.8HTRxBtqOr0wD7zFZzjVUX8Johhd8lpNABg2JebtvRE")
+            utilsRepository.getFeed(token = token)
         }
         Assertions.assertNotNull(call)
     }

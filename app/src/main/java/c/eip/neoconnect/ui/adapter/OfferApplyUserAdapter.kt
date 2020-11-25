@@ -104,6 +104,11 @@ class OfferApplyUserAdapter(
                             Status.SUCCESS -> {
                                 Toast.makeText(itemView.context, it.message, Toast.LENGTH_SHORT)
                                     .show()
+                                itemView.findViewById<Button>(R.id.acceptApplyButton).visibility = View.GONE
+                                itemView.findViewById<Button>(R.id.declineApplyButton).visibility = View.GONE
+                                resultButton.setBackgroundResource(R.drawable.button_accepted)
+                                resultButton.setText(R.string.accepted)
+                                resultButton.visibility = View.VISIBLE
                                 Log.i("Choice Apply", it.message!!)
                             }
                             Status.ERROR -> {
@@ -127,6 +132,11 @@ class OfferApplyUserAdapter(
                             Status.SUCCESS -> {
                                 Toast.makeText(itemView.context, it.message, Toast.LENGTH_SHORT)
                                     .show()
+                                itemView.findViewById<Button>(R.id.acceptApplyButton).visibility = View.GONE
+                                itemView.findViewById<Button>(R.id.declineApplyButton).visibility = View.GONE
+                                resultButton.setBackgroundResource(R.drawable.button_decline)
+                                resultButton.setText(R.string.refused)
+                                resultButton.visibility = View.VISIBLE
                                 Log.i("Choice Apply", it.message!!)
                             }
                             Status.ERROR -> {

@@ -436,7 +436,7 @@ class OfferInfo : Fragment() {
                 R.id.markUser -> {
                     findNavController().navigate(R.id.navigation_mark_user)
                 }
-                R.id.reportUser -> {
+                R.id.reportOfferButton -> {
                     val bundleReport =
                         bundleOf("type" to "offre", "name" to name, "offerId" to offerId)
                     findNavController().navigate(R.id.navigation_report, bundleReport)

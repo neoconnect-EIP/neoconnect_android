@@ -46,6 +46,6 @@ class UserRepository {
     /**
      * Entrer un code parrainage
      */
-    suspend fun insertCodeParrainage(code: ParrainageModel) = userService.insertCodeParrainage(code)
+    suspend fun insertCodeParrainage(token: String, code: ParrainageModel) = userService.insertCodeParrainage(token, code)
 
 }

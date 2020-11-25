@@ -3,6 +3,7 @@ package c.eip.neoconnect.data.repository
 import c.eip.neoconnect.data.model.contact.ContactModel
 import c.eip.neoconnect.data.model.contact.ContactUserModel
 import c.eip.neoconnect.data.model.contact.FeedbackModel
+import c.eip.neoconnect.data.model.register.CheckFieldModel
 import c.eip.neoconnect.data.model.resetPassword.ResetPasswordFirstStepModel
 import c.eip.neoconnect.data.model.resetPassword.ResetPasswordThirdStepModel
 import c.eip.neoconnect.data.service.UtilsService
@@ -25,7 +26,8 @@ class UtilsRepository {
      * 1ère étape de la récupération de mot de passe
      * Signalement de l'oubli de son mot de passe pour recevoir un code par mail
      */
-    suspend fun forgotPassword(email: ResetPasswordFirstStepModel) = utilsService.forgotPassword(email)
+    suspend fun forgotPassword(email: ResetPasswordFirstStepModel) =
+        utilsService.forgotPassword(email)
 
     /**
      * 2ème étape de la récupération de mot de passe
@@ -37,7 +39,8 @@ class UtilsRepository {
      * 3ème étape de la récupération de mot de passe
      * Modification du mot de passe si Etape 2 validé
      */
-    suspend fun updatePassword(form: ResetPasswordThirdStepModel) = utilsService.updatePassword(form)
+    suspend fun updatePassword(form: ResetPasswordThirdStepModel) =
+        utilsService.updatePassword(form)
 
     /**
      * Récupération du fil d'actualité côté Influenceur et Marque
@@ -48,4 +51,9 @@ class UtilsRepository {
      * Envoyer un message pouvant servir de Retour Utilisateur à contact.neoconnect@gmail.com
      */
     suspend fun sendFeedback(message: FeedbackModel) = utilsService.sendFeedback(message)
+
+    /**
+     * Vérification des champs d'inscription
+     */
+    suspend fun checkField(field: CheckFieldModel) = utilsService.checkField(field)
 }

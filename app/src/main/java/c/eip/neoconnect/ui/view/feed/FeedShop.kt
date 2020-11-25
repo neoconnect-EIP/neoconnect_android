@@ -57,7 +57,7 @@ class FeedShop : Fragment() {
                 when (resource.status) {
                     Status.SUCCESS -> {
                         feedInf(
-                            listInf = it.data?.listInfTendances,
+                            listInf = it.data?.listInfTendance,
                             recyclerView = inflate.findViewById(R.id.recyclerFeedListInfTendances),
                             errorText = inflate.findViewById(R.id.pb_feed_inf_tendance)
                         )

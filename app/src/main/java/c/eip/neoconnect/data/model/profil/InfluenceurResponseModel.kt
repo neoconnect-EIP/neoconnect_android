@@ -48,23 +48,59 @@ class InfluenceurResponseModel {
     @SerializedName("twitter")
     var twitter: String? = ""
 
+    @SerializedName("twitterNb")
+    var twitterNb: List<Int>? = emptyList()
+
+    @SerializedName("twitterUpdateDate")
+    var twitterUpdateDate: List<String>? = emptyList()
+
     @SerializedName("snapchat")
     var snapchat: String? = ""
 
     @SerializedName("instagram")
     var instagram: String = ""
 
+    @SerializedName("instagramNb")
+    var instagramNb: List<Int>? = emptyList()
+
+    @SerializedName("instagramUpdateDate")
+    var instagramUpdateDate: List<String>? = emptyList()
+
     @SerializedName("pinterest")
     var pinterest: String = ""
+
+    @SerializedName("pinterestNb")
+    var pinterestNb: List<Int>? = emptyList()
+
+    @SerializedName("pinterestUpdateDate")
+    var pinterestUpdateDate: List<String>? = emptyList()
 
     @SerializedName("twitch")
     var twitch: String = ""
 
+    @SerializedName("twitchNb")
+    var twitchNb: List<Int>? = emptyList()
+
+    @SerializedName("twitchUpdateDate")
+    var twitchUpdateDate: List<String>? = emptyList()
+
     @SerializedName("youtube")
     var youtube: String = ""
 
+    @SerializedName("youtubeNb")
+    var youtubeNb: List<Int>? = emptyList()
+
+    @SerializedName("youtubeUpdateDate")
+    var youtubeUpdateDate: List<String>? = emptyList()
+
     @SerializedName("tiktok")
     var tiktok: String = ""
+
+    @SerializedName("tiktokNb")
+    var tiktokNb: List<Int>? = emptyList()
+
+    @SerializedName("tiktokUpdateDate")
+    var tiktokUpdateDate: List<String>? = emptyList()
 
     @SerializedName("sexe")
     var sexe: String = ""
@@ -86,6 +122,9 @@ class InfluenceurResponseModel {
 
     @SerializedName("codeParrainage")
     var codeParrainage: String? = ""
+
+    @SerializedName("isParraine")
+    var isParraine: Boolean? = false
 
     @SerializedName("nbOfferApplied")
     var nbOfferApplied: Int? = 0

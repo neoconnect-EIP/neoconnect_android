@@ -117,7 +117,7 @@ class ListOffer : Fragment() {
                             Log.i("Suggestion Offer", it.message.toString())
                             recyclerListView.layoutManager =
                                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                            val adapter = OfferSuggestionAdapter(it.data, "list")
+                            val adapter = OfferSuggestionAdapter(it.data)
                             adapter.notifyDataSetChanged()
                             recyclerListView.adapter = adapter
                         }
@@ -138,7 +138,7 @@ class ListOffer : Fragment() {
         val token = DataGetter.INSTANCE.getToken(requireContext())
         val recyclerListView = view.findViewById<RecyclerView>(R.id.recyclerListOffer)
         viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
-        viewModel.getOffers(token = token!!, sex = null, color = null, brand = null, subject = null)
+        viewModel.getOffers(token = token!!, sex = null, color = null, brand = null, subject = null, order = null, popularity = "desc")
             .observe(viewLifecycleOwner, Observer {
                 it?.let { resource ->
                     when (resource.status) {

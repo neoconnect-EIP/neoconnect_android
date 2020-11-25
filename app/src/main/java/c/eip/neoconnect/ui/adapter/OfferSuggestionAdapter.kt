@@ -9,17 +9,14 @@ import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import c.eip.neoconnect.R
-import c.eip.neoconnect.data.model.offres.OffreResponseModel
+import c.eip.neoconnect.data.model.offres.OffreSuggestionResponseModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 /**
  * Adapter pour la Liste des Offres
  */
-class OfferSuggestionAdapter(
-    private val offers: ArrayList<OffreResponseModel>,
-    private val type: String
-) :
+class OfferSuggestionAdapter(private val offers: ArrayList<OffreSuggestionResponseModel>) :
     RecyclerView.Adapter<OfferSuggestionAdapter.OfferHolder>() {
 
     /**
@@ -47,7 +44,7 @@ class OfferSuggestionAdapter(
     }
 
     inner class OfferHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindItems(offer: OffreResponseModel) {
+        fun bindItems(offer: OffreSuggestionResponseModel) {
             val picture = itemView.findViewById<ImageView>(R.id.picture)
             picture.setPadding(10, 10, 10, 10)
             if (offer.productImg.isNullOrEmpty()) {
@@ -62,12 +59,8 @@ class OfferSuggestionAdapter(
             name.text = offer.productName
             itemView.setOnClickListener {
                 val bundle = bundleOf("idUser" to offer.idUser)
-                if (type == "applied") {
-                    bundle.putInt("idOffer", offer.idOffer)
-                    bundle.putString("status", offer.status)
-                } else {
-                    bundle.putInt("idOffer", offer.id)
-                }
+//                bundle.putString("status", offer.status)
+                bundle.putInt("idOffer", offer.id)
                 itemView.findNavController().navigate(R.id.navigation_offer_info, bundle)
             }
         }

@@ -41,9 +41,18 @@ class OffresRepositoryTest {
 
     @Test
     fun getAllOffers() {
-        val token = getTokenInf(loginInf).token
+        val token =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksInVzZXJUeXBlIjoic2hvcCIsImlhdCI6MTYwNjA2NzYwNSwiZXhwIjoxNjA2MTU0MDA1fQ.vX2On_5vcQEwuqn6sKm5dyOQqinWtkE4sqKeOkQp9Nc"
         val call = runBlocking {
-            offresRepository.getAllOffers(token, null, null, null, null)
+            offresRepository.getAllOffers(
+                token = token,
+                color = null,
+                brand = null,
+                order = null,
+                popularity = null,
+                sex = null,
+                subject = null
+            )
         }
         Assertions.assertNotNull(call)
     }
@@ -52,7 +61,7 @@ class OffresRepositoryTest {
     fun getOneOffer() {
         val token = getTokenInf(loginInf).token
         val call = runBlocking {
-            offresRepository.getOneOffer(token, 1)
+            offresRepository.getOneOffer(token, 30)
         }
         Assertions.assertNotNull(call)
     }

@@ -43,7 +43,7 @@ class TestMainActivityInf {
         Espresso.onView(withId(R.id.loginPseudo))
             .perform(replaceText("EricChheu"), closeSoftKeyboard())
         Espresso.onView(withId(R.id.loginPassword))
-            .perform(replaceText("Azer1234"), closeSoftKeyboard())
+            .perform(replaceText("Azer12345"), closeSoftKeyboard())
         Espresso.onView(withId(R.id.connectButton)).check(matches(isDisplayed()))
         Espresso.onView(withId(R.id.connectButton)).perform(click())
     }
@@ -63,6 +63,7 @@ class TestMainActivityInf {
     @Test
     fun ctestSearchShop() {
         Espresso.onView(withId(R.id.navigation_search)).perform(click())
+        Thread.sleep(1000)
         Espresso.onView(withId(R.id.searchTab)).check(matches(isDisplayed()))
         Espresso.onView(withText("MARQUE")).check(matches(isDescendantOfA(withId(R.id.searchTab))))
             .perform(click())
@@ -78,6 +79,7 @@ class TestMainActivityInf {
     @Test
     fun dtestSearchOffer() {
         Espresso.onView(withId(R.id.navigation_search)).perform(click())
+        Thread.sleep(1000)
         Espresso.onView(withId(R.id.searchTab)).check(matches(isDisplayed()))
         Espresso.onView(withText("OFFRES")).check(matches(isDescendantOfA(withId(R.id.searchTab))))
             .perform(click())
@@ -125,12 +127,14 @@ class TestMainActivityInf {
     @Test
     fun gtestOfferInf() {
         Espresso.onView(withId(R.id.navigation_my_account_inf)).perform(click())
+        Thread.sleep(1000)
         Espresso.onView(withId(R.id.goToMyOffers)).perform(click())
     }
 
     @Test
     fun htestStatsInf() {
         Espresso.onView(withId(R.id.navigation_my_account_inf)).perform(click())
+        Thread.sleep(1000)
         Espresso.onView(withId(R.id.goToMyStats)).perform(click())
         Espresso.onView(withId(R.id.statsRatingBar)).check(matches(isDisplayed()))
     }
@@ -151,6 +155,7 @@ class TestMainActivityInf {
     @Test
     fun jtestFAQInf() {
         Espresso.onView(withId(R.id.navigation_my_account_inf)).perform(click())
+        Thread.sleep(1000)
         Espresso.onView(withId(R.id.goToFAQ)).perform(click())
         Espresso.onView(withId(R.id.question1)).perform(click())
         Espresso.onView(withId(R.id.reponse1)).check(matches(isDisplayed()))
@@ -172,6 +177,7 @@ class TestMainActivityInf {
     @Test
     fun ktestParrainageInf() {
         Espresso.onView(withId(R.id.navigation_my_account_inf)).perform(click())
+        Thread.sleep(1000)
         Espresso.onView(withId(R.id.goToParrainage)).perform(click())
         Thread.sleep(1000)
         Espresso.onView(withId(R.id.parrainageCodeInf)).check(matches(isDisplayed()))
@@ -183,6 +189,7 @@ class TestMainActivityInf {
     @Test
     fun ltestLogoutInf() {
         Espresso.onView(withId(R.id.navigation_my_account_inf)).perform(click())
+        Thread.sleep(3000)
         Espresso.onView(withId(R.id.logoutButton)).perform(click())
     }
 }
