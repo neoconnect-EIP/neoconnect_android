@@ -29,7 +29,7 @@ class SearchResponseModel {
     var theme: String? = null
 
     @SerializedName("average")
-    var average: Int? = null
+    var average: Float? = null
 
     @SerializedName("nbOfferApplied")
     var nbOfferApplied: Int = 0

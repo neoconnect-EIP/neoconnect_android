@@ -57,7 +57,8 @@ class FeedShopAdapter(private val listShop: List<ShopResponseModel>) :
             itemView.findViewById<TextView>(R.id.feedCardName).text = shop.pseudo
             itemView.findViewById<TextView>(R.id.feedCardSubject).text = shop.theme
             if (shop.average != null && shop.mark.isNotEmpty()) {
-                val extra = shop.average + " ★ (" + shop.mark.size.toString() + ")"
+                val average = String.format("%.2f", shop.average!!.toFloat())
+                val extra = "$average★ (${shop.mark.size})"
                 itemView.findViewById<TextView>(R.id.feedCardExtra).text = extra
             } else {
                 val extra = "0 ★ (0)"

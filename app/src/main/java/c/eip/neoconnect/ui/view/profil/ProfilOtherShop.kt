@@ -169,7 +169,8 @@ class ProfilOtherShop : Fragment() {
                             inflate.findViewById<TextView>(R.id.otherShopStats).visibility =
                                 View.GONE
                         } else {
-                            val note = "Note : " + it.data.average + "/ 5"
+                            val average = String.format("%.2f", it.data.average!!.toFloat())
+                            val note = "Note : $average/5★"
                             inflate.findViewById<TextView>(R.id.otherShopAverage).text = note
                         }
                         val nbOfferPosted = "${it.data.nbOfferPosted}\noffres"
@@ -221,7 +222,8 @@ class ProfilOtherShop : Fragment() {
             inflate.findViewById<TextView>(R.id.otherShopStats).visibility =
                 View.GONE
         } else {
-            val note = "Note : " + Search.searchResponse?.average + "/ 5"
+            val average = String.format("%.2f", Search.searchResponse?.average!!.toFloat())
+            val note = "Note : $average/5★"
             inflate.findViewById<TextView>(R.id.otherShopAverage).text = note
         }
         val theme = "Thème : ${Search.searchResponse?.theme}"

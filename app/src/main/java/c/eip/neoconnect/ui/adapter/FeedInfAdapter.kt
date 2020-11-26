@@ -57,7 +57,8 @@ class FeedInfAdapter(private val listInf: List<InfluenceurResponseModel>) :
             itemView.findViewById<TextView>(R.id.feedCardName).text = inf.pseudo
             itemView.findViewById<TextView>(R.id.feedCardSubject).text = inf.theme
             if (inf.average != null && inf.mark.isNotEmpty()) {
-                val extra = inf.average + " ★ (" + inf.mark.size.toString() + ")"
+                val average = String.format("%.2f", inf.average!!.toFloat())
+                val extra = "$average★ (${inf.mark.size})"
                 itemView.findViewById<TextView>(R.id.feedCardExtra).text = extra
             } else {
                 val extra = "0 ★ (0)"
