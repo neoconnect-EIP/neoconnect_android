@@ -126,7 +126,8 @@ class ProfilOtherInf : Fragment() {
                             inflate.findViewById<TextView>(R.id.otherInfStats).visibility =
                                 View.GONE
                         } else {
-                            val note = "Note : " + it.data.average + "/ 5"
+                            val averageNb = String.format("%.2f", it.data.average!!.toFloat())
+                            val note = "Note : $averageNb/5★"
                             average.text = note
                         }
                         val nbOfferApplied = "${it.data.nbOfferApplied}\n offres en cours"
@@ -173,7 +174,8 @@ class ProfilOtherInf : Fragment() {
             inflate.findViewById<TextView>(R.id.otherInfStats).visibility =
                 View.GONE
         } else {
-            val note = "Note : " + Search.searchResponse?.average.toString() + "/ 5"
+            val averageNb = String.format("%.2f", Search.searchResponse?.average!!.toFloat())
+            val note = "Note : $averageNb/5★"
             average.text = note
         }
         inflate.findViewById<TextView>(R.id.otherInfDescription).text =
