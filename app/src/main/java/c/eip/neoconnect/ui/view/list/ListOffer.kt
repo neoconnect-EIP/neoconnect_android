@@ -138,7 +138,7 @@ class ListOffer : Fragment() {
         val token = DataGetter.INSTANCE.getToken(requireContext())
         val recyclerListView = view.findViewById<RecyclerView>(R.id.recyclerListOffer)
         viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
-        viewModel.getOffers(token = token!!, sex = null, color = null, brand = null, subject = null, order = null, popularity = "desc")
+        viewModel.getOffers(token = token!!, productSex = null, color = null, brand = null, productSubject = null, order = null, popularity = "desc")
             .observe(viewLifecycleOwner, Observer {
                 it?.let { resource ->
                     when (resource.status) {

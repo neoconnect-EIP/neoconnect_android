@@ -46,8 +46,9 @@
     <string name="unisexe">Unisexe</string>
     <string name="hightech">High Tech</string>
     <string name="mode">Mode</string>
-    <string name="sport">Sport</string>
+    <string name="sport">Sport/Fitness</string>
     <string name="nourriture">Nourriture</string>
     <string name="jeuxvideos">Jeux Vidéo</string>
     <string name="cosmetique">Cosmétique</string>
+    <string name="all">Tous</string>
 </resources>

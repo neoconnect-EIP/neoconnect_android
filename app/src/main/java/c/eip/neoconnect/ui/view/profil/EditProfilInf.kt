@@ -169,7 +169,8 @@ class EditProfilInf : Fragment() {
                 } else {
                     val field = CheckFieldModel()
                     field.email = emailInput.text.toString()
-                    userViewModel = ViewModelProvider(this@EditProfilInf).get(UserViewModel::class.java)
+                    userViewModel =
+                        ViewModelProvider(this@EditProfilInf).get(UserViewModel::class.java)
                     userViewModel.checkField(field = field).observe(viewLifecycleOwner, Observer {
                         it?.let { resource ->
                             when (resource.status) {
@@ -216,10 +217,8 @@ class EditProfilInf : Fragment() {
                         when (resource.status) {
                             Status.SUCCESS -> {
                                 if (it.data == true) {
-                                    facebook.error = "Ce compte facebook est déjà enregistré"
                                     facebookCheck = false
                                 } else {
-                                    facebook.error = null
                                     facebookCheck = true
                                 }
                             }
@@ -247,10 +246,8 @@ class EditProfilInf : Fragment() {
                         when (resource.status) {
                             Status.SUCCESS -> {
                                 if (it.data == true) {
-                                    twitter.error = "Ce compte twitter est déjà enregistré"
                                     twitterCheck = false
                                 } else {
-                                    twitter.error = null
                                     twitterCheck = true
                                 }
                             }
@@ -278,10 +275,8 @@ class EditProfilInf : Fragment() {
                         when (resource.status) {
                             Status.SUCCESS -> {
                                 if (it.data == true) {
-                                    instagram.error = "Ce compte instagram est déjà enregistré"
                                     instagramCheck = false
                                 } else {
-                                    instagram.error = null
                                     instagramCheck = true
                                 }
                             }
@@ -309,10 +304,8 @@ class EditProfilInf : Fragment() {
                         when (resource.status) {
                             Status.SUCCESS -> {
                                 if (it.data == true) {
-                                    snapchat.error = "Ce compte snapchat est déjà enregistré"
                                     snapchatCheck = false
                                 } else {
-                                    snapchat.error = null
                                     snapchatCheck = true
                                 }
                             }
@@ -340,10 +333,8 @@ class EditProfilInf : Fragment() {
                         when (resource.status) {
                             Status.SUCCESS -> {
                                 if (it.data == true) {
-                                    youtube.error = "Ce compte youtube est déjà enregistré"
                                     youtubeCheck = false
                                 } else {
-                                    youtube.error = null
                                     youtubeCheck = true
                                 }
                             }
@@ -371,10 +362,8 @@ class EditProfilInf : Fragment() {
                         when (resource.status) {
                             Status.SUCCESS -> {
                                 if (it.data == true) {
-                                    twitch.error = "Ce compte twitch est déjà enregistré"
                                     twitchCheck = false
                                 } else {
-                                    twitch.error = null
                                     twitchCheck = true
                                 }
                             }
@@ -402,10 +391,8 @@ class EditProfilInf : Fragment() {
                         when (resource.status) {
                             Status.SUCCESS -> {
                                 if (it.data == true) {
-                                    pinterest.error = "Ce compte pinterest est déjà enregistré"
                                     pinterestCheck = false
                                 } else {
-                                    pinterest.error = null
                                     pinterestCheck = true
                                 }
                             }
@@ -433,10 +420,8 @@ class EditProfilInf : Fragment() {
                         when (resource.status) {
                             Status.SUCCESS -> {
                                 if (it.data == true) {
-                                    tiktok.error = "Ce compte tiktok est déjà enregistré"
                                     tiktokCheck = false
                                 } else {
-                                    tiktok.error = null
                                     tiktokCheck = true
                                 }
                             }
@@ -456,14 +441,79 @@ class EditProfilInf : Fragment() {
         })
 
         view.findViewById<TextView>(R.id.saveButton).setOnClickListener {
-            if (checkDesc && emailCheck && facebookCheck && twitterCheck &&
-                instagramCheck && snapchatCheck && youtubeCheck && twitchCheck && pinterestCheck && tiktokCheck
+            if (facebook.text.toString().trim().isNotBlank() && 
+                facebook.text.toString().trim().isNotEmpty() && !facebookCheck
             ) {
+                facebook.error = "Compte déjà utilisé"
+            } else if (facebook.text.toString() == profilData?.facebook) {
+                facebook.error = null
+                facebookCheck = true
+            }
+            if (pinterest.text.toString().trim().isNotBlank() &&
+                pinterest.text.toString().trim().isNotEmpty() && !pinterestCheck
+            ) {
+                pinterest.error = "Compte déjà utilisé"
+            } else if (pinterest.text.toString() == profilData?.pinterest) {
+                pinterest.error = null
+                pinterestCheck = true
+            }
+            if (tiktok.text.toString().trim().isNotBlank() &&
+                tiktok.text.toString().trim().isNotEmpty() && !tiktokCheck
+            ) {
+                tiktok.error = "Compte déjà utilisé"
+            } else if (tiktok.text.toString() == profilData?.tiktok) {
+                tiktok.error = null
+                tiktokCheck = true
+            }
+            if (twitter.text.toString().trim().isNotBlank() &&
+                twitter.text.toString().trim().isNotEmpty() && !twitterCheck
+            ) {
+                twitter.error = "Compte déjà utilisé"
+            } else if (twitter.text.toString() == profilData?.twitter) {
+                twitter.error = null
+                twitterCheck = true
+            }
+            if (twitch.text.toString().trim().isNotBlank() &&
+                twitch.text.toString().trim().isNotEmpty() && !twitchCheck
+            ) {
+                twitch.error = "Compte déjà utilisé"
+            } else if (twitch.text.toString() == profilData?.twitch) {
+                twitch.error = null
+                twitchCheck = true
+            }
+            if (instagram.text.toString().trim().isNotBlank() &&
+                instagram.text.toString().trim().isNotEmpty() && !instagramCheck
+            ) {
+                instagram.error = "Compte déjà utilisé"
+            } else if (instagram.text.toString() == profilData?.instagram) {
+                instagram.error = null
+                instagramCheck = true
+            }
+            if (snapchat.text.toString().trim().isNotBlank() &&
+                snapchat.text.toString().trim().isNotEmpty() && !snapchatCheck
+            ) {
+                snapchat.error = "Compte déjà utilisé"
+            } else if (snapchat.text.toString() == profilData?.snapchat) {
+                snapchat.error = null
+                snapchatCheck = true
+            }
+            if (youtube.text.toString().trim().isNotBlank() &&
+                youtube.text.toString().trim().isNotEmpty() && !youtubeCheck
+            ) {
+                youtube.error = "Compte déjà utilisé"
+            } else if (youtube.text.toString() == profilData?.youtube) {
+                youtube.error = null
+                youtubeCheck = true
+            }
+            if (profilData?.email == emailInput.text.toString()) {
+                emailCheck = true
+            }
+            if (checkDesc && emailCheck) {
                 editProfilInf(view = view)
-            } else {
-                Toast.makeText(context,
-                    "Veuillez modifier les champs contenant des erreurs",
-                    Toast.LENGTH_LONG).show()
+            } else if (!checkDesc) {
+                Toast.makeText(context, "Problème de description", Toast.LENGTH_SHORT).show()
+            } else if (!emailCheck) {
+                Toast.makeText(context, "Problème d'email", Toast.LENGTH_SHORT).show()
             }
         }
     }

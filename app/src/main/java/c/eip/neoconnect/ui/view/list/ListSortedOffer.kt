@@ -18,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import c.eip.neoconnect.R
+import c.eip.neoconnect.data.model.offres.OffreResponseModel
 import c.eip.neoconnect.ui.adapter.OfferAdapter
 import c.eip.neoconnect.ui.viewModel.ListViewModel
 import c.eip.neoconnect.utils.DataGetter
@@ -26,6 +27,8 @@ import c.eip.neoconnect.utils.Status
 class ListSortedOffer : Fragment() {
     private lateinit var viewModel: ListViewModel
     private var viewState: Int = 0
+    private var modeClicked = false
+    private var cosmetiqueClicked = false
 
     /**
      * Creation de la vue. Déclaration du layout à afficher
@@ -116,11 +119,22 @@ class ListSortedOffer : Fragment() {
                 View.GONE
             view.findViewById<LinearLayout>(R.id.choiceSortingLayout).visibility = View.GONE
             view.findViewById<RecyclerView>(R.id.recyclerSortedListOffer).visibility = View.VISIBLE
-            sortOffer("productSubject", "Mode", view)
+            sortOffer("productSex", "Unisexe", view)
+        }
+
+        view.findViewById<TextView>(R.id.sortByAllSex).setOnClickListener {
+            viewState = 2
+            view.findViewById<LinearLayout>(R.id.choiceSortingSexLayout).visibility = View.GONE
+            view.findViewById<LinearLayout>(R.id.choiceSortingSujetLayout).visibility =
+                View.GONE
+            view.findViewById<LinearLayout>(R.id.choiceSortingLayout).visibility = View.GONE
+            view.findViewById<RecyclerView>(R.id.recyclerSortedListOffer).visibility = View.VISIBLE
+            sortOffer("productSubject", "", view)
         }
 
         view.findViewById<TextView>(R.id.sortByMode).setOnClickListener {
             viewState = 2
+            modeClicked = true
             view.findViewById<LinearLayout>(R.id.choiceSortingSexLayout).visibility = View.VISIBLE
             view.findViewById<LinearLayout>(R.id.choiceSortingSujetLayout).visibility =
                 View.GONE
@@ -135,7 +149,7 @@ class ListSortedOffer : Fragment() {
                 View.GONE
             view.findViewById<LinearLayout>(R.id.choiceSortingLayout).visibility = View.GONE
             view.findViewById<RecyclerView>(R.id.recyclerSortedListOffer).visibility = View.VISIBLE
-            sortOffer("productSubject", "High Tech", view)
+            sortOffer("productSubject", "High tech", view)
         }
 
         view.findViewById<TextView>(R.id.sortBySport).setOnClickListener {
@@ -145,7 +159,7 @@ class ListSortedOffer : Fragment() {
                 View.GONE
             view.findViewById<LinearLayout>(R.id.choiceSortingLayout).visibility = View.GONE
             view.findViewById<RecyclerView>(R.id.recyclerSortedListOffer).visibility = View.VISIBLE
-            sortOffer("productSubject", "Sport", view)
+            sortOffer("productSubject", "Sport/Fitness", view)
         }
 
         view.findViewById<TextView>(R.id.sortByNourriture).setOnClickListener {
@@ -170,6 +184,7 @@ class ListSortedOffer : Fragment() {
 
         view.findViewById<TextView>(R.id.sortByCosmétique).setOnClickListener {
             viewState = 2
+            cosmetiqueClicked = true
             view.findViewById<LinearLayout>(R.id.choiceSortingSexLayout).visibility = View.VISIBLE
             view.findViewById<LinearLayout>(R.id.choiceSortingSujetLayout).visibility =
                 View.GONE
@@ -187,8 +202,8 @@ class ListSortedOffer : Fragment() {
         when (sortingType) {
             "productSex" -> {
                 viewModel.getOffers(
-                    token = token!!, sex = sortingValue, color = null,
-                    brand = null, subject = null, order = null, popularity = null
+                    token = token!!, productSex = sortingValue, color = null,
+                    brand = null, productSubject = null, order = null, popularity = null
                 ).observe(
                     viewLifecycleOwner,
                     Observer {
@@ -203,7 +218,27 @@ class ListSortedOffer : Fragment() {
                                             LinearLayoutManager.VERTICAL,
                                             false
                                         )
-                                    val adapter = OfferAdapter(it.data!!, "list", "inf")
+                                    val offers = ArrayList<OffreResponseModel>()
+                                    when {
+                                        modeClicked -> {
+                                            it.data?.forEach { element ->
+                                                if (element.productSubject == "Mode") {
+                                                    offers.add(element)
+                                                }
+                                            }
+                                        }
+                                        cosmetiqueClicked -> {
+                                            it.data?.forEach { element ->
+                                                if (element.productSubject == "Cosmétique") {
+                                                    offers.add(element)
+                                                }
+                                            }
+                                        }
+                                        else -> {
+                                            offers.addAll(it.data!!)
+                                        }
+                                    }
+                                    val adapter = OfferAdapter(offers, "list", "inf")
                                     adapter.notifyDataSetChanged()
                                     recyclerSortedListView.adapter = adapter
                                 }
@@ -220,9 +255,24 @@ class ListSortedOffer : Fragment() {
                     })
             }
             "productSubject" -> {
+                val value = if (sortingValue == "") {
+                    when {
+                        modeClicked -> {
+                            "Mode"
+                        }
+                        cosmetiqueClicked -> {
+                            "Cosmétique"
+                        }
+                        else -> {
+                            sortingValue
+                        }
+                    }
+                } else {
+                    sortingValue
+                }
                 viewModel.getOffers(
-                    token = token!!, sex = null, color = null,
-                    brand = null, subject = sortingValue, order = null, popularity = null
+                    token = token!!, productSex = null, color = null,
+                    brand = null, productSubject = value, order = null, popularity = null
                 ).observe(
                     viewLifecycleOwner,
                     Observer {
@@ -255,8 +305,8 @@ class ListSortedOffer : Fragment() {
             }
             "order" -> {
                 viewModel.getOffers(
-                    token = token!!, sex = null, color = null,
-                    brand = null, subject = null, order = sortingValue, popularity = null
+                    token = token!!, productSex = null, color = null,
+                    brand = null, productSubject = null, order = sortingValue, popularity = null
                 ).observe(
                     viewLifecycleOwner,
                     Observer {
@@ -288,5 +338,7 @@ class ListSortedOffer : Fragment() {
                     })
             }
         }
+        modeClicked = false
+        cosmetiqueClicked = false
     }
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/filterEmpty"
+        android:title="@string/all" />
+    <item
+        android:id="@+id/filterMode"
+        android:title="@string/mode" />
+    <item
+        android:id="@+id/filterCosmétique"
+        android:title="@string/cosmetique" />
+    <item
+        android:id="@+id/filterHightech"
+        android:title="@string/hightech" />
+    <item
+        android:id="@+id/filterFood"
+        android:title="@string/nourriture" />
+    <item
+        android:id="@+id/filterVideoGames"
+        android:title="@string/jeuxvideos" />
+    <item
+        android:id="@+id/filterHealthy"
+        android:title="@string/sport" />
+</menu>

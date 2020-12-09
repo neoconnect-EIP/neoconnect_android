@@ -9,6 +9,6 @@
     <string name="noShop">Impossible de récupérer la liste des marques</string>
     <string name="noOffer">Impossible de récupérer les offres</string>
 
-    <string name="ascOrder">Ordre ascendant</string>
-    <string name="descOrder">Ordre descendant</string>
+    <string name="ascOrder">Date d\'ajout ascendant</string>
+    <string name="descOrder">Date d\'ajout descendant</string>
 </resources>
