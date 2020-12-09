@@ -323,12 +323,47 @@ class EditProfilShop : Fragment() {
             }
         })
         view.findViewById<TextView>(R.id.saveButton).setOnClickListener {
-            if (checkDesc && facebookCheck && twitterCheck && emailCheck && snapchatCheck && instagramCheck) {
+            if (facebook.text.toString().trim().isNotBlank() &&
+                facebook.text.toString().trim().isNotEmpty() && !facebookCheck
+            ) {
+                facebook.error = "Compte déjà utilisé"
+            } else if (facebook.text.toString() == profilData?.facebook) {
+                facebook.error = null
+                facebookCheck = true
+            }
+            if (twitter.text.toString().trim().isNotBlank() &&
+                twitter.text.toString().trim().isNotEmpty() && !twitterCheck
+            ) {
+                twitter.error = "Compte déjà utilisé"
+            } else if (twitter.text.toString() == profilData?.twitter) {
+                twitter.error = null
+                twitterCheck = true
+            }
+            if (instagram.text.toString().trim().isNotBlank() &&
+                instagram.text.toString().trim().isNotEmpty() && !instagramCheck
+            ) {
+                instagram.error = "Compte déjà utilisé"
+            } else if (instagram.text.toString() == profilData?.instagram) {
+                instagram.error = null
+                instagramCheck = true
+            }
+            if (snapchat.text.toString().trim().isNotBlank() &&
+                snapchat.text.toString().trim().isNotEmpty() && !snapchatCheck
+            ) {
+                snapchat.error = "Compte déjà utilisé"
+            } else if (snapchat.text.toString() == profilData?.snapchat) {
+                snapchat.error = null
+                snapchatCheck = true
+            }
+            if (profilData?.email == emailInput.text.toString()) {
+                emailCheck = true
+            }
+            if (checkDesc && emailCheck) {
                 editProfilShop(view = view)
-            } else {
-                Toast.makeText(context,
-                    "Veuillez modifier les champs contenant des erreurs",
-                    Toast.LENGTH_LONG).show()
+            } else if (!checkDesc) {
+                Toast.makeText(context, "Problème de description", Toast.LENGTH_SHORT).show()
+            } else if (!emailCheck) {
+                Toast.makeText(context, "Problème d'email", Toast.LENGTH_SHORT).show()
             }
         }
     }

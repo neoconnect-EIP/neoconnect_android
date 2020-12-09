@@ -157,17 +157,7 @@ class InsertOffer : Fragment() {
                 }
             }
         })
-        val themeOfferInput = themeOffreState.toString()
-        var checkProductTheme = false
-        if (themeOfferInput.isNotBlank() || themeOfferInput.isNotEmpty() || themeOffreState > 0) {
-            if (themeOffreState == 1 || themeOffreState == 2) {
-                if (sexOffreState > -1) {
-                    checkProductTheme = true
-                }
-            } else {
-                checkProductTheme = true
-            }
-        }
+
         view.findViewById<TextView>(R.id.resetForm).setOnClickListener {
             view.findViewById<ImageView>(R.id.insertOfferPicture).setImageURI(null)
             view.findViewById<ImageView>(R.id.insertOfferPicture1).setImageURI(null)
@@ -218,6 +208,17 @@ class InsertOffer : Fragment() {
             openGallery()
         }
         view.findViewById<Button>(R.id.insertOfferButton).setOnClickListener {
+            val themeOfferInput = themeOffreState.toString()
+            var checkProductTheme = false
+            if (themeOfferInput.isNotBlank() || themeOfferInput.isNotEmpty() || themeOffreState > 0) {
+                if (themeOffreState == 1 || themeOffreState == 2) {
+                    if (sexOffreState > -1) {
+                        checkProductTheme = true
+                    }
+                } else {
+                    checkProductTheme = true
+                }
+            }
             if (checkProductName && checkProductDesc && checkProductTheme && insertOfferPicture.size > 0) {
                 val offer = OffreModel()
                 val token = DataGetter.INSTANCE.getToken(requireContext())

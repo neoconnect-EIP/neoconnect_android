@@ -15,6 +15,7 @@ class Constants {
          *  192.168.0.27 = Localhost
          */
         private const val BASE_URL = "http://168.63.65.106:8080/"
+//        private const val BASE_URL = "http://146.59.156.45:8080/"
         //        private const val BASE_URL = "http://192.168.0.27:8080/"
 
         /**

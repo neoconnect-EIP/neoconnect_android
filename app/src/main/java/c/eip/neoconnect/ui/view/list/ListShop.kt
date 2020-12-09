@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
+import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.os.bundleOf
@@ -19,6 +20,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import c.eip.neoconnect.R
+import c.eip.neoconnect.data.model.profil.ShopResponseModel
 import c.eip.neoconnect.data.model.search.SearchModel
 import c.eip.neoconnect.data.model.search.SearchResponseModel
 import c.eip.neoconnect.ui.adapter.ListShopAdapter
@@ -29,6 +31,7 @@ import c.eip.neoconnect.ui.viewModel.ShopViewModel
 import c.eip.neoconnect.utils.DataGetter
 import c.eip.neoconnect.utils.Resource
 import c.eip.neoconnect.utils.Status
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 
 class ListShop : Fragment() {
@@ -55,6 +58,9 @@ class ListShop : Fragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        view.findViewById<FloatingActionButton>(R.id.filterShopButton).setOnClickListener {
+            filterOptions(view = view)
+        }
         val searchKeyword = view.findViewById<TextInputEditText>(R.id.searchKeyword)
         searchKeyword.setOnEditorActionListener { _, actionId, _ ->
             return@setOnEditorActionListener when (actionId) {
@@ -152,6 +158,8 @@ class ListShop : Fragment() {
                                 View.VISIBLE
                             view.findViewById<LinearLayout>(R.id.searchKeywordLayout).visibility =
                                 View.GONE
+                            view.findViewById<FloatingActionButton>(R.id.filterShopButton).visibility =
+                                View.GONE
                         } else {
                             view.findViewById<TextView>(R.id.pb_list_shop).visibility =
                                 View.GONE
@@ -159,6 +167,7 @@ class ListShop : Fragment() {
                                 "List Shop",
                                 "Récupération des marques réussie"
                             )
+                            shops = it.data
                             recyclerListView.layoutManager =
                                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                             val adapter = ListShopAdapter(it.data)
@@ -167,6 +176,8 @@ class ListShop : Fragment() {
                         }
                     }
                     Status.ERROR -> {
+                        view.findViewById<FloatingActionButton>(R.id.filterShopButton).visibility =
+                            View.GONE
                         view.findViewById<TextView>(R.id.pb_list_shop).visibility =
                             View.VISIBLE
                         recyclerListView.visibility = View.GONE
@@ -180,5 +191,47 @@ class ListShop : Fragment() {
                 }
             }
         })
+    }
+
+    private fun filterShops(view: View, theme: String) {
+        val recyclerListView = view.findViewById<RecyclerView>(R.id.recyclerListShop)
+        recyclerListView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        val adapter: ListShopAdapter
+        val listShop = ArrayList<ShopResponseModel>()
+        adapter = if (theme == "") {
+            ListShopAdapter(shops)
+        } else {
+            shops.forEach { element ->
+                if (element.theme == theme) {
+                    listShop.add(element)
+                }
+            }
+            ListShopAdapter(listShop)
+        }
+        adapter.notifyDataSetChanged()
+        recyclerListView.adapter = adapter
+    }
+    
+    private fun filterOptions(view: View) {
+        val popupMenu = PopupMenu(context, view.findViewById(R.id.filterShopButton))
+        popupMenu.menuInflater.inflate(R.menu.theme_menu, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.filterEmpty -> filterShops(view = view, theme = "")
+                R.id.filterMode -> filterShops(view = view, theme = "Mode")
+                R.id.filterCosmétique -> filterShops(view = view, theme = "Cosmétique")
+                R.id.filterHightech -> filterShops(view = view, theme = "High tech")
+                R.id.filterVideoGames -> filterShops(view = view, theme = "Jeux Vidéo")
+                R.id.filterFood -> filterShops(view = view, theme = "Nourriture")
+                R.id.filterHealthy -> filterShops(view = view, theme = "Sport/Fitness")
+            }
+            true
+        }
+        popupMenu.show()
+    }
+
+    companion object {
+        var shops = ArrayList<ShopResponseModel>()
     }
 }

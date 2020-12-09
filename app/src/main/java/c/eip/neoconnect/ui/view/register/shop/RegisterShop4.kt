@@ -238,21 +238,29 @@ class RegisterShop4 : Fragment() {
                 facebook.text.toString().trim().isNotEmpty()
             ) {
                 shop.facebook = facebook.text.toString()
+            } else {
+                facebookCheck = true
             }
             if (twitter.text.toString().trim().isNotBlank() &&
                 twitter.text.toString().trim().isNotEmpty()
             ) {
                 shop.twitter = twitter.text.toString()
+            } else {
+                twitterCheck = true
             }
             if (instagram.text.toString().trim().isNotBlank() &&
                 instagram.text.toString().trim().isNotEmpty()
             ) {
                 shop.instagram = instagram.text.toString()
+            } else {
+                instagramCheck = true
             }
             if (snapchat.text.toString().trim().isNotBlank() &&
                 snapchat.text.toString().trim().isNotEmpty()
             ) {
                 shop.snapchat = snapchat.text.toString()
+            } else {
+                snapchatCheck = true
             }
             var checkNetwork = true
             if (!facebookCheck || !twitterCheck || !instagramCheck || !snapchatCheck) {

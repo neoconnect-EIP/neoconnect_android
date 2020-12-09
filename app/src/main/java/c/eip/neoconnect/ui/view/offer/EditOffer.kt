@@ -108,6 +108,8 @@ class EditOffer : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.backButton).setOnClickListener {
+            editOfferPicture.clear()
+            newPictures.clear()
             findNavController().popBackStack()
         }
         view.findViewById<ImageView>(R.id.editOfferPicture).setOnClickListener {
@@ -190,18 +192,18 @@ class EditOffer : Fragment() {
             }
         })
 
-        val themeOfferInput = themeOffreState.toString()
-        var checkProductTheme = false
-        if (themeOfferInput.isNotBlank() || themeOfferInput.isNotEmpty() || themeOffreState > 0) {
-            if (themeOffreState == 1 || themeOffreState == 2) {
-                if (sexOffreState > -1) {
+        view.findViewById<Button>(R.id.editOfferButton).setOnClickListener {
+            val themeOfferInput = themeOffreState.toString()
+            var checkProductTheme = false
+            if (themeOfferInput.isNotBlank() || themeOfferInput.isNotEmpty() || themeOffreState > 0) {
+                if (themeOffreState == 1 || themeOffreState == 2) {
+                    if (sexOffreState > -1) {
+                        checkProductTheme = true
+                    }
+                } else {
                     checkProductTheme = true
                 }
-            } else {
-                checkProductTheme = true
             }
-        }
-        view.findViewById<Button>(R.id.editOfferButton).setOnClickListener {
             val productPictures = ArrayList<ImagePicture>()
             if (newPictures.size > 0) {
                 productPictures.addAll(newPictures)
@@ -266,7 +268,8 @@ class EditOffer : Fragment() {
                     val imagePicture = ImagePicture()
                     imagePicture.imageData = encoder.encodeTobase64(bitmap)
                     val userId = DataGetter.INSTANCE.getUserId(requireContext())
-                    imagePicture.imageName = userId.toString() + "_" + i.toString() + "_" + LocalDateTime.now()
+                    imagePicture.imageName =
+                        userId.toString() + "_" + i.toString() + "_" + LocalDateTime.now()
                     newPictures.add(imagePicture)
                 }
                 val picture = view?.findViewById<ImageView>(R.id.editOfferPicture)
@@ -277,7 +280,7 @@ class EditOffer : Fragment() {
                 val picture5 = view?.findViewById<ImageView>(R.id.editOfferPicture5)
                 when (count) {
                     1 -> {
-                        view?.findViewById<HorizontalScrollView>(R.id.hScrollViewOfferInsert)?.visibility =
+                        view?.findViewById<HorizontalScrollView>(R.id.hScrollViewOfferEdit)?.visibility =
                             View.GONE
                         Glide.with(requireContext()).load(data.clipData!!.getItemAt(0).uri)
                             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
@@ -291,6 +294,8 @@ class EditOffer : Fragment() {
                         picture?.background = null
                     }
                     2 -> {
+                        view?.findViewById<HorizontalScrollView>(R.id.hScrollViewOfferEdit)?.visibility =
+                            View.VISIBLE
                         picture?.visibility = View.GONE
                         Glide.with(requireContext()).load(data.clipData!!.getItemAt(0).uri)
                             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
@@ -395,8 +400,13 @@ class EditOffer : Fragment() {
                 when (resource.status) {
                     Status.SUCCESS -> {
                         if (it.data?.productImg.isNullOrEmpty()) {
-                            inflate.findViewById<ImageView>(R.id.editOfferPicture1)
+                            inflate.findViewById<HorizontalScrollView>(R.id.hScrollViewOfferEdit).visibility =
+                                View.GONE
+                            inflate.findViewById<ImageView>(R.id.editOfferPicture).visibility = View.VISIBLE
+                            inflate.findViewById<ImageView>(R.id.editOfferPicture)
                                 .setImageResource(R.drawable.ic_picture_offer)
+                            inflate.findViewById<ImageView>(R.id.editOfferPicture1).visibility =
+                                View.GONE
                             inflate.findViewById<ImageView>(R.id.editOfferPicture2).visibility =
                                 View.GONE
                             inflate.findViewById<ImageView>(R.id.editOfferPicture3).visibility =
@@ -409,14 +419,14 @@ class EditOffer : Fragment() {
                             editOfferPicture.addAll(it.data?.productImg!!)
                             when (it.data.productImg.size) {
                                 1 -> {
-                                    inflate.findViewById<HorizontalScrollView>(R.id.hScrollViewOfferInfo).visibility =
+                                    inflate.findViewById<HorizontalScrollView>(R.id.hScrollViewOfferEdit).visibility =
                                         View.GONE
                                     inflate.findViewById<ImageView>(R.id.editOfferPicture).visibility =
                                         View.VISIBLE
                                     Glide.with(requireContext())
                                         .load(it.data.productImg[0].imageData)
                                         .fitCenter().error(R.drawable.ic_picture_offer)
-                                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                        .diskCacheStrategy(DiskCacheStrategy.NONE)
                                         .into(inflate.findViewById(R.id.editOfferPicture))
                                 }
                                 2 -> {
@@ -524,6 +534,13 @@ class EditOffer : Fragment() {
                                         .fitCenter().error(R.drawable.ic_picture_offer)
                                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                                         .into(inflate.findViewById(R.id.editOfferPicture5))
+                                }
+                                else -> {
+                                    inflate.findViewById<HorizontalScrollView>(R.id.hScrollViewOfferEdit).visibility =
+                                        View.GONE
+                                    inflate.findViewById<ImageView>(R.id.editOfferPicture).visibility = View.VISIBLE
+                                    inflate.findViewById<ImageView>(R.id.editOfferPicture)
+                                        .setImageResource(R.drawable.ic_picture_offer)
                                 }
                             }
                         }

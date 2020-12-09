@@ -24,7 +24,7 @@ android {
         applicationId "c.eip.neoconnect"
         minSdkVersion 26
         targetSdkVersion 30
-        versionCode 10
+        versionCode 13
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

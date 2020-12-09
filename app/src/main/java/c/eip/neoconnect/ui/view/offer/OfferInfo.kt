@@ -132,8 +132,12 @@ class OfferInfo : Fragment() {
                         Status.SUCCESS -> {
                             offreReponse = it.data
                             if (it.data?.productImg.isNullOrEmpty()) {
-                                inflate.findViewById<ImageView>(R.id.infoOfferPicture1)
+                                inflate.findViewById<ImageView>(R.id.infoOfferPicture).visibility =
+                                    View.VISIBLE
+                                inflate.findViewById<ImageView>(R.id.infoOfferPicture)
                                     .setImageResource(R.drawable.ic_picture_offer)
+                                inflate.findViewById<ImageView>(R.id.infoOfferPicture1).visibility =
+                                    View.GONE
                                 inflate.findViewById<ImageView>(R.id.infoOfferPicture2).visibility =
                                     View.GONE
                                 inflate.findViewById<ImageView>(R.id.infoOfferPicture3).visibility =
@@ -260,6 +264,14 @@ class OfferInfo : Fragment() {
                                             .fitCenter().error(R.drawable.ic_picture_offer)
                                             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                                             .into(inflate.findViewById(R.id.infoOfferPicture5))
+                                    }
+                                    else -> {
+                                        inflate.findViewById<HorizontalScrollView>(R.id.hScrollViewOfferInfo).visibility =
+                                            View.GONE
+                                        inflate.findViewById<ImageView>(R.id.infoOfferPicture).visibility =
+                                            View.VISIBLE
+                                        inflate.findViewById<ImageView>(R.id.infoOfferPicture)
+                                            .setImageResource(R.drawable.ic_picture_offer)
                                     }
                                 }
                             }

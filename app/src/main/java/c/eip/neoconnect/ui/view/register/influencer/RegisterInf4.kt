@@ -74,7 +74,7 @@ class RegisterInf4 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.backButton).setOnClickListener {
-            findNavController().navigate(R.id.navigation_register_inf_2, arguments)
+            findNavController().navigate(R.id.navigation_register_inf_3, arguments)
         }
         val facebook = view.findViewById<TextInputEditText>(R.id.registerFacebook)
         val twitter = view.findViewById<TextInputEditText>(R.id.registerTwitter)
@@ -95,10 +95,8 @@ class RegisterInf4 : Fragment() {
                         when (resource.status) {
                             Status.SUCCESS -> {
                                 if (it.data == true) {
-                                    facebook.error = "Ce compte facebook est déjà enregistré"
                                     facebookCheck = false
                                 } else {
-                                    facebook.error = null
                                     facebookCheck = true
                                 }
                             }
@@ -108,6 +106,7 @@ class RegisterInf4 : Fragment() {
                         }
                     }
                 })
+
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -126,10 +125,8 @@ class RegisterInf4 : Fragment() {
                         when (resource.status) {
                             Status.SUCCESS -> {
                                 if (it.data == true) {
-                                    twitter.error = "Ce compte twitter est déjà enregistré"
                                     twitterCheck = false
                                 } else {
-                                    twitter.error = null
                                     twitterCheck = true
                                 }
                             }
@@ -157,10 +154,8 @@ class RegisterInf4 : Fragment() {
                         when (resource.status) {
                             Status.SUCCESS -> {
                                 if (it.data == true) {
-                                    instagram.error = "Ce compte instagram est déjà enregistré"
                                     instagramCheck = false
                                 } else {
-                                    instagram.error = null
                                     instagramCheck = true
                                 }
                             }
@@ -188,10 +183,8 @@ class RegisterInf4 : Fragment() {
                         when (resource.status) {
                             Status.SUCCESS -> {
                                 if (it.data == true) {
-                                    snapchat.error = "Ce compte snapchat est déjà enregistré"
                                     snapchatCheck = false
                                 } else {
-                                    snapchat.error = null
                                     snapchatCheck = true
                                 }
                             }
@@ -219,10 +212,8 @@ class RegisterInf4 : Fragment() {
                         when (resource.status) {
                             Status.SUCCESS -> {
                                 if (it.data == true) {
-                                    youtube.error = "Ce compte youtube est déjà enregistré"
                                     youtubeCheck = false
                                 } else {
-                                    youtube.error = null
                                     youtubeCheck = true
                                 }
                             }
@@ -250,10 +241,8 @@ class RegisterInf4 : Fragment() {
                         when (resource.status) {
                             Status.SUCCESS -> {
                                 if (it.data == true) {
-                                    twitch.error = "Ce compte twitch est déjà enregistré"
                                     twitchCheck = false
                                 } else {
-                                    twitch.error = null
                                     twitchCheck = true
                                 }
                             }
@@ -281,10 +270,8 @@ class RegisterInf4 : Fragment() {
                         when (resource.status) {
                             Status.SUCCESS -> {
                                 if (it.data == true) {
-                                    pinterest.error = "Ce compte pinterest est déjà enregistré"
                                     pinterestCheck = false
                                 } else {
-                                    pinterest.error = null
                                     pinterestCheck = true
                                 }
                             }
@@ -312,10 +299,8 @@ class RegisterInf4 : Fragment() {
                         when (resource.status) {
                             Status.SUCCESS -> {
                                 if (it.data == true) {
-                                    tiktok.error = "Ce compte tiktok est déjà enregistré"
                                     tiktokCheck = false
                                 } else {
-                                    tiktok.error = null
                                     tiktokCheck = true
                                 }
                             }
@@ -367,51 +352,91 @@ class RegisterInf4 : Fragment() {
                 facebook.text.toString().trim().isNotEmpty()
             ) {
                 influenceur.facebook = facebook.text.toString()
+            } else {
+                facebookCheck = true
             }
             if (twitter.text.toString().trim().isNotBlank() &&
                 twitter.text.toString().trim().isNotEmpty()
             ) {
                 influenceur.twitter = twitter.text.toString()
+            } else {
+                twitterCheck = true
             }
             if (instagram.text.toString().trim().isNotBlank() &&
                 instagram.text.toString().trim().isNotEmpty()
             ) {
                 influenceur.instagram = instagram.text.toString()
+            } else {
+                instagramCheck = true
             }
             if (snapchat.text.toString().trim().isNotBlank() &&
                 snapchat.text.toString().trim().isNotEmpty()
             ) {
                 influenceur.snapchat = snapchat.text.toString()
+            } else {
+                snapchatCheck = true
             }
             if (youtube.text.toString().trim().isNotBlank() &&
                 youtube.text.toString().trim().isNotEmpty()
             ) {
                 influenceur.youtube = youtube.text.toString()
+            } else {
+                youtubeCheck = true
             }
             if (twitch.text.toString().trim().isNotBlank() &&
                 twitch.text.toString().trim().isNotEmpty()
             ) {
                 influenceur.twitch = twitch.text.toString()
+            } else {
+                twitchCheck = true
             }
             if (pinterest.text.toString().trim().isNotBlank() &&
                 pinterest.text.toString().trim().isNotEmpty()
             ) {
                 influenceur.pinterest =
                     pinterest.text.toString()
+            } else {
+                pinterestCheck = true
             }
             if (tiktok.text.toString().trim().isNotBlank() &&
                 tiktok.text.toString().trim().isNotEmpty()
             ) {
                 influenceur.tiktok = tiktok.text.toString()
+            } else {
+                tiktokCheck = true
             }
-            var checkNetwork = true
-            if (!facebookCheck || !twitterCheck || !instagramCheck || !snapchatCheck || !youtubeCheck || !twitchCheck || !pinterestCheck || !tiktokCheck) {
-                Toast.makeText(context,
-                    "Veuillez modifier les réseaux sociaux contenant des erreurs",
-                    Toast.LENGTH_LONG).show()
-                checkNetwork = false
+//            var checkNetwork = true
+//            if (!facebookCheck || !twitterCheck || !instagramCheck || !snapchatCheck || !youtubeCheck || !twitchCheck || !pinterestCheck || !tiktokCheck) {
+//                Toast.makeText(context,
+//                    "Veuillez modifier les réseaux sociaux contenant des erreurs",
+//                    Toast.LENGTH_LONG).show()
+//                checkNetwork = false
+//            }
+            if (!facebookCheck) {
+                facebook.error = "Compte déjà utilisé"
             }
-            if (checkNetwork && themeState != 0) {
+            if (!twitterCheck) {
+                twitter.error = "Compte déjà utilisé"
+            }
+            if (!instagramCheck) {
+                instagram.error = "Compte déjà utilisé"
+            }
+            if (!snapchatCheck) {
+                snapchat.error = "Compte déjà utilisé"
+            }
+            if (!youtubeCheck) {
+                youtube.error = "Compte déjà utilisé"
+            }
+            if (!tiktokCheck) {
+                tiktok.error = "Compte déjà utilisé"
+            }
+            if (!pinterestCheck) {
+                pinterest.error = "Compte déjà utilisé"
+            }
+            if (!twitchCheck) {
+                twitch.error = "Compte déjà utilisé"
+            }
+            if (themeState != 0) {
                 influenceur.theme = themeState.toString()
                 viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
                 viewModel.registerInfluencer(registerInfluenceurModel = influenceur)
@@ -436,7 +461,7 @@ class RegisterInf4 : Fragment() {
                             }
                         }
                     })
-            } else {
+            } else if (themeState == 0) {
                 Toast.makeText(context, "Un thème doit être choisi", Toast.LENGTH_LONG)
                     .show()
             }

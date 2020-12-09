@@ -54,10 +54,10 @@ class ListViewModel : ViewModel() {
      */
     fun getOffers(
         token: String,
-        sex: String?,
+        productSex: String?,
         color: String?,
         brand: String?,
-        subject: String?,
+        productSubject: String?,
         order: String?,
         popularity: String?
     ) =
@@ -67,10 +67,10 @@ class ListViewModel : ViewModel() {
                     Resource.success(
                         data = offresRepository.getAllOffers(
                             token = token,
-                            sex = sex,
+                            sex = productSex,
                             color = color,
                             brand = brand,
-                            subject = subject,
+                            subject = productSubject,
                             popularity = popularity,
                             order = order
                         ),
